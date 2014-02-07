@@ -4,7 +4,7 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab, wallPrefab;
+    public GameObject playerPrefab, wallPrefab, boxPrefab;
   
     // Current level
     public static int level;
@@ -17,12 +17,12 @@ public class GameWorld : MonoBehaviour
 		{ 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-        { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+        { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
-        { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-        { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+        { 'w', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+        { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
         { 'w', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
         { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
 		{ 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
@@ -30,10 +30,11 @@ public class GameWorld : MonoBehaviour
     };
 
     // Entities  
-    private GameObject EntityContainer, WallContainer;
+    private GameObject EntityContainer, WallContainer, BoxContainer;
 
     private Transform Player;
     private ArrayList Walls;
+    private ArrayList Boxes;
 
 
     // Use this for initialization
@@ -44,6 +45,7 @@ public class GameWorld : MonoBehaviour
         GameEventManager.LevelOver += LevelOver;
 
         Walls = new ArrayList();
+        Boxes = new ArrayList();
 
         GameEventManager.TriggerGameMenu();
     }
@@ -93,10 +95,13 @@ public class GameWorld : MonoBehaviour
         if (level > levels.GetLength(0)) level = 1;
 
         // Instantiate the containers
-        EntityContainer = new GameObject("Entities");
+        EntityContainer = new GameObject("21 Entities");
 
         WallContainer = new GameObject("Walls");
         WallContainer.transform.parent = EntityContainer.transform;
+
+        BoxContainer = new GameObject("Boxes");
+        BoxContainer.transform.parent = EntityContainer.transform;
         
         // Generate the level
         int mapWidth = levels.GetLength(2);
@@ -120,6 +125,11 @@ public class GameWorld : MonoBehaviour
                         Walls.Add((GameObject.Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
                         break;
+                    case 'b': // Pushable Boxes
+                        Boxes.Add((GameObject.Instantiate(boxPrefab, new Vector3(i - offsetX, -j + offsetY, boxPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Boxes[Boxes.Count - 1] as Transform).parent = BoxContainer.transform;
+                        break;
+
                 }
             }
         }
@@ -130,6 +140,9 @@ public class GameWorld : MonoBehaviour
         // Clear resources
         if (WallContainer != null) Destroy(WallContainer);
         Walls.Clear();
+
+        if (BoxContainer != null) Destroy(BoxContainer);
+        Boxes.Clear();
 
         if (Player != null) Destroy(Player.gameObject);
     }

@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100000, guid: c5828a3191b6d7846a43e92f6dc0fd61, type: 2}
   wallPrefab: {fileID: 100000, guid: 2f611c5c1a7c626439a08e791ce50c2c, type: 2}
+  boxPrefab: {fileID: 100000, guid: e7869cc7ee3e0dc4faf51b845dca71f7, type: 2}
 --- !u!4 &795458501
 Transform:
   m_ObjectHideFlags: 0

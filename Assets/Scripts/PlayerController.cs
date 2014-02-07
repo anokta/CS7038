@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-
     private Transform player;
 
     // Use this for initialization
@@ -32,15 +31,27 @@ public class PlayerController : MonoBehaviour
                 if (hit != null && hit.collider != null)
                 {
                     // Collision detected
-                    if (hit.collider.tag == "Wall")
+                    Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
+                    switch (hit.collider.tag)
                     {
-                        Debug.Log("Collided with " + hit.collider.tag);
-                        return;
+                        case "Wall":
+                            break;
+
+                        case "Pushable":
+                            Pushable pushable = hit.collider.GetComponent<Pushable>();
+                            if (pushable.Push(direction))
+                                player.position += direction;
+                            break;
+
+                        default:
+                            break;
                     }
                 }
-
-                // Translate if not collided
-                player.position += direction;
+                else
+                {
+                    // Translate if not collided
+                    player.position += direction;
+                }
             }
         }
     }

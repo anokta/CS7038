@@ -74,7 +74,8 @@ public class GameWorld : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    // Restart level
+                    // Restart the level (for testing purposes)
+                    GameEventManager.TriggerLevelOver();
                     level--;
                     GameEventManager.TriggerLevelStart();
                 }
@@ -138,13 +139,7 @@ public class GameWorld : MonoBehaviour
     void LevelOver()
     {
         // Clear resources
-        if (WallContainer != null) Destroy(WallContainer);
-        Walls.Clear();
-
-        if (BoxContainer != null) Destroy(BoxContainer);
-        Boxes.Clear();
-
-        if (Player != null) Destroy(Player.gameObject);
+        if (EntityContainer != null) Destroy(EntityContainer);
     }
 }
 

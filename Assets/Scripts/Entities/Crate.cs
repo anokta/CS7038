@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+    
+public class Crate : Pushable {
 
-public class Pushable : MonoBehaviour
-{
-    Transform pushable;
+	// Use this for initialization
+	void Start () {
+        base.Start();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 
-    // Use this for initialization
-    void Start()
-    {
-        pushable = transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public bool Push(Vector3 direction)
+    public override bool Push(Vector3 direction)
     {
         // Check collisions
         RaycastHit2D hit = Physics2D.Raycast(pushable.position + direction, direction, 0.0f);

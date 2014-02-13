@@ -4,7 +4,7 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
 	 // Entity prefabs
-	 public GameObject playerPrefab, wallPrefab, boxPrefab;
+	 public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab;
 	 // Current level
 	 public static int level;
 	 // Level maps
@@ -14,20 +14,20 @@ public class GameWorld : MonoBehaviour
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
-			   { 'w', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+			   { 'w', ' ', 'P', 't', ' ', 't', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
 		  }
 	 };
 	 // Entities
-	 private GameObject EntityContainer, WallContainer, BoxContainer;
+	 private GameObject EntityContainer, WallContainer, PushableContainer;
 	 private Transform Player;
 	 private ArrayList Walls;
-	 private ArrayList Boxes;
+	 private ArrayList Pushables;
 	 // Use this for initialization
 	 void Start()
 	 {
@@ -36,7 +36,7 @@ public class GameWorld : MonoBehaviour
 		  GameEventManager.LevelOver += LevelOver;
 
 		  Walls = new ArrayList();
-		  Boxes = new ArrayList();
+		  Pushables = new ArrayList();
 
 		  GameEventManager.TriggerGameMenu();
 	 }
@@ -88,8 +88,8 @@ public class GameWorld : MonoBehaviour
 		  WallContainer = new GameObject("Walls");
 		  WallContainer.transform.parent = EntityContainer.transform;
 
-		  BoxContainer = new GameObject("Boxes");
-		  BoxContainer.transform.parent = EntityContainer.transform;
+		  PushableContainer = new GameObject("Pushables");
+		  PushableContainer.transform.parent = EntityContainer.transform;
         
 		  // Generate the level
 		  int mapWidth = levels.GetLength(2);
@@ -117,10 +117,14 @@ public class GameWorld : MonoBehaviour
 							  Walls.Add((GameObject.Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
 							  (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
 							  break;
-						 case 'b': // Pushable Boxes
-							  Boxes.Add((GameObject.Instantiate(boxPrefab, new Vector3(i - offsetX, -j + offsetY, boxPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
-							  (Boxes[Boxes.Count - 1] as Transform).parent = BoxContainer.transform;
-							  break;
+                         case 'b': // Pushable Boxes
+                              Pushables.Add((GameObject.Instantiate(boxPrefab, new Vector3(i - offsetX, -j + offsetY, boxPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                              (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
+                              break;
+                         case 't': // Pushable Trolleys
+                              Pushables.Add((GameObject.Instantiate(trolleyPrefab, new Vector3(i - offsetX, -j + offsetY, trolleyPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                              (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
+                              break;
 
 					}
 			   }

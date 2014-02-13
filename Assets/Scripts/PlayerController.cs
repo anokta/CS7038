@@ -92,6 +92,16 @@ public class PlayerController : MonoBehaviour, IPan
 
                             break;
 
+                        case "Accessible":
+                            Accessible accessible = hit.collider.GetComponent<Accessible>();
+
+                            if (accessible.Enter())
+                            {
+                                player.position += direction;
+                            }
+
+                            break;
+
                         default:
                             break;
                     }

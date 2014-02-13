@@ -4,7 +4,7 @@ using System.Collections;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource background;
-    public AudioSource collectSfx, pushSfx, push2Sfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, doorSfx;
 
     // Use this for initialization
     void Awake()
@@ -33,7 +33,12 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Collect":
+                collectSfx.pitch += Random.Range(0.0f, 0.01f);
                 collectSfx.Play();
+                break;
+
+            case "Door":
+                doorSfx.Play();
                 break;
         }
     }
@@ -45,6 +50,10 @@ public class AudioManager : MonoBehaviour
 
     void LevelStart()
     {
+        collectSfx.pitch = 1.0f;
+        pushSfx.pitch = 1.0f;
+        push2Sfx.pitch = 1.0f;
+
         background.Play();
     }
 }

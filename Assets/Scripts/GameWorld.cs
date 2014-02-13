@@ -4,7 +4,7 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab, sanitizerPrefab;
+    public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab, sanitizerPrefab, doorPrefab;
     // Current level
     public static int level;
     // Level maps
@@ -12,22 +12,38 @@ public class GameWorld : MonoBehaviour
 			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
-			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
+			   { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
 			   { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', 's', ' ', 'w' },
 			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
-		  }
+		  },
+          {
+          	   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+			   { 'w', 'b', ' ', ' ', ' ', ' ', 'w', ' ', 's', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
+			   { 'w', ' ', 'b', ' ', ' ', ' ', 'w', ' ', ' ', 'w', ' ', ' ', ' ', 'b', ' ', 'w' },
+			   { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
+			   { 'w', ' ', 't', 'P', 't', ' ', ' ', 't', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+			   { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
+			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
+          }
+
 	 };
+
     // Entities
     private GameObject EntityContainer;
-    private GameObject WallContainer, CollectibleContainer, PushableContainer;
+    private GameObject WallContainer, CollectibleContainer, PushableContainer, AccessibleContainer;
     private Transform Player;
-    private ArrayList Walls, Collectibles, Pushables;
+    private ArrayList Walls, Collectibles, Pushables, Accessibles;
 
     // Use this for initialization
     void Start()
@@ -39,6 +55,7 @@ public class GameWorld : MonoBehaviour
         Walls = new ArrayList();
         Collectibles = new ArrayList();
         Pushables = new ArrayList();
+        Accessibles = new ArrayList();
 
         GameEventManager.TriggerGameMenu();
     }
@@ -72,6 +89,24 @@ public class GameWorld : MonoBehaviour
                     GameEventManager.TriggerLevelStart();
                 }
 
+                #region TO_BE_DELETED
+
+                // Testing purposes only //
+                if (CollectibleContainer.transform.childCount == 0)
+                {
+                    GameEventManager.TriggerLevelOver();
+                }
+
+                break;
+
+            case GameEventManager.GameState.Over:
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    // Start the level
+                    GameEventManager.TriggerLevelStart();
+                }
+                #endregion
+
                 break;
         }
     }
@@ -99,6 +134,9 @@ public class GameWorld : MonoBehaviour
 
         PushableContainer = new GameObject("Pushables");
         PushableContainer.transform.parent = EntityContainer.transform;
+
+        AccessibleContainer = new GameObject("Accessibles");
+        AccessibleContainer.transform.parent = EntityContainer.transform;
 
         // Generate the level
         int mapWidth = levels.GetLength(2);
@@ -142,6 +180,10 @@ public class GameWorld : MonoBehaviour
                     case 's': // Sanitizer
                         Collectibles.Add((GameObject.Instantiate(sanitizerPrefab, new Vector3(i - offsetX, -j + offsetY, sanitizerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Collectibles[Collectibles.Count - 1] as Transform).parent = CollectibleContainer.transform;
+                        break;
+                    case 'd': // Door
+                        Accessibles.Add((GameObject.Instantiate(doorPrefab, new Vector3(i - offsetX, -j + offsetY, doorPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
                         break;
 
                 }

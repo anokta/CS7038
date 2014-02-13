@@ -4,8 +4,9 @@ using HandyGestures;
 using System;
 
 public class PlayerController : MonoBehaviour, IPan
-{
+{    
     private Transform player;
+
     // Use this for initialization
     void Start()
     {
@@ -76,7 +77,19 @@ public class PlayerController : MonoBehaviour, IPan
                         case "Pushable":
                             Pushable pushable = hit.collider.GetComponent<Pushable>();
                             if (pushable.Push(direction))
+                            {
                                 player.position += direction;
+                            }
+
+                            break;
+
+                        case "Collectible":
+                            Collectible collectible = hit.collider.GetComponent<Collectible>();
+                            
+                            collectible.Collect();
+
+                            player.position += direction;
+
                             break;
 
                         default:

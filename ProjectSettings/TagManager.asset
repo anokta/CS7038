@@ -5,6 +5,7 @@ TagManager:
   tags:
   - Wall
   - Pushable
+  - Collectible
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

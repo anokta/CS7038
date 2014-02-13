@@ -21,7 +21,7 @@ public class Trolley : Pushable
         // Check collisions
         while (true)
         {
-            RaycastHit2D hit = Physics2D.Raycast(pushable.position + direction, direction, 0.0f);
+            RaycastHit2D hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
             if (hit != null && hit.collider != null)
             {
                 // Collision detected
@@ -32,19 +32,21 @@ public class Trolley : Pushable
                         if (hit.collider.name.StartsWith("Trolley"))
                         {
                             hit.collider.GetComponent<Pushable>().Push(direction);
-                            
+
                             // OPTIONAL: Should it stay still or replace the original position? (needs an additional check on the next push value if used)
-                            //pushable.position += direction;
+                            //entity.position += direction;
                         }
-                        return false;
-                    default:
-                        return false;
+                        break;
                 }
+
+                return false;
             }
             else
             {
+                audioManager.PlaySFX("Push");
+
                 // Translate if not collided
-                pushable.position += direction;
+                entity.position += direction;
             }
         }
     }

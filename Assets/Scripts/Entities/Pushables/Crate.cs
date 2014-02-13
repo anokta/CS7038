@@ -5,7 +5,7 @@ public class Crate : Pushable
 {
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
         base.Start();
     }
@@ -32,7 +32,7 @@ public class Crate : Pushable
         }
         else
         {
-            audioManager.PlaySFX("Push");
+            audioManager.PlaySFX("Push Crate");
 
             // Translate if not collided
             entity.position += direction;

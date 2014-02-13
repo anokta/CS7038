@@ -45,6 +45,12 @@ public class GameWorld : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Exit the application
+            GameEventManager.TriggerGameQuit();
+        }
+
         switch (GameEventManager.CurrentState)
         {
             case GameEventManager.GameState.InMenu:
@@ -52,12 +58,6 @@ public class GameWorld : MonoBehaviour
                 {
                     // Start the level
                     GameEventManager.TriggerLevelStart();
-                }
-
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    // Exit the application
-                    GameEventManager.TriggerGameQuit();
                 }
 
                 break;

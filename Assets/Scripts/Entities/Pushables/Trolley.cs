@@ -5,7 +5,7 @@ public class Trolley : Pushable
 {
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
         base.Start();
     }
@@ -43,7 +43,7 @@ public class Trolley : Pushable
             }
             else
             {
-                audioManager.PlaySFX("Push");
+                audioManager.PlaySFX("Push Trolley");
 
                 // Translate if not collided
                 entity.position += direction;

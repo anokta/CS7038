@@ -25,8 +25,8 @@ public class Clock
         _duration = duration;
         Run = run;
     }
-
-    public event Callback Run;
+	
+	public event Callback Run;
 
     public void Update()
     {

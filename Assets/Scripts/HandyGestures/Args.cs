@@ -36,7 +36,7 @@ namespace HandyGestures
 	{
 		public enum State
 		{
-			Fail,
+			Interrupt,
 			Down,
 			Hold,
 			Up
@@ -66,7 +66,7 @@ namespace HandyGestures
 
 		public enum State
 		{
-			Fail,
+			Interrupt,
 			Hold,
 			Down,
 			Move,
@@ -89,25 +89,7 @@ namespace HandyGestures
 
 		public readonly Vector2 position;
 	}
-	/*public class SlideArgs: TouchArg
-	{
-		public SlideArgs(Gesture sender, State state, Vector2 start, Vector2 position) 
-			: base(sender)
-		{
-			this.start = start;
-			this.position =/position;
-			this.state = state;
-		}
 
-		public enum State {
-			start,
-			end
-		}
-
-		public readonly State state;
-		public readonly	Vector2 start;
-		public readonly Vector2 position;
-	}*/
 	public class FlingArgs : TouchArg
 	{
 		public FlingArgs(Gesture sender, State state, Vector2 start, Vector2 position) 
@@ -122,7 +104,7 @@ namespace HandyGestures
 		{
 			Start,
 			End,
-			Fail
+			Interrupt
 		}
 
 		public readonly State state;

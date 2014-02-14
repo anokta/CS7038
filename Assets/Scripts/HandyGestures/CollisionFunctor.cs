@@ -3,5 +3,5 @@
 public abstract class CollisionFunctor : MonoBehaviour
 {
 	public abstract RaycastHit[]
-	GetResults(Vector3 position, float distance, int mask);
+	GetResults(Vector3 screenPoint, float distance, int mask);
 }

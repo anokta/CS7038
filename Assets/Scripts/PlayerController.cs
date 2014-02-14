@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour, IPan
                 movement.Reset();
             }
         }
-        if (args.state == PanArgs.State.Up || args.state == PanArgs.State.Fail) {
+        if (args.state == PanArgs.State.Up || args.state == PanArgs.State.Interrupt) {
               movement.Stop();
                   moving = false;
         }

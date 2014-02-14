@@ -90,6 +90,20 @@ namespace HandyGestures
 		public readonly Vector2 position;
 	}
 
+	public class FinishedArgs : TouchArg {
+		public FinishedArgs(Gesture sender, bool interrupted, Vector2 start, Vector2 position) 
+			: base(sender)
+		{
+			this.start = start;
+			this.position = position;
+			this.interrupted = interrupted;
+		}
+
+		public readonly bool interrupted;
+		public readonly	Vector2 start;
+		public readonly Vector2 position;
+	}
+
 	public class FlingArgs : TouchArg
 	{
 		public FlingArgs(Gesture sender, State state, Vector2 start, Vector2 position) 

@@ -9,6 +9,11 @@ namespace HandyGestures
 		void OnGesturePress(PressArgs args);
 	}
 
+	public interface IFinished : IGesture
+	{
+		void OnGestureFinished(FinishedArgs args);
+	}
+
 	public interface ITap : IGesture
 	{
 		void OnGestureTap(TapArgs args);

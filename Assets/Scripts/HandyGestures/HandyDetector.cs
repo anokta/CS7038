@@ -15,7 +15,6 @@ public class HandyDetector : MonoBehaviour
 		LongPress,
 		Tap,
 		Pan,
-		Slide,
 		Fling
 	}
 
@@ -83,7 +82,7 @@ public class HandyDetector : MonoBehaviour
 	void Reset()
 	{
 		_target = null;
-		_prevType = Gesture.Press;
+		//_prevType = Gesture.Press;
 		if (_activeState != null && _activeState != _idle) {
 			_idle.Activate();
 		}
@@ -124,9 +123,11 @@ public class HandyDetector : MonoBehaviour
 				if (_target != null) {
 					ITap tap = _target as ITap;
 					if (tap != null) {
+						_prevType = Gesture.Tap;
 						tap.OnGestureTap(args); 
 					}
 				} else {
+					_prevType = Gesture.Tap;
 					DoGesture<ITap, TapArgs>(_objects, (t, a) => t.OnGestureTap(a), args);
 				}
 			}
@@ -149,6 +150,7 @@ public class HandyDetector : MonoBehaviour
 					if (lpress != null) {
 						lpress.OnGestureLongPress(largs);
 						handled = largs.handled;
+						_prevType = Gesture.LongPress;
 						longState.Activate();
 					}
 					if (!handled) {
@@ -169,6 +171,7 @@ public class HandyDetector : MonoBehaviour
 							lpress.OnGestureLongPress(largs);
 							if (largs.handled) {
 								_target = lpress;
+								_prevType = Gesture.LongPress;
 								longState.Activate();
 								break;
 							}
@@ -178,6 +181,7 @@ public class HandyDetector : MonoBehaviour
 							pan.OnGesturePan(pArgs);
 							if (pArgs.handled) {
 								_target = pan;
+								_prevType = Gesture.Pan;
 								panState.Activate();
 								break;
 							}
@@ -201,12 +205,18 @@ public class HandyDetector : MonoBehaviour
 				if (fling != null) {
 					fling.OnGestureFling(sArgs);
 					handled = sArgs.handled;
+					if (handled) {
+						//Stay in slide state!
+						_prevType = Gesture.Fling;
+					}
 				}
 				if (!handled) {
 					pan = _target as IPan;
 					if (pan != null) {
 						pan.OnGesturePan(pArgs);
 						if (pArgs.handled) {
+							_prevType = Gesture.Pan;
+							//Change state!
 							panState.Activate();
 						}
 					}
@@ -219,6 +229,7 @@ public class HandyDetector : MonoBehaviour
 						if (sArgs.handled) {
 							//Stay in slide state!
 							_target = fling;
+							_prevType = Gesture.Fling;
 							break;
 						}
 					}
@@ -228,6 +239,7 @@ public class HandyDetector : MonoBehaviour
 						if (pArgs.handled) {
 							//Change state!
 							_target = pan;
+							_prevType = Gesture.Pan;
 							panState.Activate();
 							break;
 						}
@@ -275,7 +287,7 @@ public class HandyDetector : MonoBehaviour
 
 		slideState.Interrupt += delegate {
 			if (slideState.time <= flingTime) {
-				FlingArgs sArgs = new FlingArgs(_prevType, FlingArgs.State.Interrupt, slideState.startPos, _device.pos1);
+				FlingArgs sArgs = new FlingArgs(Gesture.Fling, FlingArgs.State.Interrupt, slideState.startPos, _device.pos1);
 				IFling f = _target as IFling;
 				if (f != null) {
 					f.OnGestureFling(sArgs);
@@ -339,7 +351,7 @@ public class HandyDetector : MonoBehaviour
 			if (!moved()) {
 				IPan pan = _target as IPan;
 				if (pan != null) {
-					PanArgs pArgs = new PanArgs(Gesture.Fling, PanArgs.State.Hold, panState.startPos, _device.pos1, Vector2.zero);
+					PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Hold, panState.startPos, _device.pos1, Vector2.zero);
 					pan.OnGesturePan(pArgs);
 				}
 			}
@@ -348,7 +360,7 @@ public class HandyDetector : MonoBehaviour
 		panState.Moved += delegate {
 			IPan pan = _target as IPan;
 			if (pan != null) {
-				PanArgs pArgs = new PanArgs(Gesture.Fling, PanArgs.State.Move, panState.startPos, _device.pos1, _deltaMove);
+				PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Move, panState.startPos, _device.pos1, _deltaMove);
 				pan.OnGesturePan(pArgs);
 			}
 		};
@@ -356,7 +368,7 @@ public class HandyDetector : MonoBehaviour
 		panState.Up += delegate {
 			IPan pan = _target as IPan;
 			if (pan != null) {
-				PanArgs pArgs = new PanArgs(Gesture.Fling, PanArgs.State.Up, panState.startPos, _device.pos1, Vector2.zero);
+				PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Up, panState.startPos, _device.pos1, Vector2.zero);
 				pan.OnGesturePan(pArgs);
 			}
 			Reset();
@@ -365,7 +377,7 @@ public class HandyDetector : MonoBehaviour
 		panState.Interrupt += delegate {
 			IPan pan = _target as IPan;
 			if (pan != null) {
-				PanArgs pArgs = new PanArgs(Gesture.Fling, PanArgs.State.Interrupt, panState.startPos, _device.pos1, Vector2.zero);
+				PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Interrupt, panState.startPos, _device.pos1, Vector2.zero);
 				pan.OnGesturePan(pArgs);
 			}
 
@@ -376,7 +388,7 @@ public class HandyDetector : MonoBehaviour
 
     #endregion
 
-	int Supported<T>(Vector2 pos)
+	/*int Supported<T>(Vector2 pos)
 	{
 		return Supported<T>(GetAllObjects(pos));
 	}
@@ -389,7 +401,7 @@ public class HandyDetector : MonoBehaviour
 			}
 		}
 		return -1;
-	}
+	}*/
 
 	private delegate void GestureAction<T,TA>(T obj,TA args);
 
@@ -433,7 +445,16 @@ public class HandyDetector : MonoBehaviour
 			}
 		}
 		if (_device.state1 == Device.DeviceState.Up) {
+			IGesture gesture = _target;
 			_activeState.InvokeUp();
+
+			if (gesture != null) {
+				IFinished finished = gesture as IFinished;
+				if (finished != null) {
+					FinishedArgs args = new FinishedArgs(_prevType, false, _startPos, _device.pos1);
+					finished.OnGestureFinished(args);
+				}
+			}
 		}
 	}
 

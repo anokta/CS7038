@@ -685,9 +685,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af05054c19ec564fac47e9c24319afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clean: {fileID: 2800000, guid: ade699867bcf1a54dae19dea0aed2530, type: 3}
-  dirty: {fileID: 2800000, guid: 199f259d17381864bbacea6319d59cde, type: 3}
-  filthy: {fileID: 2800000, guid: 08a3cb57b75709c409daa631d393b9f5, type: 3}
+  textures:
+  - {fileID: 2800000, guid: 857e755948193f04689bd0dd4c31f8f9, type: 3}
+  - {fileID: 2800000, guid: 21efebacac9453c4a973f5847d5aba49, type: 3}
+  - {fileID: 2800000, guid: b017e32f2baf61c4cbf0e54ff815bdae, type: 3}
+  - {fileID: 2800000, guid: f9d21090e84c5194ea3a41022af7ace9, type: 3}
+  - {fileID: 2800000, guid: ddd675a571160244490f327fd5cd1d39, type: 3}
 --- !u!4 &1478768150
 Transform:
   m_ObjectHideFlags: 0

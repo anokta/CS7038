@@ -3,9 +3,7 @@ using System.Collections;
 
 public class HUDController : MonoBehaviour
 {
-	public Texture clean;
-	public Texture dirty;
-	public Texture filthy;
+	public Texture[] textures;
 	// Use this for initialization
 	void Start()
 	{
@@ -24,19 +22,8 @@ public class HUDController : MonoBehaviour
 		Texture tex = null;
 		var player = GameObject.FindObjectOfType<PlayerController>();
 		if (player != null) {
-			var state = player.handState;
-			switch (state) {
-				case PlayerController.HandState.Clean:
-					tex = clean;
-					break;
-				case PlayerController.HandState.Dirty:
-					tex = dirty;
-					break;
-				case PlayerController.HandState.Filthy:
-					tex = filthy;
-					break;
-			}
-			GUI.DrawTexture(new Rect(0, 0, size, size), tex);
+			var level = player.cleanLevel;
+			GUI.DrawTexture(new Rect(0, 0, size, size), textures[level]);
 		}
 	}
 }

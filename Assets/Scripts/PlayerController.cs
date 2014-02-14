@@ -13,28 +13,40 @@ public class PlayerController : MonoBehaviour, IPan
 		Filthy
 	}
 
-	public HandState handState { get; set; }
 
-	public HandState improveHand()
-	{
-		if (handState == HandState.Dirty) {
-			handState = HandState.Clean;
-		} else if (handState == HandState.Filthy) {
-			handState = HandState.Dirty;
+	int _cleanLevel;
+
+	public HandState handState {
+		get {
+			switch (_cleanLevel) {
+			case 0:
+				return HandState.Clean;
+			case 1:
+			case 2:
+				return HandState.Dirty;
+			default:
+				return HandState.Filthy;
+			}
 		}
-		
-		return handState;
 	}
 
-	public HandState spoilHand()
+	public int cleanLevel {
+		get { return _cleanLevel; }
+		set { _cleanLevel = Mathf.Clamp(value, 0, 4); }
+	}
+
+	public void clean() {
+		_cleanLevel = 0;
+	}
+
+	public void improveHand()
 	{
-		if (handState == HandState.Clean) {
-			handState = HandState.Dirty;
-		} else if (handState == HandState.Dirty) {
-			handState = HandState.Filthy;
-		}
-		
-		return handState;
+		--cleanLevel;
+	}
+
+	public void spoilHand()
+	{
+		++cleanLevel;
 	}
 
 	// Use this for initialization
@@ -60,10 +72,9 @@ public class PlayerController : MonoBehaviour, IPan
 
 	public void OnGesturePan(PanArgs args)
 	{
-	    if (movement == null)
-	    {
-	        movement = new Clock();
-	    }
+		if (movement == null) {
+			movement = new Clock();
+		}
 
 		if (args.state == PanArgs.State.Move) {
 			moveX = 0;

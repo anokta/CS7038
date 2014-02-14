@@ -21,7 +21,7 @@ public class Fountain : Accessible
 		audioManager.PlaySFX("Fountain");
 
 		var player = GameObject.FindObjectOfType<PlayerController>();
-		player.handState = PlayerController.HandState.Clean;
+		player.clean();
 
 		return true;
 	}

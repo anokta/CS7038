@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour, IPan
 
 	public void OnGesturePan(PanArgs args)
 	{
+	    if (movement == null)
+	    {
+	        movement = new Clock();
+	    }
+
 		if (args.state == PanArgs.State.Move) {
 			moveX = 0;
 			moveY = 0;

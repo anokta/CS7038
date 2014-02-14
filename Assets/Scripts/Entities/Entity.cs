@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Entity : MonoBehaviour
 {
-
     protected Transform entity;
 
     protected AudioManager audioManager;

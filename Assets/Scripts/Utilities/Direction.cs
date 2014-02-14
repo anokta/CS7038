@@ -1,0 +1,41 @@
+﻿using System;
+using UnityEngine;
+
+public enum Direction { Top, Down, Left, Right }
+
+public static class DirectionExtensions
+{
+    public static Direction Reverse(this Direction d)
+    {
+        switch (d)
+        {
+            case Direction.Top:
+                return Direction.Down;
+            case Direction.Down:
+                return Direction.Top;
+            case Direction.Left:
+                return Direction.Right;
+            case Direction.Right:
+                return Direction.Left;
+            default:
+                throw new Exception("Impossible");
+        }
+    }
+
+    public static Vector3 ToVector3(this Direction d)
+    {
+        switch (d)
+        {
+            case Direction.Top:
+                return new Vector3(0, 1, 0);
+            case Direction.Down:
+                return new Vector3(0, -1, 0);
+            case Direction.Left:
+                return new Vector3(-1, 0, 0);
+            case Direction.Right:
+                return new Vector3(1, 0, 0);
+            default:
+                throw new Exception("Impossible");
+        }
+    }
+}

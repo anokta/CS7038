@@ -4,40 +4,40 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab;
+    public GameObject playerPrefab, wallPrefab, cratePrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab, laserEmitterPrefab, mirrorPrefab, mirrorInversePrefab, explosiveCratePrefab;
     // Current level
     public static int level;
     // Level maps
-    public static char[, ,] levels = new char[,,] { {		  // Level 1
-			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
-			   { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
-			   { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', 's', ' ', 'w' },
-			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
-		  },
+    public static char[, ,] levels = new char[,,] { {          // Level 1
+               { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
+               { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
+               { 'w', ' ', 'e', 'x', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
+               { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', 'm', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', 's', ' ', 'w' },
+               { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
+          },
           {
-          	   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
-			   { 'w', 'b', ' ', ' ', ' ', ' ', 'w', ' ', 's', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
-			   { 'w', ' ', 'b', ' ', ' ', ' ', 'w', ' ', ' ', 'w', ' ', ' ', ' ', 'b', ' ', 'w' },
-			   { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', 'f', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
-			   { 'w', ' ', 't', 'P', 't', ' ', ' ', 't', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
-			   { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
-			   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
+                 { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+               { 'w', 'b', ' ', ' ', ' ', ' ', 'w', ' ', 's', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
+               { 'w', ' ', 'b', ' ', ' ', ' ', 'w', ' ', ' ', 'w', ' ', ' ', ' ', 'b', ' ', 'w' },
+               { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', 'f', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
+               { 'w', ' ', 't', 'P', 't', ' ', ' ', 't', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+               { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+               { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
           }
 
-	 };
+     };
 
     // Entities
     private GameObject EntityContainer;
@@ -153,33 +153,49 @@ public class GameWorld : MonoBehaviour
                 switch (levels[level - 1, j, i])
                 {
                     case 'P': // Dr Handrew
-                        Player = (GameObject.Instantiate(playerPrefab, new Vector3(i - offsetX, -j + offsetY, playerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform;
+                        Player = (Instantiate(playerPrefab, new Vector3(i - offsetX, -j + offsetY, playerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform;
                         Player.parent = EntityContainer.transform;
                         break;
                     case 'w': // Walls
-                        Walls.Add((GameObject.Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        Walls.Add((Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
                         break;
-                    case 'b': // Pushable Boxes
-                        Pushables.Add((GameObject.Instantiate(boxPrefab, new Vector3(i - offsetX, -j + offsetY, boxPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                    case 'b': // Pushable Cratees
+                        Pushables.Add((Instantiate(cratePrefab, new Vector3(i - offsetX, -j + offsetY, cratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
                         break;
                     case 't': // Pushable Trolleys
-                        Pushables.Add((GameObject.Instantiate(trolleyPrefab, new Vector3(i - offsetX, -j + offsetY, trolleyPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        Pushables.Add((Instantiate(trolleyPrefab, new Vector3(i - offsetX, -j + offsetY, trolleyPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
                         break;
-                    case 's': // Sanitizer
-                        Collectibles.Add((GameObject.Instantiate(sanitizerPrefab, new Vector3(i - offsetX, -j + offsetY, sanitizerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                    case 's': // Sanitizers
+                        Collectibles.Add((Instantiate(sanitizerPrefab, new Vector3(i - offsetX, -j + offsetY, sanitizerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Collectibles[Collectibles.Count - 1] as Transform).parent = CollectibleContainer.transform;
                         break;
-                    case 'd': // Door
-                        Accessibles.Add((GameObject.Instantiate(doorPrefab, new Vector3(i - offsetX, -j + offsetY, doorPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                    case 'd': // Doors
+                        Accessibles.Add((Instantiate(doorPrefab, new Vector3(i - offsetX, -j + offsetY, doorPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
                         break;
-					case 'f': // Fountain
-						Accessibles.Add((GameObject.Instantiate(fountainPrefab, new Vector3(i - offsetX, -j + offsetY, fountainPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
-						(Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
-						break;
+                    case 'f': // Fountain
+                        Accessibles.Add((GameObject.Instantiate(fountainPrefab, new Vector3(i - offsetX, -j + offsetY, fountainPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
+                        break;
+                    case 'e': // Laser Emitters
+                        Walls.Add((Instantiate(laserEmitterPrefab, new Vector3(i - offsetX, -j + offsetY, laserEmitterPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
+                        break;
+                    case 'm': // Mirrors
+                        Pushables.Add((Instantiate(mirrorPrefab, new Vector3(i - offsetX, -j + offsetY, mirrorPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
+                        break;
+                    case 'i': // Inverse Mirrors
+                        Pushables.Add((Instantiate(mirrorInversePrefab, new Vector3(i - offsetX, -j + offsetY, mirrorInversePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
+                        break;
+                    case 'x': // Explosive Crates
+                        Pushables.Add((Instantiate(explosiveCratePrefab, new Vector3(i - offsetX, -j + offsetY, explosiveCratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
+                        break;
                 }
             }
         }
@@ -192,4 +208,3 @@ public class GameWorld : MonoBehaviour
             Destroy(EntityContainer);
     }
 }
-

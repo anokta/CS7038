@@ -14,6 +14,7 @@
 *.unityproj
 
 *.sln
+*.suo
  
 *.user
 *.userprefs

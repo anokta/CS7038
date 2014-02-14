@@ -10,7 +10,7 @@ public static class VectorExtensions
 
 	public static Vector2 xz(this Vector3 vec)
 	{
-		return new Vector2(vec.x, vec.y);
+		return new Vector2(vec.x, vec.z);
 	}
 
 	public static Vector2 yz(this Vector3 vec)
@@ -22,6 +22,11 @@ public static class VectorExtensions
 	{
 		return new Vector3(vec.x, vec.y, z);
 	}
+
+    public static Vector3 xy0(this Vector2 vec)
+    {
+        return new Vector3(vec.x, vec.y, 0);
+    }
 
 	public static Vector3 vec3(this Vector2 vec, float z)
 	{

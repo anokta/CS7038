@@ -1,26 +1,26 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class Door : Accessible
+public class Fountain : Accessible
 {
-
+	
 	// Use this for initialization
 	protected override void Start()
 	{
 		base.Start();
 	}
-
+	
 	// Update is called once per frame
 	void Update()
 	{
-
+		
 	}
-
+	
 	public override bool Enter()
 	{
 		audioManager.PlaySFX("Door");
-		var controller = GameObject.FindObjectOfType<PlayerController>();
-		controller.spoilHand();
+		var player = GameObject.FindObjectOfType<PlayerController>();
+		player.handState = PlayerController.HandState.Clean;
 		return true;
 	}
 }

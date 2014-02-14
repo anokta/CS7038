@@ -4,7 +4,7 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab, sanitizerPrefab, doorPrefab;
+    public GameObject playerPrefab, wallPrefab, boxPrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab;
     // Current level
     public static int level;
     // Level maps
@@ -15,7 +15,7 @@ public class GameWorld : MonoBehaviour
 			   { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
+			   { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
 			   { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
@@ -26,7 +26,7 @@ public class GameWorld : MonoBehaviour
           	   { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
 			   { 'w', 'b', ' ', ' ', ' ', ' ', 'w', ' ', 's', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
 			   { 'w', ' ', 'b', ' ', ' ', ' ', 'w', ' ', ' ', 'w', ' ', ' ', ' ', 'b', ' ', 'w' },
-			   { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', ' ', 'w' },
+			   { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', 'f', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', ' ', 'w' },
 			   { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
@@ -155,15 +155,6 @@ public class GameWorld : MonoBehaviour
                     case 'P': // Dr Handrew
                         Player = (GameObject.Instantiate(playerPrefab, new Vector3(i - offsetX, -j + offsetY, playerPrefab.transform.position.z), Quaternion.identity) as GameObject).transform;
                         Player.parent = EntityContainer.transform;
-                        var detectorObject = GameObject.Find("HandyDetector");
-                        if (detectorObject != null)
-                        {
-                            var detector = detectorObject.gameObject.GetComponent<HandyDetector>();
-                            if (detector != null)
-                            {
-                                detector.defaultObject = Player.gameObject;
-                            }
-                        }
                         break;
                     case 'w': // Walls
                         Walls.Add((GameObject.Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
@@ -185,7 +176,10 @@ public class GameWorld : MonoBehaviour
                         Accessibles.Add((GameObject.Instantiate(doorPrefab, new Vector3(i - offsetX, -j + offsetY, doorPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
                         break;
-
+					case 'f': // Fountain
+						Accessibles.Add((GameObject.Instantiate(fountainPrefab, new Vector3(i - offsetX, -j + offsetY, fountainPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+						(Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
+						break;
                 }
             }
         }

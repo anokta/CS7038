@@ -452,6 +452,7 @@ MonoBehaviour:
   trolleyPrefab: {fileID: 100000, guid: a3e19f5ef73362e44a64c8ee616f16e6, type: 2}
   sanitizerPrefab: {fileID: 100000, guid: 08e6c2f827a64ed4f9a5d21d48661a63, type: 2}
   doorPrefab: {fileID: 100000, guid: 358bc0f2a0382974099a4dae87e00efc, type: 2}
+  fountainPrefab: {fileID: 100000, guid: c02d9f8fff6f3d5408ee2dd417124e93, type: 2}
 --- !u!4 &795458501
 Transform:
   m_ObjectHideFlags: 0
@@ -598,6 +599,47 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1478768148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1478768150}
+  - 114: {fileID: 1478768149}
+  m_Layer: 0
+  m_Name: HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1478768149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1478768148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af05054c19ec564fac47e9c24319afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clean: {fileID: 2800000, guid: ade699867bcf1a54dae19dea0aed2530, type: 3}
+  dirty: {fileID: 2800000, guid: 199f259d17381864bbacea6319d59cde, type: 3}
+  filthy: {fileID: 2800000, guid: 08a3cb57b75709c409daa631d393b9f5, type: 3}
+--- !u!4 &1478768150
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1478768148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1490680742
 GameObject:
   m_ObjectHideFlags: 0

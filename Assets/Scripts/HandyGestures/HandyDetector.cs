@@ -439,7 +439,7 @@ public class HandyDetector : MonoBehaviour
 
 	Camera getCamera()
 	{
-		//UNDONE: Placeholder
+		//UNDONE: Placeholder?
 		//return camera == null ? Camera.main : camera;
 		return Camera.main;
 	}

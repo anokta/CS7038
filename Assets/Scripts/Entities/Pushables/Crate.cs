@@ -33,7 +33,8 @@ public class Crate : Pushable
         else
         {
             audioManager.PlaySFX("Push Crate");
-
+			var controller = GameObject.FindObjectOfType<PlayerController>();
+			controller.spoilHand();
             // Translate if not collided
             entity.position += direction;
 

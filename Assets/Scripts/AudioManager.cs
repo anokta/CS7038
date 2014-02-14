@@ -4,7 +4,7 @@ using System.Collections;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource background;
-    public AudioSource collectSfx, pushSfx, push2Sfx, doorSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, doorSfx, fountainSfx;
 
     // Use this for initialization
     void Awake()
@@ -39,6 +39,10 @@ public class AudioManager : MonoBehaviour
 
             case "Door":
                 doorSfx.Play();
+                break;
+
+            case "Fountain":
+                fountainSfx.Play();
                 break;
         }
     }

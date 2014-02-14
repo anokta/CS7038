@@ -4,7 +4,10 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab, wallPrefab, cratePrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab, laserEmitterPrefab, mirrorPrefab, mirrorInversePrefab, explosiveCratePrefab;
+    public GameObject playerPrefab;
+    public GameObject wallPrefab, cratePrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab;
+    public GameObject laserEmitterPrefab, mirrorPrefab, mirrorInversePrefab, explosiveCratePrefab;
+    
     // Current level
     public static int level;
     // Level maps
@@ -14,16 +17,16 @@ public class GameWorld : MonoBehaviour
                { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
                { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
                { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
-               { 'w', ' ', 'e', 'x', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
                { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
                { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
-               { 'w', ' ', 'm', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
                { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
                { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', 's', ' ', 'w' },
                { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
           },
           {
-                 { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+               { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
                { 'w', 'b', ' ', ' ', ' ', ' ', 'w', ' ', 's', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
                { 'w', ' ', 'b', ' ', ' ', ' ', 'w', ' ', ' ', 'w', ' ', ' ', ' ', 'b', ' ', 'w' },
                { 'w', ' ', ' ', 'b', ' ', ' ', 'w', 'd', 'w', 'w', ' ', ' ', 'b', ' ', 'f', 'w' },
@@ -34,6 +37,20 @@ public class GameWorld : MonoBehaviour
                { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
                { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
                { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+               { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
+          },
+          {
+               { 'w', 'w', 'e', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
+               { 'w', ' ', 'm', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
+               { 'w', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+               { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'f', ' ', ' ', 's', ' ', 'w' },
                { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
           }
 
@@ -160,7 +177,7 @@ public class GameWorld : MonoBehaviour
                         Walls.Add((Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
                         break;
-                    case 'b': // Pushable Cratees
+                    case 'b': // Pushable Crates
                         Pushables.Add((Instantiate(cratePrefab, new Vector3(i - offsetX, -j + offsetY, cratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
                         break;

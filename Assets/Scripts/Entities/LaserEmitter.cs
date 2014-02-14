@@ -49,11 +49,13 @@ public class LaserEmitter : Entity
                 continue;
             }
 
-            if (hit.collider.name == "ExplosiveCrate(Clone)")
+            if (hit.collider.name.StartsWith("Explosive"))
             {
                 Destroy(hit.collider.gameObject);
                 continue;
             }
+            else if (hit.collider.tag == "Pushable")
+                break;
             break;
         }
 

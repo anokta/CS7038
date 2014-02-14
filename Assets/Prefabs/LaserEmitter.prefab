@@ -79,10 +79,10 @@ LineRenderer:
     endWidth: .100000001
     m_StartColor:
       serializedVersion: 2
-      rgba: 4278190335
+      rgba: 3111811706
     m_EndColor:
       serializedVersion: 2
-      rgba: 4278190335
+      rgba: 3114969812
   m_UseWorldSpace: 1
 --- !u!212 &21200000
 SpriteRenderer:
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: f0f3dd528efd17a4e88e54d25d2e645b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ebc1b6767507874ebb1c4c5b1adf6d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

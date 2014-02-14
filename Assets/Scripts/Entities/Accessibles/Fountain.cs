@@ -18,9 +18,11 @@ public class Fountain : Accessible
 	
 	public override bool Enter()
 	{
-		audioManager.PlaySFX("Door");
+		audioManager.PlaySFX("Fountain");
+
 		var player = GameObject.FindObjectOfType<PlayerController>();
 		player.handState = PlayerController.HandState.Clean;
+
 		return true;
 	}
 }

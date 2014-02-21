@@ -216,6 +216,10 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (playerMoving && CanMove())
         {
+            if (movement != nextMovement)
+            {
+                objectPushing = null;
+            }
             movement = nextMovement;
         }
         else

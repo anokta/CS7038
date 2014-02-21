@@ -9,10 +9,7 @@ public abstract class Pushable : Entity
 
     public virtual bool Push(Vector3 direction)
     {
-        // Check collisions
-        var hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
-
-        var canPush = hit.collider == null || Push(hit, direction);
+        var canPush = CanPush(direction);
 
         if (canPush)
         {
@@ -32,13 +29,21 @@ public abstract class Pushable : Entity
     }
 
     /// <summary>
-    /// Specify restrictions per each entity type.
+    /// Specify restrictions per each entity type. TODO: the method name doesn't seem to be intuitive enough
     /// </summary>
     /// <param name="hit"></param>
     /// <param name="direction"></param>
     /// <returns></returns>
-    public virtual bool Push(RaycastHit2D hit, Vector3 direction)
+    protected virtual bool Push(RaycastHit2D hit, Vector3 direction)
     {
         return false;
+    }
+
+    public bool CanPush(Vector3 direction)
+    {
+        // Check collision
+        var hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
+
+        return hit.collider == null || Push(hit, direction);
     }
 }

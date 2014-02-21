@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Executes an event after a specific time.
+/// A synchronous timer which executes an event after a specific time.
 /// </summary>
 public class Timer
 {

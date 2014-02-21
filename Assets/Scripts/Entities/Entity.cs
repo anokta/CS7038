@@ -17,6 +17,6 @@ public class Entity : MonoBehaviour
     {
         entity = transform;
 
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 }

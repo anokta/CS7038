@@ -57,7 +57,7 @@ public class Trolley : Pushable
                 {
                     // OPTIONAL: Should it stay still or replace the original position? (needs an additional check on the next push value if used)
                     trolley.Push(direction);
-					return false;
+                    return false;
                 }
                 return false;
             default:

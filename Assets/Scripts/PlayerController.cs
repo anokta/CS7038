@@ -175,7 +175,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         // Check collisions
         var hit = Physics2D.Raycast(nextPosition, nextMovement, 0.0f);
-        Debug.Log("Checking collision from " + nextPosition + " , direction" + nextMovement + ".");
 
         if (hit.collider == null) return true;
 

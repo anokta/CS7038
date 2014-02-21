@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Trolley : Pushable
 {
-
 	// Use this for initialization
 	protected override void Start()
 	{

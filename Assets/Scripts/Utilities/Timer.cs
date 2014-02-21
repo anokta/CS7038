@@ -4,29 +4,41 @@ using System;
 /// <summary>
 /// Executes an event after a specific time.
 /// </summary>
-public class Clock
+public class Timer
 {
-    float _duration;
+    public float time { get; set; }
 
-    public Clock()
+    float _duration;
+    public float duration
     {
-        repeat = true;
-        running = true;
+        get { return _duration; }
+        set { _duration = Math.Max(0, value); }
     }
 
-    public Clock(float duration)
+    public float progress { get { return time / duration; } }
+
+    public bool running { get; private set; }
+    public bool repeating { get; set; }
+
+    public Action Complete;
+
+    public Timer()
+    {
+        repeating = true;
+        running = false;
+    }
+
+    public Timer(float duration)
     {
         _duration = duration;
     }
 
-    public Clock(float duration, Callback run)
+    public Timer(float duration, Action complete)
         : this()
     {
         _duration = duration;
-        Run = run;
+        Complete = complete;
     }
-	
-	public event Callback Run;
 
     public void Update()
     {
@@ -36,8 +48,8 @@ public class Clock
         time += Time.deltaTime;
         while (time >= _duration) {
             time -= _duration;
-            Run();
-            if (!repeat) {
+            Complete();
+            if (!repeating) {
                 Stop();
             }
         }
@@ -45,7 +57,7 @@ public class Clock
 
     public void ForceInvoke()
     {
-        Run();
+        Complete();
     }
 
     public void Reset()
@@ -64,24 +76,9 @@ public class Clock
         running = true;
     }
 
-    public bool running { get; private set; }
-
     public void Stop()
     {
         time = 0;
         running = false;
     }
-
-    public bool repeat { get; set; }
-
-    public float duration {
-        get { return _duration; } 
-        set { _duration = Math.Max(0, value); } 
-    }
-
-    float progress { get { return time / duration; } }
-
-    public float time { get; set; }
-
-    public delegate void Callback();
 }

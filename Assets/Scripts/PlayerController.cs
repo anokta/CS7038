@@ -1,164 +1,200 @@
 ﻿using UnityEngine;
-using System.Collections;
 using HandyGestures;
 using System;
 
 public class PlayerController : MonoBehaviour, IPan
-{    
-	private Transform player;
-	public enum HandState
-	{
-		Clean,
-		Dirty,
-		Filthy
-	}
+{
+    private Transform player;
+    public enum HandState
+    {
+        Clean,
+        Dirty,
+        Filthy
+    }
 
+    int _cleanLevel;
+    public int cleanLevel
+    {
+        get { return _cleanLevel; }
+        set { _cleanLevel = Mathf.Clamp(value, 0, 4); }
+    }
 
-	int _cleanLevel;
+    public HandState handState
+    {
+        get
+        {
+            switch (_cleanLevel)
+            {
+                case 0:
+                    return HandState.Clean;
+                case 1:
+                case 2:
+                    return HandState.Dirty;
+                default:
+                    return HandState.Filthy;
+            }
+        }
+    }
 
-	public HandState handState {
-		get {
-			switch (_cleanLevel) {
-			case 0:
-				return HandState.Clean;
-			case 1:
-			case 2:
-				return HandState.Dirty;
-			default:
-				return HandState.Filthy;
-			}
-		}
-	}
+    public void clean()
+    {
+        _cleanLevel = 0;
+    }
 
-	public int cleanLevel {
-		get { return _cleanLevel; }
-		set { _cleanLevel = Mathf.Clamp(value, 0, 4); }
-	}
+    public void improveHand()
+    {
+        --cleanLevel;
+    }
 
-	public void clean() {
-		_cleanLevel = 0;
-	}
+    public void spoilHand()
+    {
+        ++cleanLevel;
+    }
 
-	public void improveHand()
-	{
-		--cleanLevel;
-	}
+    // Use this for initialization
+    void Start()
+    {
+        player = transform;
+        timer = new Timer();
+        timer.duration = 0.45f;
+        timer.repeating = false;
+        timer.Complete += CompleteMoveing;
 
-	public void spoilHand()
-	{
-		++cleanLevel;
-	}
+        var detector = FindObjectOfType<HandyDetector>();
+        if (detector != null)
+        {
+            detector.defaultObject = gameObject;
+        }
 
-	// Use this for initialization
-	void Start()
-	{
-		player = transform;
-		movement = new Clock();
-		movement.duration = 0.45f;
-		movement.Run += () => moving = true;
+        previousPosition = player.position;
+    }
 
-		var detector = GameObject.FindObjectOfType<HandyDetector>();
-		if (detector != null) {
-			detector.defaultObject = this.gameObject;
-		}
-	}
-
-	int moveX;
-	int moveY;
-	bool moving;
-	Clock movement;
+    private Vector2 previousPosition;
+    private Vector2 movement;
+    private Vector2 nextMovement;
+    private bool playerMoving;
+    private bool newMovementReady;
+    private Transform objectPushing;
+    private Vector2 previousPushablePosition;
+    private Timer timer;
 
     #region Gestures
 
-	public void OnGesturePan(PanArgs args)
-	{
-		if (movement == null) {
-			movement = new Clock();
-		}
+    public void OnGesturePan(PanArgs args)
+    {
+        if (timer == null) timer = new Timer();
 
-		if (args.state == PanArgs.State.Move) {
-			moveX = 0;
-			moveY = 0;
-			if (Math.Abs(args.delta.x - args.delta.y) >= 1f) {
-				if (Math.Abs(args.delta.x) > Math.Abs(args.delta.y)) {
-					moveX = args.delta.x < 0 ? 1 : -1;
-				} else {
-					moveY = args.delta.y < 0 ? 1 : -1;
-				}
-			}
-			if (!movement.running && !moving) {
-				moving = true;
-				movement.Reset();
-			}
-		}
-		if (args.state == PanArgs.State.Up || args.state == PanArgs.State.Interrupt) {
-			movement.Stop();
-			moving = false;
-		}
-	}
+        playerMoving = PlayerMoving(args);
+    }
+
+    private bool PlayerMoving(PanArgs args)
+    {
+        switch (args.state)
+        {
+            case PanArgs.State.Move:
+                var x = args.delta.x;
+                var y = args.delta.y;
+
+                if (Math.Abs(x - y) < 1f) return false;
+
+                if (Math.Abs(x) > Math.Abs(y))
+                {
+                    nextMovement = new Vector2(x < 0 ? 1 : -1, 0);
+                }
+                else
+                {
+                    nextMovement = new Vector2(0, y < 0 ? 1 : -1);
+                }
+
+                if (!timer.running) newMovementReady = true;
+
+                return true;
+            case PanArgs.State.Interrupt:
+            case PanArgs.State.Up:
+                return false;
+            default:
+                return false;
+        }
+    }
 
     #endregion
 
-	// Update is called once per frame
-	void Update()
-	{
-		if (GameEventManager.CurrentState == GameEventManager.GameState.Running) {
-			// Get Input
-			//int dx = Input.GetButtonDown("Horizontal") ? (int)Input.GetAxisRaw("Horizontal") : 0;
-			//int dy = Input.GetButtonDown("Vertical") ? (int)Input.GetAxisRaw("Vertical") : 0;
-			movement.Update();
-			int dx = (moving) ? moveX : 0;
-			int dy = (moving) ? moveY : 0;
-			moving = false;
+    // Update is called once per frame
+    void Update()
+    {
+        if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
 
-			// If input is valid
-			if (dx != 0 || dy != 0) {
-				// Get the next direction
-				Vector3 direction = new Vector3(dx, dy, 0);
+        if (newMovementReady)
+        {
+            movement = nextMovement;
+            if (CanMove()) timer.Reset();
+        }
+        else
+        {
+            timer.Update();
 
-				// Check collisions
-				RaycastHit2D hit = Physics2D.Raycast(player.position + direction, direction, 0.0f);
-				if (hit.collider != null) {
-					// Collision detected
-					Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
-					switch (hit.collider.tag) {
-						case "Wall":
-							break;
+            if (timer.running)
+            {
+                var newPosition = previousPosition + timer.progress * movement;
+                if (objectPushing != null) objectPushing.position += newPosition.xy0() - player.position;
+                player.position = newPosition;
+            }
+        }
 
-						case "Pushable":
-							Pushable pushable = hit.collider.GetComponent<Pushable>();
-							if (pushable.Push(direction)) {
-								player.position += direction;
-							}
+        newMovementReady = false;
+    }
 
-							break;
+    private bool CanMove()
+    {
+        // Get the next position
+        var nextPosition = previousPosition + movement;
 
-						case "Collectible":
-							Collectible collectible = hit.collider.GetComponent<Collectible>();
-                            
-							collectible.Collect();
+        // Check collisions
+        var hit = Physics2D.Raycast(nextPosition, movement, 0.0f);
 
-							player.position += direction;
+        if (hit.collider == null) return true;
 
-							break;
+        Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
 
-						case "Accessible":
-							Accessible accessible = hit.collider.GetComponent<Accessible>();
+        switch (hit.collider.tag)
+        {
+            case "Wall":
+                return false;
 
-							if (accessible.Enter()) {
-								player.position += direction;
-							}
+            case "Pushable":
+                var pushable = hit.collider.GetComponent<Pushable>();
+                if (pushable.MovingWithPlayer)
+                {
+                    objectPushing = pushable.transform;
+                    previousPushablePosition = objectPushing.position;
+                }
+                return pushable.Push(movement);
 
-							break;
+            case "Collectible":
+                var collectible = hit.collider.GetComponent<Collectible>();
+                collectible.Collect();
+                return true;
 
-						default:
-							break;
-					}
-				} else {
-					// Translate if not collided
-					player.position += direction;
-				}
-			}
-		}
-	}
+            case "Accessible":
+                var accessible = hit.collider.GetComponent<Accessible>();
+                return accessible.Enter();
+
+            default:
+                return true;
+        }
+    }
+
+    private void CompleteMoveing()
+    {
+        previousPosition += movement;
+        player.position = previousPosition;
+
+        if (objectPushing != null)
+        {
+            objectPushing.position = previousPushablePosition + movement;
+            objectPushing = null;
+        }
+
+        newMovementReady = playerMoving;
+    }
 }

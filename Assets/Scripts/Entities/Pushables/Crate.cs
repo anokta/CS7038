@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Crate : Pushable
 {
+    public Crate()
+    {
+        MovingWithPlayer = true;
+        Sfx = "Push Crate";
+    }
+
     // Use this for initialization
     protected override void Start()
     {
@@ -12,32 +17,5 @@ public class Crate : Pushable
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public override bool Push(Vector3 direction)
-    {
-        // Check collisions
-        RaycastHit2D hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
-        if (hit.collider != null)
-        {
-            // Collision detected
-            switch (hit.collider.tag)
-            {
-                /* TODO: Specify restrictions per each entity type if needed later. */
-                default:
-                    return false;
-            }
-        }
-        else
-        {
-            audioManager.PlaySFX("Push Crate");
-			var controller = GameObject.FindObjectOfType<PlayerController>();
-			controller.spoilHand();
-            // Translate if not collided
-            entity.position += direction;
-
-            return true;
-        }
     }
 }

@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour, IPan
         player = transform;
         timer = new Timer();
         timer.duration = 0.45f;
-        timer.repeating = false;
-        timer.Complete += CompleteMoveing;
+        timer.repeating = true;
+        timer.Complete += CompleteMoving;
 
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour, IPan
     private Vector2 movement;
     private Vector2 nextMovement;
     private bool playerMoving;
-    private bool newMovementReady;
     private Transform objectPushing;
     private Vector2 previousPushablePosition;
     private Timer timer;
@@ -106,7 +105,11 @@ public class PlayerController : MonoBehaviour, IPan
                     nextMovement = new Vector2(0, y < 0 ? 1 : -1);
                 }
 
-                if (!timer.running) newMovementReady = true;
+                if (!timer.running && CanMove())
+                {
+                    timer.Reset();
+                    movement = nextMovement;
+                }
 
                 return true;
             case PanArgs.State.Interrupt:
@@ -124,33 +127,23 @@ public class PlayerController : MonoBehaviour, IPan
     {
         if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
 
-        if (newMovementReady)
-        {
-            movement = nextMovement;
-            if (CanMove()) timer.Reset();
-        }
-        else
-        {
-            timer.Update();
+        timer.Update();
 
-            if (timer.running)
-            {
-                var newPosition = previousPosition + timer.progress * movement;
-                if (objectPushing != null) objectPushing.position += newPosition.xy0() - player.position;
-                player.position = newPosition;
-            }
+        if (timer.running)
+        {
+            var newPosition = previousPosition + timer.progress * movement;
+            if (objectPushing != null) objectPushing.position += newPosition.xy0() - player.position;
+            player.position = newPosition;
         }
-
-        newMovementReady = false;
     }
 
     private bool CanMove()
     {
         // Get the next position
-        var nextPosition = previousPosition + movement;
+        var nextPosition = previousPosition + nextMovement;
 
         // Check collisions
-        var hit = Physics2D.Raycast(nextPosition, movement, 0.0f);
+        var hit = Physics2D.Raycast(nextPosition, nextMovement, 0.0f);
 
         if (hit.collider == null) return true;
 
@@ -168,7 +161,7 @@ public class PlayerController : MonoBehaviour, IPan
                     objectPushing = pushable.transform;
                     previousPushablePosition = objectPushing.position;
                 }
-                return pushable.Push(movement);
+                return pushable.Push(nextMovement);
 
             case "Collectible":
                 var collectible = hit.collider.GetComponent<Collectible>();
@@ -184,17 +177,26 @@ public class PlayerController : MonoBehaviour, IPan
         }
     }
 
-    private void CompleteMoveing()
+    private void CompleteMoving()
     {
         previousPosition += movement;
         player.position = previousPosition;
 
         if (objectPushing != null)
         {
-            objectPushing.position = previousPushablePosition + movement;
-            objectPushing = null;
+            previousPushablePosition += movement;
+            objectPushing.position = previousPushablePosition;
         }
 
-        newMovementReady = playerMoving;
+        if (playerMoving && CanMove())
+        {
+            movement = nextMovement;
+        }
+        else
+        {
+            timer.Stop();
+
+            objectPushing = null;
+        }
     }
 }

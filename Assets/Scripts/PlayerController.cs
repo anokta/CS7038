@@ -99,15 +99,16 @@ public class PlayerController : MonoBehaviour, IPan
                 var x = args.delta.x;
                 var y = args.delta.y;
 
-                if (Math.Abs(x - y) < 1f) return false;
-
-                if (Math.Abs(x) > Math.Abs(y))
+                if (Math.Abs(x - y) >= 1f)
                 {
-                    nextMovement = new Vector2(x < 0 ? 1 : -1, 0);
-                }
-                else
-                {
-                    nextMovement = new Vector2(0, y < 0 ? 1 : -1);
+                    if (Math.Abs(x) > Math.Abs(y))
+                    {
+                        nextMovement = new Vector2(x < 0 ? 1 : -1, 0);
+                    }
+                    else
+                    {
+                        nextMovement = new Vector2(0, y < 0 ? 1 : -1);
+                    }
                 }
 
                 if (!timer.running && CanMove())
@@ -116,6 +117,8 @@ public class PlayerController : MonoBehaviour, IPan
                     movement = nextMovement;
                 }
 
+                return true;
+            case PanArgs.State.Hold:
                 return true;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
@@ -165,11 +168,14 @@ public class PlayerController : MonoBehaviour, IPan
 
     private bool CanMove()
     {
+        objectPushing = null;
+
         // Get the next position
         var nextPosition = previousPosition + nextMovement;
 
         // Check collisions
         var hit = Physics2D.Raycast(nextPosition, nextMovement, 0.0f);
+        Debug.Log("Checking collision from " + nextPosition + " , direction" + nextMovement + ".");
 
         if (hit.collider == null) return true;
 
@@ -217,10 +223,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (playerMoving && CanMove())
         {
-            if (movement != nextMovement)
-            {
-                objectPushing = null;
-            }
             movement = nextMovement;
         }
         else

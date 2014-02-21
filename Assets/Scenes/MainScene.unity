@@ -290,7 +290,7 @@ MonoBehaviour:
   longTime: .25
   flingTime: .25
   interceptor: {fileID: 0}
-  defaultObject: {fileID: 100000, guid: c5828a3191b6d7846a43e92f6dc0fd61, type: 2}
+  defaultObject: {fileID: 0}
   layerMask: -1
   castDistance: Infinity
   maxDepth: Infinity

@@ -24,8 +24,6 @@ public class Timer
 
     public Timer()
     {
-        repeating = true;
-        running = false;
     }
 
     public Timer(float duration)

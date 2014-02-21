@@ -5,6 +5,9 @@ using System;
 public class PlayerController : MonoBehaviour, IPan
 {
     private Transform player;
+
+    private Animator animator;
+
     public enum HandState
     {
         Clean,
@@ -67,6 +70,8 @@ public class PlayerController : MonoBehaviour, IPan
         }
 
         previousPosition = player.position;
+
+        animator = this.GetComponent<Animator>(); 
     }
 
     private Vector2 previousPosition;
@@ -135,6 +140,27 @@ public class PlayerController : MonoBehaviour, IPan
             if (objectPushing != null) objectPushing.position += newPosition.xy0() - player.position;
             player.position = newPosition;
         }
+
+        // Set animation
+        int direction = -1;
+        if (movement == new Vector2(0, -1))
+        {
+            direction = 0;
+        }
+        else if (movement == new Vector2(0, 1))
+        {
+            direction = 2;
+        }
+        else if (movement == new Vector2(1, 0))
+        {
+            direction = 1;
+        }
+        else if (movement == new Vector2(-1, 0))
+        {
+            direction = 3;
+        }
+
+        animator.SetInteger("Direction", direction);
     }
 
     private bool CanMove()

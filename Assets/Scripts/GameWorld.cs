@@ -82,7 +82,7 @@ public class GameWorld : MonoBehaviour
     void Start()
     {
         Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
-
+ 
         GameEventManager.GameMenu += GameMenu;
         GameEventManager.LevelStart += LevelStart;
         GameEventManager.LevelOver += LevelOver;

@@ -22,7 +22,7 @@ public class Trolley : Pushable
 		// Check collisions
 		while (true) {
 			RaycastHit2D hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
-			if (hit != null && hit.collider != null) {
+			if (hit.collider != null) {
 				// Collision detected
 				switch (hit.collider.tag) {
 				/* TODO: Specify restrictions per each entity type if needed later. */

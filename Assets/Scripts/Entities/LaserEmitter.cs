@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Utilities;
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
 
@@ -19,7 +19,7 @@ public class LaserEmitter : Entity
         _line = GetComponent<LineRenderer>();
         _line.enabled = true;
 
-        // TODO: parameterize
+        //TODO: parameterize
         Direction = Direction.Down;
     }
 
@@ -27,16 +27,19 @@ public class LaserEmitter : Entity
     void Update()
     {
         var direction = Direction;
-        var directionVector = direction.ToVector3();
-        var origin = transform.position;
-        var points = new List<Vector3>();
+        var directionVector = direction.ToVector2();
+        var origin = transform.position.xy();
+
+        // drawing
+        var points = new List<Vector2>();
         points.Add(origin);
 
         for (; ; )
         {
-            var hit = Physics2D.Raycast(origin + 0.9f * directionVector, directionVector, 100); //TODO: change 100 to max level width
+            var hit = Physics2DExt.RaycastExclusive(origin, directionVector, 15);  //TODO: change 15 to max level width
 
-            if (hit.collider == null) break;  // Should not happen
+            DebugUtils.Assert(hit.collider != null);
+            if (hit.collider == null) break; // for robustness
 
             points.Add(hit.point);
 
@@ -44,8 +47,8 @@ public class LaserEmitter : Entity
             if (mirror != null)
             {
                 direction = mirror.Reflect(direction);
-                directionVector = direction.ToVector3();
-                origin = hit.point.xy0();
+                directionVector = direction.ToVector2();
+                origin = hit.point;
                 continue;
             }
 
@@ -54,11 +57,16 @@ public class LaserEmitter : Entity
                 Destroy(hit.collider.gameObject);
                 continue;
             }
-            else if (hit.collider.tag == "Pushable")
+
+            if (hit.collider.tag == "Pushable")
+            {
                 break;
+            }
+
             break;
         }
 
+        // drawing
         _line.SetVertexCount(points.Count);
 
         for (var i = 0; i < points.Count; i++)

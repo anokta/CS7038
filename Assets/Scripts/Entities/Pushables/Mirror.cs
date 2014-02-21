@@ -22,7 +22,7 @@ public class Mirror : Pushable
     {
         // Check collisions
         RaycastHit2D hit = Physics2D.Raycast(entity.position + direction, direction, 0.0f);
-        if (hit != null && hit.collider != null)
+        if (hit.collider != null)
         {
             // Collision detected
             switch (hit.collider.tag)

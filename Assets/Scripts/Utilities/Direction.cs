@@ -38,4 +38,21 @@ public static class DirectionExtensions
                 throw new Exception("Impossible");
         }
     }
+
+    public static Vector2 ToVector2(this Direction d)
+    {
+        switch (d)
+        {
+            case Direction.Top:
+                return new Vector2(0, 1);
+            case Direction.Down:
+                return new Vector2(0, -1);
+            case Direction.Left:
+                return new Vector2(-1, 0);
+            case Direction.Right:
+                return new Vector2(1, 0);
+            default:
+                throw new Exception("Impossible");
+        }
+    }
 }

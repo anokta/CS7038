@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour, IPan
 
 				// Check collisions
 				RaycastHit2D hit = Physics2D.Raycast(player.position + direction, direction, 0.0f);
-				if (hit != null && hit.collider != null) {
+				if (hit.collider != null) {
 					// Collision detected
 					Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
 					switch (hit.collider.tag) {

@@ -182,12 +182,13 @@ public class PlayerController : MonoBehaviour, IPan
 
             case "Pushable":
                 var pushable = hit.collider.GetComponent<Pushable>();
-                if (pushable.MovingWithPlayer)
+                var canPush = pushable.Push(nextMovement);
+                if (canPush && pushable.MovingWithPlayer)
                 {
                     objectPushing = pushable.transform;
                     previousPushablePosition = objectPushing.position;
                 }
-                return pushable.Push(nextMovement);
+                return canPush;
 
             case "Collectible":
                 var collectible = hit.collider.GetComponent<Collectible>();

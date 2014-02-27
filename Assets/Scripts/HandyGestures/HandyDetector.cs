@@ -166,26 +166,38 @@ public class HandyDetector : MonoBehaviour
 					}
 				} else {
 					foreach (var item in _objects) {
-						lpress = item.GetComponent(typeof(ILongPress)) as ILongPress;
-						if (IsEnabled(lpress as Behaviour)) {
-							lpress.OnGestureLongPress(largs);
-							if (largs.handled) {
-								_target = lpress;
-								_prevType = Gesture.LongPress;
-								longState.Activate();
-								break;
+						bool flag = false;
+						var lpresses = item.GetComponents(typeof(ILongPress));
+						foreach (var component in lpresses) {
+							lpress = component as ILongPress;
+							if (IsEnabled(lpress as Behaviour)) {
+								lpress.OnGestureLongPress(largs);
+								if (largs.handled) {
+									_target = lpress;
+									_prevType = Gesture.LongPress;
+									longState.Activate();
+									flag = true;
+									break;
+								}
 							}
 						}
-						pan = item.GetComponent(typeof(IPan)) as IPan;
-						if (IsEnabled(pan as Behaviour)) {
-							pan.OnGesturePan(pArgs);
-							if (pArgs.handled) {
-								_target = pan;
-								_prevType = Gesture.Pan;
-								panState.Activate();
-								break;
+						if (flag) { break; }
+						var pans = item.GetComponents(typeof(IPan));
+						foreach (var component in pans) {
+							pan = component as IPan;
+							pan = component as IPan;
+							if (IsEnabled(pan as Behaviour)) {
+								pan.OnGesturePan(pArgs);
+								if (pArgs.handled) {
+									_target = pan;
+									_prevType = Gesture.Pan;
+									panState.Activate();
+									flag = true;
+									break;
+								}
 							}
 						}
+						if (flag) { break; }
 					}
 				}
 				if (_target == null) {
@@ -223,27 +235,38 @@ public class HandyDetector : MonoBehaviour
 				}
 			} else {
 				foreach (var item in _objects) {
-					fling = item.GetComponent(typeof(IFling)) as IFling;
-					if (IsEnabled(fling as Behaviour)) {
-						fling.OnGestureFling(sArgs);
-						if (sArgs.handled) {
-							//Stay in slide state!
-							_target = fling;
-							_prevType = Gesture.Fling;
-							break;
+					var flings = item.GetComponents(typeof(IFling));
+					bool flag = false;
+					foreach (var component in flings) {
+						fling = component as IFling;
+						if (IsEnabled(fling as Behaviour)) {
+							fling.OnGestureFling(sArgs);
+							if (sArgs.handled) {
+								//Stay in slide state!
+								_target = fling;
+								_prevType = Gesture.Fling;
+								flag = true;
+								break;
+							}
 						}
 					}
-					pan = item.GetComponent(typeof(IPan)) as IPan;
-					if (IsEnabled(pan as Behaviour)) {
-						pan.OnGesturePan(pArgs);
-						if (pArgs.handled) {
-							//Change state!
-							_target = pan;
-							_prevType = Gesture.Pan;
-							panState.Activate();
-							break;
+					if (flag) { break; }
+					var pans = item.GetComponents(typeof(IPan));
+					foreach (var component in pans) {
+						pan = component as IPan;
+						if (IsEnabled(pan as Behaviour)) {
+							pan.OnGesturePan(pArgs);
+							if (pArgs.handled) {
+								//Change state!
+								_target = pan;
+								_prevType = Gesture.Pan;
+								panState.Activate();
+								flag = true;
+								break;
+							}
 						}
 					}
+					if (flag) { break; }
 				}
 			}
 			if (_target == null) {
@@ -400,12 +423,15 @@ public class HandyDetector : MonoBehaviour
 		where TA: TouchArg  where T: class, IGesture
 	{
 		foreach (var item in list) {
-			var gesture = item.GetComponent(typeof(T)) as T;
-			var behaviour = gesture as Behaviour;
-			if (IsEnabled(behaviour)) {
-				action(gesture, arg);
-				if (arg.handled) {
-					return gesture;
+			var gestures = item.GetComponents(typeof(T));
+			foreach (var component in gestures) {
+				var gesture = component as T;
+				var behaviour = gesture as Behaviour;
+				if (IsEnabled(behaviour)) {
+					action(gesture, arg);
+					if (arg.handled) {
+						return gesture;
+					}
 				}
 			}
 		}
@@ -524,7 +550,8 @@ public class HandyDetector : MonoBehaviour
 
 	readonly List<Transform> _empty = new List<Transform>();
 
-	static bool IsEnabled(Behaviour b) {
+	static bool IsEnabled(Behaviour b)
+	{
 		return b != null && (b.enabled || b.GetType().IsDefined(typeof(PersistentGestureAttribute), false));
 	}
 
@@ -697,7 +724,7 @@ public class HandyDetector : MonoBehaviour
 			if (Input.touchCount <= index) {
 				return DeviceState.None;
 			}
-			switch (Input.touches [index].phase) {
+			switch (Input.touches[index].phase) {
 				case TouchPhase.Began:
 					return DeviceState.Down;
 				case TouchPhase.Moved:
@@ -720,7 +747,7 @@ public class HandyDetector : MonoBehaviour
 			if (index == 0) {
 				return pos1;
 			}
-			return Input.touches [index].position;
+			return Input.touches[index].position;
 		}
 
 		public DeviceState MouseState(int index)
@@ -740,13 +767,13 @@ public class HandyDetector : MonoBehaviour
 		public void Update()
 		{
 			if (Input.touchCount > 0) {
-				pos1 = Input.touches [0].position;
+				pos1 = Input.touches[0].position;
 				state1 = FingerState(0);
 				if (Input.touchCount == 1) {
 					pos2 = pos1;
 					state2 = DeviceState.None;
 				} else {
-					pos2 = Input.touches [1].position;
+					pos2 = Input.touches[1].position;
 					state2 = FingerState(1);
 				}
 			} else {

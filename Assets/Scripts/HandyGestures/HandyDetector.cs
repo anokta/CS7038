@@ -64,7 +64,7 @@ public class HandyDetector : MonoBehaviour
 	public float minDepth = Mathf.NegativeInfinity;
 	public float circleRadius = 16;
 	public float sphereRadius = 1;
-	public float moveThreshold = 5;
+	public float moveThreshold = 1;
 	// Analysis disable once FieldCanBeMadeReadOnly.Local
 
     #endregion
@@ -122,7 +122,7 @@ public class HandyDetector : MonoBehaviour
 				TapArgs args = new TapArgs(Gesture.Tap, _startPos);
 				if (_target != null) {
 					ITap tap = _target as ITap;
-					if (tap != null) {
+					if (IsEnabled(tap as Behaviour)) {
 						_prevType = Gesture.Tap;
 						tap.OnGestureTap(args); 
 					}
@@ -147,7 +147,7 @@ public class HandyDetector : MonoBehaviour
 				if (_target != null) {
 					lpress = _target as ILongPress;
 					bool handled = false;
-					if (lpress != null) {
+					if (IsEnabled(lpress as Behaviour)) {
 						lpress.OnGestureLongPress(largs);
 						handled = largs.handled;
 						_prevType = Gesture.LongPress;
@@ -155,7 +155,7 @@ public class HandyDetector : MonoBehaviour
 					}
 					if (!handled) {
 						pan = _target as IPan;
-						if (pan != null) {
+						if (IsEnabled(pan as Behaviour)) {
 							pan.OnGesturePan(pArgs);
 							if (pArgs.handled) {
 								panState.Activate();
@@ -167,7 +167,7 @@ public class HandyDetector : MonoBehaviour
 				} else {
 					foreach (var item in _objects) {
 						lpress = item.GetComponent(typeof(ILongPress)) as ILongPress;
-						if (lpress != null) {
+						if (IsEnabled(lpress as Behaviour)) {
 							lpress.OnGestureLongPress(largs);
 							if (largs.handled) {
 								_target = lpress;
@@ -177,7 +177,7 @@ public class HandyDetector : MonoBehaviour
 							}
 						}
 						pan = item.GetComponent(typeof(IPan)) as IPan;
-						if (pan != null) {
+						if (IsEnabled(pan as Behaviour)) {
 							pan.OnGesturePan(pArgs);
 							if (pArgs.handled) {
 								_target = pan;
@@ -202,7 +202,7 @@ public class HandyDetector : MonoBehaviour
 			if (_target != null) {
 				fling = _target as IFling;
 				bool handled = false;
-				if (fling != null) {
+				if (IsEnabled(fling as Behaviour)) {
 					fling.OnGestureFling(sArgs);
 					handled = sArgs.handled;
 					if (handled) {
@@ -212,7 +212,7 @@ public class HandyDetector : MonoBehaviour
 				}
 				if (!handled) {
 					pan = _target as IPan;
-					if (pan != null) {
+					if (IsEnabled(pan as Behaviour)) {
 						pan.OnGesturePan(pArgs);
 						if (pArgs.handled) {
 							_prevType = Gesture.Pan;
@@ -224,7 +224,7 @@ public class HandyDetector : MonoBehaviour
 			} else {
 				foreach (var item in _objects) {
 					fling = item.GetComponent(typeof(IFling)) as IFling;
-					if (fling != null) {
+					if (IsEnabled(fling as Behaviour)) {
 						fling.OnGestureFling(sArgs);
 						if (sArgs.handled) {
 							//Stay in slide state!
@@ -234,7 +234,7 @@ public class HandyDetector : MonoBehaviour
 						}
 					}
 					pan = item.GetComponent(typeof(IPan)) as IPan;
-					if (pan != null) {
+					if (IsEnabled(pan as Behaviour)) {
 						pan.OnGesturePan(pArgs);
 						if (pArgs.handled) {
 							//Change state!
@@ -255,7 +255,7 @@ public class HandyDetector : MonoBehaviour
 			if (slideState.time <= flingTime) {
 				FlingArgs sArgs = new FlingArgs(_prevType, FlingArgs.State.End, slideState.startPos, _device.pos1);
 				IFling f = _target as IFling;
-				if (f != null) {
+				if (IsEnabled(f as Behaviour)) {
 					f.OnGestureFling(sArgs);
 				}
 			}
@@ -267,12 +267,12 @@ public class HandyDetector : MonoBehaviour
 			if (slideState.time > flingTime) {
 				FlingArgs sArgs = new FlingArgs(Gesture.Press, FlingArgs.State.Interrupt, slideState.startPos, _device.pos1);
 				IFling f = _target as IFling;
-				if (f != null) {
+				if (IsEnabled(f as Behaviour)) {
 					f.OnGestureFling(sArgs);
 				}
 				IPan p = _target as IPan;
 				bool handled = false;
-				if (p != null) {
+				if (IsEnabled(p as Behaviour)) {
 					PanArgs pArgs = new PanArgs(Gesture.Fling, PanArgs.State.Down, _device.pos1, _device.pos1, Vector2.zero);
 					p.OnGesturePan(pArgs);
 					handled = pArgs.handled;
@@ -299,7 +299,7 @@ public class HandyDetector : MonoBehaviour
 
 		longState.Hold += delegate {
 			ILongPress lpress = _target as ILongPress;
-			if (lpress != null) {
+			if (IsEnabled(lpress as Behaviour)) {
 				LongPressArgs args = new LongPressArgs(Gesture.Press, LongPressArgs.State.Hold, longState.startPos);
 				lpress.OnGestureLongPress(args);
 			}
@@ -307,7 +307,7 @@ public class HandyDetector : MonoBehaviour
 
 		longState.Up += delegate {
 			ILongPress lpress = _target as ILongPress;
-			if (lpress != null) {
+			if (IsEnabled(lpress as Behaviour)) {
 				LongPressArgs args = new LongPressArgs(Gesture.Press, LongPressArgs.State.Up, longState.startPos);
 				lpress.OnGestureLongPress(args);
 			}
@@ -327,14 +327,14 @@ public class HandyDetector : MonoBehaviour
 
 		longState.Moved += delegate {
 			ILongPress lpress = _target as ILongPress;
-			if (lpress != null) {
+			if (lpress != null && IsEnabled(lpress as Behaviour)) {
 				LongPressArgs args = new LongPressArgs(Gesture.Press, LongPressArgs.State.Interrupt, longState.startPos);
 				lpress.OnGestureLongPress(args);
 				if (!args.handled) {
 					deadState.Activate();
 				} else {
 					IPan pan = _target as IPan;
-					if (pan != null) {
+					if (IsEnabled(pan as Behaviour)) {
 						PanArgs pArgs = new PanArgs(Gesture.LongPress, PanArgs.State.Down, _device.pos1, _device.pos1, Vector2.zero);
 						pan.OnGesturePan(pArgs);
 						if (pArgs.handled) {
@@ -350,7 +350,7 @@ public class HandyDetector : MonoBehaviour
 		panState.Hold += delegate {
 			if (!moved()) {
 				IPan pan = _target as IPan;
-				if (pan != null) {
+				if (IsEnabled(pan as Behaviour)) {
 					PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Hold, panState.startPos, _device.pos1, Vector2.zero);
 					pan.OnGesturePan(pArgs);
 				}
@@ -359,7 +359,7 @@ public class HandyDetector : MonoBehaviour
 
 		panState.Moved += delegate {
 			IPan pan = _target as IPan;
-			if (pan != null) {
+			if (IsEnabled(pan as Behaviour)) {
 				PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Move, panState.startPos, _device.pos1, _deltaMove);
 				pan.OnGesturePan(pArgs);
 			}
@@ -367,7 +367,7 @@ public class HandyDetector : MonoBehaviour
 
 		panState.Up += delegate {
 			IPan pan = _target as IPan;
-			if (pan != null) {
+			if (IsEnabled(pan as Behaviour)) {
 				PanArgs pArgs = new PanArgs(Gesture.Pan, PanArgs.State.Up, panState.startPos, _device.pos1, Vector2.zero);
 				pan.OnGesturePan(pArgs);
 			}
@@ -388,21 +388,6 @@ public class HandyDetector : MonoBehaviour
 
     #endregion
 
-	/*int Supported<T>(Vector2 pos)
-	{
-		return Supported<T>(GetAllObjects(pos));
-	}
-
-	static int Supported<T>(List<Transform> list)
-	{
-		for (int i = 0; i < list.Count; ++i) {
-			if (list [i].GetComponent(typeof(T)) != null) {
-				return i;
-			}
-		}
-		return -1;
-	}*/
-
 	private delegate void GestureAction<T,TA>(T obj,TA args);
 
 	T DoGesture<T, TA>(Vector2 pos, GestureAction<T, TA> action, TA arg)
@@ -416,7 +401,8 @@ public class HandyDetector : MonoBehaviour
 	{
 		foreach (var item in list) {
 			var gesture = item.GetComponent(typeof(T)) as T;
-			if (gesture != null) {
+			var behaviour = gesture as Behaviour;
+			if (IsEnabled(behaviour)) {
 				action(gesture, arg);
 				if (arg.handled) {
 					return gesture;
@@ -433,6 +419,11 @@ public class HandyDetector : MonoBehaviour
 		_prevPos = _device.pos1;
 
 		UpdateCollisionTypes();
+
+		if (_target != null && !IsEnabled(_target as Behaviour)) {
+			_activeState.InvokeInterrupt();
+			Reset();
+		}
 
 		if (_device.state1 == Device.DeviceState.Down) {
 			_activeState.InvokeDown();
@@ -532,6 +523,10 @@ public class HandyDetector : MonoBehaviour
 	}
 
 	readonly List<Transform> _empty = new List<Transform>();
+
+	static bool IsEnabled(Behaviour b) {
+		return b != null && (b.enabled || b.GetType().IsDefined(typeof(PersistentGestureAttribute), false));
+	}
 
 	List<Transform> GetAllObjects3D(Vector3 pos)
 	{

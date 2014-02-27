@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
     protected Transform entity;
 
     protected AudioManager audioManager;
+
+	public virtual void AttachDelegates(GroupManager manager) {
+	}
 
     public Vector2 Position
     {

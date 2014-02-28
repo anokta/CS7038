@@ -174,6 +174,10 @@ namespace Grouping
 				}
 			}
 
+			public void Add(Component component, GroupItem item) {
+				Add(component.gameObject, item);
+			}
+
 			public void Add(GameObject gameObject, GroupItem item)
 			{
 				var obj = gameObject.AddComponent<GroupBehaviour>();
@@ -221,7 +225,6 @@ namespace Grouping
 		}
 
 		private delegate Group _constructorDelegate(GroupManager sm,string n);
-
 		private delegate void _operateDelegate(Group s);
 
 		private static _constructorDelegate _construct;

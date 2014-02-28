@@ -11,13 +11,6 @@ namespace Grouping
 		{
 			enabled = false;
 		}
-		// Use this for initialization
-		void Start()
-		{
-			if (groupItem != null) {
-				groupItem.Start();
-			}
-		}
 	
 		// Update is called once per frame
 		void Update()

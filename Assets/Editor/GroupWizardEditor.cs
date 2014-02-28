@@ -2,6 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using Grouping;
 
 [CustomEditor(typeof(GroupWizard))]
 public class GroupWizardEditor : Editor

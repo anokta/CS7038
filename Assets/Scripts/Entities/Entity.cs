@@ -6,9 +6,6 @@ public class Entity : MonoBehaviour
 
     protected AudioManager audioManager;
 
-	public virtual void AttachDelegates(GroupManager manager) {
-	}
-
     public Vector2 Position
     {
         get { return transform.position; }

@@ -32,7 +32,6 @@ public class Gate : Accessible {
         }
         else
         {
-            audioManager.PlaySFX("Door");
             return true;
         }
     }

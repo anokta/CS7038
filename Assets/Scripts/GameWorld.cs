@@ -4,7 +4,7 @@ using System.Collections;
 public class GameWorld : MonoBehaviour
 {
     // Entity prefabs
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, patientPrefab;
     public GameObject wallPrefab, cratePrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab;
     public GameObject laserEmitterPrefab, mirrorPrefab, mirrorInversePrefab, explosiveCratePrefab;
     public GameObject gatePrefab, leverPrefab;
@@ -59,7 +59,7 @@ public class GameWorld : MonoBehaviour
         },
         {
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
-            { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+            { 'w', ' ', ' ', ' ', ' ', ' ', 'p', ' ', 'p', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
             { 'w', 'w', 'w', 'g', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
@@ -129,10 +129,20 @@ public class GameWorld : MonoBehaviour
                 #region TO_BE_DELETED
 
                 // Testing purposes only //
-                if (CollectibleContainer.transform.childCount == 0)
+                bool isOver = true;
+                foreach(Transform patient in Switchables)
                 {
-                    GameEventManager.TriggerLevelOver();
+                    if (patient.name.StartsWith("Patient"))
+                    {
+                        isOver &= patient.GetComponent<Patient>().IsTreated();
+                    }
                 }
+                if (isOver)
+                    GameEventManager.TriggerLevelOver();
+                //if (CollectibleContainer.transform.childCount == 0)
+                //{
+                //    GameEventManager.TriggerLevelOver();
+                //}
 
                 break;
 
@@ -244,14 +254,21 @@ public class GameWorld : MonoBehaviour
                         Switchables.Add((Instantiate(leverPrefab, new Vector3(i - offsetX, -j + offsetY, leverPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Switchables[Switchables.Count - 1] as Transform).parent = SwitchableContainer.transform;
                         break;
+                    case 'p': // Patients
+                        Switchables.Add((Instantiate(patientPrefab, new Vector3(i - offsetX, -j + offsetY, patientPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Switchables[Switchables.Count - 1] as Transform).parent = SwitchableContainer.transform;
+                        break;
                 }
             }
         }
 
         // TO BE CHANGED
         Lever lever = GameObject.Find("Lever(Clone)").GetComponent<Lever>();
-        Gate gate = GameObject.Find("Gate(Clone)").GetComponent<Gate>();
-        lever.gate = gate;
+        if (lever != null)
+        {
+            Gate gate = GameObject.Find("Gate(Clone)").GetComponent<Gate>();
+            lever.gate = gate;
+        }
         //
     }
 

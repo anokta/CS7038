@@ -18,6 +18,8 @@ public class Lever : Switchable {
 
     public override void Switch()
     {
+        audioManager.PlaySFX("Lever");
+
         gate.ToggleLock();
     }
 }

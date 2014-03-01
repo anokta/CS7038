@@ -134,7 +134,7 @@ GameObject:
   - 4: {fileID: 279206009}
   - 82: {fileID: 279206010}
   m_Layer: 0
-  m_Name: Door
+  m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,10 +159,10 @@ AudioSource:
   m_GameObject: {fileID: 279206008}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 69690062a24822d46a0bb109fc8ae9c9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: becd0cbc6bba2cd45876586914c2732f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .800000012
-  m_Pitch: 1
+  m_Volume: .5
+  m_Pitch: 1.10000002
   Loop: 0
   Mute: 0
   Priority: 128
@@ -253,8 +253,10 @@ MonoBehaviour:
   collectSfx: {fileID: 1490680744}
   pushSfx: {fileID: 1784004755}
   push2Sfx: {fileID: 357585753}
-  doorSfx: {fileID: 279206010}
+  doorSfx: {fileID: 1942921646}
   fountainSfx: {fileID: 2130505892}
+  leverSfx: {fileID: 279206010}
+  treatedSfx: {fileID: 415478286}
 --- !u!1 &290804693
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +396,91 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &415478285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 415478287}
+  - 82: {fileID: 415478286}
+  m_Layer: 0
+  m_Name: Treated
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &415478286
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 415478285}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: a151f683cc8de914faf6317d6c7385c6, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .5
+  m_Pitch: 1.33000004
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!4 &415478287
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 415478285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1562966261}
 --- !u!1 &601924071
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100000, guid: c5828a3191b6d7846a43e92f6dc0fd61, type: 2}
+  patientPrefab: {fileID: 100000, guid: 0bba4af937e129b4f897197d1a4e2882, type: 2}
   wallPrefab: {fileID: 100000, guid: 2f611c5c1a7c626439a08e791ce50c2c, type: 2}
   cratePrefab: {fileID: 100000, guid: e7869cc7ee3e0dc4faf51b845dca71f7, type: 2}
   trolleyPrefab: {fileID: 100000, guid: a3e19f5ef73362e44a64c8ee616f16e6, type: 2}
@@ -815,10 +903,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1490680743}
+  - {fileID: 1942921645}
   - {fileID: 2130505891}
   - {fileID: 1784004754}
   - {fileID: 279206009}
   - {fileID: 357585752}
+  - {fileID: 415478287}
   m_Father: {fileID: 287739713}
 --- !u!1 &1706598401
 GameObject:
@@ -976,6 +1066,91 @@ MonoBehaviour:
   menuLayout: {fileID: 1706598401}
   start: {fileID: 119142277}
   over: {fileID: 877437078}
+--- !u!1 &1942921644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1942921645}
+  - 82: {fileID: 1942921646}
+  m_Layer: 0
+  m_Name: Door
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1942921645
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942921644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1562966261}
+--- !u!82 &1942921646
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942921644}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 69690062a24822d46a0bb109fc8ae9c9, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .800000012
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &2026972193
 GameObject:
   m_ObjectHideFlags: 0

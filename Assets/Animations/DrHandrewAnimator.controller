@@ -266,7 +266,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyDown
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: b6d2d1bbcca92394886547adcb88f824, type: 2}
@@ -281,7 +281,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyRight
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: f6c3e4357553b0745b3ebeea2c0efec2, type: 2}
@@ -296,7 +296,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyLeft
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 0376bbb3607cfc240a616e1d08a781f7, type: 2}
@@ -311,7 +311,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyUp
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 440a0e7d78f663c4e82a34435786bdde, type: 2}

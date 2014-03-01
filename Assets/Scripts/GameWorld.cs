@@ -7,6 +7,7 @@ public class GameWorld : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject wallPrefab, cratePrefab, trolleyPrefab, sanitizerPrefab, doorPrefab, fountainPrefab;
     public GameObject laserEmitterPrefab, mirrorPrefab, mirrorInversePrefab, explosiveCratePrefab;
+    public GameObject gatePrefab, leverPrefab;
 
     // Current level
     public static int level;
@@ -60,11 +61,11 @@ public class GameWorld : MonoBehaviour
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
-            { 'w', 'w', 'w', 'd', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
+            { 'w', 'w', 'w', 'g', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
-            { 'w', ' ', ' ', ' ', 'b', ' ', 's', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
+            { 'w', ' ', ' ', ' ', 'b', ' ', 'l', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
             { 'w', ' ', 'P', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', 's', ' ', 'w' },
@@ -74,9 +75,9 @@ public class GameWorld : MonoBehaviour
 
     // Entities
     private GameObject EntityContainer;
-    private GameObject WallContainer, CollectibleContainer, PushableContainer, AccessibleContainer;
+    private GameObject WallContainer, CollectibleContainer, PushableContainer, AccessibleContainer, SwitchableContainer;
     private Transform Player;
-    private ArrayList Walls, Collectibles, Pushables, Accessibles;
+    private ArrayList Walls, Collectibles, Pushables, Accessibles, Switchables;
 
     // Use this for initialization
     void Start()
@@ -91,6 +92,7 @@ public class GameWorld : MonoBehaviour
         Collectibles = new ArrayList();
         Pushables = new ArrayList();
         Accessibles = new ArrayList();
+        Switchables = new ArrayList();
 
         GameEventManager.TriggerGameMenu();
     }
@@ -148,7 +150,7 @@ public class GameWorld : MonoBehaviour
 
     void GameMenu()
     {
-        level = 0;
+        level = 3;
     }
 
     void LevelStart()
@@ -172,6 +174,9 @@ public class GameWorld : MonoBehaviour
 
         AccessibleContainer = new GameObject("Accessibles");
         AccessibleContainer.transform.parent = EntityContainer.transform;
+
+        SwitchableContainer = new GameObject("Switchables");
+        SwitchableContainer.transform.parent = EntityContainer.transform;
 
         // Generate the level
         int mapWidth = levels.GetLength(2);
@@ -231,9 +236,23 @@ public class GameWorld : MonoBehaviour
                         Pushables.Add((Instantiate(explosiveCratePrefab, new Vector3(i - offsetX, -j + offsetY, explosiveCratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         (Pushables[Pushables.Count - 1] as Transform).parent = PushableContainer.transform;
                         break;
+                    case 'g': // Gates
+                        Accessibles.Add((Instantiate(gatePrefab, new Vector3(i - offsetX, -j + offsetY, gatePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Accessibles[Accessibles.Count - 1] as Transform).parent = AccessibleContainer.transform;
+                        break;
+                    case 'l': // Levers
+                        Switchables.Add((Instantiate(leverPrefab, new Vector3(i - offsetX, -j + offsetY, leverPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
+                        (Switchables[Switchables.Count - 1] as Transform).parent = SwitchableContainer.transform;
+                        break;
                 }
             }
         }
+
+        // TO BE CHANGED
+        Lever lever = GameObject.Find("Lever(Clone)").GetComponent<Lever>();
+        Gate gate = GameObject.Find("Gate(Clone)").GetComponent<Gate>();
+        lever.gate = gate;
+        //
     }
 
     void LevelOver()

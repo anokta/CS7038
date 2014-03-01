@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour, IPan
 
     private Animator animator;
 
+    private bool canSwitch;
+
     public enum HandState
     {
         Clean,
@@ -71,7 +73,9 @@ public class PlayerController : MonoBehaviour, IPan
 
         previousPosition = player.position;
 
-        animator = this.GetComponent<Animator>(); 
+        animator = this.GetComponent<Animator>();
+
+        canSwitch = true;
     }
 
     private Vector2 previousPosition;
@@ -122,6 +126,7 @@ public class PlayerController : MonoBehaviour, IPan
                 return true;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
+                canSwitch = true;
                 return false;
             default:
                 return false;
@@ -162,7 +167,7 @@ public class PlayerController : MonoBehaviour, IPan
         {
             direction = 3;
         }
-
+        Debug.Log(direction);
         animator.SetInteger("Direction", direction);
     }
 
@@ -204,6 +209,16 @@ public class PlayerController : MonoBehaviour, IPan
                 var accessible = hit.collider.GetComponent<Accessible>();
                 return accessible.Enter();
 
+            case "Switchable":
+                if (canSwitch)
+                {
+                    Switchable switchable = hit.collider.GetComponent<Switchable>();
+                    switchable.Switch();
+
+                    canSwitch = false;
+                }
+                return false;
+
             default:
                 return true;
         }
@@ -223,6 +238,7 @@ public class PlayerController : MonoBehaviour, IPan
         if (playerMoving && CanMove())
         {
             movement = nextMovement;
+            canSwitch = true;
         }
         else
         {

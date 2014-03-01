@@ -145,8 +145,23 @@ public class PlayerController : MonoBehaviour, IPan
         if (timer.running)
         {
             var newPosition = previousPosition + timer.progress * movement;
-            if (objectPushing != null) objectPushing.position += newPosition.xy0() - player.position;
+            if (objectPushing != null)
+            {
+                objectPushing.position += newPosition.xy0() - player.position;
+                animator.SetBool("Pushing", true);
+            }
+            else
+            {
+                animator.SetBool("Pushing", false);
+            }
+
+            animator.SetBool("Moving", true);
             player.position = newPosition;
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
+            animator.SetBool("Pushing", false);
         }
 
         // Set animation
@@ -167,7 +182,7 @@ public class PlayerController : MonoBehaviour, IPan
         {
             direction = 3;
         }
-        Debug.Log(direction);
+
         animator.SetInteger("Direction", direction);
     }
 
@@ -198,6 +213,7 @@ public class PlayerController : MonoBehaviour, IPan
                     objectPushing = pushable.transform;
                     previousPushablePosition = objectPushing.position;
                 }
+
                 return canPush;
 
             case "Collectible":

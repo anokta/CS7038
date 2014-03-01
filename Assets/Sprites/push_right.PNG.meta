@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a90209efff083f4892d36ec405131c2
+guid: c4a8d5c7d7adab648a9733bfabb8c0f6
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -45,7 +45,7 @@ TextureImporter:
     compressionQuality: 50
   spriteSheet:
     sprites:
-    - name: walk_right_0
+    - name: push_right_0
       rect:
         serializedVersion: 2
         x: 0
@@ -54,7 +54,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_1
+    - name: push_right_1
       rect:
         serializedVersion: 2
         x: 240
@@ -63,7 +63,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_2
+    - name: push_right_2
       rect:
         serializedVersion: 2
         x: 480
@@ -72,7 +72,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_3
+    - name: push_right_3
       rect:
         serializedVersion: 2
         x: 720
@@ -81,7 +81,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_4
+    - name: push_right_4
       rect:
         serializedVersion: 2
         x: 960
@@ -90,7 +90,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_5
+    - name: push_right_5
       rect:
         serializedVersion: 2
         x: 1200
@@ -99,7 +99,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_6
+    - name: push_right_6
       rect:
         serializedVersion: 2
         x: 1440
@@ -108,7 +108,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_7
+    - name: push_right_7
       rect:
         serializedVersion: 2
         x: 1680
@@ -117,7 +117,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_8
+    - name: push_right_8
       rect:
         serializedVersion: 2
         x: 1920
@@ -126,7 +126,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_9
+    - name: push_right_9
       rect:
         serializedVersion: 2
         x: 2160
@@ -135,7 +135,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_10
+    - name: push_right_10
       rect:
         serializedVersion: 2
         x: 2400
@@ -144,7 +144,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_11
+    - name: push_right_11
       rect:
         serializedVersion: 2
         x: 2640
@@ -153,7 +153,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_12
+    - name: push_right_12
       rect:
         serializedVersion: 2
         x: 2880
@@ -162,7 +162,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_13
+    - name: push_right_13
       rect:
         serializedVersion: 2
         x: 3120
@@ -171,7 +171,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_14
+    - name: push_right_14
       rect:
         serializedVersion: 2
         x: 3360
@@ -180,7 +180,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: walk_right_15
+    - name: push_right_15
       rect:
         serializedVersion: 2
         x: 3600

@@ -63,7 +63,7 @@ public class GameWorld : MonoBehaviour
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 'w' },
             { 'w', 'w', 'w', 'g', 'w', 'w', 'w', 'w', 'w', 'w', ' ', 'b', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 's', 'w' },
-            { 'w', ' ', ' ', ' ', ' ', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
+            { 'w', ' ', ' ', ' ', 'x', ' ', 't', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', 'f', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', 'd', 'w', 'w', 'w', 'w' },
             { 'w', ' ', ' ', ' ', 'b', ' ', 'l', ' ', 't', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', 'w' },
@@ -117,7 +117,6 @@ public class GameWorld : MonoBehaviour
                 break;
 
             case GameEventManager.GameState.Running:
-
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     // Restart the level (for testing purposes)
@@ -208,7 +207,9 @@ public class GameWorld : MonoBehaviour
                         break;
                     case 'w': // Walls
                         Walls.Add((Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
-                        (Walls[Walls.Count - 1] as Transform).parent = WallContainer.transform;
+                        Transform wall = (Walls[Walls.Count - 1] as Transform);
+                        wall.parent = WallContainer.transform;
+                        wall.GetComponent<SpriteRenderer>().sortingOrder = -2 * Mathf.RoundToInt(wall.position.y);
                         break;
                     case 'b': // Pushable Crates
                         Pushables.Add((Instantiate(cratePrefab, new Vector3(i - offsetX, -j + offsetY, cratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);

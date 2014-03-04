@@ -24,11 +24,6 @@ public class Mirror : Pushable
         Forward = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public Direction Reflect(Direction incoming)
     {
         switch (incoming)

@@ -5,6 +5,7 @@ using System;
 public class PlayerController : MonoBehaviour, IPan
 {
     private Transform player;
+    private SpriteRenderer spriteRenderer;
 
     private Animator animator;
 
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour, IPan
     void Start()
     {
         player = transform;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         timer = new Timer();
         timer.duration = 0.45f;
         timer.repeating = true;
@@ -139,6 +141,8 @@ public class PlayerController : MonoBehaviour, IPan
     void Update()
     {
         if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
+
+        spriteRenderer.sortingOrder = -2 * Mathf.RoundToInt(player.position.y) + 1;
 
         timer.Update();
 

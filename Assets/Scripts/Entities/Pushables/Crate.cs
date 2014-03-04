@@ -13,9 +13,4 @@ public class Crate : Pushable
     {
         base.Start();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

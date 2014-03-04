@@ -18,11 +18,6 @@ public class Gate : Accessible {
         spriteRenderer = GetComponent<SpriteRenderer>();
         locked = true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public override bool Enter()
     {

@@ -10,11 +10,6 @@ public class Lever : Switchable {
     {
         base.Start();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public override void Switch()
     {

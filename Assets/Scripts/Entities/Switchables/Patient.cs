@@ -13,12 +13,6 @@ public class Patient : Switchable
         treated = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public bool IsTreated()
     {
         return treated;

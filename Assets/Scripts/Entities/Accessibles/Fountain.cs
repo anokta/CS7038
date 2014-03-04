@@ -10,12 +10,6 @@ public class Fountain : Accessible
 		base.Start();
 	}
 	
-	// Update is called once per frame
-	void Update()
-	{
-		
-	}
-	
 	public override bool Enter()
 	{
 		audioManager.PlaySFX("Fountain");

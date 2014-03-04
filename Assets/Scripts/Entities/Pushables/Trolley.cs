@@ -22,8 +22,10 @@ public class Trolley : Pushable
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         timer.Update();
 
         if (timer.running)

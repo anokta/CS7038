@@ -10,12 +10,6 @@ public class Sanitizer : Collectible
 		base.Start();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
 	public override void Collect()
 	{
 		audioManager.PlaySFX("Collect");

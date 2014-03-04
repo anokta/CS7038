@@ -25,7 +25,7 @@ public class GameWorld : MonoBehaviour
             { 'w', ' ', ' ', ' ', 't', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },// -1.5
             { 'w', ' ', 'm', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },// -2.5
             { 'w', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w' },// -3.5
-            { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', ' ', 'w' },// -4.5
+            { 'w', 'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', ' ', 'w' },// -4.5
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' } // -5.5
             //-7.5 -6.5 -5.5 -4.5 -3.5 -2.5 -1.5 -0.5  0.5 1.5  2.5  3.5  4.5  5.5  6.5  7.5
         },
@@ -40,7 +40,7 @@ public class GameWorld : MonoBehaviour
             { 'w', ' ', 't', 'P', 't', ' ', ' ', 't', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
             { 'w', ' ', ' ', 't', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 's', ' ', ' ', ' ', 'b', 'w' },
-            { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
+            { 'w', 'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', 'b', ' ', ' ', 's', 'w' },
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
         },
         {
@@ -54,7 +54,7 @@ public class GameWorld : MonoBehaviour
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
             { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', 'b', 'w' },
             { 'w', ' ', 'P', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', 'w' },
-            { 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'f', ' ', ' ', 's', ' ', 'w' },
+            { 'w', 'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'f', ' ', ' ', 's', ' ', 'w' },
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
         },
         {
@@ -160,7 +160,7 @@ public class GameWorld : MonoBehaviour
 
     void GameMenu()
     {
-        level = 3;
+        level = 0;
     }
 
     void LevelStart()
@@ -262,14 +262,7 @@ public class GameWorld : MonoBehaviour
             }
         }
 
-        // TO BE CHANGED
-        Lever lever = GameObject.Find("Lever(Clone)").GetComponent<Lever>();
-        if (lever != null)
-        {
-            Gate gate = GameObject.Find("Gate(Clone)").GetComponent<Gate>();
-            lever.gate = gate;
-        }
-        //
+        BindLeverGate();
     }
 
     void LevelOver()
@@ -277,5 +270,26 @@ public class GameWorld : MonoBehaviour
         // Clear resources
         if (EntityContainer != null)
             Destroy(EntityContainer);
+
+        Walls.Clear();
+        Collectibles.Clear();
+        Pushables.Clear();
+        Accessibles.Clear();
+        Switchables.Clear();
+    }
+
+    void BindLeverGate()
+    {
+        // TO BE CHANGED
+        var leverObj = GameObject.Find("Lever(Clone)");
+        if (leverObj == null) return;
+        var lever = leverObj.GetComponent<Lever>();
+
+        var gateObj = GameObject.Find("Gate(Clone)");
+        if (gateObj == null) return;
+        var gate = gateObj.GetComponent<Gate>();
+
+        lever.gate = gate;
+        //
     }
 }

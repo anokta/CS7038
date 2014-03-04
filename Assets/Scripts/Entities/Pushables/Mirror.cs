@@ -1,27 +1,25 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 
 public class Mirror : Pushable
 {
     /// <summary>
     /// Indicates the direction of the mirror. If true, laser coming from top is reflected to right.
     /// </summary>
-    public bool Forward { get; set; }
+    public bool Forward;
 
     public Mirror()
     {
         MovingWithPlayer = true;
         Sfx = "Push Crate";
+
+        //TODO: parameterize
+        Forward = true;
     }
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
-
-        //TODO: parameterize
-        Forward = true;
     }
 
     // Update is called once per frame

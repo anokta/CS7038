@@ -1,26 +1,20 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Utilities;
 using UnityEngine;
-
-[RequireComponent(typeof(LineRenderer))]
 
 public class LaserEmitter : Entity
 {
     public Direction Direction { get; set; }
-
-    RaycastHit _hit;
-    LineRenderer _line;
+    private LineStripRenderer lineStrip;
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
 
-        _line = GetComponent<LineRenderer>();
-        _line.enabled = true;
-
         //TODO: parameterize
         Direction = Direction.Down;
+
+        lineStrip = new LineStripRenderer(this);
     }
 
     // Update is called once per frame
@@ -29,8 +23,6 @@ public class LaserEmitter : Entity
         var direction = Direction;
         var directionVector = direction.ToVector2();
         var origin = transform.position.xy();
-
-        // drawing
         var points = new List<Vector2>();
         points.Add(origin);
 
@@ -41,14 +33,14 @@ public class LaserEmitter : Entity
             DebugUtils.Assert(hit.collider != null);
             if (hit.collider == null) break; // for robustness
 
-            points.Add(hit.point);
+            origin = hit.collider.transform.position;
+            points.Add(origin);
 
             var mirror = hit.collider.GetComponent<Mirror>();
             if (mirror != null)
             {
                 direction = mirror.Reflect(direction);
                 directionVector = direction.ToVector2();
-                origin = hit.point;
                 continue;
             }
 
@@ -58,20 +50,9 @@ public class LaserEmitter : Entity
                 continue;
             }
 
-            if (hit.collider.tag == "Pushable")
-            {
-                break;
-            }
-
             break;
         }
 
-        // drawing
-        _line.SetVertexCount(points.Count);
-
-        for (var i = 0; i < points.Count; i++)
-        {
-            _line.SetPosition(i, points[i]);
-        }
+        lineStrip.Draw(points);
     }
 }

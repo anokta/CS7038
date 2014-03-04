@@ -2,19 +2,15 @@
 
 using System;
 using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 
-namespace Assets.Scripts.Utilities
+public class DebugUtils
 {
-    public class DebugUtils
+    [Conditional("DEBUG")]
+    public static void Assert(bool condition)
     {
-        [Conditional("DEBUG")]
-        public static void Assert(bool condition)
+        if (!condition)
         {
-            if (!condition)
-            {
-                throw new Exception();
-            }
+            throw new Exception();
         }
     }
 }

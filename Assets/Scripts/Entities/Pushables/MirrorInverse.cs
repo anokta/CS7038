@@ -1,9 +1,7 @@
 ﻿public class MirrorInverse : Mirror
 {
-    protected override void Start()
+    public MirrorInverse()
     {
-        base.Start();
-
         Forward = false;
     }
 }

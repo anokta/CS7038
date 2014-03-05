@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class LaserEmitter : Entity
 {
-    public Direction Direction { get; set; }
+    public Direction Direction;
     private LineStripRenderer lineStrip;
+
+    public LaserEmitter()
+    {
+        Direction = Direction.Down;
+    }
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
-
-        //TODO: parameterize
-        Direction = Direction.Down;
 
         lineStrip = new LineStripRenderer(this);
     }

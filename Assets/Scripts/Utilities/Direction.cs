@@ -5,6 +5,11 @@ public enum Direction { Up, Down, Left, Right }
 
 public static class DirectionExtensions
 {
+    public static readonly Vector2 Up = new Vector2(0, 1);
+    public static readonly Vector2 Down = new Vector2(0, -1);
+    public static readonly Vector2 Left = new Vector2(-1, 0);
+    public static readonly Vector2 Right = new Vector2(1, 0);
+
     public static Direction Reverse(this Direction d)
     {
         switch (d)
@@ -24,19 +29,7 @@ public static class DirectionExtensions
 
     public static Vector3 ToVector3(this Direction d)
     {
-        switch (d)
-        {
-            case Direction.Up:
-                return new Vector3(0, 1, 0);
-            case Direction.Down:
-                return new Vector3(0, -1, 0);
-            case Direction.Left:
-                return new Vector3(-1, 0, 0);
-            case Direction.Right:
-                return new Vector3(1, 0, 0);
-            default:
-                throw new Exception("Impossible");
-        }
+        return ToVector2(d);
     }
 
     public static Vector2 ToVector2(this Direction d)
@@ -44,15 +37,24 @@ public static class DirectionExtensions
         switch (d)
         {
             case Direction.Up:
-                return new Vector2(0, 1);
+                return Up;
             case Direction.Down:
-                return new Vector2(0, -1);
+                return Down;
             case Direction.Left:
-                return new Vector2(-1, 0);
+                return Left;
             case Direction.Right:
-                return new Vector2(1, 0);
+                return Right;
             default:
                 throw new Exception("Impossible");
         }
+    }
+
+    public static Direction ToDirection(this Vector2 d)
+    {
+        if (d == Up) return Direction.Up;
+        if (d == Down) return Direction.Down;
+        if (d == Left) return Direction.Left;
+        if (d == Right) return Direction.Right;
+        throw new Exception(string.Format("{0} is not a valid direction vector", d));
     }
 }

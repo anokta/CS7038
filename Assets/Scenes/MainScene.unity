@@ -557,7 +557,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 601924071}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7.5, y: 5.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -589,20 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5a7ecb8eb434447abe0c66add51928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 100000, guid: c5828a3191b6d7846a43e92f6dc0fd61, type: 2}
-  patientPrefab: {fileID: 100000, guid: 0bba4af937e129b4f897197d1a4e2882, type: 2}
-  wallPrefab: {fileID: 100000, guid: 2f611c5c1a7c626439a08e791ce50c2c, type: 2}
-  cratePrefab: {fileID: 100000, guid: e7869cc7ee3e0dc4faf51b845dca71f7, type: 2}
-  trolleyPrefab: {fileID: 100000, guid: a3e19f5ef73362e44a64c8ee616f16e6, type: 2}
-  sanitizerPrefab: {fileID: 100000, guid: 08e6c2f827a64ed4f9a5d21d48661a63, type: 2}
-  doorPrefab: {fileID: 100000, guid: 358bc0f2a0382974099a4dae87e00efc, type: 2}
-  fountainPrefab: {fileID: 100000, guid: c02d9f8fff6f3d5408ee2dd417124e93, type: 2}
-  laserEmitterPrefab: {fileID: 100000, guid: 151814b77a572e448bc41d4a9b57f6d7, type: 2}
-  mirrorPrefab: {fileID: 100000, guid: 882500b8357fabf438c4a8aab6fd450b, type: 2}
-  mirrorInversePrefab: {fileID: 100000, guid: 6099c8780ba9b784aa8730a03701e8ab, type: 2}
-  explosiveCratePrefab: {fileID: 100000, guid: 75c26bde281ea4746bb52c210b008d3c, type: 2}
-  gatePrefab: {fileID: 100000, guid: ade888da92771354a9788c9047297b38, type: 2}
-  leverPrefab: {fileID: 100000, guid: c1909bfd3b22b7944b57e195b6c00a7f, type: 2}
 --- !u!4 &795458501
 Transform:
   m_ObjectHideFlags: 0

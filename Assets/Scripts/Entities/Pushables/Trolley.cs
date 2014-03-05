@@ -11,8 +11,6 @@ public class Trolley : Pushable
     {
         base.Start();
 
-        Sfx = "Push Trolley";
-
         previousPosition = transform.position;
 
         timer = new Timer();
@@ -44,6 +42,8 @@ public class Trolley : Pushable
         if (canPush && !timer.running)
         {
             timer.Reset();
+
+            audioManager.PlaySFX("Push Trolley");
         }
 
         return canPush;
@@ -57,7 +57,6 @@ public class Trolley : Pushable
                 var trolley = hit.collider.GetComponent<Trolley>();
                 if (trolley != null)
                 {
-                    // OPTIONAL: Should it stay still or replace the original position? (needs an additional check on the next push value if used)
                     trolley.Push(direction);
                     return false;
                 }

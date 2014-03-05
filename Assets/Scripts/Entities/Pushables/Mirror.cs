@@ -10,7 +10,6 @@ public class Mirror : Pushable
     public Mirror()
     {
         MovingWithPlayer = true;
-        Sfx = "Push Crate";
 
         //TODO: parameterize
         Forward = true;

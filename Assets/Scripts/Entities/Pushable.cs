@@ -4,7 +4,6 @@ public abstract class Pushable : Entity
 {
     public bool MovingWithPlayer { get; protected set; }
 
-    protected string Sfx;
     protected bool SpoilHand = true;
 
     public virtual bool Push(Vector3 direction)
@@ -13,11 +12,6 @@ public abstract class Pushable : Entity
 
         if (canPush)
         {
-            if (Sfx != null)
-            {
-                audioManager.PlaySFX(Sfx);
-            }
-
             if (SpoilHand)
             {
                 var controller = FindObjectOfType<PlayerController>();

@@ -94,7 +94,9 @@ public class GameWorld : MonoBehaviour
         Accessibles = new ArrayList();
         Switchables = new ArrayList();
 
-        GameEventManager.TriggerGameMenu();
+        GameEventManager.TriggerGameMenu(); 
+        
+        Grouping.GroupManager.main.group["Game"].Add(this);
     }
     // Update is called once per frame
     void Update()
@@ -276,7 +278,9 @@ public class GameWorld : MonoBehaviour
         Collectibles.Clear();
         Pushables.Clear();
         Accessibles.Clear();
-        Switchables.Clear();
+        Switchables.Clear(); 
+        
+        Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Dialogue"];
     }
 
     void BindLeverGate()

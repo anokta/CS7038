@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gate : Accessible {
+public class Gate : Accessible
+{
 
     // TO BE CHANGED
     public Sprite gateOpen, gateClosed;
-    SpriteRenderer spriteRenderer;
     //
 
     private bool locked;
 
-	// Use this for initialization
-	protected override void Start () 
+    // Use this for initialization
+    protected override void Start()
     {
         base.Start();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
         locked = true;
-	}
+    }
 
     public override bool Enter()
     {

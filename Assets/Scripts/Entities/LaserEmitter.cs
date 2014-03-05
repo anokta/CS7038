@@ -18,8 +18,10 @@ public class LaserEmitter : Entity
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         var direction = Direction;
         var directionVector = direction.ToVector2();
         var origin = transform.position.xy();

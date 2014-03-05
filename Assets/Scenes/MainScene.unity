@@ -422,7 +422,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: a151f683cc8de914faf6317d6c7385c6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .5
+  m_Volume: .400000006
   m_Pitch: 1.33000004
   Loop: 0
   Mute: 0
@@ -570,6 +570,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 795458501}
   - 114: {fileID: 795458500}
+  - 114: {fileID: 795458502}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -613,6 +614,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &795458502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795458499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04b248e00960aa54bbe4f0e78c501f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - Game
+  - Dialogue
+  caseSensitive: 0
+  main: 1
 --- !u!1 &877437076
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +680,118 @@ GUIText:
     rgba: 4294967295
   m_PixelCorrect: 1
   m_RichText: 1
+--- !u!1 &968405516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 968405518}
+  - 114: {fileID: 968405519}
+  - 82: {fileID: 968405517}
+  m_Layer: 0
+  m_Name: 13 Dialogue Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &968405517
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 968405516}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: .75
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!4 &968405518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 968405516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &968405519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 968405516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3549cd169f8b69649816325fd6226a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiSkin: {fileID: 11400000, guid: 797a33c8361795e42b4fae147b1e22a7, type: 2}
+  textSpeed: 40
+  authors:
+  - name: Dr Handrew
+    voice: {fileID: 8300000, guid: 503b14d47e1dc364e9aed7bce8764abd, type: 3}
+    x: .300000012
+    y: .75
+    textColor: {r: .378243953, g: .563611209, b: .779411793, a: 1}
+    avatar: {fileID: 2800000, guid: 1bfc6e149f469d14aa2b69842e88168d, type: 3}
+  - name: Nurse Glovia
+    voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
+    x: .75
+    y: .75
+    textColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
+    avatar: {fileID: 2800000, guid: 0af51bac2253a534185698cbf9345c23, type: 3}
 --- !u!1 &1250130965
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +825,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250130965}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 31f8a78ff68cfe24f89ee8696f40c817, type: 3}
   m_PlayOnAwake: 0

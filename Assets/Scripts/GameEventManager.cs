@@ -7,7 +7,7 @@ public static class GameEventManager
     public delegate void GameEvent();
 
     // Game Events
-    public static event GameEvent LevelStart, LevelOver, GameMenu, GameQuit; 
+    public static event GameEvent LevelStart, LevelOver, GameMenu, GameQuit;
 
     // Game State
     public enum GameState { InMenu, Running, Over };
@@ -15,11 +15,11 @@ public static class GameEventManager
 
 
     public static void TriggerLevelStart()
-	{
+    {
         if (LevelStart != null)
         {
             LevelStart();
-            CurrentState = GameState.Running; 
+            CurrentState = GameState.Running;
         }
 
         Debug.Log("TriggerGameStart - State: " + CurrentState);

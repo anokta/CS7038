@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using HandyGestures;
 using System;
+using Grouping;
 
 public class PlayerController : MonoBehaviour, IPan
 {
@@ -78,6 +79,8 @@ public class PlayerController : MonoBehaviour, IPan
         animator = this.GetComponent<Animator>();
 
         canSwitch = true;
+
+        Grouping.GroupManager.main.group["Game"].Add(this);
     }
 
     private Vector2 previousPosition;

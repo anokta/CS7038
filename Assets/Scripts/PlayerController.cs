@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour, IPan
     private Transform objectPushing;
     private Vector2 previousPushablePosition;
     private Timer timer;
+    private bool moving { get { return timer.running; } }
 
     #region Gestures
 
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour, IPan
                     }
                 }
 
-                if (!timer.running && CanMove())
+                if (!moving && CanMove())
                 {
                     timer.Reset();
                     movement = nextMovement;
@@ -149,7 +150,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         timer.Update();
 
-        if (timer.running)
+        if (moving)
         {
             var newPosition = previousPosition + timer.progress * movement;
             if (objectPushing != null)

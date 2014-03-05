@@ -5,6 +5,7 @@ public class Trolley : Pushable
     private Vector2 previousPosition;
     private Vector2 movement;
     private Timer timer;
+    private bool moving { get { return timer.running; } }
 
     // Use this for initialization
     protected override void Start()
@@ -55,7 +56,7 @@ public class Trolley : Pushable
         {
             case "Pushable":
                 var trolley = hit.collider.GetComponent<Trolley>();
-                if (trolley != null)
+                if (trolley != null && moving)
                 {
                     trolley.Push(direction);
                     return false;

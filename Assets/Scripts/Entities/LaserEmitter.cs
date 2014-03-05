@@ -35,7 +35,7 @@ public class LaserEmitter : Entity
             DebugUtils.Assert(hit.collider != null);
             if (hit.collider == null) break; // for robustness
 
-            origin = hit.collider.transform.position;
+            origin = hit.point;
             points.Add(origin);
 
             var mirror = hit.collider.GetComponent<Mirror>();

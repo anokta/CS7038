@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using TiledSharp;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -12,6 +13,7 @@ public class LevelManager
     private GameObject entityContainer;
     private GameObject wallContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
     private readonly Dictionary<TileType, GameObject> prefabs;
+    private readonly Dictionary<int, TextAsset> tileMaps;
 
     public LevelManager()
     {
@@ -31,6 +33,8 @@ public class LevelManager
         prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
         prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
+
+        tileMaps = new Dictionary<int, TextAsset>();
     }
 
     public void Next()
@@ -48,19 +52,25 @@ public class LevelManager
 
     public bool Load(int level)
     {
-        var path = string.Format("Assets/Levels/Level{0}.tmx", level);
-        TmxMap map;
+        TextAsset asset;
 
-        try
+        if (tileMaps.ContainsKey(level))
         {
-            map = new TmxMap(path);
+            asset = tileMaps[level];
         }
-        catch (Exception)
+        else
         {
-            return false;
+            var name = string.Format("Level{0}", level);
+
+            asset = Resources.Load<TextAsset>(name);
+            if (asset == null) return false;
+            
+            tileMaps[level] = asset;
         }
 
         Level = level;
+        var reader = new StringReader(asset.text);
+        var map = new TmxMap(reader);
         var tiles = map.Layers[0].Tiles;
 
         // Instantiate the containers

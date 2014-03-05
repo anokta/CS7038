@@ -211,7 +211,7 @@ public class GameWorld : MonoBehaviour
                         Walls.Add((Instantiate(wallPrefab, new Vector3(i - offsetX, -j + offsetY, wallPrefab.transform.position.z), Quaternion.identity) as GameObject).transform);
                         Transform wall = (Walls[Walls.Count - 1] as Transform);
                         wall.parent = WallContainer.transform;
-                        wall.GetComponent<SpriteRenderer>().sortingOrder = -2 * Mathf.RoundToInt(wall.position.y);
+                        wall.GetComponent<SpriteRenderer>().sortingOrder = - Mathf.RoundToInt(4 * wall.position.y);
                         break;
                     case 'b': // Pushable Crates
                         Pushables.Add((Instantiate(cratePrefab, new Vector3(i - offsetX, -j + offsetY, cratePrefab.transform.position.z), Quaternion.identity) as GameObject).transform);

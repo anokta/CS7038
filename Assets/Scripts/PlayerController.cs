@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour, IPan
         player = transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
         timer = new Timer();
-        timer.duration = 0.45f;
+        timer.duration = 0.4f;
         timer.repeating = true;
         timer.Complete += CompleteMoving;
 
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour, IPan
     {
         if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
 
-        spriteRenderer.sortingOrder = -2 * Mathf.RoundToInt(player.position.y) + 1;
+        spriteRenderer.sortingOrder = - Mathf.RoundToInt(4 * player.position.y) + 1;
 
         timer.Update();
 

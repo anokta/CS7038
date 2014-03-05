@@ -920,7 +920,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyDown
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 823855289546e594084e267a03a11428, type: 2}
@@ -935,7 +935,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyRight
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 546f2d02db6c408499ce8aad3aa6b3a8, type: 2}
@@ -950,7 +950,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyLeft
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 9a46abe2a9b2ec042be7c525a623476e, type: 2}
@@ -965,7 +965,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HandyUp
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 7efdb01a04086e94183c723fffe93ea3, type: 2}
@@ -980,7 +980,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Push Down'
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 421a788ef95f03b4e9ff6c61538fb90e, type: 2}
@@ -995,7 +995,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Push Left'
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 9ea4dd4fab126874dbd118015ba42f9b, type: 2}
@@ -1025,7 +1025,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Push Up'
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 7a85dd90d9e73bd4c91e5527c37291da, type: 2}
@@ -1040,7 +1040,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Idle Left'
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 1691850b7954b27418ccc5d709462654, type: 2}
@@ -1055,7 +1055,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Idle Down'
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 566831b5d3590794e9aae0f13dac3d20, type: 2}
@@ -1070,7 +1070,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Idle Up'
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: e389493877d088a49ae78d8f363175d7, type: 2}
@@ -1085,7 +1085,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Push Right'
-  m_Speed: 3
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: f06217bfdbce4ea409efd8407d14f3d6, type: 2}
@@ -1100,7 +1100,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: '[Handrew] Idle Right'
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: f7ce0510e95a417418b1b88b49713cd4, type: 2}

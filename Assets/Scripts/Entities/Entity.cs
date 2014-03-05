@@ -24,6 +24,6 @@ public class Entity : MonoBehaviour
 
     protected virtual void Update()
     {
-        spriteRenderer.sortingOrder = -2 * Mathf.RoundToInt(entity.position.y);
+        spriteRenderer.sortingOrder =  - Mathf.RoundToInt(4 * entity.position.y);
     }
 }

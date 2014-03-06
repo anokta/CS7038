@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
-public class Mirror : Pushable
+public class Mirror : Switchable
 {
     /// <summary>
     /// Indicates the direction of the mirror. If true, laser coming from top is reflected to right.
@@ -9,8 +10,6 @@ public class Mirror : Pushable
 
     public Mirror()
     {
-        MovingWithPlayer = true;
-
         //TODO: parameterize
         Forward = true;
     }
@@ -37,4 +36,11 @@ public class Mirror : Pushable
                 throw new Exception("Impossible");
         }
     }
+
+	public override void Switch()
+	{
+
+		Forward = !Forward;
+		transform.rotation = Quaternion.AngleAxis (Forward ? 0 : 90, Vector3.forward);
+	}
 }

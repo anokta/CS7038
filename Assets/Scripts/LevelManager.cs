@@ -150,7 +150,7 @@ public class LevelManager
                     }
                     break;
                 case TileType.Mirror:
-                    parent = pushableContainer;
+                    parent = switchableContainer;
                     if (config.ContainsKey(position))
                     {
                         var mirror = gameObj.GetComponent<Mirror>();

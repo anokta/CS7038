@@ -39,7 +39,6 @@ public class Mirror : Switchable
 
 	public override void Switch()
 	{
-
 		Forward = !Forward;
 		transform.rotation = Quaternion.AngleAxis (Forward ? 0 : 90, Vector3.forward);
 	}

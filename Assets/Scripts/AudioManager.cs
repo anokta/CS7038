@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Grouping;
 
 public class AudioManager : MonoBehaviour
 {
@@ -7,10 +8,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource collectSfx, pushSfx, push2Sfx, doorSfx, fountainSfx, leverSfx, treatedSfx;
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
-        GameEventManager.GameMenu += GameMenu;
-        GameEventManager.LevelStart += LevelStart;
+        GroupManager.main.group["Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
+        GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
     }
 
     // Update is called once per frame

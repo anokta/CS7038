@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Grouping;
 
 public class GUIManager : MonoBehaviour
 {
@@ -9,11 +10,11 @@ public class GUIManager : MonoBehaviour
 	public GUIText start, over;
 
 	// Use this for initialization
-	void Awake()
-	{
-		GameEventManager.GameMenu += GameMenu;
-		GameEventManager.LevelStart += LevelStart;
-		GameEventManager.LevelOver += LevelOver;
+	void Start()
+    {
+        GroupManager.main.group["Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
+        GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 	}
 	
 	// Update is called once per frame

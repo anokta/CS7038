@@ -145,8 +145,6 @@ public class PlayerController : MonoBehaviour, IPan
     // Update is called once per frame
     void Update()
     {
-        if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
-
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
         timer.Update();

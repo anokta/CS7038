@@ -1,4 +1,5 @@
 using UnityEngine;
+using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
@@ -11,13 +12,10 @@ public class GameWorld : MonoBehaviour
 
         levelManager = new LevelManager();
 
-        GameEventManager.GameMenu += GameMenu;
-        GameEventManager.LevelStart += LevelStart;
-        GameEventManager.LevelOver += LevelOver;
+        GroupManager.main.group["Game"].Add(this);
+        GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 
-        GameEventManager.TriggerGameMenu();
-
-        Grouping.GroupManager.main.group["Game"].Add(this);
     }
 
     // Update is called once per frame
@@ -26,56 +24,28 @@ public class GameWorld : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Exit the application
-            GameEventManager.TriggerGameQuit();
+            Application.Quit();
         }
 
-        switch (GameEventManager.CurrentState)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            case GameEventManager.GameState.InMenu:
-                if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonDown(0))
-                {
-                    // Start the level
-                    GameEventManager.TriggerLevelStart();
-                }
-
-                break;
-
-            case GameEventManager.GameState.Running:
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    // Restart the level (for testing purposes)
-                    GameEventManager.TriggerLevelOver();
-                    levelManager.Level--;
-                    GameEventManager.TriggerLevelStart();
-                }
-
-                #region TO_BE_DELETED
-
-                // Testing purposes only //
-                var patients = FindObjectsOfType<Patient>();
-                var isOver = true;
-                foreach (var patient in patients)
-                {
-                    isOver &= patient.GetComponent<Patient>().IsTreated();
-                }
-
-                if (isOver)
-                {
-                    GameEventManager.TriggerLevelOver();
-                }
-
-                break;
-
-            case GameEventManager.GameState.Over:
-                if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonDown(0))
-                {
-                    // Start the level
-                    GameEventManager.TriggerLevelStart();
-                }
-                #endregion
-
-                break;
+            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
         }
+
+        // Testing purposes only //
+        var patients = FindObjectsOfType<Patient>();
+        var isOver = true;
+        foreach (var patient in patients)
+        {
+            isOver &= patient.GetComponent<Patient>().IsTreated();
+        }
+
+        if (isOver)
+        {
+            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
+        }
+
     }
 
     void GameMenu()
@@ -97,3 +67,4 @@ public class GameWorld : MonoBehaviour
         Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Dialogue"];
     }
 }
+    

@@ -569,8 +569,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 795458501}
-  - 114: {fileID: 795458500}
   - 114: {fileID: 795458502}
+  - 114: {fileID: 795458503}
+  - 114: {fileID: 795458500}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -612,10 +613,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
+  - Menu
   - Game
+  - Over
   - Dialogue
   caseSensitive: 0
   main: 1
+--- !u!114 &795458503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795458499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37a898393f7d8b46b60b5cdd5258ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &877437076
 GameObject:
   m_ObjectHideFlags: 0

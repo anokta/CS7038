@@ -85,6 +85,8 @@ public class DialogueInstance
 
     bool LoadEntry()
     {
+        displayedText = "";
+
         if (currentEntryIndex >= entries.Count)
         {
             currentEntry = null;

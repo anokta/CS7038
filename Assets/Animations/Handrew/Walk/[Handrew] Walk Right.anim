@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: '[Handrew] Walk Down'
+  m_Name: '[Handrew] Walk Right'
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -18,37 +18,37 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300000, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .0625
-      value: {fileID: 21300002, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300002, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .125
-      value: {fileID: 21300004, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300004, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .1875
-      value: {fileID: 21300006, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300006, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .25
-      value: {fileID: 21300008, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300008, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .3125
-      value: {fileID: 21300010, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300010, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .375
-      value: {fileID: 21300012, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300012, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .4375
-      value: {fileID: 21300014, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300014, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .5
-      value: {fileID: 21300016, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300016, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .5625
-      value: {fileID: 21300018, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300018, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .625
-      value: {fileID: 21300020, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300020, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .6875
-      value: {fileID: 21300022, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300022, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .75
-      value: {fileID: 21300024, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300024, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .8125
-      value: {fileID: 21300026, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300026, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .875
-      value: {fileID: 21300028, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300028, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     - time: .9375
-      value: {fileID: 21300030, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+      value: {fileID: 21300030, guid: d7a7bae258cf1b14bbb6e295763dfcb6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212

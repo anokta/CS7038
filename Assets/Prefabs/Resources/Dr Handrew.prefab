@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 95: {fileID: 9500000}
   - 61: {fileID: 6100000}
+  - 95: {fileID: 9500000}
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Dr Handrew
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.14999998, y: 1.14999998, z: 1.14999998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!61 &6100000
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5a1f0bd18780335469995d3c17532429, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8381b739be5e2e142aa36e78ff4f801a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

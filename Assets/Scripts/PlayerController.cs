@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     timer.Reset();
                     movement = nextMovement;
+                    canSwitch = true;
                 }
 
                 return true;
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour, IPan
     {
         if (GameEventManager.CurrentState != GameEventManager.GameState.Running) return;
 
-        spriteRenderer.sortingOrder = - Mathf.RoundToInt(4 * player.position.y) + 1;
+        spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
         timer.Update();
 
@@ -172,26 +173,44 @@ public class PlayerController : MonoBehaviour, IPan
             animator.SetBool("Pushing", false);
         }
 
-        // Set animation
-        int direction = -1;
-        if (movement == new Vector2(0, -1))
+        SetAnimationState(moving ? movement : nextMovement);
+    }
+
+    private void SetAnimationState(Vector2 directionVector)
+    {
+        string direction = null;
+
+        if (directionVector == new Vector2(0, -1))
         {
-            direction = 0;
+            direction = "Down";
         }
-        else if (movement == new Vector2(0, 1))
+        else if (directionVector == new Vector2(0, 1))
         {
-            direction = 2;
+            direction = "Up";
         }
-        else if (movement == new Vector2(1, 0))
+        else if (directionVector == new Vector2(1, 0))
         {
-            direction = 1;
+            direction = "Right";
         }
-        else if (movement == new Vector2(-1, 0))
+        else if (directionVector == new Vector2(-1, 0))
         {
-            direction = 3;
+            direction = "Left";
         }
 
-        animator.SetInteger("Direction", direction);
+        if (direction != null)
+        {
+            if (moving)
+            {
+                if (animator.GetBool("Pushing"))
+                    animator.CrossFade("Push " + direction, 0.0f);
+                else
+                    animator.CrossFade("Walk " + direction, 0.0f);
+            }
+            else
+            {
+                animator.CrossFade("Idle " + direction, 0.0f);
+            }
+        }
     }
 
     private bool CanMove()
@@ -263,7 +282,6 @@ public class PlayerController : MonoBehaviour, IPan
         if (playerMoving && CanMove())
         {
             movement = nextMovement;
-            canSwitch = true;
         }
         else
         {

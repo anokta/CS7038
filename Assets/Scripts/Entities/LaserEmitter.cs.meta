@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: ef8c4425d72614d4885f0ca863c401eb
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - laserUp: {fileID: 21300000, guid: b0b9bc05aa7e4d64eae18dbb624b931d, type: 3}
+  - laserDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
+  - laserLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
+  - laserRight: {fileID: 21300000, guid: 1ab6184170cdb7f4284a4a3cdb9cb07e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

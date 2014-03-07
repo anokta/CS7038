@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d606a3047dd139e459e9d1a0aaea4aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateOpen: {fileID: 21300000, guid: 03d11622762d1a84a83f118934af86c5, type: 3}
-  gateClosed: {fileID: 21300000, guid: fc7e3a2dc68f32248a6a4fec6a60c4cc, type: 3}
+  gateOpen: {fileID: 21300000, guid: 7a5d2d734559d1e4ca509013e0e18a59, type: 3}
+  gateClosed: {fileID: 21300000, guid: 57c09aa629fb74f468f805c22d587c69, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: fc7e3a2dc68f32248a6a4fec6a60c4cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57c09aa629fb74f468f805c22d587c69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

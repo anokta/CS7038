@@ -150,7 +150,7 @@ public class LevelManager
                             var laserEmitter = gameObj.GetComponent<LaserEmitter>();
                             var directionVector = ParseVector2(config[position]);
                             laserEmitter.Direction = directionVector.ToDirection();
-                            transform.rotation = Quaternion.FromToRotation(DirectionExtensions.Down, directionVector);
+                            //transform.rotation = Quaternion.FromToRotation(DirectionExtensions.Down, directionVector);
                         }
                         break;
                     case TileType.Mirror:
@@ -159,7 +159,7 @@ public class LevelManager
                         {
                             var mirror = gameObj.GetComponent<Mirror>();
                             mirror.Forward = false;
-                            mirror.transform.localScale = new Vector3(-mirror.transform.localScale.x, mirror.transform.localScale.y, mirror.transform.localScale.z); //transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
+                         //   mirror.transform.localScale = new Vector3(-mirror.transform.localScale.x, mirror.transform.localScale.y, mirror.transform.localScale.z); //transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
                         }
                         break;
                     case TileType.Wall:

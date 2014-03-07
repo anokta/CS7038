@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gate: {fileID: 0}
+  leverOn: {fileID: 21300000, guid: 37f5a51dd8ef0bf4493d9c8819a3ad62, type: 3}
+  leverOff: {fileID: 21300000, guid: 64d13cd9de247bc45993081faa7beb80, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -73,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 5d56051510cc33c49b88c1fefb6ce312, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64d13cd9de247bc45993081faa7beb80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

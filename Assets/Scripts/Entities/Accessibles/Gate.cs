@@ -30,9 +30,16 @@ public class Gate : Accessible
         }
     }
 
+	//Collider2D collider;
+
+	public bool isLocked {
+		get { return locked; }
+	}
+
     public void ToggleLock()
     {
         locked = !locked;
+		this.collider2D.enabled = locked;
 
         spriteRenderer.sprite = locked ? gateClosed : gateOpen;
     }

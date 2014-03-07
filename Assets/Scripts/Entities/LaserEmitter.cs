@@ -1,62 +1,81 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LaserEmitter : Entity
 {
-    public Direction Direction;
-    private LineStripRenderer lineStrip;
+	public Direction Direction;
+	private LineStripRenderer lineStrip;
+	public Sprite laserUp;
+	public Sprite laserDown;
+	public Sprite laserLeft;
+	public Sprite laserRight;
+	private SpriteRenderer renderer;
 
-    public LaserEmitter()
-    {
-        Direction = Direction.Down;
-    }
+	public LaserEmitter()
+	{
+		Direction = Direction.Down;
+	}
 
-    // Use this for initialization
-    protected override void Start()
-    {
-        base.Start();
+	// Use this for initialization
+	protected override void Start()
+	{
+		base.Start(); 
 
-        lineStrip = new LineStripRenderer(this);
-    }
+		lineStrip = new LineStripRenderer(this);
+		renderer = GetComponent<SpriteRenderer>();
+	}
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
+	private Vector2 height = new Vector2(0, 0.3f);
 
-        var direction = Direction;
-        var directionVector = direction.ToVector2();
-        var origin = transform.position.xy();
-        var points = new List<Vector2>();
-        points.Add(origin);
+	// Update is called once per frame
+	protected override void Update()
+	{
+		base.Update();
 
-        for (; ; )
-        {
-            var hit = Physics2D.Raycast(origin + directionVector, directionVector, 15);  //TODO: change 15 to max level width
+		if (Direction == Direction.Down && renderer.sprite != laserDown) {
+			renderer.sprite = laserDown;
+		} else if (Direction == Direction.Up && renderer.sprite != laserUp) {
+			renderer.sprite = laserUp;
+		} else if (Direction == Direction.Left && renderer.sprite != laserLeft) {
+			renderer.sprite = laserLeft;
+		} else if (Direction == Direction.Right && renderer.sprite != laserRight) {
+			renderer.sprite = laserRight;
+		} else if (Direction == null) {
+			throw new Exception("Impossibru!");
+		}
 
-            DebugUtils.Assert(hit.collider != null);
-            if (hit.collider == null) break; // for robustness
+		var direction = Direction;
+		var directionVector = direction.ToVector2();
+		var origin = transform.position.xy();
+		var points = new List<Vector2>();
+		points.Add(origin + height);
 
-            origin = hit.point;
-            points.Add(origin);
+		for (; ;) {
+			var hit = Physics2D.Raycast(origin + directionVector, directionVector, 15);  //TODO: change 15 to max level width
 
-            var mirror = hit.collider.GetComponent<Mirror>();
-            if (mirror != null)
-            {
-                direction = mirror.Reflect(direction);
-                directionVector = direction.ToVector2();
-                continue;
-            }
+			DebugUtils.Assert(hit.collider != null);
+			if (hit.collider == null)
+				break; // for robustness
 
-            if (hit.collider.name.StartsWith("Explosive"))
-            {
-                Destroy(hit.collider.gameObject);
-                continue;
-            }
+			origin = hit.point;
+			points.Add(origin + new Vector2(0, 0.3f));
 
-            break;
-        }
+			var mirror = hit.collider.GetComponent<Mirror>();
+			if (mirror != null) {
+				direction = mirror.Reflect(direction);
+				directionVector = direction.ToVector2();
+				continue;
+			}
 
-        lineStrip.Draw(points);
-    }
+			if (hit.collider.name.StartsWith("Explosive")) {
+				Destroy(hit.collider.gameObject);
+				continue;
+			}
+
+			break;
+		}
+
+		lineStrip.Draw(points);
+	}
 }

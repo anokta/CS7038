@@ -8,6 +8,9 @@ public class Mirror : Switchable
     /// </summary>
     public bool Forward;
 
+	public Sprite mirrorForward;
+	public Sprite mirrorSwitched;
+
     public Mirror()
     {
         //TODO: parameterize
@@ -18,7 +21,10 @@ public class Mirror : Switchable
     protected override void Start()
     {
         base.Start();
+		renderer = GetComponent<SpriteRenderer>();
     }
+
+	private SpriteRenderer renderer;
 
     public Direction Reflect(Direction incoming)
     {
@@ -42,7 +48,14 @@ public class Mirror : Switchable
         audioManager.PlaySFX("Mirror");
 
 		Forward = !Forward;
-        entity.localScale = new Vector3(-entity.localScale.x, entity.localScale.y, entity.localScale.z); //transform.rotation = Quaternion.AngleAxis (Forward ? 0 : 90, Vector3.forward);
+
+		if (Forward && renderer.sprite != mirrorForward) {
+			renderer.sprite = mirrorForward;
+		}
+		else if (!Forward && renderer.sprite != mirrorSwitched) {
+			renderer.sprite = mirrorSwitched;
+		}
+        //entity.localScale = new Vector3(-entity.localScale.x, entity.localScale.y, entity.localScale.z); //transform.rotation = Quaternion.AngleAxis (Forward ? 0 : 90, Vector3.forward);
 
         var controller = FindObjectOfType<PlayerController>();
         controller.spoilHand(0.5f);

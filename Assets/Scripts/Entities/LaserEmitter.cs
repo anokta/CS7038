@@ -48,7 +48,7 @@ public class LaserEmitter : Entity
 		var direction = Direction;
 		var directionVector = direction.ToVector2();
 		var origin = transform.position.xy();
-		var points = new List<Vector2>();
+		var points = new List<Vector3>();
 		points.Add(origin + height);
 
 		for (; ;) {
@@ -59,7 +59,7 @@ public class LaserEmitter : Entity
 				break; // for robustness
 
 			origin = hit.point;
-			points.Add(origin + new Vector2(0, 0.3f));
+			points.Add(origin.xy0() + new Vector3(0, 0.3f, 0));
 
 			var mirror = hit.collider.GetComponent<Mirror>();
 			if (mirror != null) {

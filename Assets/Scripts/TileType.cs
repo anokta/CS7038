@@ -1,10 +1,9 @@
 ﻿public enum TileType
 {
     Empty,
-    Crate, Trolley, Explosive,
-    Player = 6, Patient, Sanitizer, Fountain,
-    Door = 11, Gate, Lever,
-    LaserEmitter = 16, Mirror,
-    Wall = 21,
-    Floor = 22
+    Crate = 1, Trolley, Explosive,
+    Player = 7, Patient, Sanitizer, Fountain,
+    Door = 13, Gate, Lever,
+    LaserDown = 19, LaserUp, LaserRight, LaserLeft, Mirror, MirrorInverse,
+    Wall = 25, Floor
 }

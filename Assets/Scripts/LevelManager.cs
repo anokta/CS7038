@@ -11,7 +11,7 @@ public class LevelManager
 
     // Entities
     private GameObject entityContainer;
-    private GameObject wallContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
+    private GameObject wallContainer, floorContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
     private readonly Dictionary<TileType, GameObject> prefabs;
     private readonly Dictionary<int, TextAsset> tileMaps;
 
@@ -26,9 +26,13 @@ public class LevelManager
         prefabs[TileType.Explosive] = Resources.Load<GameObject>("ExplosiveCrate");
         prefabs[TileType.Fountain] = Resources.Load<GameObject>("Fountain");
         prefabs[TileType.Gate] = Resources.Load<GameObject>("Gate");
-        prefabs[TileType.LaserEmitter] = Resources.Load<GameObject>("LaserEmitter");
+        prefabs[TileType.LaserDown] = Resources.Load<GameObject>("LaserEmitter");
+        prefabs[TileType.LaserUp] = Resources.Load<GameObject>("LaserEmitter");
+        prefabs[TileType.LaserRight] = Resources.Load<GameObject>("LaserEmitter");
+        prefabs[TileType.LaserLeft] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.Lever] = Resources.Load<GameObject>("Lever");
         prefabs[TileType.Mirror] = Resources.Load<GameObject>("Mirror");
+        prefabs[TileType.MirrorInverse] = Resources.Load<GameObject>("Mirror");
         prefabs[TileType.Patient] = Resources.Load<GameObject>("Patient");
         prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
         prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
@@ -65,7 +69,7 @@ public class LevelManager
 
             asset = Resources.Load<TextAsset>(name);
             if (asset == null) return false;
-            
+
             tileMaps[level] = asset;
         }
 
@@ -78,6 +82,9 @@ public class LevelManager
 
         wallContainer = new GameObject("Walls");
         wallContainer.transform.parent = entityContainer.transform;
+
+        floorContainer = new GameObject("Floors");
+        floorContainer.transform.parent = entityContainer.transform;
 
         collectibleContainer = new GameObject("Collectibles");
         collectibleContainer.transform.parent = entityContainer.transform;
@@ -143,24 +150,33 @@ public class LevelManager
                         parent = accessibleContainer;
                         gates[position] = gameObj.GetComponent<Gate>();
                         break;
-                    case TileType.LaserEmitter:
+                    case TileType.LaserDown:
                         parent = wallContainer;
-                        if (config.ContainsKey(position))
-                        {
-                            var laserEmitter = gameObj.GetComponent<LaserEmitter>();
-                            var directionVector = ParseVector2(config[position]);
-                            laserEmitter.Direction = directionVector.ToDirection();
-                            //transform.rotation = Quaternion.FromToRotation(DirectionExtensions.Down, directionVector);
-                        }
+                        var laserDown = gameObj.GetComponent<LaserEmitter>();
+                        laserDown.Direction = Direction.Down;
+                        break;
+                    case TileType.LaserUp:
+                        parent = wallContainer;
+                        var laserUp = gameObj.GetComponent<LaserEmitter>();
+                        laserUp.Direction = Direction.Up;
+                        break;
+                    case TileType.LaserRight:
+                        parent = wallContainer;
+                        var laserRight = gameObj.GetComponent<LaserEmitter>();
+                        laserRight.Direction = Direction.Right;
+                        break;
+                    case TileType.LaserLeft:
+                        parent = wallContainer;
+                        var laserLeft = gameObj.GetComponent<LaserEmitter>();
+                        laserLeft.Direction = Direction.Left;
                         break;
                     case TileType.Mirror:
                         parent = switchableContainer;
-                        if (config.ContainsKey(position))
-                        {
-                            var mirror = gameObj.GetComponent<Mirror>();
-                            mirror.Forward = false;
-                         //   mirror.transform.localScale = new Vector3(-mirror.transform.localScale.x, mirror.transform.localScale.y, mirror.transform.localScale.z); //transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
-                        }
+                        break;
+                    case TileType.MirrorInverse:
+                        parent = switchableContainer;
+                        var mirror = gameObj.GetComponent<Mirror>();
+                        mirror.Forward = false;
                         break;
                     case TileType.Wall:
                         parent = wallContainer;

@@ -67,4 +67,3 @@ public class GameWorld : MonoBehaviour
         Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Dialogue"];
     }
 }
-    

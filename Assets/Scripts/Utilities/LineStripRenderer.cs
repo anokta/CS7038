@@ -14,7 +14,7 @@ public class LineStripRenderer : Component
         this.parent = parent;
     }
 
-    public void Draw(List<Vector2> points)
+    public void Draw(List<Vector3> points)
     {
         var newLinesCount = points.Count - 1;
 

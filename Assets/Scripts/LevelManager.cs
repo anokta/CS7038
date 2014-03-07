@@ -17,7 +17,7 @@ public class LevelManager
 
     public LevelManager()
     {
-        Level = 3;
+        Level = 0;
 
         prefabs = new Dictionary<TileType, GameObject>();
         prefabs[TileType.Crate] = Resources.Load<GameObject>("Crate");
@@ -33,6 +33,7 @@ public class LevelManager
         prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
         prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
+        prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
 
         tileMaps = new Dictionary<int, TextAsset>();
     }
@@ -71,7 +72,6 @@ public class LevelManager
         Level = level;
         var reader = new StringReader(asset.text);
         var map = new TmxMap(reader);
-        var tiles = map.Layers[0].Tiles;
 
         // Instantiate the containers
         entityContainer = new GameObject("21 Entities");
@@ -95,78 +95,87 @@ public class LevelManager
         var levers = new Dictionary<Vector2, Lever>();
         var gates = new Dictionary<Vector2, Gate>();
 
-        foreach (var tile in tiles)
+        foreach (TmxLayer layer in map.Layers)
         {
-            var tileType = (TileType)tile.Gid;
+            var tiles = layer.Tiles;
 
-            if (tileType == TileType.Empty) continue;
-
-            var indexX = tile.X;
-            var indexY = tile.Y;
-            const int maxY = 11;
-            var position = new Vector2(indexX, maxY - indexY);
-
-            var prefab = prefabs[tileType];
-            var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
-            var transform = gameObj.transform;
-            GameObject parent;
-
-            switch (tileType)
+            foreach (var tile in tiles)
             {
-                case TileType.Player:
-                    parent = entityContainer;
-                    break;
-                case TileType.Crate:
-                case TileType.Trolley:
-                case TileType.Explosive:
-                    parent = pushableContainer;
-                    break;
-                case TileType.Sanitizer:
-                    parent = collectibleContainer;
-                    break;
-                case TileType.Door:
-                case TileType.Fountain:
-                    parent = accessibleContainer;
-                    break;
-                case TileType.Patient:
-                    parent = switchableContainer;
-                    break;
-                case TileType.Lever:
-                    parent = switchableContainer;
-                    levers[position] = gameObj.GetComponent<Lever>();
-                    break;
-                case TileType.Gate:
-                    parent = accessibleContainer;
-                    gates[position] = gameObj.GetComponent<Gate>();
-                    break;                
-                case TileType.LaserEmitter:
-                    parent = wallContainer;
-                    if (config.ContainsKey(position))
-                    {
-                        var laserEmitter = gameObj.GetComponent<LaserEmitter>();
-                        var directionVector = ParseVector2(config[position]);
-                        laserEmitter.Direction = directionVector.ToDirection();
-                        transform.rotation = Quaternion.FromToRotation(DirectionExtensions.Down, directionVector);
-                    }
-                    break;
-                case TileType.Mirror:
-                    parent = switchableContainer;
-                    if (config.ContainsKey(position))
-                    {
-                        var mirror = gameObj.GetComponent<Mirror>();
-                        mirror.Forward = false;
-                        transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
-                    }
-                    break;
-                case TileType.Wall:
-                    parent = wallContainer;
-                    transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y);
-                    break;
-                default:
-                    throw new Exception("Impossible");
-            }
+                var tileType = (TileType)tile.Gid;
 
-            transform.parent = parent.transform;
+                if (tileType == TileType.Empty) continue;
+
+                var indexX = tile.X;
+                var indexY = tile.Y;
+                const int maxY = 11;
+                var position = new Vector2(indexX, maxY - indexY);
+
+                var prefab = prefabs[tileType];
+                var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
+                var transform = gameObj.transform;
+                GameObject parent;
+
+                switch (tileType)
+                {
+                    case TileType.Player:
+                        parent = entityContainer;
+                        break;
+                    case TileType.Crate:
+                    case TileType.Trolley:
+                    case TileType.Explosive:
+                        parent = pushableContainer;
+                        break;
+                    case TileType.Sanitizer:
+                        parent = collectibleContainer;
+                        break;
+                    case TileType.Door:
+                    case TileType.Fountain:
+                        parent = accessibleContainer;
+                        break;
+                    case TileType.Patient:
+                        parent = switchableContainer;
+                        break;
+                    case TileType.Lever:
+                        parent = switchableContainer;
+                        levers[position] = gameObj.GetComponent<Lever>();
+                        break;
+                    case TileType.Gate:
+                        parent = accessibleContainer;
+                        gates[position] = gameObj.GetComponent<Gate>();
+                        break;
+                    case TileType.LaserEmitter:
+                        parent = wallContainer;
+                        if (config.ContainsKey(position))
+                        {
+                            var laserEmitter = gameObj.GetComponent<LaserEmitter>();
+                            var directionVector = ParseVector2(config[position]);
+                            laserEmitter.Direction = directionVector.ToDirection();
+                            transform.rotation = Quaternion.FromToRotation(DirectionExtensions.Down, directionVector);
+                        }
+                        break;
+                    case TileType.Mirror:
+                        parent = switchableContainer;
+                        if (config.ContainsKey(position))
+                        {
+                            var mirror = gameObj.GetComponent<Mirror>();
+                            mirror.Forward = false;
+                            mirror.transform.localScale = new Vector3(-mirror.transform.localScale.x, mirror.transform.localScale.y, mirror.transform.localScale.z); //transform.rotation = Quaternion.AngleAxis(90, Vector3.forward);
+                        }
+                        break;
+                    case TileType.Wall:
+                        parent = wallContainer;
+                        transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y);
+                        break;
+                    case TileType.Floor:
+                        parent = entityContainer;
+                        transform.GetComponent<SpriteRenderer>().sortingOrder = -1000;
+                        break;
+                    default:
+                        throw new Exception("Impossible");
+                }
+
+                transform.parent = parent.transform;
+            }
         }
 
         foreach (var lever in levers)

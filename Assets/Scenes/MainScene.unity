@@ -253,6 +253,7 @@ MonoBehaviour:
   collectSfx: {fileID: 1490680744}
   pushSfx: {fileID: 1784004755}
   push2Sfx: {fileID: 357585753}
+  trolleyLoopSfx: {fileID: 821135575}
   doorSfx: {fileID: 1942921646}
   fountainSfx: {fileID: 2130505892}
   leverSfx: {fileID: 279206010}
@@ -321,7 +322,7 @@ GameObject:
   - 4: {fileID: 357585752}
   - 82: {fileID: 357585753}
   m_Layer: 0
-  m_Name: Push Trolley
+  m_Name: Trolley Push
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +338,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1562966261}
+  m_Father: {fileID: 1253196052}
 --- !u!82 &357585753
 AudioSource:
   m_ObjectHideFlags: 0
@@ -348,7 +349,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 9e6c1ce13a1ef4d4f8eb7c05de59e8ae, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .899999976
+  m_Volume: .400000006
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -530,7 +531,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .396626264, g: .402513444, b: .411764681, a: .0196078438}
+  m_BackGroundColor: {r: .0367646813, g: .0367646813, b: .0367646813, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -630,6 +631,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37a898393f7d8b46b60b5cdd5258ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &821135573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 821135574}
+  - 82: {fileID: 821135575}
+  m_Layer: 0
+  m_Name: Trolley Loop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &821135574
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 821135573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1253196052}
+--- !u!82 &821135575
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 821135573}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 71e8ee1933e1f1f468b6e893c4ecbcde, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &877437076
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,9 +913,9 @@ AudioSource:
   m_GameObject: {fileID: 1250130965}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 31f8a78ff68cfe24f89ee8696f40c817, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2a46645f21da6004e8527d85e32741fc, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .400000006
+  m_Volume: .300000012
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -877,6 +963,34 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1253196051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1253196052}
+  m_Layer: 0
+  m_Name: Trolley
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253196052
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253196051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 821135574}
+  - {fileID: 357585752}
+  m_Father: {fileID: 1562966261}
 --- !u!1 &1478768148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,9 +1148,9 @@ Transform:
   - {fileID: 1490680743}
   - {fileID: 1942921645}
   - {fileID: 2130505891}
+  - {fileID: 1253196052}
   - {fileID: 1784004754}
   - {fileID: 279206009}
-  - {fileID: 357585752}
   - {fileID: 415478287}
   m_Father: {fileID: 287739713}
 --- !u!1 &1706598401

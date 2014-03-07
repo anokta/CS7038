@@ -29,6 +29,8 @@ public class Trolley : Pushable
 
         if (timer.running)
         {
+            audioManager.PlaySFX("Loop Trolley");
+
             var newPosition = previousPosition + timer.progress * movement;
             transform.position = newPosition;
         }
@@ -40,11 +42,14 @@ public class Trolley : Pushable
 
         var canPush = base.Push(direction);
 
-        if (canPush && !timer.running)
+        if (canPush)
         {
-            timer.Reset();
+            if (!timer.running)
+            {
+                timer.Reset();
 
-            audioManager.PlaySFX("Push Trolley");
+                audioManager.PlaySFX("Push Trolley");
+            }
         }
 
         return canPush;
@@ -77,6 +82,8 @@ public class Trolley : Pushable
         if (!canPush)
         {
             timer.Stop();
+            audioManager.StopSFX("Loop Trolley");
+            audioManager.PlaySFX("Push Trolley");
         }
     }
 }

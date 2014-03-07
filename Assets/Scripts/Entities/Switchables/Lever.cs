@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Lever : Switchable {
+public class Lever : Switchable
+{
+    public LeverGateType LeverGateType;
+    public LeverGateManager Manager;
+    public bool Open
+    {
+        get { return Manager[LeverGateType]; }
+    }
 
-    public Gate gate;
+    public Sprite LeverOpen;
+    public Sprite LeverClosed;
 
-	public Sprite leverOn;
-	public Sprite leverOff;
-    
     // Use this for initialization
     protected override void Start()
     {
@@ -16,19 +20,16 @@ public class Lever : Switchable {
 
     public override void Switch()
     {
+        Manager.Switch(LeverGateType);
+
         audioManager.PlaySFX("Lever");
-
-        gate.ToggleLock();
-		var renderer = this.GetComponent<SpriteRenderer>();
-
-		if (gate.isLocked) {
-			renderer.sprite = leverOff;
-		}
-		else {
-			renderer.sprite = leverOn;
-		}
 
         var controller = FindObjectOfType<PlayerController>();
         controller.spoilHand(0.5f);
+    }
+
+    public void UpdateOpenState(bool open)
+    {
+        spriteRenderer.sprite = open ? LeverOpen : LeverClosed;
     }
 }

@@ -1,46 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Gate : Accessible
 {
+    public LeverGateType LeverGateType;
+    public LeverGateManager Manager;
+    public bool Open
+    {
+        get { return Manager[LeverGateType]; }
+    }
 
     // TO BE CHANGED
-    public Sprite gateOpen, gateClosed;
+    public Sprite GateOpen;
+    public Sprite GateClosed;
     //
-
-    private bool locked;
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
-
-        locked = true;
     }
 
     public override bool Enter()
     {
-        if (locked)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return Open;
     }
 
-	//Collider2D collider;
-
-	public bool isLocked {
-		get { return locked; }
-	}
-
-    public void ToggleLock()
+    public void UpdateOpenState(bool open)
     {
-        locked = !locked;
-		this.collider2D.enabled = locked;
+        collider2D.enabled = !open;
 
-        spriteRenderer.sprite = locked ? gateClosed : gateOpen;
+        spriteRenderer.sprite = open ? GateOpen : GateClosed;
     }
 }

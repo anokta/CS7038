@@ -53,10 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: 1
-  laserUp: {fileID: 21300000, guid: b0b9bc05aa7e4d64eae18dbb624b931d, type: 3}
-  laserDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
-  laserLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
-  laserRight: {fileID: 21300000, guid: 1ab6184170cdb7f4284a4a3cdb9cb07e, type: 3}
+  LaserUp: {fileID: 21300000, guid: b0b9bc05aa7e4d64eae18dbb624b931d, type: 3}
+  LaserDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
+  LaserLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
+  LaserRight: {fileID: 21300000, guid: 1ab6184170cdb7f4284a4a3cdb9cb07e, type: 3}
 --- !u!120 &12000000
 LineRenderer:
   m_ObjectHideFlags: 1

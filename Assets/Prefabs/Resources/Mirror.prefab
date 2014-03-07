@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Forward: 1
-  mirrorForward: {fileID: 21300000, guid: fccd45d12e26a7e44876409f6a027373, type: 3}
-  mirrorSwitched: {fileID: 21300000, guid: 95111f8a19412cd42bba05a6f5b9572c, type: 3}
+  MirrorForward: {fileID: 21300000, guid: fccd45d12e26a7e44876409f6a027373, type: 3}
+  MirrorInverse: {fileID: 21300000, guid: 95111f8a19412cd42bba05a6f5b9572c, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

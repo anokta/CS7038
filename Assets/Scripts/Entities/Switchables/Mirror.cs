@@ -8,8 +8,8 @@ public class Mirror : Switchable
     /// </summary>
     public bool Forward;
 
-	public Sprite mirrorForward;
-	public Sprite mirrorSwitched;
+	public Sprite MirrorForward;
+	public Sprite MirrorInverse;
 
     public Mirror()
     {
@@ -21,10 +21,7 @@ public class Mirror : Switchable
     protected override void Start()
     {
         base.Start();
-		renderer = GetComponent<SpriteRenderer>();
     }
-
-	private SpriteRenderer renderer;
 
     public Direction Reflect(Direction incoming)
     {
@@ -47,13 +44,13 @@ public class Mirror : Switchable
     {
         base.Update();
 
-        if (Forward && renderer.sprite != mirrorForward)
+        if (Forward && spriteRenderer.sprite != MirrorForward)
         {
-            renderer.sprite = mirrorForward;
+            spriteRenderer.sprite = MirrorForward;
         }
-        else if (!Forward && renderer.sprite != mirrorSwitched)
+        else if (!Forward && spriteRenderer.sprite != MirrorInverse)
         {
-            renderer.sprite = mirrorSwitched;
+            spriteRenderer.sprite = MirrorInverse;
         }
     }
 

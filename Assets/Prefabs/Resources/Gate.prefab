@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d606a3047dd139e459e9d1a0aaea4aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateOpen: {fileID: 21300000, guid: 7a5d2d734559d1e4ca509013e0e18a59, type: 3}
-  gateClosed: {fileID: 21300000, guid: 57c09aa629fb74f468f805c22d587c69, type: 3}
+  LeverGateType: 0
+  GateOpen: {fileID: 21300000, guid: 7a5d2d734559d1e4ca509013e0e18a59, type: 3}
+  GateClosed: {fileID: 21300000, guid: 57c09aa629fb74f468f805c22d587c69, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

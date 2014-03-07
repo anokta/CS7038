@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7980e63743ce81d42beb63665590cd93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gate: {fileID: 0}
-  leverOn: {fileID: 21300000, guid: 37f5a51dd8ef0bf4493d9c8819a3ad62, type: 3}
-  leverOff: {fileID: 21300000, guid: 64d13cd9de247bc45993081faa7beb80, type: 3}
+  LeverGateType: 0
+  LeverOpen: {fileID: 21300000, guid: 37f5a51dd8ef0bf4493d9c8819a3ad62, type: 3}
+  LeverClosed: {fileID: 21300000, guid: 64d13cd9de247bc45993081faa7beb80, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

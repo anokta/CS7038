@@ -13,6 +13,7 @@
         controller.spoilHand(0.5f);
 
         audioManager.PlaySFX("Door");
+
         return true;
     }
 }

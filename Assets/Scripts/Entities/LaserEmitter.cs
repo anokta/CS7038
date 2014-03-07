@@ -6,7 +6,32 @@ public class LaserEmitter : Entity
     /// <summary>
     /// The direction that laser is going (not coming from)
     /// </summary>
-    public Direction Direction;
+    private Direction direction;
+
+    public Direction Direction
+    {
+        get { return direction; }
+        set
+        {
+            direction = value;
+            switch (direction)
+            {
+                case Direction.Up:
+                    spriteRenderer.sprite = LaserUp;
+                    break;
+                case Direction.Down:
+                    spriteRenderer.sprite = LaserDown;
+                    break;
+                case Direction.Left:
+                    spriteRenderer.sprite = LaserLeft;
+                    break;
+                case Direction.Right:
+                    spriteRenderer.sprite = LaserRight;
+                    break;
+            }
+        }
+    }
+
     private LineStripRenderer lineStrip;
     public Sprite LaserUp;
     public Sprite LaserDown;
@@ -15,7 +40,7 @@ public class LaserEmitter : Entity
 
     public LaserEmitter()
     {
-        Direction = Direction.Down;
+        direction = Direction.Down;
     }
 
     // Use this for initialization
@@ -26,35 +51,18 @@ public class LaserEmitter : Entity
         lineStrip = new LineStripRenderer(this);
     }
 
-    private Vector2 height = new Vector2(0, 0.3f);
+    private readonly Vector2 offset = new Vector2(0, 0.3f);
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
 
-        if (Direction == Direction.Down && spriteRenderer.sprite != LaserDown)
-        {
-            spriteRenderer.sprite = LaserDown;
-        }
-        else if (Direction == Direction.Up && spriteRenderer.sprite != LaserUp)
-        {
-            spriteRenderer.sprite = LaserUp;
-        }
-        else if (Direction == Direction.Left && spriteRenderer.sprite != LaserLeft)
-        {
-            spriteRenderer.sprite = LaserLeft;
-        }
-        else if (Direction == Direction.Right && spriteRenderer.sprite != LaserRight)
-        {
-            spriteRenderer.sprite = LaserRight;
-        }
-
-        var direction = Direction;
-        var directionVector = direction.ToVector2();
+        var currDirection = Direction;
+        var directionVector = currDirection.ToVector2();
         var origin = transform.position.xy();
         var points = new List<Vector3>();
-        points.Add(origin + height);
+        points.Add(origin + offset);
 
         for (; ; )
         {
@@ -70,8 +78,8 @@ public class LaserEmitter : Entity
             var mirror = hit.collider.GetComponent<Mirror>();
             if (mirror != null)
             {
-                direction = mirror.Reflect(direction);
-                directionVector = direction.ToVector2();
+                currDirection = mirror.Reflect(currDirection);
+                directionVector = currDirection.ToVector2();
                 continue;
             }
 

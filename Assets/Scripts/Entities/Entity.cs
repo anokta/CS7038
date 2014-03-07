@@ -26,4 +26,9 @@ public class Entity : MonoBehaviour
     {
         spriteRenderer.sortingOrder =  - Mathf.RoundToInt(4 * entity.position.y);
     }
+
+    protected virtual void Awake()
+    {
+        Start();
+    }
 }

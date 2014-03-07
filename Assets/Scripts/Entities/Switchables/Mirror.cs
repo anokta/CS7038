@@ -6,15 +6,23 @@ public class Mirror : Switchable
     /// <summary>
     /// Indicates the direction of the mirror. If true, laser coming from top is reflected to right.
     /// </summary>
-    public bool Forward;
+    private bool forward;
+    public bool Forward
+    {
+        get { return forward; }
+        set
+        {
+            forward = value;
+            spriteRenderer.sprite = forward ? MirrorForward : MirrorInverse;
+        }
+    }
 
 	public Sprite MirrorForward;
 	public Sprite MirrorInverse;
 
     public Mirror()
     {
-        //TODO: parameterize
-        Forward = true;
+        forward = true;
     }
 
     // Use this for initialization
@@ -43,15 +51,6 @@ public class Mirror : Switchable
     protected override void Update()
     {
         base.Update();
-
-        if (Forward && spriteRenderer.sprite != MirrorForward)
-        {
-            spriteRenderer.sprite = MirrorForward;
-        }
-        else if (!Forward && spriteRenderer.sprite != MirrorInverse)
-        {
-            spriteRenderer.sprite = MirrorInverse;
-        }
     }
 
 	public override void Switch()

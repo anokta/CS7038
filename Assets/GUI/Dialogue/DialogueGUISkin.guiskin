@@ -1196,7 +1196,7 @@ MonoBehaviour:
   - m_Name: author
     m_Normal:
       m_Background: {fileID: 2800000, guid: c8cdb63c1a7e4034b941dde3ebfd00e7, type: 3}
-      m_TextColor: {r: .358455896, g: .758113503, b: .95588237, a: 1}
+      m_TextColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1239,7 +1239,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 20
+    m_FontSize: 22
     m_FontStyle: 1
     m_Alignment: 0
     m_WordWrap: 1
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   - m_Name: content
     m_Normal:
       m_Background: {fileID: 2800000, guid: d1de3c7abeac40a46b3258c97e1c7ac1, type: 3}
-      m_TextColor: {r: .858455896, g: 1.2581135, b: 1.45588231, a: 2}
+      m_TextColor: {r: 1.37689424, g: .986591697, b: 1.38235295, a: 2}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 16
+    m_FontSize: 18
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 1

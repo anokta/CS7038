@@ -87,6 +87,7 @@ public class AudioManager : MonoBehaviour
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
 
-        background.Play();
+        if(!background.isPlaying)
+            background.Play();
     }
 }

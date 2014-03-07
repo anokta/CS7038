@@ -43,19 +43,25 @@ public class Mirror : Switchable
         }
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Forward && renderer.sprite != mirrorForward)
+        {
+            renderer.sprite = mirrorForward;
+        }
+        else if (!Forward && renderer.sprite != mirrorSwitched)
+        {
+            renderer.sprite = mirrorSwitched;
+        }
+    }
+
 	public override void Switch()
 	{
         audioManager.PlaySFX("Mirror");
 
 		Forward = !Forward;
-
-		if (Forward && renderer.sprite != mirrorForward) {
-			renderer.sprite = mirrorForward;
-		}
-		else if (!Forward && renderer.sprite != mirrorSwitched) {
-			renderer.sprite = mirrorSwitched;
-		}
-        //entity.localScale = new Vector3(-entity.localScale.x, entity.localScale.y, entity.localScale.z); //transform.rotation = Quaternion.AngleAxis (Forward ? 0 : 90, Vector3.forward);
 
         var controller = FindObjectOfType<PlayerController>();
         controller.spoilHand(0.5f);

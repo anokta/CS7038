@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
         /*1*/
         List<DialogueEntry> entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[0], "Hey Charis, I have an AWESOME idea. What would happen if we destroyed the world in one hour. Wouldn't you join?"));
+        entries.Add(new DialogueEntry(authors[0], "Hey Glovia, I have an AWESOME idea. What would happen if we destroyed the world in one hour. Wouldn't you join?"));
         entries.Add(new DialogueEntry(authors[1], "Indeed. What about Gustav? \nI know, i know . . ."));
         entries.Add(new DialogueEntry(authors[0], "Let's get this party started then! Shall we?"));
         entries.Add(new DialogueEntry(authors[1], "Ok!"));

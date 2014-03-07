@@ -5,7 +5,7 @@ using Grouping;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource background;
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, leverSfx, treatedSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, leverSfx, mirrorSfx, treatedSfx;
 
     // Use this for initialization
     void Start()
@@ -54,6 +54,10 @@ public class AudioManager : MonoBehaviour
 
             case "Lever":
                 leverSfx.Play();
+                break;
+
+            case "Mirror":
+                mirrorSfx.Play();
                 break;
 
             case "Treated":

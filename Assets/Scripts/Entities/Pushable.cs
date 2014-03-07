@@ -4,7 +4,7 @@ public abstract class Pushable : Entity
 {
     public bool MovingWithPlayer { get; protected set; }
 
-    protected bool SpoilHand = true;
+    public bool SpoilHand = true;
 
     public virtual bool Push(Vector3 direction)
     {
@@ -12,11 +12,6 @@ public abstract class Pushable : Entity
 
         if (canPush)
         {
-            if (SpoilHand)
-            {
-                var controller = FindObjectOfType<PlayerController>();
-                controller.spoilHand();
-            }
         }
 
         return canPush;

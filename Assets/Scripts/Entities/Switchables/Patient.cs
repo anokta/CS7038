@@ -23,6 +23,9 @@ public class Patient : Switchable
         if (!treated)
         {
             audioManager.PlaySFX("Treated");
+
+            var controller = FindObjectOfType<PlayerController>();
+            controller.spoilHand(4.0f);
         }
 
         treated = true;

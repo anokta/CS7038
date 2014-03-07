@@ -19,18 +19,18 @@ public class PlayerController : MonoBehaviour, IPan
         Filthy
     }
 
-    int _cleanLevel;
-    public int cleanLevel
+    private float handHygiene;
+    public float HandHygiene
     {
-        get { return _cleanLevel; }
-        set { _cleanLevel = Mathf.Clamp(value, 0, 4); }
+        get { return handHygiene; }
+        set { handHygiene = Mathf.Clamp(value, 0.0f, 4.0f); }
     }
 
     public HandState handState
     {
         get
         {
-            switch (_cleanLevel)
+            switch ((int)handHygiene)
             {
                 case 0:
                     return HandState.Clean;
@@ -45,17 +45,17 @@ public class PlayerController : MonoBehaviour, IPan
 
     public void clean()
     {
-        _cleanLevel = 0;
+        HandHygiene = 0;
     }
 
-    public void improveHand()
+    public void improveHand(float amount)
     {
-        --cleanLevel;
+        HandHygiene -= amount;
     }
 
-    public void spoilHand()
+    public void spoilHand(float amount)
     {
-        ++cleanLevel;
+        HandHygiene += amount;
     }
 
     // Use this for initialization
@@ -239,12 +239,23 @@ public class PlayerController : MonoBehaviour, IPan
                     objectPushing = pushable.transform;
                     previousPushablePosition = objectPushing.position;
                 }
+                if (canPush)
+                {
+                    if (pushable.SpoilHand)
+                    {
+                        spoilHand(0.75f);
+                    }
+                }
 
                 return canMove;
 
             case "Collectible":
                 var collectible = hit.collider.GetComponent<Collectible>();
                 collectible.Collect();
+
+                // Test //
+                improveHand(1.0f);
+                
                 return true;
 
             case "Accessible":

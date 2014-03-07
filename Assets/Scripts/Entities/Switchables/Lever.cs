@@ -16,5 +16,8 @@ public class Lever : Switchable {
         audioManager.PlaySFX("Lever");
 
         gate.ToggleLock();
+
+        var controller = FindObjectOfType<PlayerController>();
+        controller.spoilHand(0.5f);
     }
 }

@@ -21,7 +21,7 @@ public class HUDController : MonoBehaviour
 		float size = Screen.height / 5;
 		var player = GameObject.FindObjectOfType<PlayerController>();
 		if (player != null) {
-			var level = player.cleanLevel;
+			var level = Mathf.RoundToInt(player.HandHygiene);
 			GUI.DrawTexture(new Rect(0, 0, size, size), textures[level]);
 		}
 	}

@@ -45,7 +45,6 @@ public class GameWorld : MonoBehaviour
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Over"];
         }
-
     }
 
     void GameMenu()

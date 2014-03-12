@@ -43,7 +43,7 @@ public class LevelLoader
         if (entityContainer != null) Object.Destroy(entityContainer);
     }
 
-    public bool Load(TmxMap map)
+    public void Load(TmxMap map)
     {
         // Instantiate the containers
         entityContainer = new GameObject("21 Entities");
@@ -188,7 +188,5 @@ public class LevelLoader
                 transform.parent = parent.transform;
             }
         }
-
-        return true;
     }
 }

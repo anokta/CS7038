@@ -32,26 +32,21 @@ public class LevelManager
 
     public void Next()
     {
-        Level++;
+        Load(Level + 1);
+    }
 
-        if (Level >= levels.Length) Level = 0;
-
+    public void Reload()
+    {
         Load(Level);
-
-        PlayerPrefs.Save();
     }
 
-    public bool Reload()
+    public void Load(int level)
     {
-        return Load(Level);
-    }
-
-    public bool Load(int level)
-    {
-        if (level < 0 || level > levels.Length) level = 0;
+        if (level < 0 || level >= levels.Length) level = 0;
         Level = level;
 
         PlayerPrefs.SetInt("Level", Level);
+        PlayerPrefs.Save();
 
         TmxMap map;
 
@@ -63,15 +58,13 @@ public class LevelManager
         {
             var name = levels[level];
             var asset = Resources.Load<TextAsset>(name);
-            if (asset == null) return false;
-
             var reader = new StringReader(asset.text);
-            map = new TmxMap(reader);
 
+            map = new TmxMap(reader);
             tileMaps[level] = map;
         }
         
-        return loader.Load(map);
+        loader.Load(map);
     }
 
     public void Clear()

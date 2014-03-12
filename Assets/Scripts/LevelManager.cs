@@ -11,6 +11,12 @@ public class LevelManager
     /// </summary>
     public int Level { get; private set; }
 
+    public int Width { get; private set; }
+    public int Height { get; private set; }
+    public float AspectRatio { get { return (float)Width / Height; } }
+    public Vector3 CameraPosition { get { return new Vector3((Width - 1) / 2.0f, (Height - 1) / 2.0f, -10); } }
+    public float OrthographicSize { get { return (Camera.main.aspect > AspectRatio ? Height : Width / Camera.main.aspect) / 2.0f + 0.5f; } }
+
     private readonly LevelLoader loader;
 
     private readonly string[] levels;
@@ -63,7 +69,12 @@ public class LevelManager
             map = new TmxMap(reader);
             tileMaps[level] = map;
         }
-        
+
+        Width = map.Width;
+        Height = map.Height;
+        Camera.main.transform.position = CameraPosition;
+        Camera.main.orthographicSize = OrthographicSize;
+
         loader.Load(map);
     }
 

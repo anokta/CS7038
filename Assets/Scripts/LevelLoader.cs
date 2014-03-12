@@ -81,8 +81,7 @@ public class LevelLoader
 
                 var indexX = tile.X;
                 var indexY = tile.Y;
-                const int maxY = 11;
-                var position = new Vector2(indexX, maxY - indexY);
+                var position = new Vector2(indexX, map.Height - indexY - 1);
 
                 var prefab = prefabs[tileType];
                 var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;

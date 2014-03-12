@@ -18,7 +18,7 @@ public class LevelManager
 
     public LevelManager()
     {
-        Level = -1;
+        Level = PlayerPrefs.GetInt("Level", 0) - 1;
         loader = new LevelLoader();
 
         tileMaps = new Dictionary<int, TmxMap>();
@@ -37,6 +37,8 @@ public class LevelManager
         if (Level >= levels.Length) Level = 0;
 
         Load(Level);
+
+        PlayerPrefs.Save();
     }
 
     public bool Reload()
@@ -49,6 +51,8 @@ public class LevelManager
         if (level < 0 || level > levels.Length) level = 0;
         Level = level;
 
+        PlayerPrefs.SetInt("Level", Level);
+
         TmxMap map;
 
         if (tileMaps.ContainsKey(level))
@@ -58,7 +62,6 @@ public class LevelManager
         else
         {
             var name = levels[level];
-            Debug.Log(name);
             var asset = Resources.Load<TextAsset>(name);
             if (asset == null) return false;
 

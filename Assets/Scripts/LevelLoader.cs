@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TiledSharp;
+using TiledMax;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

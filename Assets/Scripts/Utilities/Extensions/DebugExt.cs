@@ -3,7 +3,7 @@
 using System;
 using System.Diagnostics;
 
-public class DebugUtils
+public class DebugExt
 {
     [Conditional("DEBUG")]
     public static void Assert(bool condition)

@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour, IPan
     private bool canSwitch;
     private bool canMove;
     private bool canSpoilHand;
-    private bool wasPressingKey;
 
     private HandController hands;
+    private PlayerKeyboardController keyboardController;
 
     // Use this for initialization
     void Start()
@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, IPan
         timer.repeating = true;
         timer.Complete += CompleteMoving;
         hands = GetComponent<HandController>();
+
+        keyboardController = new PlayerKeyboardController(this);
 
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
@@ -40,15 +42,14 @@ public class PlayerController : MonoBehaviour, IPan
         canSwitch = true;
         canMove = true;
         canSpoilHand = true;
-        wasPressingKey = false;
 
         Grouping.GroupManager.main.group["Game"].Add(this);
     }
 
     private Vector2 previousPosition;
-    private Vector2 movement;
+    public Vector2 movement;
     private Vector2 nextMovement;
-    private bool playerMoving;
+    public bool playerMoving;
     private Transform objectPushing;
     private Vector2 previousPushablePosition;
     private Timer timer;
@@ -60,51 +61,10 @@ public class PlayerController : MonoBehaviour, IPan
     {
         if (timer == null) timer = new Timer();
 
-        playerMoving = PlayerMoving(args);
+        PlayerMoving(args);
     }
 
-    private void UpdateKeyboardMovement()
-    {
-        var delta = new Vector2();
-        PanArgs.State state;
-        var pressingKey = true;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            delta = DirectionExtensions.Down;
-            state = Input.GetKeyDown(KeyCode.W) ? PanArgs.State.Move : PanArgs.State.Hold;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            delta = DirectionExtensions.Up;
-            state = Input.GetKeyDown(KeyCode.S) ? PanArgs.State.Move : PanArgs.State.Hold;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            delta = DirectionExtensions.Right;
-            state = Input.GetKeyDown(KeyCode.A) ? PanArgs.State.Move : PanArgs.State.Hold;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            delta = DirectionExtensions.Left;
-            state = Input.GetKeyDown(KeyCode.D) ? PanArgs.State.Move : PanArgs.State.Hold;
-        }
-        else
-        {
-            pressingKey = false;
-            state = PanArgs.State.Up;
-        }
-
-        if (pressingKey || wasPressingKey)
-        {
-            var args = new PanArgs(HandyDetector.Gesture.LongPress, state, Vector2.zero, Vector2.zero, delta);
-            playerMoving = PlayerMoving(args);
-        }
-
-        wasPressingKey = pressingKey;
-    }
-
-    private bool PlayerMoving(PanArgs args)
+    public void PlayerMoving(PanArgs args)
     {
         Debug.Log(args.state);
         switch (args.state)
@@ -118,26 +78,29 @@ public class PlayerController : MonoBehaviour, IPan
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
                 }
 
-                if (canMove && !Moving && CanMove())
+                if ((canMove || nextMovement != movement) && !Moving && CanMove())
                 {
                     timer.Reset();
-                    movement = nextMovement;
                     canSwitch = true;
                     canMove = true;
                     canSpoilHand = true;
                 }
 
-                return true;
+                playerMoving = true;
+                break;
             case PanArgs.State.Hold:
-                return true;
+                playerMoving = true;
+                break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
                 canSpoilHand = true;
-                return false;
+                playerMoving = false;
+                break;
             default:
-                return false;
+                playerMoving = false;
+                break;
         }
     }
 
@@ -148,7 +111,7 @@ public class PlayerController : MonoBehaviour, IPan
     {
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
-        UpdateKeyboardMovement();
+        keyboardController.Update();
 
         timer.Update();
 
@@ -217,6 +180,8 @@ public class PlayerController : MonoBehaviour, IPan
     private bool CanMove()
     {
         objectPushing = null;
+
+        movement = nextMovement;
 
         // Get the next position
         var nextPosition = previousPosition + nextMovement;

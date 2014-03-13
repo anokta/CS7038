@@ -78,7 +78,7 @@ public class DialogueInstance
     public void StartDialogue()
     {
         displayedText = "";
-        
+
         currentEntryIndex = 0;
         LoadEntry();
     }
@@ -104,6 +104,6 @@ public class DialogueInstance
 
     private static bool Pressed()
     {
-        return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return);
+        return Input.GetMouseButtonDown(0) || InputExt.GetAnyKeyDown(KeyCode.Space, KeyCode.Return);
     }
 }

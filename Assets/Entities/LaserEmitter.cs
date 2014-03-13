@@ -68,7 +68,7 @@ public class LaserEmitter : Entity
         {
             var hit = Physics2D.Raycast(origin + directionVector, directionVector, 15);  //TODO: change 15 to max level width
 
-            DebugUtils.Assert(hit.collider != null);
+            DebugExt.Assert(hit.collider != null);
             if (hit.collider == null)
                 break; // for robustness
 

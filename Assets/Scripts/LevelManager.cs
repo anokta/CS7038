@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using TiledSharp;
+using TiledMax;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
@@ -66,7 +66,7 @@ public class LevelManager
             var asset = Resources.Load<TextAsset>(name);
             var reader = new StringReader(asset.text);
 
-            map = new TmxMap(reader);
+            map = TmxMap.Open(reader);
             tileMaps[level] = map;
         }
 

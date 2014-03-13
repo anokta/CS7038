@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Direction { Up, Down, Left, Right }
 
-public static class DirectionExtensions
+public static class DirectionExt
 {
     public static readonly Vector2 Up = new Vector2(0, 1);
     public static readonly Vector2 Down = new Vector2(0, -1);
@@ -56,5 +56,14 @@ public static class DirectionExtensions
         if (d == Left) return Direction.Left;
         if (d == Right) return Direction.Right;
         throw new Exception(string.Format("{0} is not a valid direction vector", d));
+    }
+
+    public static int Count;
+    public static Direction[] Values;
+
+    static DirectionExt()
+    {
+        Values = (Direction[])Enum.GetValues(typeof(Direction));
+        Count = Values.Length;
     }
 }

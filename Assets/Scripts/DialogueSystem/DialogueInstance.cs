@@ -34,7 +34,7 @@ public class DialogueInstance
     {
         if (currentEntry == null || displayedText.Length == currentEntry.Content.Length)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Pressed())
             {
                 if (currentEntry != null || currentEntryIndex != 0)
                     currentEntryIndex++;
@@ -46,7 +46,7 @@ public class DialogueInstance
         string previous = displayedText;
 
         displayedText = currentEntry.Content;
-        if (Input.GetMouseButtonDown(0)) return;
+        if (Pressed()) return;
 
         float chars = (Time.time - entryStartTime) * textSpeed;
         if (chars < displayedText.Length)
@@ -100,5 +100,10 @@ public class DialogueInstance
         entryStartTime = Time.time;
 
         return true;
+    }
+
+    private static bool Pressed()
+    {
+        return Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return);
     }
 }

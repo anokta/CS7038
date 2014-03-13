@@ -27,13 +27,15 @@ public class GameWorld : MonoBehaviour
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        //TODO: remove this when releasing
+        if (Input.GetKeyDown(KeyCode.E))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Over"];
             GroupManager.main.activeGroup = GroupManager.main.group["Game"];
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        //TODO: remove this when releasing
+        if (Input.GetKeyDown(KeyCode.R))
         {
             levelManager.Level--;
             GroupManager.main.activeGroup = GroupManager.main.group["Over"];
@@ -70,6 +72,6 @@ public class GameWorld : MonoBehaviour
         // Clear resources
         levelManager.Clear();
 
-        Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Dialogue"];
+        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 }

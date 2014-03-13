@@ -55,7 +55,7 @@ public class Trolley : Pushable
         return canPush;
     }
 
-    protected override bool Push(RaycastHit2D hit, Vector3 direction)
+    protected override bool CanPush(RaycastHit2D hit, Vector3 direction)
     {
         switch (hit.collider.tag)
         {

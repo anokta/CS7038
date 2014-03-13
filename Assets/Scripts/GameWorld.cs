@@ -33,6 +33,13 @@ public class GameWorld : MonoBehaviour
             GroupManager.main.activeGroup = GroupManager.main.group["Game"];
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            levelManager.Level--;
+            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+        }
+
         // Testing purposes only //
         var patients = FindObjectsOfType<Patient>();
         var isOver = true;

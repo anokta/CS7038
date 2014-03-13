@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using HandyGestures;
 using System;
-using Grouping;
 
 public class PlayerController : MonoBehaviour, IPan
 {
@@ -11,7 +10,9 @@ public class PlayerController : MonoBehaviour, IPan
     private Animator animator;
 
     private bool canSwitch;
-	private HandController _hands;
+    private bool canMove;
+    private bool canSpoilHand;
+    private HandController hands;
 
 
     // Use this for initialization
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour, IPan
         timer.duration = 0.4f;
         timer.repeating = true;
         timer.Complete += CompleteMoving;
-		_hands = GetComponent<HandController>();
+        hands = GetComponent<HandController>();
 
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
@@ -33,9 +34,11 @@ public class PlayerController : MonoBehaviour, IPan
 
         previousPosition = player.position;
 
-        animator = this.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         canSwitch = true;
+        canMove = true;
+        canSpoilHand = true;
 
         Grouping.GroupManager.main.group["Game"].Add(this);
     }
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour, IPan
     private Transform objectPushing;
     private Vector2 previousPushablePosition;
     private Timer timer;
-    private bool moving { get { return timer.running; } }
+    private bool Moving { get { return timer.running; } }
 
     #region Gestures
 
@@ -68,21 +71,16 @@ public class PlayerController : MonoBehaviour, IPan
 
                 if (Math.Abs(x - y) >= 1f)
                 {
-                    if (Math.Abs(x) > Math.Abs(y))
-                    {
-                        nextMovement = new Vector2(x < 0 ? 1 : -1, 0);
-                    }
-                    else
-                    {
-                        nextMovement = new Vector2(0, y < 0 ? 1 : -1);
-                    }
+                    nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
                 }
 
-                if (!moving && CanMove())
+                if (canMove && !Moving && CanMove())
                 {
                     timer.Reset();
                     movement = nextMovement;
                     canSwitch = true;
+                    canMove = true;
+                    canSpoilHand = true;
                 }
 
                 return true;
@@ -91,6 +89,8 @@ public class PlayerController : MonoBehaviour, IPan
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
+                canMove = true;
+                canSpoilHand = true;
                 return false;
             default:
                 return false;
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         timer.Update();
 
-        if (moving)
+        if (Moving)
         {
             var newPosition = previousPosition + timer.progress * movement;
             if (objectPushing != null)
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IPan
             animator.SetBool("Pushing", false);
         }
 
-        SetAnimationState(moving ? movement : nextMovement);
+        SetAnimationState(Moving ? movement : nextMovement);
     }
 
     private void SetAnimationState(Vector2 directionVector)
@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (direction != null)
         {
-            if (moving)
+            if (Moving)
             {
                 if (animator.GetBool("Pushing"))
                     animator.CrossFade("Push " + direction, 0.0f);
@@ -190,18 +190,17 @@ public class PlayerController : MonoBehaviour, IPan
             case "Pushable":
                 var pushable = hit.collider.GetComponent<Pushable>();
                 var canPush = pushable.Push(nextMovement);
-                var canMove = canPush && pushable.MovingWithPlayer;
+                if (canPush && canSpoilHand && pushable.SpoilHand)
+                {
+                    hands.value -= 0.75f;
+                    canSpoilHand = false;
+                }
+
+                canMove &= canPush && pushable.MovingWithPlayer;
                 if (canMove)
                 {
                     objectPushing = pushable.transform;
                     previousPushablePosition = objectPushing.position;
-                }
-                if (canPush)
-                {
-                    if (pushable.SpoilHand)
-                    {
-					_hands.value -= 0.75f;
-                    }
                 }
 
                 return canMove;
@@ -211,8 +210,8 @@ public class PlayerController : MonoBehaviour, IPan
                 collectible.Collect();
 
                 // Test //
-			_hands.value += 1f;
-                
+                hands.value += 1f;
+
                 return true;
 
             case "Accessible":

@@ -24,8 +24,8 @@ public class Patient : Switchable
         {
             audioManager.PlaySFX("Treated");
 
-            var controller = FindObjectOfType<PlayerController>();
-            controller.spoilHand(4.0f);
+            var controller = FindObjectOfType<HandController>();
+			controller.value = HandController.MinValue;
 			var renderer = GetComponent<SpriteRenderer>();
 			renderer.sprite = treatedSprite;
         }

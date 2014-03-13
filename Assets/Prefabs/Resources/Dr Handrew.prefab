@@ -11,7 +11,8 @@ GameObject:
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
   - 95: {fileID: 9500000}
-  - 114: {fileID: 11400000}
+  - 114: {fileID: 0}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Dr Handrew
   m_TagString: Player
@@ -55,7 +56,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
---- !u!114 &11400000
+--- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -63,9 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15227ff1349c3874486a5d27b0242bd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ea8783035ee3ab4eb72ed9e65317f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GUIpie: {fileID: 2100000, guid: 3b215657dccf32241879e11d588708df, type: 2}
+  hand: {fileID: 2800000, guid: 937ad09298f1e054c8da927d508f25ff, type: 3}
+  circle: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
+  background: {fileID: 2800000, guid: 1fd8905703f18894eaaf92aca0ebd05d, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -78,7 +83,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: bbe8520a14d817e4e913842042f2e757, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

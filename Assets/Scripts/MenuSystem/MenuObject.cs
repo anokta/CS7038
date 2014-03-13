@@ -3,7 +3,12 @@ using System.Collections;
 
 public class MenuObject : MonoBehaviour {
 
-	GameObject tex = GameObject.Find("");
+	GameObject tex;
+
+	void Init() {
+		tex = GameObject.Find("");
+	}
+
 	void OnMouseEnter(){
 		renderer.material.color = Color.blue;
 	}

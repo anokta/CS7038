@@ -11,52 +11,8 @@ public class PlayerController : MonoBehaviour, IPan
     private Animator animator;
 
     private bool canSwitch;
+	private HandController _hands;
 
-    public enum HandState
-    {
-        Clean,
-        Dirty,
-        Filthy
-    }
-
-    private float handHygiene;
-    public float HandHygiene
-    {
-        get { return handHygiene; }
-        set { handHygiene = Mathf.Clamp(value, 0.0f, 4.0f); }
-    }
-
-    public HandState handState
-    {
-        get
-        {
-            switch ((int)handHygiene)
-            {
-                case 0:
-                    return HandState.Clean;
-                case 1:
-                case 2:
-                    return HandState.Dirty;
-                default:
-                    return HandState.Filthy;
-            }
-        }
-    }
-
-    public void clean()
-    {
-        HandHygiene = 0;
-    }
-
-    public void improveHand(float amount)
-    {
-        HandHygiene -= amount;
-    }
-
-    public void spoilHand(float amount)
-    {
-        HandHygiene += amount;
-    }
 
     // Use this for initialization
     void Start()
@@ -67,6 +23,7 @@ public class PlayerController : MonoBehaviour, IPan
         timer.duration = 0.4f;
         timer.repeating = true;
         timer.Complete += CompleteMoving;
+		_hands = GetComponent<HandController>();
 
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
@@ -243,7 +200,7 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     if (pushable.SpoilHand)
                     {
-                        spoilHand(0.75f);
+					_hands.value -= 0.75f;
                     }
                 }
 
@@ -254,7 +211,7 @@ public class PlayerController : MonoBehaviour, IPan
                 collectible.Collect();
 
                 // Test //
-                improveHand(1.0f);
+			_hands.value += 1f;
                 
                 return true;
 

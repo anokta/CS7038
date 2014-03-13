@@ -14,8 +14,8 @@ public class Fountain : Accessible
 	{
 		audioManager.PlaySFX("Fountain");
 
-		var player = GameObject.FindObjectOfType<PlayerController>();
-		player.clean();
+		var player = GameObject.FindObjectOfType<HandController>();
+		player.value = HandController.MaxValue;
 
 		return true;
 	}

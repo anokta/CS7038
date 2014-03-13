@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8c4425d72614d4885f0ca863c401eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 1
   LaserUp: {fileID: 21300000, guid: b0b9bc05aa7e4d64eae18dbb624b931d, type: 3}
   LaserDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
   LaserLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
@@ -101,7 +100,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: bbe8520a14d817e4e913842042f2e757, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

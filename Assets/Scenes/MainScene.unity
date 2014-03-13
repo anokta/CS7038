@@ -1077,50 +1077,6 @@ Transform:
   - {fileID: 821135574}
   - {fileID: 357585752}
   m_Father: {fileID: 1562966261}
---- !u!1 &1478768148
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1478768150}
-  - 114: {fileID: 1478768149}
-  m_Layer: 0
-  m_Name: HUD
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1478768149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1478768148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af05054c19ec564fac47e9c24319afd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textures:
-  - {fileID: 2800000, guid: 857e755948193f04689bd0dd4c31f8f9, type: 3}
-  - {fileID: 2800000, guid: 21efebacac9453c4a973f5847d5aba49, type: 3}
-  - {fileID: 2800000, guid: b017e32f2baf61c4cbf0e54ff815bdae, type: 3}
-  - {fileID: 2800000, guid: f9d21090e84c5194ea3a41022af7ace9, type: 3}
-  - {fileID: 2800000, guid: ddd675a571160244490f327fd5cd1d39, type: 3}
---- !u!4 &1478768150
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1478768148}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1799188526}
 --- !u!1 &1490680742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1334,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1478768150}
   - {fileID: 1706598402}
   - {fileID: 877437077}
   m_Father: {fileID: 0}

@@ -13,11 +13,11 @@ public class Sanitizer : Collectible
 	public override void Collect()
 	{
 		audioManager.PlaySFX("Collect");
-		var state = GameObject.FindObjectOfType<PlayerController>().handState;
-		if (state == PlayerController.HandState.Clean) {
+		var state = GameObject.FindObjectOfType<HandController>().state;
+		if (state == HandController.HandState.Clean) {
 			++GlobalState.score;
 		}
-		else if (state == PlayerController.HandState.Filthy) {
+		else if (state == HandController.HandState.Filthy) {
 			--GlobalState.score;
 		}
 		

@@ -26,9 +26,7 @@ public class Fountain : Accessible
         timer = new Timer(0.6f, Exit);
 
         //testObject = GameObject.Find("TEST");
-
-        //if(seconds == null)
-        //    seconds = (Instantiate(testObject) as GameObject).GetComponent<GUIText>();
+        //seconds = (Instantiate(testObject) as GameObject).GetComponent<GUIText>();
 
         player = GameObject.FindObjectOfType<PlayerController>();
 	}

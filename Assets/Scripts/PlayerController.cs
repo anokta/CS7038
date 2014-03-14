@@ -9,12 +9,24 @@ public class PlayerController : MonoBehaviour, IPan
 
     private Animator animator;
 
+    private bool isHeld;
+    public bool IsHeld { get { return isHeld; } }
+
     private bool canSwitch;
     private bool canMove;
     private bool canSpoilHand;
 
     private HandController hands;
     private PlayerKeyboardController keyboardController;
+
+    private Vector2 previousPosition;
+    public Vector2 movement;
+    private Vector2 nextMovement;
+    public bool playerMoving;
+    private Transform objectPushing;
+    private Vector2 previousPushablePosition;
+    private Timer timer;
+    private bool Moving { get { return timer.running; } }
 
     // Use this for initialization
     void Start()
@@ -46,15 +58,6 @@ public class PlayerController : MonoBehaviour, IPan
         Grouping.GroupManager.main.group["Game"].Add(this);
     }
 
-    private Vector2 previousPosition;
-    public Vector2 movement;
-    private Vector2 nextMovement;
-    public bool playerMoving;
-    private Transform objectPushing;
-    private Vector2 previousPushablePosition;
-    private Timer timer;
-    private bool Moving { get { return timer.running; } }
-
     #region Gestures
 
     public void OnGesturePan(PanArgs args)
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour, IPan
 
     public void PlayerMoving(PanArgs args)
     {
-        Debug.Log(args.state);
+        //Debug.Log(args.state);
         switch (args.state)
         {
             case PanArgs.State.Move:
@@ -86,10 +89,12 @@ public class PlayerController : MonoBehaviour, IPan
                     canSpoilHand = true;
                 }
 
+                isHeld = true;
                 playerMoving = true;
                 break;
             case PanArgs.State.Hold:
                 playerMoving = true;
+                isHeld = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
@@ -97,6 +102,7 @@ public class PlayerController : MonoBehaviour, IPan
                 canMove = true;
                 canSpoilHand = true;
                 playerMoving = false;
+                isHeld = false;
                 break;
             default:
                 playerMoving = false;

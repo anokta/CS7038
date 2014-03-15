@@ -28,11 +28,11 @@ Material:
       data:
         first:
           name: CenterX
-        second: 0
+        second: 1
       data:
         first:
           name: CenterY
-        second: 0
+        second: 1
     m_Colors:
       data:
         first:

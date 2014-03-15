@@ -8,8 +8,10 @@ public class LevelLoader
 {
     // Entities
     private GameObject entityContainer;
-    private GameObject wallContainer, floorContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
+	private GameObject wallContainer, shadeContainer, floorContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
     private readonly Dictionary<TileType, GameObject> prefabs;
+
+	private GameObject shade;
 
     public LevelLoader()
     {
@@ -36,6 +38,9 @@ public class LevelLoader
         prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
         prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
+
+		//This shouldn't be a TileType object
+		shade = Resources.Load<GameObject>("Shade");
     }
 
     public void Clear()
@@ -66,7 +71,11 @@ public class LevelLoader
         switchableContainer = new GameObject("Switchables");
         switchableContainer.transform.parent = entityContainer.transform;
 
+		shadeContainer = new GameObject("Shades");
+		shadeContainer.transform.parent = entityContainer.transform;
+
         var leverGateManager = new LeverGateManager();
+
 
         foreach (var layer in map.Layers)
         {
@@ -187,5 +196,35 @@ public class LevelLoader
                 transform.parent = parent.transform;
             }
         }
+
+		for (int y = 0; y < map.Height; ++y) {
+			var shadeLeft = makeGradient(map, -1, y);
+			shadeLeft.renderer.material = shadeLeft.left;
+			var shadeRight = makeGradient(map, map.Width, y);
+			shadeRight.renderer.material = shadeRight.right;
+		}
+		for (int x = 0; x < map.Width; ++x) {
+			var shadeTop = makeGradient(map, x, -1);
+			shadeTop.renderer.material = shadeTop.top;
+			var shadeBot = makeGradient(map, x, map.Height);
+			shadeBot.renderer.material = shadeBot.bottom;
+		}
+		var shadeTL = makeGradient(map, -1, -1);
+		shadeTL.renderer.material = shadeTL.topLeft;
+		var shadeTR = makeGradient(map, map.Width, -1);
+		shadeTR.renderer.material = shadeTR.topRight;
+		var shadeBL = makeGradient(map, -1, map.Height);
+		shadeBL.renderer.material = shadeBL.bottomLeft;
+		var shadeBR = makeGradient(map, map.Width, map.Height);
+		shadeBR.renderer.material = shadeBR.bottomRight;
     }
+
+	ShadeController makeGradient(TmxMap map, float x, float y) {
+		var position = new Vector2(x, map.Height - y - 1);
+		var gradient = Object.Instantiate(shade, position, Quaternion.identity) as GameObject;
+		gradient.transform.GetComponent<SpriteRenderer>().sortingOrder = -1000;
+		gradient.transform.parent = shadeContainer.transform;
+		return gradient.GetComponent<ShadeController>();
+	}
+
 }

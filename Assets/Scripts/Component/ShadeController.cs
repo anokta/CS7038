@@ -3,15 +3,13 @@ using System.Collections;
 
 public class ShadeController : MonoBehaviour
 {
-	// Use this for initialization
-	void Start()
-	{
-	
-	}
-	// Update is called once per frame
-	void Update()
-	{
-	
-	}
+	public Material left;
+	public Material right;
+	public Material top;
+	public Material bottom;
+	public Material topLeft;
+	public Material topRight;
+	public Material bottomLeft;
+	public Material bottomRight;
 }
 

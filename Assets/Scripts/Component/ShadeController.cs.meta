@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 2dce5864d7e6bf04cb4d49bf8b81db26
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - left: {fileID: 2100000, guid: 1a204651975ed7a41bd78c7bc7bd73ac, type: 2}
+  - right: {fileID: 2100000, guid: d6ca9fa3689197246942865945c6b34c, type: 2}
+  - top: {fileID: 2100000, guid: 2bbab98f919240d4db65c95c64b1d451, type: 2}
+  - bottom: {fileID: 2100000, guid: f691f8b786264b24a98bf5b2f3e7703a, type: 2}
+  - topLeft: {fileID: 2100000, guid: 206c4abb02c8eb5468bc6ace051dd340, type: 2}
+  - topRight: {fileID: 2100000, guid: 2a6e1aba36563dc4ea98517b1c62faf4, type: 2}
+  - bottomLeft: {fileID: 2100000, guid: 33b730d46eda7304a9de337f51cf8979, type: 2}
+  - bottomRight: {fileID: 2100000, guid: 231a18ac8e2488f4298b3d4f458f8e61, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

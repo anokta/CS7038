@@ -59,8 +59,10 @@ public class DialogueManager : MonoBehaviour
             LoadDialogue((currentDialogueIndex + 1) % dialogues.Count);
         }
 
-        if(currentDialogueIndex >= 0)
-        dialogues[currentDialogueIndex].Update(textSpeed);
+        if (currentDialogueIndex >= 0)
+        {
+            dialogues[currentDialogueIndex].Update(textSpeed);
+        }
     }
 
 
@@ -68,8 +70,17 @@ public class DialogueManager : MonoBehaviour
     {
         GUI.skin = guiSkin;
 
+        if (GUI.Button(new Rect(Screen.width * 0.925f, Screen.height * 0.925f, Screen.width * 0.05f, Screen.height * 0.05f), ""))
+        {
+            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+
+            return;
+        }
+
         if (currentDialogueIndex >= 0)
-        dialogues[currentDialogueIndex].OnGUI(GUI.skin);
+        {
+            dialogues[currentDialogueIndex].OnGUI(GUI.skin);
+        }
     }
 
     public void LoadDialogue(int index)

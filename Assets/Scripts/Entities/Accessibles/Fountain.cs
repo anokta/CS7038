@@ -13,6 +13,7 @@ public class Fountain : Accessible
 
     PlayerController player;
     Vector3 lastPlayerPosition;
+	private Animator animator;
 
     public Material GUIpie;
     public Texture progressTexture;
@@ -24,7 +25,8 @@ public class Fountain : Accessible
 		base.Start();
 
         timer = new Timer(0.6f, Exit);
-
+		animator = GetComponent<Animator>();
+		//animation.Play();
         //testObject = GameObject.Find("TEST");
         //seconds = (Instantiate(testObject) as GameObject).GetComponent<GUIText>();
 
@@ -37,16 +39,18 @@ public class Fountain : Accessible
 
        timer.Update();
 
-       if (isHeld)
-       {
-           //seconds.text = Mathf.RoundToInt(20 * timer.progress).ToString();
+		if (isHeld) {
+			//seconds.text = Mathf.RoundToInt(20 * timer.progress).ToString();
 
-           if (!player.IsHeld || player.transform.position != lastPlayerPosition)
-           {
-               Interrupted();
-           }
+			if (!player.IsHeld || player.transform.position != lastPlayerPosition) {
+				Interrupted();
+			}
                
-       }
+			animator.SetBool("Water", true);
+		}
+		else {
+			animator.SetBool("Water", false);
+		}
     }
 
     void OnGUI()

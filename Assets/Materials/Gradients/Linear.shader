@@ -65,8 +65,7 @@
 		{
 			float4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
 			float2 dir = normalize(float2(DirectionX, DirectionY));
-			float d;
-			d = dot(dir, IN.texcoord.xy);
+			float d = dot(dir, IN.texcoord.xy);
 			if (d < 0 && dir.x > 0 || d <= 0 && dir.x <= 0) { d = 1 + d; }
 			d = clamp(d, 0, 1);
 			OUT.a *= d;

@@ -32,36 +32,28 @@ public class DialogueInstance
 
     public void Update(float textSpeed)
     {
-        if (currentEntry == null || displayedText.Length == currentEntry.Content.Length)
+        if (displayedText.Length != currentEntry.Content.Length)
         {
-            if (Pressed())
+            string previous = displayedText;
+
+            displayedText = currentEntry.Content;
+            if (Pressed()) return;
+
+            float chars = (Time.time - entryStartTime) * textSpeed;
+            if (chars < displayedText.Length)
             {
-                if (currentEntry != null || currentEntryIndex != 0)
-                    currentEntryIndex++;
-                LoadEntry();
+                displayedText = displayedText.Substring(0, (int)chars);
             }
-            return;
-        }
 
-        string previous = displayedText;
-
-        displayedText = currentEntry.Content;
-        if (Pressed()) return;
-
-        float chars = (Time.time - entryStartTime) * textSpeed;
-        if (chars < displayedText.Length)
-        {
-            displayedText = displayedText.Substring(0, (int)chars);
-        }
-
-        isTalking = (previous != displayedText);
-        if (IsTalking)
-        {
-            if (!voiceOutput.isPlaying)
+            isTalking = (previous != displayedText);
+            if (IsTalking)
             {
-                voiceOutput.clip = currentEntry.Author.VoiceSample;
-                voiceOutput.pitch = UnityEngine.Random.Range(1.25f, 1.75f);//voiceRange.x, voiceRange.y);
-                voiceOutput.Play();
+                if (!voiceOutput.isPlaying)
+                {
+                    voiceOutput.clip = currentEntry.Author.VoiceSample;
+                    voiceOutput.pitch = UnityEngine.Random.Range(1.25f, 1.75f);//voiceRange.x, voiceRange.y);
+                    voiceOutput.Play();
+                }
             }
         }
     }
@@ -72,7 +64,17 @@ public class DialogueInstance
         if (entries.Count > 0 && currentEntry != null)
         {
             currentEntry.Display(guiSkin, displayedText);
+        } 
+        
+        if (displayedText.Length == currentEntry.Content.Length)
+        {
+            if (currentEntry.DisplayButton(guiSkin.GetStyle("next")))
+            {
+                currentEntryIndex++;
+                LoadEntry();
+            }
         }
+
     }
 
     public void StartDialogue()

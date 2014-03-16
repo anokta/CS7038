@@ -45,4 +45,9 @@ public class DialogueEntry
 
         GUILayout.EndArea();
     }
+
+    public bool DisplayButton(GUIStyle style)
+    {
+        return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - 60, Author.ScreenPosition.y + ENTRY_HEIGHT, 60, 30), GUIContent.none, style);
+    }
 }

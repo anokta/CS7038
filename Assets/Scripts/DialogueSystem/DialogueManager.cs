@@ -70,7 +70,7 @@ public class DialogueManager : MonoBehaviour
     {
         GUI.skin = guiSkin;
 
-        if (GUI.Button(new Rect(Screen.width * 0.925f, Screen.height * 0.925f, Screen.width * 0.05f, Screen.height * 0.05f), ""))
+        if (GUI.Button(new Rect(Screen.width * 0.925f, Screen.height * 0.925f, Screen.width * 0.05f, Screen.height * 0.05f), GUIContent.none, guiSkin.GetStyle("skip")))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Game"];
 

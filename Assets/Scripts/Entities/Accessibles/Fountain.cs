@@ -8,27 +8,22 @@ public class Fountain : Accessible
 
     private Timer timer;
 
-    //GameObject testObject;
-    //private GUIText seconds;
-
     PlayerController player;
-    Vector3 lastPlayerPosition;
-	private Animator animator;
+    Vector2 lastPlayerDirection;
+
+    private Animator animator;
 
     public Material GUIpie;
     public Texture progressTexture;
     Vector2 guiPosition;
 
-	// Use this for initialization
+
 	protected override void Start()
 	{
 		base.Start();
 
         timer = new Timer(0.6f, Exit);
 		animator = GetComponent<Animator>();
-		//animation.Play();
-        //testObject = GameObject.Find("TEST");
-        //seconds = (Instantiate(testObject) as GameObject).GetComponent<GUIText>();
 
         player = GameObject.FindObjectOfType<PlayerController>();
 	}
@@ -42,7 +37,8 @@ public class Fountain : Accessible
 		if (isHeld) {
 			//seconds.text = Mathf.RoundToInt(20 * timer.progress).ToString();
 
-			if (!player.IsHeld || player.transform.position != lastPlayerPosition) {
+			if (!player.IsHeld || player.NextDirection != lastPlayerDirection) 
+            {
 				Interrupted();
 			}
                
@@ -69,16 +65,12 @@ public class Fountain : Accessible
 
             timer.Reset();
 
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
             Vector2 p = Camera.main.WorldToScreenPoint(player.transform.position);
             p.y = Screen.height - p.y;
 
             guiPosition = p;
             
-            //p = new Vector2(p.x/Screen.width, p.y/Screen.height + 0.1f);
-            //seconds.transform.position = p;
-
-            lastPlayerPosition = player.transform.position;
+            lastPlayerDirection = player.NextDirection;
         }
 
 		return false;
@@ -97,8 +89,11 @@ public class Fountain : Accessible
     {
         isHeld = false;
 
-        //seconds.text = "";
-
         timer.Stop();
+
+        if (player.AnimState == PlayerController.PlayerAnimState.Wash)
+        {
+            player.AnimState = PlayerController.PlayerAnimState.Idle;
+        }
     }
 }

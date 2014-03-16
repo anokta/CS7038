@@ -9,6 +9,14 @@ public class PlayerController : MonoBehaviour, IPan
 
     private Animator animator;
 
+    public enum PlayerAnimState { Idle = 0, Walk = 1, Push = 2, Action = 3, Wash = 4 }
+    private PlayerAnimState animState;
+    public PlayerAnimState AnimState { get { return animState; }  set { animState = value; } } 
+
+    private Timer actionTimer;
+
+    private const float PLAYER_SPEED = 0.4f;
+
     private bool isHeld;
     public bool IsHeld { get { return isHeld; } }
 
@@ -16,12 +24,15 @@ public class PlayerController : MonoBehaviour, IPan
     private bool canMove;
     private bool canSpoilHand;
 
+    private Vector2 lastSwitchDirection;
+
     private HandController hands;
     private PlayerKeyboardController keyboardController;
 
     private Vector2 previousPosition;
     public Vector2 movement;
     private Vector2 nextMovement;
+    public Vector2 NextDirection { get { return nextMovement; } }
     public bool playerMoving;
     private Transform objectPushing;
     private Vector2 previousPushablePosition;
@@ -33,11 +44,13 @@ public class PlayerController : MonoBehaviour, IPan
     {
         player = transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        timer = new Timer();
-        timer.duration = 0.4f;
+
+        timer = new Timer(PLAYER_SPEED, CompleteMoving);
         timer.repeating = true;
-        timer.Complete += CompleteMoving;
+
         hands = GetComponent<HandController>();
+
+        actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
 
         keyboardController = new PlayerKeyboardController(this);
 
@@ -50,6 +63,7 @@ public class PlayerController : MonoBehaviour, IPan
         previousPosition = player.position;
 
         animator = GetComponent<Animator>();
+        animState = PlayerAnimState.Idle;
 
         canSwitch = true;
         canMove = true;
@@ -120,6 +134,7 @@ public class PlayerController : MonoBehaviour, IPan
         keyboardController.Update();
 
         timer.Update();
+        actionTimer.Update();
 
         if (Moving)
         {
@@ -127,23 +142,30 @@ public class PlayerController : MonoBehaviour, IPan
             if (objectPushing != null)
             {
                 objectPushing.position += newPosition.xy0() - player.position;
-                animator.SetBool("Pushing", true);
+                animState = PlayerAnimState.Push;
             }
             else
             {
-                animator.SetBool("Pushing", false);
+                animState = PlayerAnimState.Walk;
             }
 
-            animator.SetBool("Moving", true);
             player.position = newPosition;
         }
         else
         {
-            animator.SetBool("Moving", false);
-            animator.SetBool("Pushing", false);
+            if ((int)animState < 3)
+            {
+                animState = PlayerAnimState.Idle;
+            }
         }
 
         SetAnimationState(Moving ? movement : nextMovement);
+        animator.SetInteger("State", (int)animState);
+
+        if (lastSwitchDirection != nextMovement)
+        {
+            canSwitch = true;
+        }
     }
 
     private void SetAnimationState(Vector2 directionVector)
@@ -169,17 +191,8 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (direction != null)
         {
-            if (Moving)
-            {
-                if (animator.GetBool("Pushing"))
-                    animator.CrossFade("Push " + direction, 0.0f);
-                else
-                    animator.CrossFade("Walk " + direction, 0.0f);
-            }
-            else
-            {
-                animator.CrossFade("Idle " + direction, 0.0f);
-            }
+            //Debug.Log(animState.ToString() + " " + direction);
+            animator.CrossFade(animState.ToString() + " " + direction, 0.0f);
         }
     }
 
@@ -233,6 +246,12 @@ public class PlayerController : MonoBehaviour, IPan
 
             case "Accessible":
                 var accessible = hit.collider.GetComponent<Accessible>();
+
+                if(accessible.name.StartsWith("Fountain"))
+                {
+                    animState = PlayerAnimState.Wash;
+                }
+
                 return accessible.Enter();
 
             case "Switchable":
@@ -242,6 +261,9 @@ public class PlayerController : MonoBehaviour, IPan
                     switchable.Switch();
 
                     canSwitch = false;
+                    lastSwitchDirection = nextMovement;
+
+                    StartAction();
                 }
                 return false;
 
@@ -270,6 +292,20 @@ public class PlayerController : MonoBehaviour, IPan
             timer.Stop();
 
             objectPushing = null;
+        }
+    }
+
+    private void StartAction()
+    {
+        animState = PlayerAnimState.Action;
+        actionTimer.Reset();
+    }
+
+    private void CompleteAction()
+    {
+        if (animState == PlayerAnimState.Action)
+        {
+            animState = PlayerAnimState.Idle;
         }
     }
 }

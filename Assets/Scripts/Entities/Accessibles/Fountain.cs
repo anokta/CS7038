@@ -71,6 +71,8 @@ public class Fountain : Accessible
             guiPosition = p;
             
             lastPlayerDirection = player.NextDirection;
+
+            audioManager.PlaySFX("Loop Fountain");
         }
 
 		return false;
@@ -78,15 +80,17 @@ public class Fountain : Accessible
 
     void Exit()
     {
+        Interrupted();
+
         audioManager.PlaySFX("Fountain");
 
         player.GetComponent<HandController>().value = HandController.MaxValue;
-
-        Interrupted();
     }
 
     void Interrupted()
     {
+        audioManager.StopSFX("Loop Fountain");
+
         isHeld = false;
 
         timer.Stop();

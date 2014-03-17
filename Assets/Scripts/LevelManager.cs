@@ -22,7 +22,10 @@ public class LevelManager
     private readonly string[] levels;
     private readonly Dictionary<int, TmxMap> tileMaps;
 
-    public LevelManager()
+
+    private static LevelManager instance;
+
+    private LevelManager() 
     {
         Level = PlayerPrefs.GetInt("Level", 0) - 1;
         loader = new LevelLoader();
@@ -34,6 +37,18 @@ public class LevelManager
 
         var d = new Deserializer();
         levels = d.Deserialize<string[]>(reader);
+    }
+
+    public static LevelManager Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = new LevelManager();
+            }
+            return instance;
+        }
     }
 
     public void Next()

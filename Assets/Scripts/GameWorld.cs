@@ -8,9 +8,9 @@ public class GameWorld : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        //Application.LoadLevel("MainMenu");
 
-        levelManager = new LevelManager();
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         GroupManager.main.group["Game"].Add(this);
         GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
@@ -64,14 +64,15 @@ public class GameWorld : MonoBehaviour
     void LevelStart()
     {
         // Next level
-        levelManager.Next();
+        //levelManager.Next();
+        LevelManager.Instance.Next();
     }
 
     void LevelOver()
     {
         // Clear resources
-        levelManager.Clear();
-
+        //evelManager.Clear();
+        LevelManager.Instance.Clear();
         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 }

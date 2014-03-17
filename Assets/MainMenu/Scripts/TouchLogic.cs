@@ -6,7 +6,7 @@ public class TouchLogic : MonoBehaviour {
 	public static int currTouch = 0;
 	private Ray2D ray;
 	private RaycastHit2D rayInfo = new RaycastHit2D();
-
+    
 	public void PollTouches(){
 
 		if (Input.touches.Length <= 0) {

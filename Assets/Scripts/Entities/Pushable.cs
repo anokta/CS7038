@@ -6,6 +6,11 @@ public abstract class Pushable : Entity
 
     public bool SpoilHand = true;
 
+    protected Pushable()
+    {
+        Explosive = true;
+    }
+
     public virtual bool Push(Vector3 direction)
     {
         var canPush = CanPush(direction);

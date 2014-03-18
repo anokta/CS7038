@@ -43,14 +43,7 @@ public class LevelManager
 
     public static LevelManager Instance
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new LevelManager();
-            }
-            return instance;
-        }
+        get { return instance ?? (instance = new LevelManager()); }
     }
 
     public void Next()

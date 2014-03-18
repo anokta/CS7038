@@ -66,7 +66,7 @@ public class LaserEmitter : Entity
 
         for (; ; )
         {
-            var hit = Physics2D.Raycast(origin + directionVector, directionVector, 15);  //TODO: change 15 to max level width
+            var hit = Physics2D.Raycast(origin + directionVector, directionVector, 100);  //TODO: change 100 to max level width
 
             DebugExt.Assert(hit.collider != null);
             if (hit.collider == null)
@@ -96,8 +96,7 @@ public class LaserEmitter : Entity
 
             if (hit.collider.name.StartsWith("Explosive"))
             {
-                Destroy(hit.collider.gameObject);
-                continue;
+                ExplosionManager.Instance.Add(hit.collider.gameObject);
             }
 
             break;

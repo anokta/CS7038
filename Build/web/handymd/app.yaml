@@ -1,0 +1,17 @@
+application: handymd-game
+version: 1
+runtime: php
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+  
+- url: /handymd\.unity3d
+  static_files: handymd.unity3d
+  upload: handymd\.unity3d
+
+- url: .*
+  script: handymd.html

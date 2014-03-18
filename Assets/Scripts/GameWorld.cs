@@ -3,8 +3,6 @@ using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
-    private LevelManager levelManager;
-
     // Use this for initialization
     void Start()
     {
@@ -37,7 +35,7 @@ public class GameWorld : MonoBehaviour
         //TODO: remove this when releasing
         if (Input.GetKeyDown(KeyCode.R))
         {
-            levelManager.Level--;
+            LevelManager.Instance.Level--;
             GroupManager.main.activeGroup = GroupManager.main.group["Over"];
             GroupManager.main.activeGroup = GroupManager.main.group["Game"];
         }

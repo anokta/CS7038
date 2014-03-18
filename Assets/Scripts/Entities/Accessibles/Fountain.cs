@@ -22,7 +22,7 @@ public class Fountain : Accessible
 	{
 		base.Start();
 
-        timer = new Timer(0.6f, Exit);
+        timer = new Timer(2f, Exit);
 		animator = GetComponent<Animator>();
 
         player = GameObject.FindObjectOfType<PlayerController>();

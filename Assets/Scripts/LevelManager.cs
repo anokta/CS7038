@@ -25,7 +25,7 @@ public class LevelManager
 
     private static LevelManager instance;
 
-    private LevelManager() 
+    private LevelManager()
     {
         Level = PlayerPrefs.GetInt("Level", 0) - 1;
         loader = new LevelLoader();
@@ -41,7 +41,7 @@ public class LevelManager
 
     public static LevelManager Instance
     {
-        get 
+        get
         {
             if (instance == null)
             {
@@ -63,7 +63,9 @@ public class LevelManager
 
     public void Load(int level)
     {
-        if (level < 0 || level >= levels.Length) level = 0;
+        level %= levels.Length;
+        if (level < 0) level += levels.Length;
+
         Level = level;
 
         PlayerPrefs.SetInt("Level", Level);

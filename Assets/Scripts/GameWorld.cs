@@ -26,6 +26,14 @@ public class GameWorld : MonoBehaviour
         }
 
         //TODO: remove this when releasing
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            LevelManager.Instance.Level -= 2;
+            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+        }
+
+        //TODO: remove this when releasing
         if (Input.GetKeyDown(KeyCode.E))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Over"];

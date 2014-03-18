@@ -8,10 +8,12 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+  mime_type: image/x-icon
   
 - url: /handymd\.unity3d
   static_files: handymd.unity3d
   upload: handymd\.unity3d
+  mime_type: application/vnd.unity
 
 - url: .*
   script: handymd.html

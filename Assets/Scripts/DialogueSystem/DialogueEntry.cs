@@ -57,6 +57,6 @@ public class DialogueEntry
 
     public bool DisplayContinueButton(GUIStyle style)
     {
-        return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - 60, Author.ScreenPosition.y + ENTRY_HEIGHT, 60, 30), GUIContent.none, style);
+		return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - Screen.width*0.05f, Author.ScreenPosition.y + ENTRY_HEIGHT, Screen.width*0.05f, Screen.width*0.05f), GUIContent.none, style);
     }
 }

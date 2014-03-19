@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyUp(KeyCode.Space) || (GUIUtility.hotControl == 0 && Input.GetMouseButtonDown(0)))
         {
             // Start the level
             GroupManager.main.activeGroup = GroupManager.main.group["Intro"];

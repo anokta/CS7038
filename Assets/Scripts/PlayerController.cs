@@ -278,12 +278,11 @@ public class PlayerController : MonoBehaviour, IPan
 
                     if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
-                        //isHeld = false;
+                        animState = PlayerAnimState.Idle;
+                        SetAnimationState(nextMovement);
 
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-
-                        animState = PlayerAnimState.Idle;
                     }
                 }
 

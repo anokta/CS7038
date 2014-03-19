@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
-        GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
     }
 
     // Update is called once per frame

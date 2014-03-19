@@ -14,6 +14,7 @@ namespace Grouping
         Indexer<string, Group> _indexer;
         static GroupManager _instance;
         Group _active;
+        Group _previous;
 
         public GroupManager()
             : this(true)
@@ -54,7 +55,12 @@ namespace Grouping
         public Group activeGroup
         {
             get { return _active; }
-            set { Activate(value); }
+            set { _previous = _active; Activate(value); }
+        }
+
+        public Group previousGroup
+        {
+            get { return _previous; }
         }
 
         void Activate(Group group)

@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
         canSpoilHand = true;
 
-        Grouping.GroupManager.main.group["Game"].Add(this);
+        Grouping.GroupManager.main.group["Running"].Add(this);
     }
 
     #region Gestures

@@ -30,15 +30,20 @@ public class DialogueEntry
 
     public void Display(GUISkin guiSkin, string displayedText)
     {
-        GUIStyle authorStyle = guiSkin.GetStyle("author");
-        GUIStyle contentStyle = guiSkin.GetStyle("content");
-
-        GUI.DrawTexture(new Rect(Author.ScreenPosition.x - ENTRY_HEIGHT, Author.ScreenPosition.y, ENTRY_HEIGHT, ENTRY_HEIGHT), Author.Avatar);
+        if(Author.Avatar != null)
+            GUI.DrawTexture(new Rect(Author.ScreenPosition.x - ENTRY_HEIGHT, Author.ScreenPosition.y, ENTRY_HEIGHT, ENTRY_HEIGHT), Author.Avatar);
 
         GUILayout.BeginArea(new Rect(Author.ScreenPosition.x, Author.ScreenPosition.y, ENTRY_WIDTH, ENTRY_HEIGHT));
 
-        authorStyle.normal.textColor = Author.TextColor;
-        GUILayout.Label(Author.Name + ":>", authorStyle);
+        if (Author.Name != "[Narrator]")
+        {
+            GUIStyle authorStyle = guiSkin.GetStyle("author");
+
+            authorStyle.normal.textColor = Author.TextColor;
+            GUILayout.Label(Author.Name + ":>", authorStyle);
+        }
+
+        GUIStyle contentStyle = guiSkin.GetStyle("content");
 
         contentStyle.normal.textColor = Author.TextColor + new Color(0.5f, 0.5f, 0.5f);
         GUILayout.Label(displayedText, contentStyle);

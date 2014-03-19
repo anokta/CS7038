@@ -10,9 +10,11 @@ public class GameWorld : MonoBehaviour
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-        GroupManager.main.group["Game"].Add(this);
-        GroupManager.main.group["Game"].Add(this, new GroupDelegator(null, LevelStart, null));
-        GroupManager.main.group["Over"].Add(this, new GroupDelegator(null, LevelOver, null));
+        GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
+        GroupManager.main.group["Running"].Add(this);
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, LevelRunning, null));
+        GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 
     }
 
@@ -29,26 +31,26 @@ public class GameWorld : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             LevelManager.Instance.Level -= 2;
-            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         }
 
         //TODO: remove this when releasing
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         }
 
         //TODO: remove this when releasing
         if (Input.GetKeyDown(KeyCode.R))
         {
             LevelManager.Instance.Level--;
-            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         }
 
-        // Testing purposes only //
+        //TODO: remove this when releasing
         var patients = FindObjectsOfType<Patient>();
         var isOver = true;
         foreach (var patient in patients)
@@ -58,7 +60,7 @@ public class GameWorld : MonoBehaviour
 
         if (isOver)
         {
-            GroupManager.main.activeGroup = GroupManager.main.group["Over"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
         }
     }
 
@@ -67,18 +69,40 @@ public class GameWorld : MonoBehaviour
         //TODO
     }
 
+    void LevelIntro()
+    {
+        DialogueManager.CurrentDialogue = 0;
+        DialogueManager.nextState = GroupManager.main.group["Running"];
+
+        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+    }
+
+    void LevelRunning()
+    {
+        // Intro ?
+        if (LevelManager.Instance.Level == -1)
+        {
+            DialogueManager.CurrentDialogue = 1;
+            DialogueManager.nextState = GroupManager.main.group["Level Start"];
+
+            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+        }
+    }
+
     void LevelStart()
     {
         // Next level
-        //levelManager.Next();
         LevelManager.Instance.Next();
+
+        DialogueManager.CurrentDialogue = 2; //LevelManager.Instance.Level + 2;
+        DialogueManager.nextState = GroupManager.main.group["Running"];
+
+        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 
     void LevelOver()
     {
         // Clear resources
-        //evelManager.Clear();
         LevelManager.Instance.Clear();
-        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 }

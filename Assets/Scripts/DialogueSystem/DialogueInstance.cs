@@ -36,13 +36,15 @@ public class DialogueInstance
         {
             string previous = displayedText;
 
-            displayedText = currentEntry.Content;
-            if (Pressed()) return;
-
             float chars = (Time.time - entryStartTime) * textSpeed;
-            if (chars < displayedText.Length)
+            if (chars < currentEntry.Content.Length)
             {
-                displayedText = displayedText.Substring(0, (int)chars);
+                displayedText = currentEntry.Content.Substring(0, (int)chars);
+            }
+            else
+            {
+                displayedText = currentEntry.Content;
+                return;
             }
 
             isTalking = (previous != displayedText);
@@ -74,7 +76,10 @@ public class DialogueInstance
                 LoadEntry();
             }
         }
-
+        else if (Pressed())
+        {
+            displayedText = currentEntry.Content;
+        }
     }
 
     public void StartDialogue()
@@ -93,7 +98,7 @@ public class DialogueInstance
         {
             currentEntry = null;
 
-            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+            GroupManager.main.activeGroup = DialogueManager.nextState;
 
             return false;
         }

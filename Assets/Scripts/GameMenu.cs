@@ -14,7 +14,7 @@ public class GameMenu : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             // Start the level
-            GroupManager.main.activeGroup = GroupManager.main.group["Game"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
         }
 	}
 }

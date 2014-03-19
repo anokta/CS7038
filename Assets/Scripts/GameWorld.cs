@@ -11,6 +11,7 @@ public class GameWorld : MonoBehaviour
         //Application.LoadLevel("MainMenu");
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        AudioListener.volume = PlayerPrefs.GetFloat("Audio Volume", 1.0f);
 
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
         GroupManager.main.group["Running"].Add(this);

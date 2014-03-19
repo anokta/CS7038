@@ -24,4 +24,8 @@ public class Crate : Pushable
 
         return canPush;
     }
+
+    public void Explode()
+    {
+    }
 }

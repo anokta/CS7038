@@ -13,6 +13,8 @@ public class Entity : MonoBehaviour
         set { entity.position = value; }
     }
 
+    public bool Explosive { get; protected set; }
+
     protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

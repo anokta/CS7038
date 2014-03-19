@@ -4,7 +4,9 @@ using Grouping;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource background;
+    public AudioSource menu, background, over;
+    float menuVolume, backgroundVolume, overVolume;
+
     public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx;
 
     // Use this for initialization
@@ -12,11 +14,22 @@ public class AudioManager : MonoBehaviour
     {
         GroupManager.main.group["Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
+
+        menu.volume = 0.0f;
+        background.volume = 0.0f;
+        over.volume = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(menu.volume != menuVolume)
+            menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 2);
+        if (background.volume != backgroundVolume)
+            background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 2);
+        if (over.volume != overVolume)
+            over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 2);
     }
 
     public void PlaySFX(string type)
@@ -90,7 +103,14 @@ public class AudioManager : MonoBehaviour
 
     void GameMenu()
     {
-        background.Stop();
+        menuVolume = 0.3f;
+        backgroundVolume = 0.0f;
+        overVolume = 0.0f;
+
+        menu.Play();
+
+        background.Play();
+        over.Play();
     }
 
     void LevelStart()
@@ -99,7 +119,16 @@ public class AudioManager : MonoBehaviour
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
 
-        if(!background.isPlaying)
-            background.Play();
+
+        menuVolume = 0.0f;
+        backgroundVolume = 0.3f;
+        overVolume = 0.0f;
+
+    }
+
+    void LevelOver()
+    {
+        backgroundVolume = 0.0f;
+        overVolume = 0.3f;
     }
 }

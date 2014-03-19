@@ -13,8 +13,22 @@ public class GameMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space) || (GUIUtility.hotControl == 0 && Input.GetMouseButtonDown(0)))
+        //if (Input.GetKeyUp(KeyCode.Space) || (GUIUtility.hotControl == 0 && Input.GetMouseButtonDown(0)))
+        //{
+        //    ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
+        //}
+    }
+
+    void OnGUI()
+    {
+        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 - Screen.height / 5.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Start"))
         {
+            LevelManager.Instance.Level = -1;
+            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
+        }
+        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 + Screen.height / 10.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Continue"))
+        {
+            LevelManager.Instance.Level = PlayerPrefs.GetInt("Level", 0) - 1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
     }
@@ -22,6 +36,13 @@ public class GameMenu : MonoBehaviour
     void AfterFadeOut()
     {
         // Start the level
-        GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+        if (LevelManager.Instance.Level == -1)
+        {
+            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+        }
+        else
+        {
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+        }
     }
 }

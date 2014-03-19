@@ -176,6 +176,7 @@ MonoBehaviour:
     m_Image: {fileID: 0}
     m_Tooltip: 
   menuItemSkin: {fileID: 11400000, guid: 7231ecea2493a704499d3618fdbd8e47, type: 2}
+  surewashLogo: {fileID: 0}
 --- !u!1 &1735674409
 GameObject:
   m_ObjectHideFlags: 0

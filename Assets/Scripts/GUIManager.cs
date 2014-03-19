@@ -40,7 +40,7 @@ public class GUIManager : MonoBehaviour
 
 
     // Menu items
-    public GameObject menuLayout, over;
+    public GameObject over;
     public GUIText start, overTitle, overMessage;
 
     // Use this for initialization
@@ -91,15 +91,11 @@ public class GUIManager : MonoBehaviour
     void GameMenu()
     {
         over.SetActive(false);
-
-        menuLayout.SetActive(true);
     }
 
     void LevelStart()
     {
         over.SetActive(false);
-
-        menuLayout.SetActive(false);
     }
 
     void LevelOver()

@@ -74,56 +74,6 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &119142275
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 119142276}
-  - 132: {fileID: 119142277}
-  m_Layer: 0
-  m_Name: Start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &119142276
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 119142275}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .5, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1706598402}
---- !u!132 &119142277
-GUIText:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 119142275}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Text: Touch To Start
-  m_Anchor: 4
-  m_Alignment: 1
-  m_PixelOffset: {x: 0, y: 0}
-  m_LineSpacing: 1
-  m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Material: {fileID: 0}
-  m_FontSize: 48
-  m_FontStyle: 1
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_PixelCorrect: 1
-  m_RichText: 1
 --- !u!1 &128905352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,33 +1513,6 @@ Transform:
   - {fileID: 279206009}
   - {fileID: 415478287}
   m_Father: {fileID: 287739713}
---- !u!1 &1706598401
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1706598402}
-  m_Layer: 0
-  m_Name: Menu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1706598402
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1706598401}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 119142276}
-  m_Father: {fileID: 1799188526}
 --- !u!1 &1739171468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,7 +1711,6 @@ Transform:
   m_Children:
   - {fileID: 530502223}
   - {fileID: 2031949865}
-  - {fileID: 1706598402}
   m_Father: {fileID: 0}
 --- !u!114 &1799188527
 MonoBehaviour:
@@ -1801,9 +1723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909d23a0ec9b0fc479ad27d2a2fbdafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuLayout: {fileID: 1706598401}
   over: {fileID: 2031949864}
-  start: {fileID: 119142277}
+  start: {fileID: 0}
   overTitle: {fileID: 877437078}
   overMessage: {fileID: 1839431386}
 --- !u!1 &1839431384

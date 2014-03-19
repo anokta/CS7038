@@ -4,8 +4,8 @@ using System;
 
 public class DialogueEntry
 {
-    public static int ENTRY_WIDTH = 300;
-    public static int ENTRY_HEIGHT = 150;
+    public static int ENTRY_WIDTH = Screen.width;
+    public static int ENTRY_HEIGHT = (int)(Screen.height * 0.1f);
 
     [SerializeField]
     Author author;
@@ -32,14 +32,30 @@ public class DialogueEntry
     {
         bool pressed = false;
 
-        if(Author.Avatar != null)
-            GUI.DrawTexture(new Rect(Author.ScreenPosition.x - ENTRY_HEIGHT, Author.ScreenPosition.y, ENTRY_HEIGHT, ENTRY_HEIGHT), Author.Avatar);
+        if (Author.Avatar != null)
+        {
+            float portraitX = Author.GuiRectangle.x;
+            switch (Author.Alignment)
+            {
+                case TextAnchor.UpperLeft:
+                    portraitX = Author.GuiRectangle.x;
+                    break;
+                case TextAnchor.UpperRight:
+                    portraitX = Author.GuiRectangle.x + Author.GuiRectangle.width - Author.GuiRectangle.height;
+                    break;
+                case TextAnchor.UpperCenter:
+                    portraitX = Author.GuiRectangle.x + Author.GuiRectangle.width / 2.0f - Author.GuiRectangle.height;
+                    break;
+            }
+            GUI.DrawTexture(new Rect(portraitX, Author.GuiRectangle.y - Author.GuiRectangle.height, Author.GuiRectangle.height, Author.GuiRectangle.height), Author.Avatar);
+        }
 
-        GUILayout.BeginArea(new Rect(Author.ScreenPosition.x, Author.ScreenPosition.y, ENTRY_WIDTH, ENTRY_HEIGHT));
+        GUILayout.BeginArea(Author.GuiRectangle);
 
         if (Author.Name != "[Narrator]")
         {
             GUIStyle authorStyle = guiSkin.GetStyle("author");
+            authorStyle.alignment = Author.Alignment;
 
             authorStyle.normal.textColor = Author.TextColor;
             pressed |= GUILayout.Button(Author.Name + ":>", authorStyle);
@@ -57,6 +73,10 @@ public class DialogueEntry
 
     public bool DisplayContinueButton(GUIStyle style)
     {
-		return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - Screen.width*0.05f, Author.ScreenPosition.y + ENTRY_HEIGHT, Screen.width*0.05f, Screen.width*0.05f), GUIContent.none, style);
+        float nextX = Author.GuiRectangle.x + Author.GuiRectangle.width - Screen.height / 15.0f;
+        if(Author.Alignment == TextAnchor.UpperCenter)
+            nextX = Screen.width / 2.0f - Screen.height / 50.0f;
+
+        return GUI.Button(new Rect(nextX, Author.GuiRectangle.y + Author.GuiRectangle.height - Screen.height / 15.0f, Screen.height / 25.0f, Screen.height / 25.0f), GUIContent.none, style);
     }
 }

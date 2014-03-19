@@ -1196,7 +1196,7 @@ MonoBehaviour:
   - m_Name: author
     m_Normal:
       m_Background: {fileID: 2800000, guid: c8cdb63c1a7e4034b941dde3ebfd00e7, type: 3}
-      m_TextColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
+      m_TextColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1230,16 +1230,16 @@ MonoBehaviour:
       m_Bottom: 4
     m_Padding:
       m_Left: 10
-      m_Right: 5
+      m_Right: 10
       m_Top: 10
-      m_Bottom: 5
+      m_Bottom: 10
     m_Overflow:
       m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 22
+    m_FontSize: 28
     m_FontStyle: 1
     m_Alignment: 0
     m_WordWrap: 1
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   - m_Name: content
     m_Normal:
       m_Background: {fileID: 2800000, guid: d1de3c7abeac40a46b3258c97e1c7ac1, type: 3}
-      m_TextColor: {r: 1.37689424, g: .986591697, b: 1.38235295, a: 2}
+      m_TextColor: {r: .743295848, g: 1.03170872, b: 1.2352941, a: 2}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1287,8 +1287,8 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 5
-      m_Right: 5
+      m_Left: 20
+      m_Right: 20
       m_Top: 5
       m_Bottom: 5
     m_Overflow:
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 18
+    m_FontSize: 24
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 1
@@ -1311,7 +1311,7 @@ MonoBehaviour:
     m_StretchHeight: 1
   - m_Name: next
     m_Normal:
-      m_Background: {fileID: 2800000, guid: dc585b52cdb589b4d930911c9cda99b2, type: 3}
+      m_Background: {fileID: 2800000, guid: e6d70e0aec3195442b600e546c2b6cc3, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: c13fe7b279668304680b43eaf383569b, type: 3}
@@ -1370,71 +1370,13 @@ MonoBehaviour:
   - m_Name: skip
     m_Normal:
       m_Background: {fileID: 2800000, guid: 4c7820936731040428b2ea2e205a76d0, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: .588235319}
     m_Hover:
       m_Background: {fileID: 2800000, guid: d35229ea660c676459329dd8dc2814dd, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: .588235319}
     m_Active:
       m_Background: {fileID: 2800000, guid: d35229ea660c676459329dd8dc2814dd, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 5
-      m_Right: 5
-      m_Top: 5
-      m_Bottom: 5
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 18
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 1
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 2
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 1
-  - m_Name: next2
-    m_Normal:
-      m_Background: {fileID: 2800000, guid: e6d70e0aec3195442b600e546c2b6cc3, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Hover:
-      m_Background: {fileID: 2800000, guid: 3dd8e0808de6c684688fc447c12480d5, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 2800000, guid: 3dd8e0808de6c684688fc447c12480d5, type: 3}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: .588235319}
     m_Focused:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}

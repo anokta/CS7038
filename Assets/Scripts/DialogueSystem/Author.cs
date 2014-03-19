@@ -25,16 +25,20 @@ public class Author
     [SerializeField]
     [Range(0, 1)]
     float y;
+    [SerializeField]
+    [Range(0, 1)]
+    float w;
+    [SerializeField]
+    [Range(0, 1)]
+    float h;
 
-    public Vector2 NormalizedPosition
+    public Rect GuiRectangle
     {
-        get { return new Vector2(x, y); }
-        set { x = value.x; y = value.y; }
+        get { return new Rect(x * Screen.width, y * Screen.height, w * Screen.width, h * Screen.height); }
     }
-    public Vector2 ScreenPosition
-    {
-        get { return new Vector2(Screen.width * x - DialogueEntry.ENTRY_WIDTH / 2, Screen.height * y - DialogueEntry.ENTRY_HEIGHT / 2); }
-    }
+
+    [SerializeField]
+    public TextAnchor Alignment;
 
     [SerializeField]
     Color textColor;
@@ -50,14 +54,5 @@ public class Author
     {
         get { return avatar; }
         set { avatar = value; }
-    }
-
-    public Author(string name, AudioClip voice, Vector2 position, Color textColor = default(Color), Texture2D avatar = null)
-    {
-        this.name = name;
-        this.voice = voice;
-        NormalizedPosition = position;
-        this.textColor = textColor;
-        this.avatar = avatar;
     }
 }

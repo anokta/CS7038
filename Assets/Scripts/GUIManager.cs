@@ -81,7 +81,7 @@ public class GUIManager : MonoBehaviour
             }
         }
 
-        if (GUI.Button(new Rect(Screen.width - 110, 30, 100, 20), "Toggle Audio"))
+        if (GUI.Button(new Rect(Screen.width / 2 - 40, 0, 80, 16), "mute"))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);

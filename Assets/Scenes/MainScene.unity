@@ -1208,28 +1208,43 @@ MonoBehaviour:
   authors:
   - name: '[Narrator]'
     voice: {fileID: 0}
-    x: .5
-    y: .5
+    x: .25
+    y: .300000012
+    w: .5
+    h: .400000006
+    Alignment: 1
     textColor: {r: 1, g: 1, b: 1, a: 1}
     avatar: {fileID: 0}
   - name: Professor Onionghost
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
-    x: .300000012
-    y: .699999988
+    x: 0
+    y: .75
+    w: 1
+    h: .25
+    Alignment: 2
     textColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
     avatar: {fileID: 2800000, guid: 857eec3a9e6bee9499c11593a5a7d55b, type: 3}
   - name: Dr. Handrew
     voice: {fileID: 8300000, guid: 503b14d47e1dc364e9aed7bce8764abd, type: 3}
-    x: .75
-    y: .699999988
+    x: 0
+    y: .75
+    w: 1
+    h: .25
+    Alignment: 0
     textColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
     avatar: {fileID: 2800000, guid: d5dff1132efa03746a8d6d2087932e57, type: 3}
   - name: Patient
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
-    x: .300000012
-    y: .699999988
+    x: 0
+    y: .75
+    w: 1
+    h: .25
+    Alignment: 2
     textColor: {r: .243295863, g: .735294104, b: .307764649, a: 1}
     avatar: {fileID: 2800000, guid: 9599900a406c9ef44a040e0a171a6aa1, type: 3}
+  nextButtonImages:
+  - {fileID: 2800000, guid: dc585b52cdb589b4d930911c9cda99b2, type: 3}
+  - {fileID: 2800000, guid: e6d70e0aec3195442b600e546c2b6cc3, type: 3}
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,11 +1849,11 @@ GUIText:
   m_TabSize: 4
   m_Font: {fileID: 12800000, guid: f1470a9b343908b40a0c02828f818112, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 20
+  m_FontSize: 16
   m_FontStyle: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4290888129
   m_PixelCorrect: 1
   m_RichText: 1
 --- !u!1 &1942921644

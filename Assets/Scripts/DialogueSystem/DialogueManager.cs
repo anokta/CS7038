@@ -18,6 +18,9 @@ public class DialogueManager : MonoBehaviour
 
     public static Action DialogueComplete;
 
+    Timer waitTimer;
+    public Texture2D[] nextButtonImages;
+
     void Start()
     {
         // Audio
@@ -97,6 +100,12 @@ public class DialogueManager : MonoBehaviour
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
 
         currentDialogue = -1;
+
+        waitTimer = new Timer(0.6f, delegate()
+        {
+            guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
+        });
+        waitTimer.repeating = true;
     }
 
     // Update is called once per frame
@@ -106,16 +115,18 @@ public class DialogueManager : MonoBehaviour
         {
             dialogues[currentDialogue].Update(textSpeed);
         }
+
+        waitTimer.Update();
     }
 
-	static readonly float bigSize = 0.075f;
-	static readonly float relSize = 0.05f;
+	static readonly float bigSize = 0.1f;
+	static readonly float relSize = 0.075f;
 		
     void OnGUI()
     {
         GUI.skin = guiSkin;
 
-		if (GUI.Button(new Rect(Screen.width * (1-bigSize), Screen.height - Screen.width * bigSize, Screen.width * relSize, Screen.width * relSize), GUIContent.none, guiSkin.GetStyle("skip")))
+        if (GUI.Button(new Rect(Screen.width * (1 - bigSize), Screen.width * relSize / 4.0f, Screen.width * relSize, Screen.width * relSize), GUIContent.none, guiSkin.GetStyle("skip")))
         {
             DialogueComplete();
 
@@ -135,5 +146,7 @@ public class DialogueManager : MonoBehaviour
         currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
 
         dialogues[currentDialogue].StartDialogue();
+
+        waitTimer.Reset();
     }
 }

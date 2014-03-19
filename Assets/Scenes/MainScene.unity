@@ -918,6 +918,7 @@ MonoBehaviour:
   - Level Start
   - Running
   - Level Over
+  - Fading
   caseSensitive: 0
   main: 1
 --- !u!114 &795458503
@@ -1190,6 +1191,45 @@ MonoBehaviour:
     y: .699999988
     textColor: {r: .243295863, g: .735294104, b: .307764649, a: 1}
     avatar: {fileID: 2800000, guid: 94fa7d6646f562547b721761946e525a, type: 3}
+--- !u!1 &997006302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 997006303}
+  - 114: {fileID: 997006305}
+  m_Layer: 0
+  m_Name: Fader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &997006303
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997006302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1799188526}
+--- !u!114 &997006305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997006302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e705318f9cd422e4eb6a28a6b6f274b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1771,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 997006303}
   - {fileID: 2031949865}
   - {fileID: 1706598402}
   m_Father: {fileID: 0}

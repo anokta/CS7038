@@ -70,7 +70,10 @@ public class GameWorld : MonoBehaviour
             }
             else
             {
-                GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+                ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
+                {
+                    GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+                });
             }
         }
     }
@@ -82,8 +85,12 @@ public class GameWorld : MonoBehaviour
 
     void LevelIntro()
     {
-        DialogueManager.nextState = GroupManager.main.group["Running"];
-        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+        // Fade In To Prologue
+        ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+        {
+            DialogueManager.nextState = GroupManager.main.group["Running"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+        });
     }
 
     void LevelRunning()
@@ -91,8 +98,14 @@ public class GameWorld : MonoBehaviour
         // Intro ?
         if (LevelManager.Instance.Level == -1)
         {
-            DialogueManager.nextState = GroupManager.main.group["Level Start"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+            {
+                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                {
+                    DialogueManager.nextState = GroupManager.main.group["Level Start"];
+                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                });
+            });
         }
     }
 
@@ -105,8 +118,11 @@ public class GameWorld : MonoBehaviour
         DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : 6;
         //
 
-        DialogueManager.nextState = GroupManager.main.group["Running"];
-        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+        ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
+        {
+            DialogueManager.nextState = GroupManager.main.group["Running"];
+            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+        });
 
         success = true;
     }

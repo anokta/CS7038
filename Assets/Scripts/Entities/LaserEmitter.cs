@@ -75,6 +75,17 @@ public class LaserEmitter : Entity
             origin = hit.point;
             points.Add(origin.xy0() + new Vector3(0, 0.3f, 0));
 
+            if (hit.transform.tag == "Player")
+            {
+                audioManager.PlaySFX("Laser Hit");
+
+                GameWorld.success = false;
+
+                Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Level Over"];
+
+                return;
+            }
+
             var mirror = hit.collider.GetComponent<Mirror>();
             if (mirror != null)
             {

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using HandyGestures;
 using System;
+using Grouping;
 
 public class PlayerController : MonoBehaviour, IPan
 {
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
         canSpoilHand = true;
 
-        Grouping.GroupManager.main.group["Running"].Add(this);
+        GroupManager.main.group["Running"].Add(this);
     }
 
     #region Gestures
@@ -191,7 +192,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (direction != null)
         {
-            //Debug.Log(animState.ToString() + " " + direction);
             animator.CrossFade(animState.ToString() + " " + direction, 0.0f);
         }
     }

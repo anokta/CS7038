@@ -30,7 +30,7 @@ public class HandController : MonoBehaviour
 		}
 	}
 
-	float _value = 4.0f;
+	float _value = 2.0f;
 
 	public float value {
 		get { return _value; }

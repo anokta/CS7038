@@ -12,8 +12,8 @@ public class DialogueManager : MonoBehaviour
     public Author[] authors;
     public List<DialogueInstance> dialogues;
 
-    private static int currentDialogueIndex;
-    public static int CurrentDialogue { get { return currentDialogueIndex; } set { currentDialogueIndex = value; } }
+    private static int currentDialogue;
+    public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
 
     public static GroupManager.Group nextState;
 
@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
         // Dialogues
         dialogues = new List<DialogueInstance>();
 
-        /*Intro*/
+        /*Prologue*/
         List<DialogueEntry> entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[0], "In an increasingly fast-paced world, humanity has forgotten correct sanitary practices. Washing one’s hands is dismissed as slow and old fashioned, a waste of water."));
         entries.Add(new DialogueEntry(authors[0], "In the wake of poor hand hygiene, disease is thriving! The number of ill grows day by day, and no one seems to understand why."));
@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
     
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        /*1*/
+        /*Intro*/
         entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[1], "Hello, I am Dr. Teddy, and I am the embodiment of your conscience."));
         entries.Add(new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."));
@@ -48,46 +48,53 @@ public class DialogueManager : MonoBehaviour
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        /*2*/
+        /*Tutorial*/
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Hey Glovia, I have an AWESOME idea. What would happen if we destroyed the world in one hour. Wouldn't you join?"));
-        entries.Add(new DialogueEntry(authors[2], "Indeed. What about Gustav? \nI know, i know . . ."));
-        entries.Add(new DialogueEntry(authors[1], "Let's get this party started then! Shall we?"));
-        entries.Add(new DialogueEntry(authors[2], "Ok!"));
-        entries.Add(new DialogueEntry(authors[1], "I need to go on talking crap to test this thing though. Any suggestions yet? Also, I need to keep this a bit longer to see how it works, right?"));
-        entries.Add(new DialogueEntry(authors[2], "Try writing long words like wunschpunsch, then. Did it work?"));
-        entries.Add(new DialogueEntry(authors[1], "Yea, I guess. Anyway, enough for today."));
-        entries.Add(new DialogueEntry(authors[2], "Cool, bye!"));
+        entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger across the screen."));
+        entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        /*3*/
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "I need to test it once more. You ready?"));
-        entries.Add(new DialogueEntry(authors[2], "Sure. Something wrong? . . ."));
-        entries.Add(new DialogueEntry(authors[1], "Not at all. I just wanted to make sure that it works properly when creating multiple dialogues. Also for long sentences which contains loads and loads of words .."));
-        entries.Add(new DialogueEntry(authors[2], ".. and more weird stuff like this one. Guess it's alright. What do you say?"));
-        entries.Add(new DialogueEntry(authors[1], "Cool story, bro!"));
+        entries.Add(new DialogueEntry(authors[1], "Clean your hands by walking to the sink!"));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        currentDialogueIndex = -1;
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "What was that? We need to spend at least 20 seconds to clean our hands properly!"));
+        entries.Add(new DialogueEntry(authors[1], "In game-time, however, we only have to wait for the washing bar to fill up.  Now try washing again, but this time hold your finger until our hands are clean."));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Now our hands are clean. Walk towards the patient to treat him."));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[2], "Thank you for saving me!"));
+        entries.Add(new DialogueEntry(authors[1], "I’m only doing my duty, sir."));
+        entries.Add(new DialogueEntry(authors[1], "Just a follow-up question.. Did you wash your hands after lunch today?"));
+        entries.Add(new DialogueEntry(authors[2], "..."));
+        entries.Add(new DialogueEntry(authors[2], "No, I forgot"));
+        entries.Add(new DialogueEntry(authors[1], "Make sure you remember next time. The Handurian Flu is not a joke!"));
+        entries.Add(new DialogueEntry(authors[2], "Will do!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
         
         GroupManager.main.group["Dialogue"].Add(this);
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
+
+        currentDialogue = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (currentDialogue >= 0)
         {
-            LoadDialogue((currentDialogueIndex + 1) % dialogues.Count);
-        }
-
-        if (currentDialogueIndex >= 0)
-        {
-            dialogues[currentDialogueIndex].Update(textSpeed);
+            dialogues[currentDialogue].Update(textSpeed);
         }
     }
 
@@ -103,21 +110,16 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentDialogueIndex >= 0)
+        if (currentDialogue >= 0)
         {
-            dialogues[currentDialogueIndex].OnGUI(GUI.skin);
+            dialogues[currentDialogue].OnGUI(GUI.skin);
         }
-    }
-
-    public void LoadDialogue(int index)
-    {
-        //currentDialogueIndex = index;
-
-        dialogues[currentDialogueIndex].StartDialogue();
     }
 
     void TriggerDialogue()
     {
-        LoadDialogue(currentDialogueIndex);
+        currentDialogue++;
+
+        dialogues[currentDialogue].StartDialogue();
     }
 }

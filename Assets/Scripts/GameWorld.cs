@@ -60,7 +60,15 @@ public class GameWorld : MonoBehaviour
 
         if (isOver)
         {
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+            if (LevelManager.Instance.Level == 0)
+            {
+                DialogueManager.nextState = GroupManager.main.group["Level Over"];
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            }
+            else
+            {
+                GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+            }
         }
     }
 
@@ -71,9 +79,7 @@ public class GameWorld : MonoBehaviour
 
     void LevelIntro()
     {
-        DialogueManager.CurrentDialogue = 0;
         DialogueManager.nextState = GroupManager.main.group["Running"];
-
         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 
@@ -82,9 +88,7 @@ public class GameWorld : MonoBehaviour
         // Intro ?
         if (LevelManager.Instance.Level == -1)
         {
-            DialogueManager.CurrentDialogue = 1;
             DialogueManager.nextState = GroupManager.main.group["Level Start"];
-
             GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
         }
     }
@@ -94,9 +98,7 @@ public class GameWorld : MonoBehaviour
         // Next level
         LevelManager.Instance.Next();
 
-        DialogueManager.CurrentDialogue = 2; //LevelManager.Instance.Level + 2;
         DialogueManager.nextState = GroupManager.main.group["Running"];
-
         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }
 

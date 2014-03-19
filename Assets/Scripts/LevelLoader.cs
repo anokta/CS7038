@@ -24,6 +24,7 @@ public class LevelLoader
         prefabs[TileType.Gate1] = Resources.Load<GameObject>("Gate");
         prefabs[TileType.Gate2] = Resources.Load<GameObject>("Gate");
         prefabs[TileType.Gate3] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
         prefabs[TileType.Lever1] = Resources.Load<GameObject>("Lever");
         prefabs[TileType.Lever2] = Resources.Load<GameObject>("Lever");
         prefabs[TileType.Lever3] = Resources.Load<GameObject>("Lever");
@@ -134,6 +135,10 @@ public class LevelLoader
                         var gate3 = gameObj.GetComponent<Gate>();
                         gate3.LeverGateType = LeverGateType.Type3;
                         leverGateManager.Add(gate3);
+                        break;
+                    case TileType.GateClean:
+                        parent = accessibleContainer;
+                        var gateClean = gameObj.GetComponent<Gate>();
                         break;
                     case TileType.Lever1:
                         parent = accessibleContainer;

@@ -22,7 +22,7 @@ public class Patient : Switchable
 
         player = GameObject.FindObjectOfType<PlayerController>();
 
-        timer = new Timer(0.6f, Success);
+        timer = new Timer(0.5f, Success);
     }
 
     protected override void Update()
@@ -33,10 +33,10 @@ public class Patient : Switchable
 
         if (isHeld)
         {
-            if (!player.IsHeld || player.NextDirection != lastPlayerDirection)
-            {
-                Interrupted();
-            }
+            //if (!player.IsHeld || player.NextDirection != lastPlayerDirection)
+            //{
+            //    Interrupted();
+            //}
         }
     }
 

@@ -72,14 +72,23 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[2], "Thank you for saving me!"));
-        entries.Add(new DialogueEntry(authors[1], "I’m only doing my duty, sir."));
-        entries.Add(new DialogueEntry(authors[1], "Just a follow-up question.. Did you wash your hands after lunch today?"));
-        entries.Add(new DialogueEntry(authors[2], "..."));
-        entries.Add(new DialogueEntry(authors[2], "No, I forgot"));
-        entries.Add(new DialogueEntry(authors[1], "Make sure you remember next time. The Handurian Flu is not a joke!"));
-        entries.Add(new DialogueEntry(authors[2], "Will do!"));
+        entries.Add(new DialogueEntry(authors[3], "Thank you for saving me!"));
+        entries.Add(new DialogueEntry(authors[2], "I’m only doing my duty, sir."));
+        entries.Add(new DialogueEntry(authors[2], "Just a follow-up question.. Did you wash your hands after lunch today?"));
+        entries.Add(new DialogueEntry(authors[3], "..."));
+        entries.Add(new DialogueEntry(authors[3], "No, I forgot"));
+        entries.Add(new DialogueEntry(authors[2], "Make sure you remember next time. The Handurian Flu is not a joke!"));
+        entries.Add(new DialogueEntry(authors[3], "Will do!"));
 
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        // Levels
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[2], "What's next?"));
+        entries.Add(new DialogueEntry(authors[1], "We haven't even started yet."));
+        entries.Add(new DialogueEntry(authors[2], "..."));
+        entries.Add(new DialogueEntry(authors[1], "..."));
+        
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         
@@ -119,6 +128,8 @@ public class DialogueManager : MonoBehaviour
     void TriggerDialogue()
     {
         currentDialogue++;
+
+        currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
 
         dialogues[currentDialogue].StartDialogue();
     }

@@ -98,6 +98,10 @@ public class GameWorld : MonoBehaviour
         // Next level
         LevelManager.Instance.Next();
 
+        // TEMPORARY HACK
+        DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : 6;
+        //
+
         DialogueManager.nextState = GroupManager.main.group["Running"];
         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
     }

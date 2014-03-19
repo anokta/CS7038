@@ -130,6 +130,28 @@ public class PlayerController : MonoBehaviour, IPan
     // Update is called once per frame
     void Update()
     {
+        // Tutorial [Manually coded for now] //
+        // TODO: Make it proper! 
+        if (LevelManager.Instance.Level == 0)
+        {
+            if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1f)
+            {
+                playerMoving = false;
+
+                if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
+                {
+                    DialogueManager.nextState = GroupManager.main.group["Running"];
+                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                }
+            }
+            else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
+            {
+                DialogueManager.nextState = GroupManager.main.group["Running"];
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            }
+        }
+
+
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
         keyboardController.Update();
@@ -250,6 +272,14 @@ public class PlayerController : MonoBehaviour, IPan
                 if(accessible.name.StartsWith("Fountain"))
                 {
                     animState = PlayerAnimState.Wash;
+
+                    if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
+                    {
+                        //isHeld = false;
+
+                        DialogueManager.nextState = GroupManager.main.group["Running"];
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    }
                 }
 
                 return accessible.Enter();

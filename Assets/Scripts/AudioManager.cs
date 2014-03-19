@@ -24,12 +24,26 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(menu.volume != menuVolume)
-            menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 2);
-        if (background.volume != backgroundVolume)
-            background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 2);
-        if (over.volume != overVolume)
-            over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 2);
+        bool fadeOut = GroupManager.main.activeGroup == GroupManager.main.group["Fading"];
+
+        if (!fadeOut)
+        {
+            if (menu.volume != menuVolume)
+                menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 4);
+            if (background.volume != backgroundVolume)
+                background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 4);
+            if (over.volume != overVolume)
+                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 4);
+        }
+        else
+        {
+            if (menu.volume != menuVolume)
+                menu.volume = Mathf.Lerp(menu.volume, 0.0f, Time.deltaTime);
+            if (background.volume != backgroundVolume)
+                background.volume = Mathf.Lerp(background.volume, 0.0f, Time.deltaTime);
+            if (over.volume != overVolume)
+                over.volume = Mathf.Lerp(over.volume, 0.0f, Time.deltaTime);
+        }
     }
 
     public void PlaySFX(string type)

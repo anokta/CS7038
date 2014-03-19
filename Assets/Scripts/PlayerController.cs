@@ -282,6 +282,8 @@ public class PlayerController : MonoBehaviour, IPan
 
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+
+                        animState = PlayerAnimState.Idle;
                     }
                 }
 

@@ -65,20 +65,22 @@ public class DialogueInstance
     {
         if (entries.Count > 0 && currentEntry != null)
         {
-            currentEntry.Display(guiSkin, displayedText);
-        } 
-        
-        if (displayedText.Length == currentEntry.Content.Length)
-        {
-            if (currentEntry.DisplayButton(guiSkin.GetStyle("next")))
+            bool fastforward = currentEntry.DisplayEntry(guiSkin, displayedText);
+            
+            if (displayedText.Length == currentEntry.Content.Length)
             {
-                currentEntryIndex++;
-                LoadEntry();
+                fastforward |= currentEntry.DisplayContinueButton(guiSkin.GetStyle("next"));
+
+                if (fastforward)
+                {
+                    currentEntryIndex++;
+                    LoadEntry();
+                }
             }
-        }
-        else if (Pressed())
-        {
-            displayedText = currentEntry.Content;
+            else if (fastforward)
+            {
+                displayedText = currentEntry.Content;
+            }
         }
     }
 
@@ -107,10 +109,5 @@ public class DialogueInstance
         entryStartTime = Time.time;
 
         return true;
-    }
-
-    private static bool Pressed()
-    {
-        return Input.GetMouseButtonDown(0) || InputExt.GetAnyKeyDown(KeyCode.Space, KeyCode.Return);
     }
 }

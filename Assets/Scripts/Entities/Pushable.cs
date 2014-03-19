@@ -6,8 +6,11 @@ public abstract class Pushable : Entity
 
     public bool SpoilHand = true;
 
-    protected Pushable()
+
+    protected override void Start()
     {
+        base.Start();
+
         Explosive = true;
     }
 
@@ -15,8 +18,13 @@ public abstract class Pushable : Entity
     {
         var canPush = CanPush(direction);
 
-        if (canPush)
+        if (canPush && SpoilHand)
         {
+            if (playerHand.LastTouchedID != GetInstanceID())
+            {
+                playerHand.value -= 0.75f;
+                playerHand.LastTouchedID = GetInstanceID();
+            }
         }
 
         return canPush;

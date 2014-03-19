@@ -24,8 +24,7 @@ public class Lever : Switchable
 
         audioManager.PlaySFX("Lever");
 
-        var controller = FindObjectOfType<HandController>();
-        controller.value -= 0.5f;
+        playerHand.value -= 0.5f;
     }
 
     public void UpdateOpenState(bool open)

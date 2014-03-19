@@ -35,8 +35,6 @@ public class Fountain : Accessible
        timer.Update();
 
 		if (isHeld) {
-			//seconds.text = Mathf.RoundToInt(20 * timer.progress).ToString();
-
 			if (!player.IsHeld || player.NextDirection != lastPlayerDirection) 
             {
 				Interrupted();
@@ -84,7 +82,7 @@ public class Fountain : Accessible
 
         audioManager.PlaySFX("Fountain");
 
-        player.GetComponent<HandController>().value = HandController.MaxValue;
+        playerHand.value = HandController.MaxValue;
     }
 
     void Interrupted()

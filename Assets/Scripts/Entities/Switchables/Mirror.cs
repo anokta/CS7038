@@ -59,7 +59,6 @@ public class Mirror : Switchable
 
 		Forward = !Forward;
 
-        var controller = FindObjectOfType<HandController>();
-        controller.value -= 0.5f;
+        playerHand.value -= 0.5f;
 	}
 }

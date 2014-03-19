@@ -63,7 +63,9 @@ public class Trolley : Pushable
                 var trolley = hit.collider.GetComponent<Trolley>();
                 if (trolley != null && moving)
                 {
+                    float value = playerHand.value;
                     trolley.Push(direction);
+                    playerHand.value = value;
                     return false;
                 }
                 return false;

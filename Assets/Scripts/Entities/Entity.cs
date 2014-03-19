@@ -7,6 +7,8 @@ public class Entity : MonoBehaviour
 
     protected AudioManager audioManager;
 
+    protected HandController playerHand;
+
     public Vector2 Position
     {
         get { return entity.position; }
@@ -25,6 +27,8 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         entity = transform;
+
+        playerHand = FindObjectOfType<HandController>();
     }
 
     protected virtual void Update()

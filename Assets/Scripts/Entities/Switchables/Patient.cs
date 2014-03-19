@@ -33,10 +33,10 @@ public class Patient : Switchable
 
         if (isHeld)
         {
-            //if (!player.IsHeld || player.NextDirection != lastPlayerDirection)
-            //{
-            //    Interrupted();
-            //}
+            if(player.NextDirection != lastPlayerDirection)
+            {
+                Interrupted();
+            }
         }
     }
 

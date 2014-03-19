@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour, IPan
 
     private bool canSwitch;
     private bool canMove;
-    private bool canSpoilHand;
 
     private Vector2 lastSwitchDirection;
 
@@ -68,7 +67,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         canSwitch = true;
         canMove = true;
-        canSpoilHand = true;
 
         GroupManager.main.group["Running"].Add(this);
     }
@@ -101,7 +99,6 @@ public class PlayerController : MonoBehaviour, IPan
                     timer.Reset();
                     canSwitch = true;
                     canMove = true;
-                    canSpoilHand = true;
                 }
 
                 isHeld = true;
@@ -115,7 +112,6 @@ public class PlayerController : MonoBehaviour, IPan
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
-                canSpoilHand = true;
                 playerMoving = false;
                 isHeld = false;
                 break;
@@ -245,11 +241,6 @@ public class PlayerController : MonoBehaviour, IPan
             case "Pushable":
                 var pushable = hit.collider.GetComponent<Pushable>();
                 var canPush = pushable.Push(nextMovement);
-                if (canPush && canSpoilHand && pushable.SpoilHand)
-                {
-                    hands.value -= 0.75f;
-                    canSpoilHand = false;
-                }
 
                 canMove &= canPush && pushable.MovingWithPlayer;
                 if (canMove)
@@ -263,9 +254,6 @@ public class PlayerController : MonoBehaviour, IPan
             case "Collectible":
                 var collectible = hit.collider.GetComponent<Collectible>();
                 collectible.Collect();
-
-                // Test //
-                hands.value += 1f;
 
                 return true;
 

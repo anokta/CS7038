@@ -13,10 +13,6 @@ public class GameMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyUp(KeyCode.Space) || (GUIUtility.hotControl == 0 && Input.GetMouseButtonDown(0)))
-        //{
-        //    ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
-        //}
     }
 
     void OnGUI()

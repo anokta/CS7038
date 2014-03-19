@@ -9,10 +9,9 @@
 
     public override bool Enter()
     {
-        var controller = FindObjectOfType<HandController>();
-        controller.value -= 0.5f;
-
         audioManager.PlaySFX("Door");
+
+        playerHand.value -= 0.5f;
 
         return true;
     }

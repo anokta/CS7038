@@ -5,8 +5,6 @@ public class GateCleanReactive : Accessible {
 
     private bool open;
 
-    HandController playerHand;
-
     // TO BE CHANGED
     public Sprite GateOpen;
     public Sprite GateClosed;
@@ -16,8 +14,6 @@ public class GateCleanReactive : Accessible {
     protected override void Start()
     {
         base.Start();
-
-        playerHand = GameObject.FindObjectOfType<HandController>();
     }
 
     protected override void Update()
@@ -25,6 +21,7 @@ public class GateCleanReactive : Accessible {
         base.Update();
 
         open |= (playerHand.state == HandController.HandState.Clean);
+
         UpdateOpenState();
     }
 

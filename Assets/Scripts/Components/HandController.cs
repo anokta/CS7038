@@ -31,13 +31,32 @@ public class HandController : MonoBehaviour
 	}
 
 	float _value = 2.0f;
-
 	public float value {
 		get { return _value; }
 		set { _value = Mathf.Clamp(value, MinValue, MaxValue); }
 	}
 
-	public float Ratio { get { return value / (MaxValue - MinValue); } }
+    float _guiValue = 2.0f;
+
+	public float Ratio { get { return _guiValue / (MaxValue - MinValue); } }
+
+    private int lastTouchedId;
+    public int LastTouchedID
+    {
+        get { return lastTouchedId; }
+        set { lastTouchedId = value; }
+    }
+
+    void Update()
+    {
+        if (_guiValue != _value)
+        {
+            _guiValue = Mathf.Lerp(_guiValue, _value, Time.deltaTime * 4);
+
+            if (Mathf.Abs(_guiValue - _value) < 0.01f)
+                _guiValue = _value;
+        }
+    }
 
 	void OnGUI()
 	{

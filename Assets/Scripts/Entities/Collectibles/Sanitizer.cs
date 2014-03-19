@@ -20,7 +20,8 @@ public class Sanitizer : Collectible
 		else if (state == HandController.HandState.Filthy) {
 			--GlobalState.score;
 		}
-		
+
+        playerHand.value += 1.0f;
 
 		base.Collect();
 	}

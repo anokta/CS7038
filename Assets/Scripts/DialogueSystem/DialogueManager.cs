@@ -107,12 +107,14 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
+	static readonly float bigSize = 0.075f;
+	static readonly float relSize = 0.05f;
+		
     void OnGUI()
     {
         GUI.skin = guiSkin;
 
-        if (GUI.Button(new Rect(Screen.width * 0.925f, Screen.height * 0.925f, Screen.width * 0.05f, Screen.height * 0.05f), GUIContent.none, guiSkin.GetStyle("skip")))
+		if (GUI.Button(new Rect(Screen.width * (1-bigSize), Screen.height - Screen.width * bigSize, Screen.width * relSize, Screen.width * relSize), GUIContent.none, guiSkin.GetStyle("skip")))
         {
             GroupManager.main.activeGroup = nextState;
 

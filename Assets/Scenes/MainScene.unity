@@ -965,19 +965,19 @@ MonoBehaviour:
   - name: Teddy MD
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
     x: .300000012
-    y: .75
+    y: .699999988
     textColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
     avatar: {fileID: 2800000, guid: 0af51bac2253a534185698cbf9345c23, type: 3}
   - name: Dr Handrew
     voice: {fileID: 8300000, guid: 503b14d47e1dc364e9aed7bce8764abd, type: 3}
     x: .75
-    y: .75
+    y: .699999988
     textColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
     avatar: {fileID: 2800000, guid: 1bfc6e149f469d14aa2b69842e88168d, type: 3}
   - name: Patient
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
     x: .300000012
-    y: .75
+    y: .699999988
     textColor: {r: .243295863, g: .735294104, b: .307764649, a: 1}
     avatar: {fileID: 2800000, guid: 94fa7d6646f562547b721761946e525a, type: 3}
 --- !u!1 &1133833774

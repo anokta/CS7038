@@ -28,6 +28,8 @@ public class DialogueEntry
         this.content = content;
     }
 
+	static readonly float relSize = 0.1f;
+
     public void Display(GUISkin guiSkin, string displayedText)
     {
         if(Author.Avatar != null)
@@ -53,6 +55,8 @@ public class DialogueEntry
 
     public bool DisplayButton(GUIStyle style)
     {
-        return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - 60, Author.ScreenPosition.y + ENTRY_HEIGHT, 60, 30), GUIContent.none, style);
+		//return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - Screen.width * 0.05f, Author.ScreenPosition.y + ENTRY_HEIGHT,  Screen.width * 0.05f, Screen.width * 0.05f), GUIContent.none, style);
+		return GUI.Button(new Rect(
+			(Screen.width * (1 - relSize)) / 2, Screen.height - relSize * Screen.width, Screen.width * relSize, Screen.width * relSize), GUIContent.none, style);
     }
 }

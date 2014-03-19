@@ -53,7 +53,7 @@ public class DialogueInstance
                 if (!voiceOutput.isPlaying)
                 {
                     voiceOutput.clip = currentEntry.Author.VoiceSample;
-                    voiceOutput.pitch = UnityEngine.Random.Range(1.25f, 1.75f);//voiceRange.x, voiceRange.y);
+                    voiceOutput.pitch = UnityEngine.Random.Range(1.0f, 1.5f);
                     voiceOutput.Play();
                 }
             }

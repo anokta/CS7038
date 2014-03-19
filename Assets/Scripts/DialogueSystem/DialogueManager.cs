@@ -80,7 +80,7 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[2], "I’m only doing my duty, sir."));
         entries.Add(new DialogueEntry(authors[2], "Just a follow-up question.. Did you wash your hands after lunch today?"));
         entries.Add(new DialogueEntry(authors[3], "..."));
-        entries.Add(new DialogueEntry(authors[3], "No, I forgot"));
+        entries.Add(new DialogueEntry(authors[3], "No, I forgot."));
         entries.Add(new DialogueEntry(authors[2], "Make sure you remember next time. The Handurian Flu is not a joke!"));
         entries.Add(new DialogueEntry(authors[3], "Will do!"));
 

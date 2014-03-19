@@ -80,6 +80,11 @@ public class GUIManager : MonoBehaviour
                 }
             }
         }
+
+        if (GUI.Button(new Rect(Screen.width - 110, 30, 100, 20), "Toggle Audio"))
+        {
+            AudioListener.volume = 1 - AudioListener.volume;
+        }
     }
 
     void GameMenu()

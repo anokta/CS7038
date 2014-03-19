@@ -143,13 +143,13 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     timer.Stop();
 
-                    DialogueManager.nextState = GroupManager.main.group["Running"];
+                    DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                     GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 }
             }
             else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
             {
-                DialogueManager.nextState = GroupManager.main.group["Running"];
+                DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             }
         }
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour, IPan
                     {
                         //isHeld = false;
 
-                        DialogueManager.nextState = GroupManager.main.group["Running"];
+                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                     }
                 }

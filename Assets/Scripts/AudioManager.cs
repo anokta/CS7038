@@ -29,11 +29,11 @@ public class AudioManager : MonoBehaviour
         if (!fadeOut)
         {
             if (menu.volume != menuVolume)
-                menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 4);
+                menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 2);
             if (background.volume != backgroundVolume)
-                background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 4);
+                background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 2);
             if (over.volume != overVolume)
-                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 4);
+                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 2);
         }
         else
         {

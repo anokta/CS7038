@@ -100,7 +100,7 @@ public class DialogueInstance
         {
             currentEntry = null;
 
-            GroupManager.main.activeGroup = DialogueManager.nextState;
+            DialogueManager.DialogueComplete();
 
             return false;
         }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using Grouping;
 
 public class DialogueManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     private static int currentDialogue;
     public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
 
-    public static GroupManager.Group nextState;
+    public static Action DialogueComplete;
 
     void Start()
     {
@@ -116,7 +117,7 @@ public class DialogueManager : MonoBehaviour
 
 		if (GUI.Button(new Rect(Screen.width * (1-bigSize), Screen.height - Screen.width * bigSize, Screen.width * relSize, Screen.width * relSize), GUIContent.none, guiSkin.GetStyle("skip")))
         {
-            GroupManager.main.activeGroup = nextState;
+            DialogueComplete();
 
             return;
         }

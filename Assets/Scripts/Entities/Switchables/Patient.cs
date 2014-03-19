@@ -22,7 +22,7 @@ public class Patient : Switchable
 
         player = GameObject.FindObjectOfType<PlayerController>();
 
-        timer = new Timer(0.5f, Success);
+        timer = new Timer(0.5f, Finish);
     }
 
     protected override void Update()
@@ -57,13 +57,22 @@ public class Patient : Switchable
         }
     }
 
-    void Success()
+    void Finish()
     {
         spriteRenderer.sprite = treatedSprite;
 
         Interrupted();
 
-        audioManager.PlaySFX("Treated");
+        if (player.GetComponent<HandController>().state != HandController.HandState.Clean)
+        {
+            GameWorld.success = false;
+        }
+        else
+        {
+            GameWorld.success &= true;
+
+            audioManager.PlaySFX("Treated");
+        }
 
         player.GetComponent<HandController>().value = HandController.MinValue;
 
@@ -75,10 +84,5 @@ public class Patient : Switchable
         isHeld = false;
 
         timer.Stop();
-
-        if (player.AnimState == PlayerController.PlayerAnimState.Wash)
-        {
-            player.AnimState = PlayerController.PlayerAnimState.Idle;
-        }
     }
 }

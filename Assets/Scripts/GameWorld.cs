@@ -3,6 +3,8 @@ using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
+    public static bool success;
+
     // Use this for initialization
     void Start()
     {
@@ -60,7 +62,7 @@ public class GameWorld : MonoBehaviour
 
         if (isOver)
         {
-            if (LevelManager.Instance.Level == 0)
+            if (LevelManager.Instance.Level == 0 && success)
             {
                 DialogueManager.nextState = GroupManager.main.group["Level Over"];
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
@@ -104,6 +106,8 @@ public class GameWorld : MonoBehaviour
 
         DialogueManager.nextState = GroupManager.main.group["Running"];
         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+
+        success = true;
     }
 
     void LevelOver()

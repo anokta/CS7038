@@ -134,12 +134,15 @@ public class PlayerController : MonoBehaviour, IPan
         // TODO: Make it proper! 
         if (LevelManager.Instance.Level == 0)
         {
-            if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1f)
+            if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
             {
                 playerMoving = false;
+                canMove = false;
 
                 if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
                 {
+                    timer.Stop();
+
                     DialogueManager.nextState = GroupManager.main.group["Running"];
                     GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 }

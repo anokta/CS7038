@@ -28,7 +28,13 @@ public class DialogueEntry
         this.content = content;
     }
 
+<<<<<<< HEAD
+	static readonly float relSize = 0.1f;
+
+    public void Display(GUISkin guiSkin, string displayedText)
+=======
     public bool DisplayEntry(GUISkin guiSkin, string displayedText)
+>>>>>>> 2dbef1c5bdf255be04dd5d9c24161036ae12d257
     {
         bool pressed = false;
 
@@ -57,6 +63,8 @@ public class DialogueEntry
 
     public bool DisplayContinueButton(GUIStyle style)
     {
-		return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - Screen.width*0.05f, Author.ScreenPosition.y + ENTRY_HEIGHT, Screen.width*0.05f, Screen.width*0.05f), GUIContent.none, style);
+		//return GUI.Button(new Rect(Author.ScreenPosition.x + ENTRY_WIDTH - Screen.width * 0.05f, Author.ScreenPosition.y + ENTRY_HEIGHT,  Screen.width * 0.05f, Screen.width * 0.05f), GUIContent.none, style);
+		return GUI.Button(new Rect(
+			(Screen.width * (1 - relSize)) / 2, Screen.height - relSize * Screen.width, Screen.width * relSize, Screen.width * relSize), GUIContent.none, style);
     }
 }

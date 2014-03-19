@@ -1173,23 +1173,24 @@ MonoBehaviour:
     y: .5
     textColor: {r: 1, g: 1, b: 1, a: 1}
     avatar: {fileID: 0}
-  - name: Teddy MD
+  - name: Professor Onionghost
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
     x: .300000012
     y: .699999988
     textColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
-    avatar: {fileID: 2800000, guid: 0af51bac2253a534185698cbf9345c23, type: 3}
-  - name: Dr Handrew
+    avatar: {fileID: 2800000, guid: 857eec3a9e6bee9499c11593a5a7d55b, type: 3}
+  - name: Dr. Handrew
     voice: {fileID: 8300000, guid: 503b14d47e1dc364e9aed7bce8764abd, type: 3}
     x: .75
     y: .699999988
     textColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
-    avatar: {fileID: 2800000, guid: 1bfc6e149f469d14aa2b69842e88168d, type: 3}
+    avatar: {fileID: 2800000, guid: d5dff1132efa03746a8d6d2087932e57, type: 3}
   - name: Patient
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
     x: .300000012
     y: .699999988
     textColor: {r: .243295863, g: .735294104, b: .307764649, a: 1}
+<<<<<<< HEAD
     avatar: {fileID: 2800000, guid: 94fa7d6646f562547b721761946e525a, type: 3}
 --- !u!1 &997006302
 GameObject:
@@ -1230,6 +1231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mask: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
+=======
+    avatar: {fileID: 2800000, guid: 9599900a406c9ef44a040e0a171a6aa1, type: 3}
+>>>>>>> 8a225a87b70751895b5ab06c05904f94f4b6b840
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0

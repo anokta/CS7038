@@ -21,7 +21,7 @@ public class Sanitizer : Collectible
 			--GlobalState.score;
 		}
 
-        playerHand.value += 1.0f;
+        playerHand.SpoilHand(1.0f, GetInstanceID());
 
 		base.Collect();
 	}

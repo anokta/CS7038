@@ -49,6 +49,8 @@ public class Trolley : Pushable
                 timer.Reset();
 
                 audioManager.PlaySFX("Push Trolley");
+
+                playerHand.SpoilHand(-0.75f, GetInstanceID());
             }
         }
 

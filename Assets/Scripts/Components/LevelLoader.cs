@@ -138,7 +138,6 @@ public class LevelLoader
                         break;
                     case TileType.GateClean:
                         parent = accessibleContainer;
-                        var gateClean = gameObj.GetComponent<Gate>();
                         break;
                     case TileType.Lever1:
                         parent = accessibleContainer;

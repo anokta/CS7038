@@ -82,7 +82,7 @@ public class Fountain : Accessible
 
         audioManager.PlaySFX("Fountain");
 
-        playerHand.value = HandController.MaxValue;
+        playerHand.SpoilHand(HandController.MaxValue, GetInstanceID());
     }
 
     void Interrupted()

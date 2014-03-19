@@ -74,7 +74,7 @@ public class Patient : Switchable
             audioManager.PlaySFX("Treated");
         }
 
-        player.GetComponent<HandController>().value = HandController.MinValue;
+        playerHand.value = HandController.MinValue;
 
         treated = true;
     }

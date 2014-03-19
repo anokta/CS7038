@@ -47,6 +47,12 @@ public class HandController : MonoBehaviour
         set { lastTouchedId = value; }
     }
 
+    public void SpoilHand(float amount, int id)
+    {
+        value += amount;
+        lastTouchedId = id;
+    }
+
     void Update()
     {
         if (_guiValue != _value)

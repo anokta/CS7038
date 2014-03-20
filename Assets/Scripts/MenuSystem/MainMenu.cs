@@ -52,13 +52,22 @@ public class MainMenu : MonoBehaviour
         }
        GUILayout.EndHorizontal();
        GUILayout.EndArea();
-
+       GUILayout.BeginArea(new Rect(Screen.width - Screen.width / 9, Screen.height - Screen.height / 5, Screen.width / 10, Screen.height / 5));
         // Mute
-        if (GUI.Button(new Rect(Screen.width - Screen.height / 10.0f, Screen.height - Screen.height / 10.0f, Screen.height / 10.0f, Screen.height / 10.0f), "Mute"))
+       GUILayout.BeginVertical();
+        if (GUILayout.Button("i"))
+        {
+            Application.OpenURL("http://www.surewash.com/");
+        }
+
+        if (GUILayout.Button("Mute"))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
+        
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
     }
 
     void AfterFadeOut()

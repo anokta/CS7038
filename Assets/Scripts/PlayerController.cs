@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, IPan
     private Vector2 lastSwitchDirection;
 
     private HandController hands;
-    private PlayerKeyboardController keyboardController;
 
     private Vector2 previousPosition;
     public Vector2 movement;
@@ -49,8 +48,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
 
-        keyboardController = new PlayerKeyboardController(this);
-
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
         {
@@ -67,6 +64,8 @@ public class PlayerController : MonoBehaviour, IPan
 
         GroupManager.main.group["Running"].Add(this);
         GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
+
+        KeyboardController.Instance.KeyboardEventHandler = this;
     }
 
     #region Gestures
@@ -147,8 +146,6 @@ public class PlayerController : MonoBehaviour, IPan
 
 
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
-
-        keyboardController.Update();
 
         timer.Update();
         actionTimer.Update();

@@ -2,17 +2,18 @@
 using HandyGestures;
 using UnityEngine;
 
-public class PlayerKeyboardController
+public class KeyboardController : MonoBehaviour
 {
-    public PlayerController Player;
+    public static KeyboardController Instance { get; private set; }
+    public IPan KeyboardEventHandler;
 
-    private bool wasPressingKey;
+    private Direction? previousMovement;
 
     private readonly UniqueList<Direction> PressedKeys = new UniqueList<Direction>();
 
     private static readonly Dictionary<Direction, KeyCode[]> Keys = new Dictionary<Direction, KeyCode[]>();
 
-    static PlayerKeyboardController()
+    static KeyboardController()
     {
         Keys[Direction.Up] = new[] { KeyCode.W, KeyCode.UpArrow };
         Keys[Direction.Down] = new[] { KeyCode.S, KeyCode.DownArrow };
@@ -20,14 +21,14 @@ public class PlayerKeyboardController
         Keys[Direction.Right] = new[] { KeyCode.D, KeyCode.RightArrow };
     }
 
-    public PlayerKeyboardController(PlayerController player)
+    public KeyboardController()
     {
-        Player = player;
+        Instance = this;
     }
 
     public void Update()
     {
-        if (Player == null) return;
+        if (KeyboardEventHandler == null) return;
 
         var removed = false;
 
@@ -49,19 +50,29 @@ public class PlayerKeyboardController
         if (PressedKeys.Count > 0)
         {
             var movement = PressedKeys.Last;
-            if (!Player.playerMoving || movement.ToVector2() != Player.movement)
+            PanArgs args;
+
+            if (movement == previousMovement)
+            {
+                args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Hold, Vector2.zero, Vector2.zero, Vector2.zero);
+            }
+            else
             {
                 var delta = movement.Reverse().ToVector2();
-                var args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Move, Vector2.zero, Vector2.zero,
-                    delta);
-                Player.PlayerMoving(args);
+                args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Move, Vector2.zero, Vector2.zero, delta);
             }
+
+            KeyboardEventHandler.OnGesturePan(args);
+
+            previousMovement = PressedKeys.Last;
         }
         else if (removed)
         {
             var args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Up, Vector2.zero, Vector2.zero,
             Vector2.zero);
-            Player.PlayerMoving(args);
+            KeyboardEventHandler.OnGesturePan(args);
+
+            previousMovement = null;
         }
     }
 }

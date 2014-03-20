@@ -24,6 +24,7 @@ public class GameWorld : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(success);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Exit the application
@@ -120,6 +121,8 @@ public class GameWorld : MonoBehaviour
         // Next level
         LevelManager.Instance.Next();
 
+        success = true;
+
         // TEMPORARY HACK
         DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : (LevelManager.Instance.Level + 5);
         if (LevelManager.Instance.Level > 1)
@@ -134,8 +137,6 @@ public class GameWorld : MonoBehaviour
             DialogueManager.DialogueComplete = GoBackToLevel;
             GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
         });
-
-        success = true;
     }
 
     void LevelOver()

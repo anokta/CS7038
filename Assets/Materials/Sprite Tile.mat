@@ -28,11 +28,11 @@ Material:
       data:
         first:
           name: RepeatX
-        second: 1
+        second: 10
       data:
         first:
           name: RepeatY
-        second: 1
+        second: 6.8689332
     m_Colors:
       data:
         first:

@@ -11,15 +11,17 @@ Shader "Sprites/Snap"
 	{
 		Tags
 		{ 
-			"ForceSupported" = "True"
-			"RenderType" = "Overlay" 
+			"Queue"="Transparent" 
+			"IgnoreProjector"="True" 
+			"RenderType"="Transparent" 
 			"PreviewType"="Plane"
+			"CanUseSpriteAtlas"="True"
 		}
 			
 		Lighting Off 
 		Blend SrcAlpha OneMinusSrcAlpha 
 		Cull Off 
-		ZWrite Off 
+		ZWrite On 
 		Fog { Mode Off } 
 		ZTest Always
 

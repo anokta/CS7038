@@ -551,7 +551,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: bbe8520a14d817e4e913842042f2e757, type: 2}
+  - {fileID: 2100000, guid: 049a7d12d7992a64fa4563b4a77289ad, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -569,7 +569,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 336230961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.87272549, y: 6.61195993, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -842,7 +842,7 @@ Camera:
   m_GameObject: {fileID: 601924071}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: .0367646813, g: .0367646813, b: .0367646813, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -1222,9 +1222,9 @@ MonoBehaviour:
   - name: '[Narrator]'
     voice: {fileID: 8300000, guid: ef0ae8f22c051934c8f7d451ac1d9bdc, type: 3}
     x: .25
-    y: .300000012
+    y: .25
     w: .5
-    h: .400000006
+    h: .5
     Alignment: 1
     textColor: {r: 1, g: 1, b: 1, a: 1}
     avatar: {fileID: 0}

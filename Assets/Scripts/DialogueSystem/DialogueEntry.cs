@@ -58,7 +58,7 @@ public class DialogueEntry
             authorStyle.alignment = Author.Alignment;
 
             authorStyle.normal.textColor = Author.TextColor;
-            pressed |= GUILayout.Button(Author.Name + ":>", authorStyle);
+            pressed |= GUILayout.Button(Author.Name, authorStyle);
         }
 
         GUIStyle contentStyle = guiSkin.GetStyle("content");

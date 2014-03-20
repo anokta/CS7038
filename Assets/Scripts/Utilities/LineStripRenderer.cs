@@ -46,6 +46,7 @@ public class LineStripRenderer : Component
                 laser.transform.parent = parent.transform;
 
                 var line = laser.AddComponent<LineRenderer>();
+				line.sortingOrder = 1000;
                 line.SetWidth(0.1f, 0.1f);
                 line.SetVertexCount(2);
 

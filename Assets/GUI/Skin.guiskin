@@ -1195,8 +1195,8 @@ MonoBehaviour:
   m_CustomStyles:
   - m_Name: author
     m_Normal:
-      m_Background: {fileID: 2800000, guid: c8cdb63c1a7e4034b941dde3ebfd00e7, type: 3}
-      m_TextColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
+      m_Background: {fileID: 2800000, guid: 80af3499dd872204191d1ffb33617c08, type: 3}
+      m_TextColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1221,13 +1221,13 @@ MonoBehaviour:
     m_Border:
       m_Left: 0
       m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
+      m_Top: 10
+      m_Bottom: 10
     m_Margin:
       m_Left: 0
       m_Right: 0
       m_Top: 0
-      m_Bottom: 4
+      m_Bottom: 0
     m_Padding:
       m_Left: 10
       m_Right: 10
@@ -1241,7 +1241,7 @@ MonoBehaviour:
     m_Font: {fileID: 0}
     m_FontSize: 28
     m_FontStyle: 1
-    m_Alignment: 0
+    m_Alignment: 2
     m_WordWrap: 1
     m_RichText: 1
     m_TextClipping: 0
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   - m_Name: content
     m_Normal:
       m_Background: {fileID: 2800000, guid: 909a61326868c8f40a01a162d37d9d9c, type: 3}
-      m_TextColor: {r: 1.5, g: 1.5, b: 1.5, a: 2}
+      m_TextColor: {r: 1.37689424, g: .986591697, b: 1.38235295, a: 2}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1287,10 +1287,10 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 20
-      m_Right: 20
-      m_Top: 20
-      m_Bottom: 20
+      m_Left: 30
+      m_Right: 30
+      m_Top: 10
+      m_Bottom: 10
     m_Overflow:
       m_Left: 0
       m_Right: 0
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     m_StretchHeight: 1
   - m_Name: next
     m_Normal:
-      m_Background: {fileID: 2800000, guid: dc585b52cdb589b4d930911c9cda99b2, type: 3}
+      m_Background: {fileID: 2800000, guid: e6d70e0aec3195442b600e546c2b6cc3, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: c13fe7b279668304680b43eaf383569b, type: 3}

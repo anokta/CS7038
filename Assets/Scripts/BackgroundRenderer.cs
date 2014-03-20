@@ -18,12 +18,13 @@ public class BackgroundRenderer : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		//FIXME: The dimensions are wrong
 		transform.localPosition = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
-		transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+		transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 1);
 		transform.localScale = Camera.main.ScreenToWorldDelta(new Vector3(Screen.width, Screen.height, 1));
 
-		_renderer.material.SetFloat("RepeatX", squareSize);
-		_renderer.material.SetFloat("RepeatY", transform.localScale.y / transform.localScale.x * squareSize);
+		_renderer.sharedMaterial.SetFloat("RepeatX", squareSize);
+		_renderer.sharedMaterial.SetFloat("RepeatY", transform.localScale.y / transform.localScale.x * squareSize);
 		//transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
 	}
 }

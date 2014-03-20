@@ -19,11 +19,12 @@
 			"CanUseSpriteAtlas"="True"
 		}
 
-		Cull Off
-		Lighting Off
-		ZWrite Off
-		Fog { Mode Off }
-		Blend SrcAlpha OneMinusSrcAlpha
+		Lighting Off 
+		Blend SrcAlpha OneMinusSrcAlpha 
+		Cull Off 
+		ZWrite Off 
+		Fog { Mode Off } 
+		ZTest Always
 
 		Pass
 		{
@@ -56,7 +57,7 @@
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				OUT.texcoord = IN.texcoord  * float2(RepeatX, RepeatY);
 				OUT.color = IN.color * _Color;
-				
+				OUT.vertex.z = 1;
 				return OUT;
 			}
 

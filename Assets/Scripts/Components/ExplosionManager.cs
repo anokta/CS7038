@@ -23,6 +23,8 @@ public class ExplosionManager
         {
             var task = new ExplosionTask(gameObj);
             TaskScheduler.Instance.Add(delay, task);
+
+            AudioManager.PlaySfxDelayed("Explosion Crate", delay - 0.02f);
         }
     }
 }

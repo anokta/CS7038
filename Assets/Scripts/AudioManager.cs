@@ -7,7 +7,14 @@ public class AudioManager : MonoBehaviour
     public AudioSource menu, background, over;
     float menuVolume, backgroundVolume, overVolume;
 
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx, explosionSfx;
+
+    private static AudioManager instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // Use this for initialization
     void Start()
@@ -97,6 +104,16 @@ public class AudioManager : MonoBehaviour
 
             case "Laser Hit":
                 laserSfx.Play();
+                break;
+        }
+    }
+
+    public static void PlaySfxDelayed(string type, float delay)
+    {
+        switch (type)
+        {
+            case "Explosion Crate":
+                instance.explosionSfx.PlayScheduled(Mathf.Max(0.0f, delay));
                 break;
         }
     }

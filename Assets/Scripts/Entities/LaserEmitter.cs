@@ -38,6 +38,8 @@ public class LaserEmitter : Entity
     public Sprite LaserLeft;
     public Sprite LaserRight;
 
+    private int lastExplosiveID;
+
     public LaserEmitter()
     {
         direction = Direction.Down;
@@ -96,7 +98,12 @@ public class LaserEmitter : Entity
 
             if (hit.collider.name.StartsWith("Explosive"))
             {
-                ExplosionManager.Instance.Add(hit.collider.gameObject);
+                if (lastExplosiveID != hit.transform.GetInstanceID())
+                {
+                    lastExplosiveID = hit.transform.GetInstanceID();
+
+                    ExplosionManager.Instance.Add(hit.collider.gameObject);
+                }
             }
 
             break;

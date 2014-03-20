@@ -26,19 +26,21 @@ public class MainMenu : MonoBehaviour
         GUI.skin = GUIManager.GetSkin();
         GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),menuBackground);
         // Continue
-        if (PlayerPrefs.GetInt("Level", 0) > 0 && GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 - Screen.height / 3.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Continue"))
+        GUILayout.BeginArea(new Rect(Screen.width/4, Screen.height/2, Screen.width/2, Screen.height/4));
+        GUILayout.BeginHorizontal();
+        if (PlayerPrefs.GetInt("Level", 0) > 0 && GUILayout.Button("Continue"))
         {
             LevelManager.Instance.Level = PlayerPrefs.GetInt("Level", 0) - 1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
         // Start
-        if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 - Screen.height / 6.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Start"))
+        if (GUILayout.Button("Start"))
         {
             LevelManager.Instance.Level = -1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
         // Level Select
-        if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 + Screen.height / 6.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Level Select"))
+        if (GUILayout.Button("Level Select"))
         {
             ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
             {
@@ -48,6 +50,8 @@ public class MainMenu : MonoBehaviour
                 });
             });
         }
+       GUILayout.EndHorizontal();
+       GUILayout.EndArea();
 
         // Mute
         if (GUI.Button(new Rect(Screen.width - Screen.height / 10.0f, Screen.height - Screen.height / 10.0f, Screen.height / 10.0f, Screen.height / 10.0f), "Mute"))

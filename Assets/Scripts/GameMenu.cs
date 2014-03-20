@@ -27,6 +27,11 @@ public class GameMenu : MonoBehaviour
             LevelManager.Instance.Level = PlayerPrefs.GetInt("Level", 0) - 1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
+        if (GUI.Button(new Rect(5, Screen.height - 35, 100, 30), "mute"))
+        {
+            AudioListener.volume = 1 - AudioListener.volume;
+            PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
+        }
     }
 
     void AfterFadeOut()

@@ -6,7 +6,7 @@ using Grouping;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GUISkin guiSkin;
+    GUISkin guiSkin;
 
     public float textSpeed = 40.0f;
 
@@ -106,6 +106,8 @@ public class DialogueManager : MonoBehaviour
             guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
         });
         waitTimer.repeating = true;
+
+        guiSkin = GUIManager.GetSkin();
     }
 
     // Update is called once per frame

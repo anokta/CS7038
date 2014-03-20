@@ -26,7 +26,7 @@ public class Patient : Switchable
 
         player = GameObject.FindObjectOfType<PlayerController>();
 
-        timer = new Timer(1.2f, Finish);
+        timer = new Timer(0.8f, Finish);
     }
 
     protected override void Update()

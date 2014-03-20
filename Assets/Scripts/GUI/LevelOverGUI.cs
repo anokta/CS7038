@@ -40,15 +40,17 @@ public class LevelOverGUI : MonoBehaviour
         "I am appalled at your unsanitary medical practices. Are you a real doctor?"
     };
 
-
-    private Rect guiWindow = new Rect(Screen.width / 2.0f - Screen.width / 3.0f, Screen.height / 2.0f - Screen.height / 3.0f, 2.0f * Screen.width / 3.0f, 2.0f * Screen.height / 3.0f - Screen.height / 10.0f);
-
+    float buttonSize;
+    Rect guiWindow;
 
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Level Over"].Add(this);
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, Enter, Exit));
+        
+        buttonSize = Screen.height / 5.0f;
+        guiWindow = new Rect(Screen.width / 2.0f - Screen.width / 3.0f, Screen.height / 2.0f - Screen.height / 3.0f, 2.0f * Screen.width / 3.0f, 2.0f * Screen.height / 3.0f - buttonSize);
     }
 
     // Update is called once per frame
@@ -63,16 +65,16 @@ public class LevelOverGUI : MonoBehaviour
 
         GUILayout.EndArea();
 
-        Rect buttonRect = new Rect(guiWindow.x + guiWindow.width / 2.0f - Screen.height / 20.0f, guiWindow.y + guiWindow.height, Screen.height / 10.0f, Screen.height / 10.0f);
+        Rect buttonRect = new Rect(guiWindow.x + guiWindow.width / 2.0f - buttonSize / 2.0f, guiWindow.y + guiWindow.height, buttonSize, buttonSize);
 
         if (GameWorld.success)
         {
-            buttonRect.x += Screen.height / 10.0f;
+            buttonRect.x += buttonSize * 0.75f;
             if (GUI.Button(buttonRect, "Next Level", GUI.skin.GetStyle("continue")))
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-            } 
-            buttonRect.x -= Screen.height / 5.0f;
+            }
+            buttonRect.x -= buttonSize * 1.5f;
         }
 
         if (GUI.Button(buttonRect, "Restart", GUI.skin.GetStyle("restart")))

@@ -127,7 +127,11 @@ public class GameWorld : MonoBehaviour
         DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : (LevelManager.Instance.Level + 5);
         if (LevelManager.Instance.Level > 1)
         {
-            GoBackToLevel();
+            ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
+            {
+                GoBackToLevel();
+            });
+
             return;
         }
         //

@@ -18,7 +18,6 @@ public class Explosion : Entity
         var playing = animator.GetCurrentAnimatorStateInfo(0).IsName("Explosion");
         if (!playing)
         {
-            Debug.Log("1");
             Destroy(gameObject);
         }
     }

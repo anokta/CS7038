@@ -73,10 +73,10 @@ public class DialogueEntry
 
     public bool DisplayContinueButton(GUIStyle style)
     {
-        float nextX = Author.GuiRectangle.x + Author.GuiRectangle.width - Screen.height / 15.0f;
+        float nextX = Author.GuiRectangle.x + Author.GuiRectangle.width - Screen.height / 10.0f;
         if(Author.Alignment == TextAnchor.UpperCenter)
-            nextX = Screen.width / 2.0f - Screen.height / 50.0f;
+            nextX = Screen.width / 2.0f - Screen.height / 30.0f;
 
-        return GUI.Button(new Rect(nextX, Author.GuiRectangle.y + Author.GuiRectangle.height - Screen.height / 15.0f, Screen.height / 25.0f, Screen.height / 25.0f), GUIContent.none, style);
+        return GUI.Button(new Rect(nextX, Author.GuiRectangle.y + Author.GuiRectangle.height - Screen.height / 10.0f, Screen.height / 15.0f, Screen.height / 15.0f), GUIContent.none, style);
     }
 }

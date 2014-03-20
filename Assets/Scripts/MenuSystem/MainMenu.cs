@@ -12,20 +12,22 @@ public class MainMenu : MonoBehaviour
 
     void OnGUI()
     {
-        // Start
-        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 - Screen.height / 5.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Start"))
-        {
-            LevelManager.Instance.Level = -1;
-            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
-        }
+        GUI.skin = GUIManager.GetSkin();
+
         // Continue
-        if (PlayerPrefs.GetInt("Level", 0) > 0 && GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2, Screen.width / 5.0f, Screen.height / 10.0f), "Continue"))
+        if (PlayerPrefs.GetInt("Level", 0) > 0 && GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 - Screen.height / 3.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Continue"))
         {
             LevelManager.Instance.Level = PlayerPrefs.GetInt("Level", 0) - 1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
+        // Start
+        if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 - Screen.height / 6.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Start"))
+        {
+            LevelManager.Instance.Level = -1;
+            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
+        }
         // Level Select
-        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 + Screen.height / 5.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Level Select"))
+        if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8.0f, Screen.height / 2 + Screen.height / 6.0f, Screen.height / 4.0f, Screen.height / 6.0f), "Level Select"))
         {
             ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
             {
@@ -37,7 +39,7 @@ public class MainMenu : MonoBehaviour
         }
 
         // Mute
-        if (GUI.Button(new Rect(Screen.width - 120, Screen.height - 70, 100, 50), "Mute"))
+        if (GUI.Button(new Rect(Screen.width - Screen.height / 10.0f, Screen.height - Screen.height / 10.0f, Screen.height / 10.0f, Screen.height / 10.0f), "Mute"))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);

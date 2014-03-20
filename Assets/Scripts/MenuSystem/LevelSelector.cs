@@ -16,8 +16,10 @@ public class LevelSelector : MonoBehaviour {
         buttonSize *= Screen.height;
 	}
 	
-	void OnGUI () 
+	void OnGUI ()
     {
+        GUI.skin = GUIManager.GetSkin();
+
         // Levels
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
         float offsetY = 0.5f * Screen.height - rowCount * buttonSize / 2.0f;

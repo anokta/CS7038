@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: DialogueGUISkin
+  m_Name: Skin
   m_EditorClassIdentifier: 
   m_Font: {fileID: 12800000, guid: f1470a9b343908b40a0c02828f818112, type: 3}
   m_box:
@@ -1253,7 +1253,65 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: content
     m_Normal:
-      m_Background: {fileID: 2800000, guid: d1de3c7abeac40a46b3258c97e1c7ac1, type: 3}
+      m_Background: {fileID: 2800000, guid: 909a61326868c8f40a01a162d37d9d9c, type: 3}
+      m_TextColor: {r: 1.5, g: 1.5, b: 1.5, a: 2}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 16
+      m_Right: 16
+      m_Top: 16
+      m_Bottom: 16
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 20
+      m_Right: 20
+      m_Top: 20
+      m_Bottom: 20
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 1
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 1
+  - m_Name: content_border
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 8fab04db7e05e2c4fab4bb82d6d59b85, type: 3}
       m_TextColor: {r: .743295848, g: 1.03170872, b: 1.2352941, a: 2}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1277,10 +1335,10 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
+      m_Left: 16
+      m_Right: 16
+      m_Top: 16
+      m_Bottom: 16
     m_Margin:
       m_Left: 0
       m_Right: 0
@@ -1289,8 +1347,8 @@ MonoBehaviour:
     m_Padding:
       m_Left: 20
       m_Right: 20
-      m_Top: 5
-      m_Bottom: 5
+      m_Top: 20
+      m_Bottom: 20
     m_Overflow:
       m_Left: 0
       m_Right: 0
@@ -1311,7 +1369,7 @@ MonoBehaviour:
     m_StretchHeight: 1
   - m_Name: next
     m_Normal:
-      m_Background: {fileID: 2800000, guid: e6d70e0aec3195442b600e546c2b6cc3, type: 3}
+      m_Background: {fileID: 2800000, guid: dc585b52cdb589b4d930911c9cda99b2, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: c13fe7b279668304680b43eaf383569b, type: 3}

@@ -1,27 +1,29 @@
-Shader "Sprites/Snap"
+﻿Shader "Sprites/Tile"
 {
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 1
 		_Color ("Tint", Color) = (1,1,1,1)
+		RepeatX ("Repeat X", Float) = 1
+		RepeatY ("Repeat Y", Float) = 1
 	}
 
 	SubShader
 	{
 		Tags
 		{ 
-			"ForceSupported" = "True"
-			"RenderType" = "Overlay" 
+			"Queue"="Transparent" 
+			"IgnoreProjector"="True" 
+			"RenderType"="Transparent" 
 			"PreviewType"="Plane"
+			"CanUseSpriteAtlas"="True"
 		}
-			
-		Lighting Off 
-		Blend SrcAlpha OneMinusSrcAlpha 
-		Cull Off 
-		ZWrite Off 
-		Fog { Mode Off } 
-		ZTest Always
+
+		Cull Off
+		Lighting Off
+		ZWrite Off
+		Fog { Mode Off }
+		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
 		{
@@ -45,22 +47,21 @@ Shader "Sprites/Snap"
 			};
 			
 			fixed4 _Color;
+			fixed RepeatX;
+			fixed RepeatY;
 
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
-				OUT.texcoord = IN.texcoord;
+				OUT.texcoord = IN.texcoord  * float2(RepeatX, RepeatY);
 				OUT.color = IN.color * _Color;
-				#ifndef DUMMY
-					OUT.vertex = UnityPixelSnap (OUT.vertex);
-				#endif
-
+				
 				return OUT;
 			}
 
 			sampler2D _MainTex;
-
+			
 			fixed4 frag(v2f IN) : COLOR
 			{
 				return tex2D(_MainTex, IN.texcoord) * IN.color;

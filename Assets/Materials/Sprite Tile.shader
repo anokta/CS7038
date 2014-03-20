@@ -24,8 +24,7 @@
 		Cull Off 
 		ZWrite Off 
 		Fog { Mode Off } 
-		ZTest Always
-
+		
 		Pass
 		{
 		CGPROGRAM
@@ -57,7 +56,6 @@
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				OUT.texcoord = IN.texcoord  * float2(RepeatX, RepeatY);
 				OUT.color = IN.color * _Color;
-				OUT.vertex.z = 1;
 				return OUT;
 			}
 

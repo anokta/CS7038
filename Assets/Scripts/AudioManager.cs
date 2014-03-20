@@ -26,6 +26,10 @@ public class AudioManager : MonoBehaviour
         menu.volume = 0.0f;
         background.volume = 0.0f;
         over.volume = 0.0f;
+
+        menu.Play();
+        background.Play();
+        over.Play();
     }
 
     // Update is called once per frame
@@ -137,11 +141,6 @@ public class AudioManager : MonoBehaviour
         menuVolume = 0.3f;
         backgroundVolume = 0.0f;
         overVolume = 0.0f;
-
-        menu.Play();
-
-        background.Play();
-        over.Play();
     }
 
     void LevelStart()

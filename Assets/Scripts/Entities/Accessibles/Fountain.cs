@@ -35,7 +35,7 @@ public class Fountain : Accessible
        timer.Update();
 
 		if (isHeld) {
-			if (!player.IsHeld || player.NextDirection != lastPlayerDirection) 
+			if (player.NextDirection != lastPlayerDirection) 
             {
 				Interrupted();
 			}
@@ -57,7 +57,7 @@ public class Fountain : Accessible
 
 	public override bool Enter()
 	{
-        if (!isHeld && player.IsHeld)
+        if (!isHeld)
         {
             player.AnimState = PlayerController.PlayerAnimState.Wash;
 

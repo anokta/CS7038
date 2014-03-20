@@ -18,9 +18,6 @@ public class PlayerController : MonoBehaviour, IPan
 
     private const float PLAYER_SPEED = 0.4f;
 
-    private bool isHeld;
-    public bool IsHeld { get { return isHeld; } }
-
     private bool canSwitch;
     private bool canMove;
 
@@ -102,19 +99,16 @@ public class PlayerController : MonoBehaviour, IPan
                     canMove = true;
                 }
 
-                isHeld = true;
                 playerMoving = true;
                 break;
             case PanArgs.State.Hold:
                 playerMoving = true;
-                isHeld = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
                 playerMoving = false;
-                isHeld = false;
                 break;
             default:
                 playerMoving = false;
@@ -270,10 +264,10 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
-                        isHeld = false;
-
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+
+                        return false;
                     }
                 }
 

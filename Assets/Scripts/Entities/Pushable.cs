@@ -18,15 +18,6 @@ public abstract class Pushable : Entity
     {
         var canPush = CanPush(direction);
 
-        if (canPush && SpoilHand)
-        {
-            if (playerHand.LastTouchedID != GetInstanceID())
-            {
-                playerHand.value -= 0.75f;
-                playerHand.LastTouchedID = GetInstanceID();
-            }
-        }
-
         return canPush;
     }
 

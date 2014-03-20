@@ -59,6 +59,6 @@ public class Mirror : Switchable
 
 		Forward = !Forward;
 
-        playerHand.value -= 0.5f;
+        playerHand.SpoilHand(-0.5f, GetInstanceID());
 	}
 }

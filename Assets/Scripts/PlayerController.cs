@@ -12,14 +12,11 @@ public class PlayerController : MonoBehaviour, IPan
 
     public enum PlayerAnimState { Idle = 0, Walk = 1, Push = 2, Action = 3, Wash = 4 }
     private PlayerAnimState animState;
-    public PlayerAnimState AnimState { get { return animState; }  set { animState = value; } } 
+    public PlayerAnimState AnimState { get { return animState; } set { animState = value; } }
 
     private Timer actionTimer;
 
     private const float PLAYER_SPEED = 0.4f;
-
-    private bool isHeld;
-    public bool IsHeld { get { return isHeld; } }
 
     private bool canSwitch;
     private bool canMove;
@@ -69,6 +66,7 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
 
         GroupManager.main.group["Running"].Add(this);
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
     }
 
     #region Gestures
@@ -101,19 +99,16 @@ public class PlayerController : MonoBehaviour, IPan
                     canMove = true;
                 }
 
-                isHeld = true;
                 playerMoving = true;
                 break;
             case PanArgs.State.Hold:
                 playerMoving = true;
-                isHeld = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
                 playerMoving = false;
-                isHeld = false;
                 break;
             default:
                 playerMoving = false;
@@ -242,6 +237,11 @@ public class PlayerController : MonoBehaviour, IPan
                 var pushable = hit.collider.GetComponent<Pushable>();
                 var canPush = pushable.Push(nextMovement);
 
+                if (canPush && hit.transform.name.StartsWith("Trolley"))
+                {
+                    StartAction();
+                }
+
                 canMove &= canPush && pushable.MovingWithPlayer;
                 if (canMove)
                 {
@@ -260,17 +260,14 @@ public class PlayerController : MonoBehaviour, IPan
             case "Accessible":
                 var accessible = hit.collider.GetComponent<Accessible>();
 
-                if(accessible.name.StartsWith("Fountain"))
+                if (accessible.name.StartsWith("Fountain"))
                 {
-                    animState = PlayerAnimState.Wash;
-
                     if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
-                        animState = PlayerAnimState.Idle;
-                        SetAnimationState(nextMovement);
-
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+
+                        return false;
                     }
                 }
 
@@ -285,7 +282,10 @@ public class PlayerController : MonoBehaviour, IPan
                     canSwitch = false;
                     lastSwitchDirection = nextMovement;
 
-                    StartAction();
+                    if (!switchable.name.StartsWith("Patient"))
+                    {
+                        StartAction();
+                    }
                 }
                 return false;
 
@@ -329,5 +329,13 @@ public class PlayerController : MonoBehaviour, IPan
         {
             animState = PlayerAnimState.Idle;
         }
+    }
+
+    private void GoBackToIdle()
+    {
+        animState = PlayerAnimState.Idle;
+
+        SetAnimationState(nextMovement);
+        animator.SetInteger("State", (int)animState);
     }
 }

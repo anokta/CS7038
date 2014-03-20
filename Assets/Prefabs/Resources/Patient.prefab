@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treatedSprite: {fileID: 21300000, guid: 46a9d70ce4a35d94f87093cacfc18715, type: 3}
+  GUIpie: {fileID: 2100000, guid: 0ea787b26ab47dd4b87c2c0a331382da, type: 2}
+  progressTexture: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

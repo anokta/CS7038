@@ -11,7 +11,7 @@
     {
         audioManager.PlaySFX("Door");
 
-        playerHand.value -= 0.5f;
+        playerHand.SpoilHand(-0.5f, GetInstanceID());
 
         return true;
     }

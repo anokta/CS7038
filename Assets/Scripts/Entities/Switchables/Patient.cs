@@ -13,6 +13,10 @@ public class Patient : Switchable
     PlayerController player;
     Vector2 lastPlayerDirection;
 
+    public Material GUIpie;
+    public Texture progressTexture;
+    Vector2 guiPosition;
+
     // Use this for initialization
     protected override void Start()
     {
@@ -22,7 +26,7 @@ public class Patient : Switchable
 
         player = GameObject.FindObjectOfType<PlayerController>();
 
-        timer = new Timer(0.5f, Finish);
+        timer = new Timer(1.2f, Finish);
     }
 
     protected override void Update()
@@ -40,6 +44,15 @@ public class Patient : Switchable
         }
     }
 
+    void OnGUI()
+    {
+        GUIpie.SetFloat("Value", timer.progress);
+        GUIpie.SetFloat("Clockwise", 0);
+
+        Graphics.DrawTexture(new Rect(guiPosition.x - Screen.width * 0.01f, guiPosition.y - Screen.width * 0.04f, Screen.width * 0.02f, Screen.width * 0.02f), progressTexture, GUIpie);
+    }
+
+
     public bool IsTreated()
     {
         return treated;
@@ -47,13 +60,21 @@ public class Patient : Switchable
 
     public override void Switch()
     {
-        if (!treated)
+        if (!treated && !isHeld)
         {
+            player.AnimState = PlayerController.PlayerAnimState.Wash;
+
             isHeld = true;
 
             timer.Reset();
 
             lastPlayerDirection = player.NextDirection;
+
+            Vector2 p = Camera.main.WorldToScreenPoint(player.transform.position);
+            p.y = Screen.height - p.y;
+
+            guiPosition = p;
+
         }
     }
 
@@ -74,7 +95,7 @@ public class Patient : Switchable
             audioManager.PlaySFX("Treated");
         }
 
-        player.GetComponent<HandController>().value = HandController.MinValue;
+        playerHand.value = HandController.MinValue;
 
         treated = true;
     }
@@ -83,6 +104,11 @@ public class Patient : Switchable
     {
         isHeld = false;
 
-        timer.Stop();
+        timer.Stop(); 
+        
+        if (player.AnimState == PlayerController.PlayerAnimState.Wash)
+        {
+            player.AnimState = PlayerController.PlayerAnimState.Idle;
+        }
     }
 }

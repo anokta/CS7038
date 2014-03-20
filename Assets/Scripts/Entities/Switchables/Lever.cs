@@ -24,7 +24,7 @@ public class Lever : Switchable
 
         audioManager.PlaySFX("Lever");
 
-        playerHand.value -= 0.5f;
+        playerHand.SpoilHand(-0.55f, GetInstanceID());
     }
 
     public void UpdateOpenState(bool open)

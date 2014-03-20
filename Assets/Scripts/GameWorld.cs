@@ -121,7 +121,12 @@ public class GameWorld : MonoBehaviour
         LevelManager.Instance.Next();
 
         // TEMPORARY HACK
-        DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : 6;
+        DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : (LevelManager.Instance.Level + 5);
+        if (LevelManager.Instance.Level > 1)
+        {
+            GoBackToLevel();
+            return;
+        }
         //
 
         ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()

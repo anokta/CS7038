@@ -35,7 +35,7 @@ public class Fountain : Accessible
        timer.Update();
 
 		if (isHeld) {
-			if (!player.IsHeld || player.NextDirection != lastPlayerDirection) 
+			if (player.NextDirection != lastPlayerDirection) 
             {
 				Interrupted();
 			}
@@ -59,6 +59,8 @@ public class Fountain : Accessible
 	{
         if (!isHeld)
         {
+            player.AnimState = PlayerController.PlayerAnimState.Wash;
+
             isHeld = true;
 
             timer.Reset();
@@ -82,7 +84,7 @@ public class Fountain : Accessible
 
         audioManager.PlaySFX("Fountain");
 
-        playerHand.value = HandController.MaxValue;
+        playerHand.SpoilHand(HandController.MaxValue, GetInstanceID());
     }
 
     void Interrupted()

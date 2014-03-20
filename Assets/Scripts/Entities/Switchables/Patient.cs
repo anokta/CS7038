@@ -60,7 +60,7 @@ public class Patient : Switchable
 
     public override void Switch()
     {
-        if (!treated && !timer.running)
+        if (!treated && !isHeld)
         {
             player.AnimState = PlayerController.PlayerAnimState.Wash;
 

@@ -2,32 +2,42 @@
 using System.Collections;
 using Grouping;
 
-public class GameMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour
 { 
     // Use this for initialization
     void Start()
     {
-        GroupManager.main.group["Menu"].Add(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        GroupManager.main.group["Main Menu"].Add(this);
     }
 
     void OnGUI()
     {
+        // Start
         if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 - Screen.height / 5.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Start"))
         {
             LevelManager.Instance.Level = -1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
-        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 + Screen.height / 10.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Continue"))
+        // Continue
+        if (PlayerPrefs.GetInt("Level", 0) > 0 && GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2, Screen.width / 5.0f, Screen.height / 10.0f), "Continue"))
         {
             LevelManager.Instance.Level = PlayerPrefs.GetInt("Level", 0) - 1;
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
-        if (GUI.Button(new Rect(5, Screen.height - 35, 100, 30), "mute"))
+        // Level Select
+        if (GUI.Button(new Rect(Screen.width / 2 - Screen.width / 10.0f, Screen.height / 2 + Screen.height / 5.0f, Screen.width / 5.0f, Screen.height / 10.0f), "Level Select"))
+        {
+            ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
+            {
+                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                {
+                    GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
+                });
+            });
+        }
+
+        // Mute
+        if (GUI.Button(new Rect(Screen.width - 120, Screen.height - 70, 100, 50), "Mute"))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);

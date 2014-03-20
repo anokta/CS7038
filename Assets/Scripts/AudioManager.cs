@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GroupManager.main.group["Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
+        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 

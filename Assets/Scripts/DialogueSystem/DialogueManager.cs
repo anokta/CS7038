@@ -119,8 +119,8 @@ public class DialogueManager : MonoBehaviour
         waitTimer.Update();
     }
 
-	static readonly float bigSize = 0.08f;
-	static readonly float relSize = 0.06f;
+	static readonly float bigSize = 0.09f;
+	static readonly float relSize = 0.07f;
 		
     void OnGUI()
     {

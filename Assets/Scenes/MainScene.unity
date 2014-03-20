@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e705318f9cd422e4eb6a28a6b6f274b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mask: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
+  mask: {fileID: 2800000, guid: 20e27f451c35091418f87f9c2ae5e81e, type: 3}
 --- !u!1 &601924071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,29 +1231,29 @@ MonoBehaviour:
   - name: Professor Onionghost
     voice: {fileID: 8300000, guid: 6e3aadcb2ff944040b56ab9455d6ce98, type: 3}
     x: 0
-    y: .699999988
+    y: .600000024
     w: 1
-    h: .300000012
+    h: .400000006
     Alignment: 2
-    textColor: {r: .876894236, g: .486591697, b: .882352948, a: 1}
+    textColor: {r: .737254918, g: .350277603, b: .242860422, a: 1}
     avatar: {fileID: 2800000, guid: 857eec3a9e6bee9499c11593a5a7d55b, type: 3}
   - name: Dr. Handrew
     voice: {fileID: 8300000, guid: 503b14d47e1dc364e9aed7bce8764abd, type: 3}
     x: 0
-    y: .699999988
+    y: .600000024
     w: 1
-    h: .300000012
+    h: .400000006
     Alignment: 0
     textColor: {r: .243295863, g: .531708658, b: .735294104, a: 1}
     avatar: {fileID: 2800000, guid: d5dff1132efa03746a8d6d2087932e57, type: 3}
   - name: Patient
     voice: {fileID: 8300000, guid: 48bb6fd77459c054595b98ca40f6db73, type: 3}
     x: 0
-    y: .699999988
+    y: .600000024
     w: 1
-    h: .300000012
+    h: .400000006
     Alignment: 2
-    textColor: {r: .243295863, g: .735294104, b: .307764649, a: 1}
+    textColor: {r: .242860422, g: .737254918, b: .245614648, a: 1}
     avatar: {fileID: 2800000, guid: 9599900a406c9ef44a040e0a171a6aa1, type: 3}
   nextButtonImages:
   - {fileID: 2800000, guid: dc585b52cdb589b4d930911c9cda99b2, type: 3}

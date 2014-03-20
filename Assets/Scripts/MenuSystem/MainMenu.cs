@@ -12,6 +12,15 @@ public class MainMenu : MonoBehaviour
         GroupManager.main.group["Main Menu"].Add(this);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Exit the application
+            Application.Quit();
+        }
+    }
+
     void OnGUI()
     {
         GUI.skin = GUIManager.GetSkin();

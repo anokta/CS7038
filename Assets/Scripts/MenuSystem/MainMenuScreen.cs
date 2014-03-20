@@ -54,17 +54,18 @@ public class MainMenuScreen : TouchLogic
         if (GUI.Button(new Rect(buttonX, buttonMargin, buttonWidth, buttonHeight), "Start Game", menuItemSkin.customStyles[0]))
         {
             Application.LoadLevel("MainScene");
-            LevelManager.Instance.Load(0);
+            LevelManager.Instance.Load(9);
         }
         if (GUI.Button(new Rect(buttonX, (2*buttonMargin)+buttonHeight, buttonWidth, buttonHeight), "Options", menuItemSkin.customStyles[0]))
         {
+            
+            LevelManager.Instance.Load(8);
             Application.LoadLevel("MainScene");
-            LevelManager.Instance.Load(1);
+            
         }
         if (GUI.Button(new Rect(buttonX, (3*buttonMargin) + (2*buttonHeight) , buttonWidth, buttonHeight), "Exit Game", menuItemSkin.customStyles[0]))
         {
-            Application.LoadLevel("MainScene");
-            LevelManager.Instance.Load(2);
+            Application.Quit();
         }
 
         

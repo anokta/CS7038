@@ -84,6 +84,17 @@ public class LevelOverGUI : MonoBehaviour
 
             GUILayout.Space(Screen.height / 30.0f);
         }
+
+        if (GUI.Button(new Rect(0, Screen.height - Screen.height / 8, Screen.height / 6, Screen.height / 8), "Menu"))
+        {
+            ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
+            {
+                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                {
+                    GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+                });
+            });
+        }
     }
 
     void Enter()

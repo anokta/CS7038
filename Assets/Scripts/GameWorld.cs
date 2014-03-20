@@ -24,7 +24,6 @@ public class GameWorld : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(success);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Exit the application

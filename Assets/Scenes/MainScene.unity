@@ -1221,10 +1221,10 @@ MonoBehaviour:
   authors:
   - name: '[Narrator]'
     voice: {fileID: 8300000, guid: ef0ae8f22c051934c8f7d451ac1d9bdc, type: 3}
-    x: .25
-    y: .25
-    w: .5
-    h: .5
+    x: .200000003
+    y: .200000003
+    w: .600000024
+    h: .600000024
     Alignment: 1
     textColor: {r: 1, g: 1, b: 1, a: 1}
     avatar: {fileID: 0}

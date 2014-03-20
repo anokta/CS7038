@@ -57,8 +57,10 @@ public class Fountain : Accessible
 
 	public override bool Enter()
 	{
-        if (!isHeld)
+        if (!isHeld && player.IsHeld)
         {
+            player.AnimState = PlayerController.PlayerAnimState.Wash;
+
             isHeld = true;
 
             timer.Reset();

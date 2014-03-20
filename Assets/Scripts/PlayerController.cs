@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IPan
 
     public enum PlayerAnimState { Idle = 0, Walk = 1, Push = 2, Action = 3, Wash = 4 }
     private PlayerAnimState animState;
-    public PlayerAnimState AnimState { get { return animState; }  set { animState = value; } } 
+    public PlayerAnimState AnimState { get { return animState; } set { animState = value; } }
 
     private Timer actionTimer;
 
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
 
         GroupManager.main.group["Running"].Add(this);
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
     }
 
     #region Gestures
@@ -242,6 +243,11 @@ public class PlayerController : MonoBehaviour, IPan
                 var pushable = hit.collider.GetComponent<Pushable>();
                 var canPush = pushable.Push(nextMovement);
 
+                if (canPush && hit.transform.name.StartsWith("Trolley"))
+                {
+                    StartAction();
+                }
+
                 canMove &= canPush && pushable.MovingWithPlayer;
                 if (canMove)
                 {
@@ -260,14 +266,11 @@ public class PlayerController : MonoBehaviour, IPan
             case "Accessible":
                 var accessible = hit.collider.GetComponent<Accessible>();
 
-                if(accessible.name.StartsWith("Fountain"))
+                if (accessible.name.StartsWith("Fountain"))
                 {
-                    animState = PlayerAnimState.Wash;
-
                     if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
-                        animState = PlayerAnimState.Idle;
-                        SetAnimationState(nextMovement);
+                        isHeld = false;
 
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
@@ -285,7 +288,10 @@ public class PlayerController : MonoBehaviour, IPan
                     canSwitch = false;
                     lastSwitchDirection = nextMovement;
 
-                    StartAction();
+                    if (!switchable.name.StartsWith("Patient"))
+                    {
+                        StartAction();
+                    }
                 }
                 return false;
 
@@ -329,5 +335,13 @@ public class PlayerController : MonoBehaviour, IPan
         {
             animState = PlayerAnimState.Idle;
         }
+    }
+
+    private void GoBackToIdle()
+    {
+        animState = PlayerAnimState.Idle;
+
+        SetAnimationState(nextMovement);
+        animator.SetInteger("State", (int)animState);
     }
 }

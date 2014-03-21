@@ -18,6 +18,14 @@ public class LevelSelector : MonoBehaviour
         buttonSize *= Screen.height;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
+        }
+    }
+
     void OnGUI()
     {
         GUI.skin = GUIManager.GetSkin();

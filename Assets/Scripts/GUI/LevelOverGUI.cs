@@ -56,6 +56,17 @@ public class LevelOverGUI : MonoBehaviour
         guiWindow = new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!GameWorld.success)
+                LevelManager.Instance.Level--;
+
+            FadeToMainMenu();
+        }
+    }
+
     // Update is called once per frame
     void OnGUI()
     {

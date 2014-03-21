@@ -76,7 +76,7 @@ public class LevelSelector : MonoBehaviour
 
 
         // Back
-        if (GUI.Button(new Rect(25, Screen.height - buttonSize / 2 - 25, buttonSize / 2, buttonSize / 2), "Back"))
+        if (GUI.Button(new Rect(25, Screen.height - buttonSize / 2 - 25, buttonSize / 2, buttonSize / 2), "Back", GUI.skin.GetStyle("back")))
         {
             ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
         }

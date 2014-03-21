@@ -31,6 +31,8 @@ public class Entity : MonoBehaviour
 
         playerHand = FindObjectOfType<HandController>();
 
+        spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * entity.position.y);
+        
         GroupManager.main.group["Running"].Add(this);
     }
 

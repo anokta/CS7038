@@ -86,11 +86,11 @@ public class Patient : Switchable
 
         if (player.GetComponent<HandController>().state != HandController.HandState.Clean)
         {
-            GameWorld.success = false;
+            GameWorld.levelOverReason = GameWorld.LevelOverReason.PatientInfected;
         }
         else
         {
-            GameWorld.success &= true;
+            //GameWorld.success &= true;TODO: see if it works after commented
 
             audioManager.PlaySFX("Treated");
         }

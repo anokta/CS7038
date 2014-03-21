@@ -83,7 +83,7 @@ public class LaserEmitter : Entity
             {
                 audioManager.PlaySFX("Laser Hit");
 
-                GameWorld.success = false;
+                GameWorld.levelOverReason = GameWorld.LevelOverReason.KilledByLaser;
 
                 Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Level Over"];
 

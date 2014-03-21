@@ -3,7 +3,14 @@ using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
-    public static bool success;
+    public enum LevelOverReason { Success, PatientInfected, KilledByLaser }
+    public static LevelOverReason levelOverReason;
+
+    public static bool success
+    {
+        get { return levelOverReason == LevelOverReason.Success; }
+        set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
+    }
 
     // Use this for initialization
     void Start()

@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using System.Collections;
 using Grouping;
+using Random = UnityEngine.Random;
 
 public class LevelOverGUI : MonoBehaviour
 {
@@ -10,40 +13,58 @@ public class LevelOverGUI : MonoBehaviour
     Rect guiWindow;
 
     string overTitle, overMessage;
+    private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
+    private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
 
-    string[] winTitles =
+    static LevelOverGUI()
     {
-        "Handsomely done!",
-        "High five!",
-        "Hands down, you rock!",
-        "Well handled!",
-        "Cleanly done!",
-        "I’ve got to hand it to you."
-    };
-    string[] winMessages =
-    {
-        "You did a great job. Mankind will forever be grateful of your honorable exploits.",
-        "Excellent work there. Thanks to you, the patient you saved will one day discover a cure for cancer, diabetes, pessimism and dislocative shoulder disorder.",
-        "You deserve a handful of medals for bravery beyond the call of duty.",
-        "You are a brilliant doctor, well deserving your M.D status.",
-        "The Handurian Flu trembles and fears at your sight. It has no chance against your mighty ways!",
-        "You get an A for style, because there is no letter that precedes A in the Latin alphabet.",
-        "If you assembled an army from all the people you have saved, you’d be able to overthrow the government. Just saying.",
-        "The patient you saved will one day become a charismatic leader who will lead Mankind into victory against the imminent alien invasion.",
-        "The patient you saved will one day invent a time machine, which he will use to go back in time and save your life, thereby ensuring the streamlined continuity of the universe and preventing a time-paradox from causing it to implode."
-    };
+        overTitleSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
+        overMessageSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
 
-    string[] loseTitles =
-    {
-        "Hand on a minute.",
-        "Caught you red handed!"
-    };
-    string[] loseMessages = 
-    {
-        "I saw what you did there, treating that patient with filthy hands! That was a bad idea.",
-        "In retrospect, treating a patient with filthy hands was more harmful than helpful",
-        "I am appalled at your unsanitary medical practices. Are you a real doctor?"
-    };
+        overTitleSet[GameWorld.LevelOverReason.Success] = new[]
+        {
+            "Handsomely done!",
+            "High five!",
+            "Hands down, you rock!",
+            "Well handled!",
+            "Cleanly done!",
+            "I’ve got to hand it to you."
+        };
+        overMessageSet[GameWorld.LevelOverReason.Success] = new[]
+        {
+            "You did a great job. Mankind will forever be grateful of your honorable exploits.",
+            "Excellent work there. Thanks to you, the patient you saved will one day discover a cure for cancer, diabetes, pessimism and dislocative shoulder disorder.",
+            "You deserve a handful of medals for bravery beyond the call of duty.",
+            "You are a brilliant doctor, well deserving your M.D status.",
+            "The Handurian Flu trembles and fears at your sight. It has no chance against your mighty ways!",
+            "You get an A for style, because there is no letter that precedes A in the Latin alphabet.",
+            "If you assembled an army from all the people you have saved, you’d be able to overthrow the government. Just saying.",
+            "The patient you saved will one day become a charismatic leader who will lead Mankind into victory against the imminent alien invasion.",
+            "The patient you saved will one day invent a time machine, which he will use to go back in time and save your life, thereby ensuring the streamlined continuity of the universe and preventing a time-paradox from causing it to implode."
+        };
+
+        overTitleSet[GameWorld.LevelOverReason.PatientInfected] = new[]
+        {
+            "Hand on a minute.",
+            "Caught you red handed!"
+        };
+        overMessageSet[GameWorld.LevelOverReason.PatientInfected] = new[]
+        {
+            "I saw what you did there, treating that patient with filthy hands! That was a bad idea.",
+            "In retrospect, treating a patient with filthy hands was more harmful than helpful",
+            "I am appalled at your unsanitary medical practices. Are you a real doctor?"
+        };
+
+        overTitleSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
+        {
+            "Hand on a minute.",
+            "Care the Death Ray!"
+        };
+        overMessageSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
+        {
+            "TODO"
+        };
+    }
 
     // Use this for initialization
     void Start()
@@ -128,8 +149,11 @@ public class LevelOverGUI : MonoBehaviour
 
     void Enter()
     {
-        overTitle = GameWorld.success ? winTitles[Random.Range(0, winTitles.Length)] : loseTitles[Random.Range(0, loseTitles.Length)];
-        overMessage = GameWorld.success ? winMessages[Random.Range(0, winMessages.Length)] : loseMessages[Random.Range(0, loseMessages.Length)];
+        var overTitles = overTitleSet[GameWorld.levelOverReason];
+        var overMessages = overMessageSet[GameWorld.levelOverReason];
+
+        overTitle = overTitles[Random.Range(0, overTitles.Length)];
+        overMessage = overMessages[Random.Range(0, overMessages.Length)];
     }
 
     void FadeToLevelStart()

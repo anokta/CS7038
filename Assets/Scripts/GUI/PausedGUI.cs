@@ -76,6 +76,9 @@ public class PausedGUI : MonoBehaviour {
             LevelManager.Instance.Level--;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 
+            // Clear resources
+            LevelManager.Instance.Clear();
+
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];

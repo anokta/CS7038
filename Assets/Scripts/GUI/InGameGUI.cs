@@ -31,6 +31,7 @@ public class InGameGUI : MonoBehaviour
     {
         ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
         {
+            LevelManager.Instance.Level--;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()

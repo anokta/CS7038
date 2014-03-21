@@ -15,7 +15,6 @@ public class GameWorld : MonoBehaviour
 
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
         GroupManager.main.group["Running"].Add(this);
-        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, LevelRunning, null));
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 
@@ -77,38 +76,28 @@ public class GameWorld : MonoBehaviour
         });
     }
 
-    void GameMenu()
-    {
-        //TODO
-    }
-
     void LevelIntro()
     {
         // Fade In To Prologue
         ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
         {
-            DialogueManager.DialogueComplete = GoBackToLevel;
+            DialogueManager.DialogueComplete = FadeToIntroDialogue;
             GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
         });
     }
 
-
-    void LevelRunning()
+    void FadeToIntroDialogue()
     {
-        // Intro ?
-        if (LevelManager.Instance.Level == -1)
+        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
-            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
-                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
-                {
-                    DialogueManager.DialogueComplete = delegate() { GroupManager.main.activeGroup = GroupManager.main.group["Level Start"]; };
-                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                });
+                DialogueManager.DialogueComplete = delegate() { GroupManager.main.activeGroup = GroupManager.main.group["Level Start"]; };
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });
-        }
+        });
     }
-
+    
     void LevelStart()
     {
         // Next level

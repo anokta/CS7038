@@ -27,6 +27,8 @@ public class LevelManager
 
     private LevelManager()
     {
+        Level = PlayerPrefs.GetInt("Level", 0) - 1;
+
         loader = new LevelLoader();
 
         tileMaps = new Dictionary<int, TmxMap>();

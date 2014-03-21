@@ -67,6 +67,7 @@ public class LevelOverGUI : MonoBehaviour
 
         Rect buttonRect = new Rect(guiWindow.x + guiWindow.width / 2.0f - buttonSize / 2.0f, guiWindow.y + guiWindow.height, buttonSize, buttonSize);
 
+        // Next Level
         if (GameWorld.success)
         {
             buttonRect.x += buttonSize * 0.75f;
@@ -77,6 +78,7 @@ public class LevelOverGUI : MonoBehaviour
             buttonRect.x -= buttonSize * 1.5f;
         }
 
+        // Restart
         if (GUI.Button(buttonRect, "Restart", GUI.skin.GetStyle("restart")))
         {
             LevelManager.Instance.Level--;
@@ -85,8 +87,11 @@ public class LevelOverGUI : MonoBehaviour
             GUILayout.Space(Screen.height / 30.0f);
         }
 
+        // Go Back To Menu
         if (GUI.Button(new Rect(0, Screen.height - Screen.height / 8, Screen.height / 6, Screen.height / 8), "Menu"))
         {
+            if (!GameWorld.success) LevelManager.Instance.Level--;
+
             ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
             {
                 ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()

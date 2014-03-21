@@ -95,9 +95,10 @@ public class DialogueManager : MonoBehaviour
         
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        
+
         GroupManager.main.group["Dialogue"].Add(this);
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
+        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
 
         currentDialogue = -1;
 
@@ -150,5 +151,10 @@ public class DialogueManager : MonoBehaviour
         dialogues[currentDialogue].StartDialogue();
 
         waitTimer.Reset();
+    }
+
+    void GameMenu()
+    {
+        currentDialogue = -1;
     }
 }

@@ -31,6 +31,9 @@ public class LevelSelector : MonoBehaviour {
                 Rect buttonRect = new Rect(offsetX + j * buttonSize, offsetY + i * buttonSize, buttonSize, buttonSize);
 
                 int level = i * columnCount + j;
+                if (level > LevelManager.Instance.Level + 1)
+                    GUI.enabled = false;
+
                 if (GUI.Button(buttonRect, "Level " + (level + 1)))
                 {
                     LevelManager.Instance.Level = level - 1;
@@ -42,6 +45,8 @@ public class LevelSelector : MonoBehaviour {
                 }
             }
         }
+        GUI.enabled = true;
+
 
         // Back
         if (GUI.Button(new Rect(25, Screen.height - buttonSize / 2 - 25, buttonSize / 2, buttonSize / 2), "Back"))

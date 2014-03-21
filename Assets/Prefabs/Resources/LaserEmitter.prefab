@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8c4425d72614d4885f0ca863c401eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 01f6c132e9e47794c906ae206427f6cd, type: 2}
   LaserUp: {fileID: 21300000, guid: b0b9bc05aa7e4d64eae18dbb624b931d, type: 3}
   LaserDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
   LaserLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}

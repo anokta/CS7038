@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Sprite Tile
-  m_Shader: {fileID: 4800000, guid: b61b48faf08efa740a7f7ca7bae964ce, type: 3}
+  m_Name: Laser
+  m_Shader: {fileID: 4800000, guid: 4b8ed49fca00d4747bbba2367b835916, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -20,21 +20,9 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats:
-      data:
-        first:
-          name: PixelSnap
-        second: 1
-      data:
-        first:
-          name: RepeatX
-        second: 7
-      data:
-        first:
-          name: RepeatY
-        second: 5.17857122
+    m_Floats: {}
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: 0, b: .235294119, a: .392156869}

@@ -6,12 +6,14 @@ public class LineStripRenderer : Component
     private readonly List<LineRenderer> linePool;
     private int enabledLinesCount;
     private readonly Component parent;
+	private readonly Material material;
 
-    public LineStripRenderer(Component parent)
+	public LineStripRenderer(Component parent, Material material)
     {
         linePool = new List<LineRenderer>();
         enabledLinesCount = 0;
         this.parent = parent;
+		this.material = material;
     }
 
     public void Draw(List<Vector3> points)
@@ -46,7 +48,8 @@ public class LineStripRenderer : Component
                 laser.transform.parent = parent.transform;
 
                 var line = laser.AddComponent<LineRenderer>();
-				line.sortingOrder = 1000;
+				line.material = material;
+				line.sortingOrder = -1000 + 1;
                 line.SetWidth(0.1f, 0.1f);
                 line.SetVertexCount(2);
 

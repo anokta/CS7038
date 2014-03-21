@@ -8,6 +8,8 @@ public class LaserEmitter : Entity
     /// </summary>
     private Direction direction;
 
+	public Material material;
+
     public Direction Direction
     {
         get { return direction; }
@@ -50,7 +52,7 @@ public class LaserEmitter : Entity
     {
         base.Start();
 
-        lineStrip = new LineStripRenderer(this);
+		lineStrip = new LineStripRenderer(this, material);
     }
 
     private readonly Vector2 offset = new Vector2(0, 0.3f);

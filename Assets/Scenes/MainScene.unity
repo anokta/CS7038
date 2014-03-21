@@ -1267,6 +1267,8 @@ MonoBehaviour:
   columnCount: 4
   rowCount: 3
   buttonSize: .200000003
+  lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
+  checkTexture: {fileID: 2800000, guid: bf4bd8f19fd1a244cb933636c317ea16, type: 3}
 --- !u!114 &1093820745
 MonoBehaviour:
   m_ObjectHideFlags: 0

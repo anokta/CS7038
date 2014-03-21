@@ -52,16 +52,20 @@ public class DialogueEntry
 
         GUILayout.BeginArea(Author.GuiRectangle);
 
-        if (Author.Name != "[Narrator]")
-        {
-            GUIStyle authorStyle = guiSkin.GetStyle("author");
-            authorStyle.alignment = Author.Alignment;
+		string content;
 
-            authorStyle.normal.textColor = Author.TextColor;
-            pressed |= GUILayout.Button(Author.Name, authorStyle);
-        }
+		if (Author.Name != "[Narrator]") {
+			GUIStyle authorStyle = guiSkin.GetStyle("author");
+			authorStyle.alignment = Author.Alignment;
 
-        GUIStyle contentStyle = guiSkin.GetStyle("content");
+			authorStyle.normal.textColor = Author.TextColor;
+			pressed |= GUILayout.Button(Author.Name, authorStyle);
+			content = "content";
+		} else {
+			content = "narrator content";
+		}
+
+		GUIStyle contentStyle = guiSkin.GetStyle(content);
 
         contentStyle.normal.textColor = Author.TextColor + new Color(0.5f, 0.5f, 0.5f);
         pressed |= GUILayout.Button(displayedText, contentStyle);

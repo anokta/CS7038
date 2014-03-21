@@ -40,7 +40,9 @@ public class MainMenu : MonoBehaviour
         GUILayout.BeginHorizontal();
 
         // Mute
-        if (GUILayout.Button("Mute", GUI.skin.GetStyle("mute"), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
+		//TODO: Temporary hack, fix
+		string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);

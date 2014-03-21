@@ -11,7 +11,7 @@ public class PausedGUI : MonoBehaviour {
 	void Start () {
         GroupManager.main.group["Paused"].Add(this);
 
-        windowSize *= Screen.height;
+        windowSize *= Screen.height; 
         buttonSize *= Screen.height;
 	}
 
@@ -44,9 +44,12 @@ public class PausedGUI : MonoBehaviour {
             FadeToMainMenu();
         }
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Mute", GUI.skin.GetStyle("mute"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+		//TODO: Temporary hack, fix
+		string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+		if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
+			Debug.Log(AudioListener.volume);
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
         GUILayout.FlexibleSpace();
@@ -55,7 +58,7 @@ public class PausedGUI : MonoBehaviour {
         GUILayout.FlexibleSpace();
 
         // Go Back
-        GUILayout.BeginHorizontal();
+		GUILayout.BeginHorizontal(); 
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {

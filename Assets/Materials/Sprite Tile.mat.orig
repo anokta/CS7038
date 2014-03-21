@@ -32,7 +32,11 @@ Material:
       data:
         first:
           name: RepeatY
-        second: 5.05731535
+<<<<<<< HEAD
+        second: 5.17857122
+=======
+        second: 6.25
+>>>>>>> 3ea06d1cf7c97e81ff8d995bcfa92533ac58fc3d
     m_Colors:
       data:
         first:

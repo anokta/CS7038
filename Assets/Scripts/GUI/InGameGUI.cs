@@ -21,7 +21,7 @@ public class InGameGUI : MonoBehaviour
     {
         GUI.skin = GUIManager.GetSkin();
 
-        if (GUI.Button(new Rect(Screen.height / 40, Screen.height - Screen.height / 8 - Screen.height / 40, Screen.height / 8, Screen.height / 8), "Pause", GUI.skin.GetStyle("pause")))
+        if (GUI.Button(new Rect(GUIManager.OffsetX(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), "Pause", GUI.skin.GetStyle("pause")))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Paused"];
         }

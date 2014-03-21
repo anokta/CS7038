@@ -128,15 +128,12 @@ public class DialogueManager : MonoBehaviour
 
         waitTimer.Update();
     }
-
-	static readonly float bigSize = 0.09f;
-	static readonly float relSize = 0.07f;
 		
     void OnGUI()
     {
         GUI.skin = guiSkin;
 
-        if (GUI.Button(new Rect(Screen.width * (1 - bigSize), Screen.width * relSize / 4.0f, Screen.width * relSize, Screen.width * relSize), GUIContent.none, guiSkin.GetStyle("skip")))
+        if (GUI.Button(new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), GUIContent.none, guiSkin.GetStyle("skip")))
         {
             DialogueComplete();
 

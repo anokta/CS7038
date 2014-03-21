@@ -1,37 +1,73 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Grouping;
+using System;
 
-public class PausedGUI : MonoBehaviour {
+public class PausedGUI : MonoBehaviour
+{
 
     public float windowSize = 0.6f;
     public float buttonSize = 0.2f;
 
-	// Use this for initialization
-	void Start () {
-        GroupManager.main.group["Paused"].Add(this);
+    float guiCurrentScale, guiTargetScale;
 
-        windowSize *= Screen.height; 
+    Action action;
+
+    // Use this for initialization
+    void Start()
+    {
+        GroupManager.main.group["Paused"].Add(this);
+        GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, Enter, null));
+
+        windowSize *= Screen.height;
         buttonSize *= Screen.height;
-	}
+
+        guiCurrentScale = 0.0f;
+        guiTargetScale = 0.0f;
+
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ResumeGame();
+            guiTargetScale = 0.0f;
+            action = ResumeGame;
+        }
+
+        if (guiCurrentScale != guiTargetScale)
+        {
+            guiCurrentScale = Mathf.Lerp(guiCurrentScale, guiTargetScale, Time.deltaTime * 20.0f);
+
+            if (Mathf.Abs(guiCurrentScale - guiTargetScale) <= 0.1f)
+            {
+                guiCurrentScale = guiTargetScale;
+
+                if (action != null)
+                    action();
+            }
         }
     }
 
     void OnGUI()
     {
-        GUI.skin = GUIManager.GetSkin();
+        if (guiCurrentScale > 0.0f)
+        {
+            GUI.matrix *= Matrix4x4.Scale(new Vector3(guiCurrentScale, guiCurrentScale, 1.0f));
 
-        GUI.Window(1, new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize), DoMenuWindow, "PAUSED", GUI.skin.GetStyle("ingame window"));
+            if (guiCurrentScale != guiTargetScale) GUI.enabled = false;
+
+            GUI.skin = GUIManager.GetSkin();
+
+            GUI.Window(1, new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize), DoMenuWindow, "PAUSED", GUI.skin.GetStyle("ingame window"));
+        }
     }
 
     void DoMenuWindow(int windowID)
     {
+        if (guiCurrentScale != guiTargetScale)
+            return;
+
         GUILayout.BeginVertical();
 
         GUILayout.FlexibleSpace();
@@ -70,11 +106,12 @@ public class PausedGUI : MonoBehaviour {
         GUILayout.FlexibleSpace();
 
         // Go Back
-		GUILayout.BeginHorizontal(); 
+        GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
-            ResumeGame();
+            guiTargetScale = 0.0f;
+            action = ResumeGame;
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
@@ -118,5 +155,11 @@ public class PausedGUI : MonoBehaviour {
     void ResumeGame()
     {
         GroupManager.main.activeGroup = GroupManager.main.group["Running"];
+    }
+
+    void Enter()
+    {
+        guiTargetScale = 1.0f;
+        action = null;
     }
 }

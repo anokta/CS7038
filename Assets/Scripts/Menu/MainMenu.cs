@@ -36,21 +36,21 @@ public class MainMenu : MonoBehaviour
 
 
         // LEFT CORNER //
-        GUILayout.BeginArea(new Rect(Screen.height * 0.025f, Screen.height - Screen.height / 8.0f - Screen.height * 0.025f, Screen.height / 4.0f, Screen.height / 8.0f));
+        GUILayout.BeginArea(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - GUIManager.OffsetY() * 2.0f - GUIManager.ButtonSize(), 2.0f * GUIManager.ButtonSize(), GUIManager.ButtonSize()));
 
         GUILayout.BeginHorizontal();
 
         // Mute
 		//TODO: Temporary hack, fix
 		string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
+        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
 
         // Credits
-        if (GUILayout.Button("Credits", GUI.skin.GetStyle("credits"), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
+        if (GUILayout.Button("Credits", GUI.skin.GetStyle("credits"), GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
             // TODO : Credits
         }
@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
 
 
         // RIGHT CORNER //
-        GUILayout.BeginArea(new Rect(Screen.width - Screen.height / 10.0f - Screen.height * 0.025f, Screen.height - Screen.height / 10.0f - Screen.height * 0.025f, Screen.height / 10.0f, Screen.height / 10.0f));
+        GUILayout.BeginArea(new Rect(Screen.width - Screen.height / 10.0f - GUIManager.OffsetX() * 2.0f, Screen.height - Screen.height / 10.0f - GUIManager.OffsetY() * 2.0f, Screen.height / 10.0f, Screen.height / 10.0f));
 
         GUILayout.BeginHorizontal();
 

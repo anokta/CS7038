@@ -1910,6 +1910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiSkin: {fileID: 11400000, guid: 797a33c8361795e42b4fae147b1e22a7, type: 2}
+  screenOffset: {x: .00999999978, y: .00999999978}
+  defaultButtonSize: .125
 --- !u!114 &1799188528
 MonoBehaviour:
   m_ObjectHideFlags: 0

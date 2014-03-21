@@ -73,7 +73,7 @@ public class HandController : MonoBehaviour
 	void OnGUI()
 	{
 		if (Event.current.type.Equals(EventType.Repaint)) {
-			Rect drawPos = new Rect(0, 0, Screen.width * 0.1f, Screen.width * 0.1f);
+            Rect drawPos = new Rect(GUIManager.OffsetX(), Screen.height - Screen.height * 0.1f - GUIManager.OffsetY() - Screen.height * 0.1f, Screen.height * 0.2f, Screen.height * 0.2f);
 			GUIpie.SetFloat("Value", 1);
 			//GUIpie.color = new Color(0.05f, 0.05f, 0.05f);
 			Graphics.DrawTexture(drawPos, background, GUIpie);

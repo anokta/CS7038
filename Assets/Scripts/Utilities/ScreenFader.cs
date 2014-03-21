@@ -72,4 +72,15 @@ public class ScreenFader : MonoBehaviour {
 
         GroupManager.main.activeGroup = GroupManager.main.group["Fading"];
     }
+
+    public static void FadeToState(string state, float fadeOut = 1.0f, float fadeIn = 0.5f)
+    {
+        StartFade(Color.clear, Color.black, fadeOut, delegate()
+        {
+            StartFade(Color.black, Color.clear, fadeIn, delegate()
+            {
+                GroupManager.main.activeGroup = GroupManager.main.group[state];
+            });
+        });
+    }
 }

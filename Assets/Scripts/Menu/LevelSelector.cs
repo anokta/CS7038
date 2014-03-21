@@ -2,21 +2,23 @@
 using System.Collections;
 using Grouping;
 
-public class LevelSelector : MonoBehaviour {
+public class LevelSelector : MonoBehaviour
+{
 
     public int columnCount = 4;
     public int rowCount = 3;
 
     public float buttonSize = 0.2f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         GroupManager.main.group["Level Select"].Add(this);
 
         buttonSize *= Screen.height;
-	}
-	
-	void OnGUI ()
+    }
+
+    void OnGUI()
     {
         GUI.skin = GUIManager.GetSkin();
         Color guiColor = GUI.color;
@@ -25,6 +27,13 @@ public class LevelSelector : MonoBehaviour {
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
         float offsetY = 0.5f * Screen.height - rowCount * buttonSize / 2.0f;
 
+        GUI.color = new Color(0.75f, 0.9f, 0.75f, 1.0f);
+        if (GUI.Button(new Rect(offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro"))
+        {
+            ShowIntro();
+        }
+
+        GUI.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
         for (int i = 0; i < rowCount; ++i)
         {
             for (int j = 0; j < columnCount; ++j)
@@ -32,11 +41,7 @@ public class LevelSelector : MonoBehaviour {
                 Rect buttonRect = new Rect(offsetX + j * buttonSize, offsetY + i * buttonSize, buttonSize, buttonSize);
 
                 int level = i * columnCount + j;
-                if (level < LevelManager.Instance.Level + 1)
-                {
-                    GUI.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
-                } 
-                else if (level == LevelManager.Instance.Level + 1)
+                if (level == LevelManager.Instance.Level + 1)
                 {
                     GUI.color = Color.white;
                 }
@@ -65,13 +70,23 @@ public class LevelSelector : MonoBehaviour {
         // Back
         if (GUI.Button(new Rect(25, Screen.height - buttonSize / 2 - 25, buttonSize / 2, buttonSize / 2), "Back"))
         {
-            ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
-            {
-                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
-                {
-                    GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
-                });
-            });
+            ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
         }
-	}
+    }
+
+    void ShowIntro()
+    {
+        DialogueManager.CurrentDialogue = -1;
+        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+        {
+            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+            {
+                DialogueManager.DialogueComplete = delegate()
+                {
+                    ScreenFader.FadeToState("Level Select", 1.0f, 0.5f);
+                };
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            });
+        });
+    }
 }

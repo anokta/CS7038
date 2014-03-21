@@ -35,21 +35,33 @@ public class PausedGUI : MonoBehaviour {
         GUILayout.BeginVertical();
 
         GUILayout.FlexibleSpace();
+        GUILayout.FlexibleSpace();
+
+        // Mute
+        //TODO: Temporary hack, fix
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart ingame"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        {
+            RestartLevel();
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
+        GUILayout.FlexibleSpace();
 
         // Options
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
             FadeToMainMenu();
         }
         GUILayout.FlexibleSpace();
-		//TODO: Temporary hack, fix
-		string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-		if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
-			Debug.Log(AudioListener.volume);
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
         GUILayout.FlexibleSpace();
@@ -86,6 +98,20 @@ public class PausedGUI : MonoBehaviour {
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
             });
+        });
+    }
+
+    void RestartLevel()
+    {
+        ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
+        {
+            LevelManager.Instance.Level--;
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+
+            // Clear resources
+            LevelManager.Instance.Clear();
+
+            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         });
     }
 

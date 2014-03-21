@@ -108,7 +108,7 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         // Restart
-        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
         {
             LevelManager.Instance.Level--;
 

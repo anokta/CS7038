@@ -52,7 +52,7 @@ public class LevelLoader
     public void Load(TmxMap map)
     {
         // Instantiate the containers
-        entityContainer = new GameObject("21 Entities");
+        entityContainer = new GameObject("31 Entities");
 
         wallContainer = new GameObject("Walls");
         wallContainer.transform.parent = entityContainer.transform;

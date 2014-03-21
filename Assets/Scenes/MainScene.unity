@@ -923,7 +923,7 @@ GameObject:
   - 4: {fileID: 790678411}
   - 114: {fileID: 790678410}
   m_Layer: 0
-  m_Name: 31 Task Scheduler
+  m_Name: 30 Task Scheduler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,6 +1231,7 @@ MonoBehaviour:
   - Dialogue
   - Level Start
   - Running
+  - Paused
   - Level Over
   - Fading
   caseSensitive: 0
@@ -1874,6 +1875,7 @@ GameObject:
   - 114: {fileID: 1799188527}
   - 114: {fileID: 1799188528}
   - 114: {fileID: 1799188529}
+  - 114: {fileID: 1799188530}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -1928,6 +1930,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e69a0ea50fd714d8dbe41be3018385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1799188530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f1465c55d685b42863be072f4df91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowSize: .5
+  buttonSize: .200000003
 --- !u!1 &1942921644
 GameObject:
   m_ObjectHideFlags: 0

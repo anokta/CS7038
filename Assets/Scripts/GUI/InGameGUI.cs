@@ -13,7 +13,7 @@ public class InGameGUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            FadeToMainMenu();
+            GroupManager.main.activeGroup = GroupManager.main.group["Paused"];
         }
     }
 
@@ -21,23 +21,9 @@ public class InGameGUI : MonoBehaviour
     {
         GUI.skin = GUIManager.GetSkin();
 
-        if (GUI.Button(new Rect(0, Screen.height - Screen.height / 8, Screen.height / 8, Screen.height / 8), "Back"))
+        if (GUI.Button(new Rect(0, Screen.height - Screen.height / 8, Screen.height / 8, Screen.height / 8), "Pause"))
         {
-            FadeToMainMenu();
+            GroupManager.main.activeGroup = GroupManager.main.group["Paused"];
         }
-    }
-
-    void FadeToMainMenu()
-    {
-        ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
-        {
-            LevelManager.Instance.Level--;
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-
-            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
-            {
-                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
-            });
-        });
     }
 }

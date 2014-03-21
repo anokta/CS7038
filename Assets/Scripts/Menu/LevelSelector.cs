@@ -19,6 +19,7 @@ public class LevelSelector : MonoBehaviour {
 	void OnGUI ()
     {
         GUI.skin = GUIManager.GetSkin();
+        Color guiColor = GUI.color;
 
         // Levels
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
@@ -31,8 +32,19 @@ public class LevelSelector : MonoBehaviour {
                 Rect buttonRect = new Rect(offsetX + j * buttonSize, offsetY + i * buttonSize, buttonSize, buttonSize);
 
                 int level = i * columnCount + j;
-                if (level > LevelManager.Instance.Level + 1)
+                if (level < LevelManager.Instance.Level + 1)
+                {
+                    GUI.color = new Color(0.75f, 0.75f, 0.75f, 1.0f);
+                } 
+                else if (level == LevelManager.Instance.Level + 1)
+                {
+                    GUI.color = Color.white;
+                }
+                else if (level > LevelManager.Instance.Level + 1)
+                {
+                    GUI.color = Color.gray;
                     GUI.enabled = false;
+                }
 
                 if (GUI.Button(buttonRect, "Level " + (level + 1)))
                 {
@@ -45,6 +57,8 @@ public class LevelSelector : MonoBehaviour {
                 }
             }
         }
+
+        GUI.color = guiColor;
         GUI.enabled = true;
 
 

@@ -13,11 +13,10 @@ public class GameWorld : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         AudioListener.volume = PlayerPrefs.GetFloat("Audio Volume", 1.0f);
 
+        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
         GroupManager.main.group["Running"].Add(this);
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
-        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
-
     }
 
     // Update is called once per frame
@@ -58,22 +57,19 @@ public class GameWorld : MonoBehaviour
         {
             if (LevelManager.Instance.Level == 0 && success)
             {
-                DialogueManager.DialogueComplete = FadeToLevelOver;
+                DialogueManager.DialogueComplete = ToLevelOver;
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             }
             else
             {
-                FadeToLevelOver();
+                ToLevelOver();
             }
         }
     }
 
-    void FadeToLevelOver()
+    void ToLevelOver()
     {
-        ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
-        {
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-        });
+        GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
     }
 
     void LevelIntro()
@@ -97,9 +93,12 @@ public class GameWorld : MonoBehaviour
             });
         });
     }
-    
+
     void LevelStart()
     {
+        // Clear resources
+        LevelManager.Instance.Clear();
+
         // Next level
         LevelManager.Instance.Next();
 
@@ -125,7 +124,7 @@ public class GameWorld : MonoBehaviour
         });
     }
 
-    void LevelOver()
+    void GameMenu()
     {
         // Clear resources
         LevelManager.Instance.Clear();

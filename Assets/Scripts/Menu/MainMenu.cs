@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     {
         GUI.skin = GUIManager.GetSkin();
 
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), menuBackground);
+        //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), menuBackground);
 
         // PLAY //
         if (GUI.Button(new Rect(Screen.width / 2.0f - Screen.height / 4.0f, Screen.height / 2.0f - Screen.height / 8.0f, Screen.height / 2.0f, Screen.height / 2.0f), "Play", GUI.skin.GetStyle("continue")))

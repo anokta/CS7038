@@ -1919,6 +1919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37636a9ef37bd2e4d8c4768b110f66a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowSize: .899999976
+  buttonSize: .200000003
 --- !u!114 &1799188529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1941,7 +1943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f1465c55d685b42863be072f4df91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowSize: .5
+  windowSize: .600000024
   buttonSize: .200000003
 --- !u!1 &1942921644
 GameObject:

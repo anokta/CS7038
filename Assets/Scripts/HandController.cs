@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using Grouping;
 
 public class HandController : MonoBehaviour
 {
@@ -51,6 +52,11 @@ public class HandController : MonoBehaviour
     {
         value += amount;
         lastTouchedId = id;
+    }
+
+    void Start()
+    {
+        GroupManager.main.group["Running"].Add(this);
     }
 
     void Update()

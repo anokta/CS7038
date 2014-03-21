@@ -4,8 +4,8 @@ using Grouping;
 
 public class PausedGUI : MonoBehaviour {
 
-    public float windowSize = 0.66f;
-    public float buttonSize = 0.25f;
+    public float windowSize = 0.6f;
+    public float buttonSize = 0.2f;
 
 	// Use this for initialization
 	void Start () {
@@ -63,6 +63,8 @@ public class PausedGUI : MonoBehaviour {
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
+
+        GUILayout.FlexibleSpace();
 
         GUILayout.EndVertical();
     }

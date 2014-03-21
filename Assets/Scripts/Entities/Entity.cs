@@ -1,4 +1,5 @@
 using UnityEngine;
+using Grouping;
 
 public class Entity : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Entity : MonoBehaviour
         entity = transform;
 
         playerHand = FindObjectOfType<HandController>();
+
+        GroupManager.main.group["Running"].Add(this);
     }
 
     protected virtual void Update()

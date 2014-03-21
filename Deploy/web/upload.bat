@@ -4,6 +4,6 @@ copy /Y app.yaml %ROOT%
 copy /Y favicon.ico %ROOT%
 copy /Y handymd.html %ROOT%
 
-appcfg update %ROOT%
+appcfg.py update %ROOT%
 
 pause

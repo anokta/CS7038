@@ -24,6 +24,7 @@ public class GameWorld : MonoBehaviour
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
         GroupManager.main.group["Running"].Add(this);
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
     }
 
     // Update is called once per frame
@@ -140,5 +141,14 @@ public class GameWorld : MonoBehaviour
     public static void GoBackToLevel()
     {
         GroupManager.main.activeGroup = GroupManager.main.group["Running"];
+    }
+
+    void LevelOver()
+    {
+        if (levelOverReason == LevelOverReason.Success && PlayerPrefs.GetInt("Level", 0) <= LevelManager.Instance.Level)
+        {
+            PlayerPrefs.SetInt("Level", LevelManager.Instance.Level + 1);
+            PlayerPrefs.Save();
+        }
     }
 }

@@ -114,6 +114,13 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            DialogueComplete();
+
+            return;
+        }
+
         if (currentDialogue >= 0)
         {
             dialogues[currentDialogue].Update(textSpeed);

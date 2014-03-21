@@ -17,12 +17,13 @@ public class DialogueInstance
 
     string displayedText;
 
-
     private bool isTalking;
     public bool IsTalking
     {
         get { return isTalking; }
     }
+
+    private bool fastforward;
 
     public DialogueInstance(List<DialogueEntry> entries, AudioSource voiceOutput)
     {
@@ -58,6 +59,8 @@ public class DialogueInstance
                 }
             }
         }
+
+        fastforward |= KeyboardController.Instance.Fastforward;
     }
 
 
@@ -65,7 +68,7 @@ public class DialogueInstance
     {
         if (entries.Count > 0 && currentEntry != null)
         {
-            bool fastforward = currentEntry.DisplayEntry(guiSkin, displayedText);
+            fastforward |= currentEntry.DisplayEntry(guiSkin, displayedText);
             
             if (displayedText.Length == currentEntry.Content.Length)
             {
@@ -73,6 +76,7 @@ public class DialogueInstance
 
                 if (fastforward)
                 {
+                    fastforward = false;
                     currentEntryIndex++;
                     LoadEntry();
                 }
@@ -80,6 +84,7 @@ public class DialogueInstance
             else if (fastforward)
             {
                 displayedText = currentEntry.Content;
+                fastforward = false;
             }
         }
     }

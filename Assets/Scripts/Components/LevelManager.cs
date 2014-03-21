@@ -62,9 +62,6 @@ public class LevelManager
 
         Level = level;
 
-        PlayerPrefs.SetInt("Level", Level);
-        PlayerPrefs.Save();
-
         TmxMap map;
 
         if (tileMaps.ContainsKey(level))

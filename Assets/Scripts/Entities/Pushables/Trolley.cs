@@ -59,21 +59,28 @@ public class Trolley : Pushable
 
     protected override bool CanPush(RaycastHit2D hit, Vector3 direction)
     {
-        switch (hit.collider.tag)
+        if (moving)
         {
-            case "Pushable":
-                var trolley = hit.collider.GetComponent<Trolley>();
-                if (trolley != null && moving)
-                {
-                    float value = playerHand.value;
-                    trolley.Push(direction);
-                    playerHand.value = value;
-                    return false;
-                }
-                return false;
-            default:
-                return false;
+            switch (hit.collider.tag)
+            {
+                case "Pushable":
+                    var trolley = hit.collider.GetComponent<Trolley>();
+                    if (trolley != null)
+                    {
+                        float value = playerHand.value;
+                        trolley.Push(direction);
+                        playerHand.value = value;
+                        break;
+                    }
+                    break;
+                case "Switchable":
+                    Switchable switchable = hit.collider.GetComponent<Switchable>();
+                    switchable.Switch();
+                    break;
+            }
         }
+
+        return false;
     }
 
     private void CompleteMoving()

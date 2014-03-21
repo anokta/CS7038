@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
         //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), menuBackground);
 
         // PLAY //
-        if (GUI.Button(new Rect(Screen.width / 2.0f - Screen.height / 4.0f, Screen.height / 2.0f - Screen.height / 8.0f, Screen.height / 2.0f, Screen.height / 2.0f), "Play", GUI.skin.GetStyle("continue")))
+        if (GUI.Button(new Rect(Screen.width / 2.0f - Screen.height / 4.0f, Screen.height / 2.0f - Screen.height / 8.0f, Screen.height / 2.0f, Screen.height / 2.0f), "Play", GUI.skin.GetStyle("play")))
         {
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
         }
@@ -40,14 +40,14 @@ public class MainMenu : MonoBehaviour
         GUILayout.BeginHorizontal();
 
         // Mute
-        if (GUILayout.Button("Mute", GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
+        if (GUILayout.Button("Mute", GUI.skin.GetStyle("mute"), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
 
         // Credits
-        if (GUILayout.Button("Credits", GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
+        if (GUILayout.Button("Credits", GUI.skin.GetStyle("credits"), GUILayout.Width(Screen.height / 8.0f), GUILayout.Height(Screen.height / 8.0f)))
         {
             // TODO : Credits
         }
@@ -63,7 +63,7 @@ public class MainMenu : MonoBehaviour
         GUILayout.BeginHorizontal();
 
         // Url
-        if (GUILayout.Button("i", GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
+        if (GUILayout.Button("i", GUI.skin.GetStyle("info"), GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
         {
             Application.OpenURL("http://www.surewash.com/");
         }

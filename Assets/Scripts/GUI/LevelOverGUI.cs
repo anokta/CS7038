@@ -111,7 +111,7 @@ public class LevelOverGUI : MonoBehaviour
         // Go Back To Menu
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Menu", GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
             if (!GameWorld.success)
                 LevelManager.Instance.Level--;

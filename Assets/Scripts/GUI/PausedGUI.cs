@@ -39,12 +39,12 @@ public class PausedGUI : MonoBehaviour {
         // Options
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Menu", GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
         {
             FadeToMainMenu();
         }
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Mute", GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+        if (GUILayout.Button("Mute", GUI.skin.GetStyle("mute"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
@@ -57,7 +57,7 @@ public class PausedGUI : MonoBehaviour {
         // Go Back
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Back", GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+        if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
             ResumeGame();
         }

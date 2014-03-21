@@ -8,7 +8,9 @@ public class LaserEmitter : Entity
     /// </summary>
     private Direction direction;
 
-	public Material material;
+	public Material LaserMaterial;
+    public Color LaserColor;
+    public float LaserWidth;
 
     public Direction Direction
     {
@@ -19,26 +21,26 @@ public class LaserEmitter : Entity
             switch (direction)
             {
                 case Direction.Up:
-                    spriteRenderer.sprite = LaserUp;
+                    spriteRenderer.sprite = EmitterUp;
                     break;
                 case Direction.Down:
-                    spriteRenderer.sprite = LaserDown;
+                    spriteRenderer.sprite = EmitterDown;
                     break;
                 case Direction.Left:
-                    spriteRenderer.sprite = LaserLeft;
+                    spriteRenderer.sprite = EmitterLeft;
                     break;
                 case Direction.Right:
-                    spriteRenderer.sprite = LaserRight;
+                    spriteRenderer.sprite = EmitterRight;
                     break;
             }
         }
     }
 
     private LineStripRenderer lineStrip;
-    public Sprite LaserUp;
-    public Sprite LaserDown;
-    public Sprite LaserLeft;
-    public Sprite LaserRight;
+    public Sprite EmitterUp;
+    public Sprite EmitterDown;
+    public Sprite EmitterLeft;
+    public Sprite EmitterRight;
 
     private int lastExplosiveID;
 
@@ -52,7 +54,7 @@ public class LaserEmitter : Entity
     {
         base.Start();
 
-		lineStrip = new LineStripRenderer(this, material);
+        lineStrip = new LineStripRenderer(this, LaserMaterial, LaserColor, LaserWidth);
     }
 
     private readonly Vector2 offset = new Vector2(0, 0.3f);

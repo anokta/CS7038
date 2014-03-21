@@ -9,7 +9,7 @@ public class KeyboardController : MonoBehaviour
 
     private Direction? previousMovement;
 
-    private readonly UniqueList<Direction> PressedKeys = new UniqueList<Direction>();
+    private readonly UniqueList<Direction> pressedKeys = new UniqueList<Direction>();
 
     private static readonly Dictionary<Direction, KeyCode[]> Keys = new Dictionary<Direction, KeyCode[]>();
 
@@ -30,7 +30,7 @@ public class KeyboardController : MonoBehaviour
     {
         if (KeyboardEventHandler == null) return;
 
-        var removed = false;
+        var keyUp = false;
 
         foreach (var direction in DirectionExt.Values)
         {
@@ -38,18 +38,18 @@ public class KeyboardController : MonoBehaviour
 
             if (InputExt.GetAnyKeyDown(keys))
             {
-                PressedKeys.Add(direction);
+                pressedKeys.Add(direction);
             }
             else if (InputExt.GetAnyKeyUp(keys))
             {
-                PressedKeys.Remove(direction);
-                removed = true;
+                pressedKeys.Remove(direction);
+                keyUp = true;
             }
         }
 
-        if (PressedKeys.Count > 0)
+        if (pressedKeys.Count > 0)
         {
-            var movement = PressedKeys.Last;
+            var movement = pressedKeys.Last;
             PanArgs args;
 
             if (movement == previousMovement)
@@ -64,12 +64,11 @@ public class KeyboardController : MonoBehaviour
 
             KeyboardEventHandler.OnGesturePan(args);
 
-            previousMovement = PressedKeys.Last;
+            previousMovement = pressedKeys.Last;
         }
-        else if (removed)
+        else if (keyUp)
         {
-            var args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Up, Vector2.zero, Vector2.zero,
-            Vector2.zero);
+            var args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Up, Vector2.zero, Vector2.zero, Vector2.zero);
             KeyboardEventHandler.OnGesturePan(args);
 
             previousMovement = null;

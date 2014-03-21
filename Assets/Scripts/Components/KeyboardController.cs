@@ -6,7 +6,6 @@ public class KeyboardController : MonoBehaviour
 {
     public static KeyboardController Instance { get; private set; }
     public IPan KeyboardEventHandler;
-    public bool Fastforward;
 
     private Direction? previousMovement;
 
@@ -29,8 +28,6 @@ public class KeyboardController : MonoBehaviour
 
     public void Update()
     {
-        Fastforward = InputExt.GetAnyKeyDown(KeyCode.Space, KeyCode.Return);
-
         if (KeyboardEventHandler == null) return;
 
         var keyUp = false;

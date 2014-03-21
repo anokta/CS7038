@@ -28,10 +28,8 @@ public class DialogueEntry
         this.content = content;
     }
 
-    public bool DisplayEntry(GUISkin guiSkin, string displayedText)
+    public void DisplayEntry(GUISkin guiSkin, string displayedText)
     {
-        bool pressed = false;
-
         if (Author.Avatar != null)
         {
             float portraitX = Author.GuiRectangle.x;
@@ -59,7 +57,7 @@ public class DialogueEntry
 			authorStyle.alignment = Author.Alignment;
 
 			authorStyle.normal.textColor = Author.TextColor;
-			pressed |= GUILayout.Button(Author.Name, authorStyle);
+            GUILayout.Label(Author.Name, authorStyle);
 			content = "content";
 		} else {
 			content = "narrator content";
@@ -68,11 +66,9 @@ public class DialogueEntry
 		GUIStyle contentStyle = guiSkin.GetStyle(content);
 
         contentStyle.normal.textColor = Author.TextColor + new Color(0.5f, 0.5f, 0.5f);
-        pressed |= GUILayout.Button(displayedText, contentStyle);
+        GUILayout.Label(displayedText, contentStyle);
 
         GUILayout.EndArea();
-
-        return pressed;
     }
 
     public bool DisplayContinueButton(GUIStyle style)

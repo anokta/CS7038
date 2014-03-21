@@ -60,7 +60,7 @@ public class DialogueInstance
             }
         }
 
-        fastforward |= KeyboardController.Instance.Fastforward;
+        fastforward = Input.GetMouseButtonDown(0) || InputExt.GetAnyKeyDown(KeyCode.Space, KeyCode.Return);
     }
 
 
@@ -68,11 +68,11 @@ public class DialogueInstance
     {
         if (entries.Count > 0 && currentEntry != null)
         {
-            fastforward |= currentEntry.DisplayEntry(guiSkin, displayedText);
+            currentEntry.DisplayEntry(guiSkin, displayedText);
             
             if (displayedText.Length == currentEntry.Content.Length)
             {
-                fastforward |= currentEntry.DisplayContinueButton(guiSkin.GetStyle("next"));
+                currentEntry.DisplayContinueButton(guiSkin.GetStyle("next"));
 
                 if (fastforward)
                 {

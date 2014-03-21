@@ -15,6 +15,8 @@ public class Patient : Switchable
 
     public Material GUIpie;
     public Texture progressTexture;
+
+    public float pieSize;
     Vector2 guiPosition;
 
     // Use this for initialization
@@ -25,6 +27,8 @@ public class Patient : Switchable
         treated = false;
 
         player = GameObject.FindObjectOfType<PlayerController>();
+
+        pieSize *= Screen.height;
 
         timer = new Timer(0.8f, Finish);
     }
@@ -47,9 +51,9 @@ public class Patient : Switchable
     void OnGUI()
     {
         GUIpie.SetFloat("Value", timer.progress);
-        GUIpie.SetFloat("Clockwise", 0);
+        GUIpie.SetFloat("Clockwise", 1);
 
-        Graphics.DrawTexture(new Rect(guiPosition.x - Screen.width * 0.01f, guiPosition.y - Screen.width * 0.04f, Screen.width * 0.02f, Screen.width * 0.02f), progressTexture, GUIpie);
+        Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
     }
 
 
@@ -70,11 +74,9 @@ public class Patient : Switchable
 
             lastPlayerDirection = player.NextDirection;
 
-            Vector2 p = Camera.main.WorldToScreenPoint(player.transform.position);
+            Vector2 p = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(lastPlayerDirection.x * 0.25f, 0.5f + lastPlayerDirection.y * 0.25f, 0.0f));
             p.y = Screen.height - p.y;
-
             guiPosition = p;
-
         }
     }
 

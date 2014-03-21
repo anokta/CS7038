@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GUIpie: {fileID: 2100000, guid: 7601dfbd846c41c4e8870822a567fd7e, type: 2}
   progressTexture: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
+  pieSize: .0399999991
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

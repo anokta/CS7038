@@ -24,7 +24,7 @@ Material:
       data:
         first:
           name: Clockwise
-        second: 0
+        second: 1
       data:
         first:
           name: Value
@@ -73,4 +73,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .442798406, g: .95588237, b: .87095809, a: .792156875}
+        second: {r: .442798406, g: .934651256, b: .95588237, a: .784313738}

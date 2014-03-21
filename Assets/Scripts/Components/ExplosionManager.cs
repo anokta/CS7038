@@ -3,6 +3,8 @@ using Object = UnityEngine.Object;
 
 public class ExplosionManager
 {
+    public const float DefaultExplosionDelay = 0.2f;
+
     private static ExplosionManager instance;
     public static ExplosionManager Instance
     {
@@ -16,7 +18,7 @@ public class ExplosionManager
         ExplosionPrefab = Resources.Load<GameObject>("Explosion");
     }
 
-    public void Add(GameObject gameObj, float delay = 0.2f)
+    public void Add(GameObject gameObj, float delay = DefaultExplosionDelay)
     {
         var entity = gameObj.GetComponent<Entity>();
         if (entity != null && entity.Explosive)
@@ -24,7 +26,8 @@ public class ExplosionManager
             var task = new ExplosionTask(gameObj);
             TaskScheduler.Instance.Add(delay, task);
 
-            AudioManager.PlaySfxDelayed("Explosion Crate", delay - 0.02f);
+            const float sfxDelay = -0.02f;
+            AudioManager.PlaySfxDelayed("Explosion Crate", delay + sfxDelay);
         }
     }
 }
@@ -48,7 +51,7 @@ public class ExplosionTask : Task
         foreach (var direction in DirectionExt.Values)
         {
             var directionVector = direction.ToVector2();
-            var hit = Physics2D.Raycast(GameObj.transform.position, directionVector, 1);
+            var hit = Physics2D.Raycast(GameObj.transform.position.xy() + directionVector, directionVector, 0);
             if (hit.collider != null)
             {
                 ExplosionManager.Instance.Add(hit.collider.gameObject);

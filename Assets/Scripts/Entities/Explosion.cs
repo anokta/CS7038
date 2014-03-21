@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Explosion : Entity
 {
@@ -8,6 +7,8 @@ public class Explosion : Entity
     // Use this for initialization
     protected override void Awake()
     {
+        base.Awake();
+
         animator = GetComponent<Animator>();
         animator.speed = 5f;
     }

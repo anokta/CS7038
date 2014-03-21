@@ -89,7 +89,7 @@ public class LaserEmitter : Entity
 
                 Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Level Over"];
 
-                return;
+                break;
             }
 
             var mirror = hit.collider.GetComponent<Mirror>();

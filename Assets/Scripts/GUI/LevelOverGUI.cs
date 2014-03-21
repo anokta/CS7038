@@ -62,7 +62,7 @@ public class LevelOverGUI : MonoBehaviour
         };
         overMessageSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
         {
-            "TODO"
+            "Your organs are deconstructed by the Death Ray. But thanks to our cloning technology, we can create a copy from your DNA."
         };
     }
 

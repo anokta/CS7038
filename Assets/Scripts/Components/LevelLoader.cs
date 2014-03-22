@@ -119,6 +119,8 @@ public class LevelLoader
                         break;
                     case TileType.Patient:
                         parent = switchableContainer;
+						transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y) - 1;
+
                         break;
                     case TileType.Gate1:
                         parent = accessibleContainer;

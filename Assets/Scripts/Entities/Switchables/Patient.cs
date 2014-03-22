@@ -12,6 +12,7 @@ public class Patient : Switchable
 
     PlayerController player;
     Vector2 lastPlayerDirection;
+	Animator animator;
 
     public Material GUIpie;
     public Texture progressTexture;
@@ -25,7 +26,8 @@ public class Patient : Switchable
         base.Start();
 
         treated = false;
-
+		animator = GetComponent<Animator>();
+		animator.Play("Sitting");
         player = GameObject.FindObjectOfType<PlayerController>();
 
         pieSize *= Screen.height;
@@ -36,6 +38,8 @@ public class Patient : Switchable
     protected override void Update()
     {
         base.Update();
+
+		spriteRenderer.sortingOrder =  - Mathf.RoundToInt(4 * entity.position.y) - 1;
 
         timer.Update();
 
@@ -82,18 +86,19 @@ public class Patient : Switchable
 
     void Finish()
     {
-        spriteRenderer.sprite = treatedSprite;
+		//spriteRenderer.sprite = treatedSprite;
 
         Interrupted();
 
         if (player.GetComponent<HandController>().state != HandController.HandState.Clean)
         {
             GameWorld.levelOverReason = GameWorld.LevelOverReason.PatientInfected;
+			animator.SetTrigger("Kill");
         }
         else
         {
             //GameWorld.success &= true;TODO: see if it works after commented
-
+			animator.SetTrigger("Treat");
             audioManager.PlaySFX("Treated");
         }
 

@@ -11,6 +11,9 @@ public class HandController : MonoBehaviour
 	public Texture background;
 	public static readonly float MaxValue = 4.0f;
 	public static readonly float MinValue = 0.0f;
+	public GameObject cleanParticles;
+
+	private ParticleSystem stars;
 
 	public enum HandState
 	{
@@ -57,7 +60,25 @@ public class HandController : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Running"].Add(this);
-    }
+		stars = GameObject.Instantiate(cleanParticles) as ParticleSystem;
+		stars.transform.parent = transform.parent;
+		stars.renderer.sortingOrder = short.MaxValue;
+	}
+
+	bool resuming;
+
+	void OnEnable() {
+		if (resuming && stars != null) {
+			stars.Play();
+		}
+	}
+
+	void OnDisable() {
+		if (stars != null && stars.isPlaying) {
+			resuming = true;
+			stars.Stop();
+		}
+	}
 
     void Update()
     {
@@ -68,6 +89,27 @@ public class HandController : MonoBehaviour
             if (Mathf.Abs(_guiValue - _value) < 0.01f)
                 _guiValue = _value;
         }
+		if (this.state == HandState.Clean) {
+			var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.025f, Screen.height * 0.025f, 0));
+			Debug.Log(size);
+			//stars.transform.localScale = new Vector3(size.x, size.y, 1);
+			stars.startSize = size.y;
+			stars.transform.position = 
+				Camera.main.ScreenToWorldPoint(
+				new Vector3(
+					GUIManager.OffsetX() + Screen.height * 0.15f, GUIManager.OffsetY() + Screen.height * 0.15f,
+						0)).xy().xy_(-1);
+			stars.startSpeed = size.y * 3.5f;
+			if (!stars.isPlaying) {
+				stars.Play();
+				//stars.Play();
+				//}
+			}
+		} else {
+			if (!stars.isStopped) {
+				stars.Stop();
+			}
+		}
     }
 
 	void OnGUI()
@@ -75,12 +117,13 @@ public class HandController : MonoBehaviour
 		if (Event.current.type.Equals(EventType.Repaint)) {
             Rect drawPos = new Rect(GUIManager.OffsetX(), Screen.height - Screen.height * 0.1f - GUIManager.OffsetY() - Screen.height * 0.1f, Screen.height * 0.2f, Screen.height * 0.2f);
 			GUIpie.SetFloat("Value", 1);
-			//GUIpie.color = new Color(0.05f, 0.05f, 0.05f);
+			GUIpie.color = new Color(1, 1, 1, 0.6f);
+			//	GUIpie.color = Color.white;
 			Graphics.DrawTexture(drawPos, background, GUIpie);
 
 			GUIpie.SetFloat("Value", Ratio); 
 			GUIpie.SetFloat("Clockwise", 0);
-			GUIpie.color = new Color((1 - Ratio) * 0.75f, 0.75f, 0, 0.75f);
+			GUIpie.color = new Color((1 - Ratio) * 0.75f, 0.75f, 0, 0.5f);
 		
 			Graphics.DrawTexture(drawPos, circle, GUIpie);
 

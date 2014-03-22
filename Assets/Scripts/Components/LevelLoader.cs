@@ -36,6 +36,7 @@ public class LevelLoader
         prefabs[TileType.MirrorInverse] = Resources.Load<GameObject>("Mirror");
         prefabs[TileType.Patient] = Resources.Load<GameObject>("Patient");
         prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
+		prefabs[TileType.Plant] = Resources.Load<GameObject>("Plant");
         prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
         prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
@@ -106,6 +107,7 @@ public class LevelLoader
                     case TileType.Crate:
                     case TileType.Trolley:
                     case TileType.Explosive:
+					case TileType.Plant:
                         parent = pushableContainer;
                         break;
                     case TileType.Sanitizer:

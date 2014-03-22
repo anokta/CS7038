@@ -110,6 +110,11 @@ public class LaserEmitter : Entity
                 }
             }
 
+			var plant = hit.collider.GetComponent<Plant>();
+			if (plant != null) {
+				plant.Burn();
+			}
+
             break;
         }
 

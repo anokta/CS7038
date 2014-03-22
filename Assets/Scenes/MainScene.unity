@@ -456,7 +456,7 @@ MonoBehaviour:
   CustomFunction2D: {fileID: 0}
   longTime: .25
   flingTime: .25
-  interceptor: {fileID: 0}
+  interceptor: {fileID: 1093820743}
   defaultObject: {fileID: 100000, guid: c5828a3191b6d7846a43e92f6dc0fd61, type: 2}
   layerMask: -1
   castDistance: Infinity
@@ -464,7 +464,7 @@ MonoBehaviour:
   minDepth: -Infinity
   circleRadius: 16
   sphereRadius: 1
-  moveThreshold: 5
+  moveThreshold: 4
 --- !u!4 &290804695
 Transform:
   m_ObjectHideFlags: 0
@@ -1267,8 +1267,9 @@ MonoBehaviour:
   columnCount: 4
   rowCount: 3
   buttonSize: .200000003
-  lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
   checkTexture: {fileID: 2800000, guid: bf4bd8f19fd1a244cb933636c317ea16, type: 3}
+  lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
+  flingThreshold: .25
 --- !u!114 &1093820745
 MonoBehaviour:
   m_ObjectHideFlags: 0

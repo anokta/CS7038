@@ -6,7 +6,6 @@ using HandyGestures;
 
 public class LevelSelector : MonoBehaviour, IPan
 {
-
     public int columnCount = 4;
     public int rowCount = 3;
 
@@ -19,22 +18,42 @@ public class LevelSelector : MonoBehaviour, IPan
 
     #region Gestures
 
+    public float flingThreshold = 0.25f;
+    float flingTimer;
+
+    bool isHeld, canDrag;
+
     float currentX, targetX;
-    bool canDrag;
 
     public void OnGesturePan(PanArgs args)
     {
         switch (args.state)
         {
+            case PanArgs.State.Down:
+                flingTimer = Time.time;
+                isHeld = true;
+                break;
+
             case PanArgs.State.Move:
-                if (canDrag)
-                    targetX -= args.delta.x;
+                targetX -= args.delta.x;
                 break;
 
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
-                canDrag = true;
-                targetX = 0;
+                if (Time.time - flingTimer < flingThreshold)
+                {
+                    if (targetX > Screen.width * 0.2f)
+                        targetX = Screen.width;
+                    else if (targetX < -Screen.width * 0.2f)
+                        targetX = -Screen.width;
+                    else
+                        targetX = 0;
+                }
+                else
+                {
+                    targetX = 0;
+                }
+                isHeld = false;
                 break;
         }
     }
@@ -54,6 +73,7 @@ public class LevelSelector : MonoBehaviour, IPan
         pagesCount = 4;
 
         canDrag = true;
+        isHeld = false;
     }
 
     void Update()
@@ -63,19 +83,23 @@ public class LevelSelector : MonoBehaviour, IPan
             ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
         }
 
-        currentX = Mathf.Lerp(currentX, targetX, Time.deltaTime * 6.0f);
-
-        if (targetX != 0.0f)
+        if (!isHeld)
         {
-            if (currentX < -Screen.width * 0.5f || targetX < -Screen.width * 0.6f)
+            if (currentX < -Screen.width * 0.5f)
             {
-                ToNextPage();
+                if (canDrag) ToNextPage();
             }
-            else if (currentX > Screen.width * 0.5f || targetX > Screen.width * 0.6f)
+            else if (currentX > Screen.width * 0.5f)
             {
-                ToPreviousPage();
+                if (canDrag) ToPreviousPage();
+            }
+            else if(targetX == 0.0f)
+            {
+                canDrag = true;
             }
         }
+
+        currentX = Mathf.Lerp(currentX, targetX, Time.deltaTime * 6.0f);
     }
 
     void OnGUI()
@@ -89,56 +113,59 @@ public class LevelSelector : MonoBehaviour, IPan
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
         float offsetY = 0.5f * Screen.height - rowCount * buttonSize / 2.0f;
 
-        int pageStart = currentPage * columnCount * rowCount;
-        
-        if (pageStart == 0 && GUI.Button(new Rect(offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro"))
-        {
-            ShowIntro();
-        }
-
         int levelProgress = PlayerPrefs.GetInt("Level", 0);
-        for (int i = 0; i < rowCount; ++i)
+
+        for (int p = 0; p < pagesCount; ++p)
         {
-            for (int j = 0; j < columnCount; ++j)
+            int pageStart = p * columnCount * rowCount;
+
+            if (pageStart == 0 && GUI.Button(new Rect((p - currentPage) * Screen.width + offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro"))
             {
-                Rect buttonRect = new Rect(offsetX + j * buttonSize, offsetY + i * buttonSize, buttonSize, buttonSize);
-                bool checkmark = false;
-                int level = pageStart + i * columnCount + j;
+                ShowIntro();
+            }
 
-                if (level < levelProgress)
+            for (int i = 0; i < rowCount; ++i)
+            {
+                for (int j = 0; j < columnCount; ++j)
                 {
-                    checkmark = true;
-                }
-                else if (level > levelProgress)
-                {
-                    GUI.enabled = false;
-                }
+                    Rect buttonRect = new Rect(offsetX + (p - currentPage) * Screen.width + j * buttonSize, offsetY + i * buttonSize, buttonSize, buttonSize);
+                    bool checkmark = false;
+                    int level = pageStart + i * columnCount + j;
 
-
-                if (GUI.enabled)
-                {
-                    if (GUI.Button(buttonRect, (level + 1).ToString(), GUI.skin.GetStyle("rect button")))
+                    if (level < levelProgress)
                     {
-                        LevelManager.Instance.Level = level - 1;
+                        checkmark = true;
+                    }
+                    else if (level > levelProgress)
+                    {
+                        GUI.enabled = false;
+                    }
 
-                        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+
+                    if (GUI.enabled)
+                    {
+                        if (GUI.Button(buttonRect, (level + 1).ToString(), GUI.skin.GetStyle("rect button")))
                         {
-                            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-                        });
+                            LevelManager.Instance.Level = level - 1;
+
+                            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+                            {
+                                GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+                            });
+                        }
+                        if (checkmark)
+                        {
+                            GUI.DrawTexture(buttonRect, checkTexture);
+                        }
                     }
-                    if (checkmark)
+                    else
                     {
-                        GUI.DrawTexture(buttonRect, checkTexture);
+                        GUI.Button(buttonRect, "", GUI.skin.GetStyle("rect button"));
+                        GUI.DrawTexture(buttonRect, lockTexture);
                     }
-                }
-                else
-                {
-                    GUI.Button(buttonRect, "", GUI.skin.GetStyle("rect button"));
-                    GUI.DrawTexture(buttonRect, lockTexture);
                 }
             }
         }
-
         GUI.enabled = true;
 
         GUI.matrix = guiMatrix;
@@ -170,27 +197,27 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void ToPreviousPage()
     {
+        canDrag = false;
+
         if (currentPage > 0)
         {
             currentPage = currentPage - 1;
-            currentX = -Screen.width * 0.5f;
+            currentX = -Screen.width + currentX;
         }
 
         targetX = 0;
-
-        canDrag = false;
     }
 
     void ToNextPage()
     {
+        canDrag = false;
+
         if (currentPage < pagesCount - 1)
         {
             currentPage = currentPage + 1;
-            currentX = Screen.width * 0.5f;
+            currentX = Screen.width + currentX;
         }
 
         targetX = 0;
-
-        canDrag = false;
     }
 }

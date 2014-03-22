@@ -97,7 +97,12 @@ public class HandyDetector : MonoBehaviour
     #region Start & Setup States
 
 	void Start()
-	{
+    {
+        defaultThreshold = moveThreshold;
+
+        Grouping.GroupManager.main.group["Main Menu"].Add(this, new Grouping.GroupDelegator(null, GameMenuEnter, GameMenuExit));
+        Grouping.GroupManager.main.group["Level Select"].Add(this, new Grouping.GroupDelegator(null, GameMenuEnter, GameMenuExit));
+
 		_idle = _activeState = new InputState(this);
 		InputState deadState = new InputState(this);
 		InputState downState = new InputState(this);
@@ -787,4 +792,15 @@ public class HandyDetector : MonoBehaviour
 
     #endregion
 
+    float defaultThreshold;
+
+    void GameMenuEnter()
+    {
+        moveThreshold = 0.0f;
+    }
+
+    void GameMenuExit()
+    {
+        moveThreshold = defaultThreshold;
+    }
 }

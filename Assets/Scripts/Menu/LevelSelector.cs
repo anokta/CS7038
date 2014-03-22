@@ -113,7 +113,7 @@ public class LevelSelector : MonoBehaviour, IPan
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
         float offsetY = 0.5f * Screen.height - rowCount * buttonSize / 2.0f;
 
-        int levelProgress = PlayerPrefs.GetInt("Level", 0);
+        int levelProgress = Mathf.Min(LevelManager.Instance.LevelCount - 1, PlayerPrefs.GetInt("Level", 0));
 
         for (int p = 0; p < pagesCount; ++p)
         {

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using Grouping;
-using Random = UnityEngine.Random;
 
 public class LevelOverGUI : MonoBehaviour
 {
     public float windowSize = 0.9f;
     public float buttonSize = 0.2f;
+
+	private static System.Random _rnd;
 
     Rect guiWindow;
 
@@ -18,6 +19,7 @@ public class LevelOverGUI : MonoBehaviour
 
     static LevelOverGUI()
     {
+		_rnd = new System.Random();
         overTitleSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
         overMessageSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
 
@@ -28,17 +30,17 @@ public class LevelOverGUI : MonoBehaviour
             "Hands down, you rock!",
             "Well handled!",
             "Cleanly done!",
-            "I’ve got to hand it to you."
+			"I’ve got to hand it to you..."
         };
         overMessageSet[GameWorld.LevelOverReason.Success] = new[]
         {
-            "You did a great job. Mankind will forever be grateful of your honorable exploits.",
-            "Excellent work there. Thanks to you, the patient you saved will one day discover a cure for cancer, diabetes, pessimism and dislocative shoulder disorder.",
-            "You deserve a handful of medals for bravery beyond the call of duty.",
+			"Excellent work! Mankind will forever be grateful of your honorable exploits.",
+			"The patient you saved will one day discover a cure for cancer, diabetes, pessimism and dislocative shoulder disorder.",
+			"You deserve a handful of medals for bravery beyond the call of duty.",
             "You are a brilliant doctor, well deserving your M.D status.",
             "The Handurian Flu trembles and fears at your sight. It has no chance against your mighty ways!",
             "You get an A for style, because there is no letter that precedes A in the Latin alphabet.",
-            "If you assembled an army from all the people you have saved, you’d be able to overthrow the government. Just saying.",
+			"If you assembled an army from all the people you have saved, you’d be able to overthrow the government. But you don't do that, because you're a man of science.",
             "The patient you saved will one day become a charismatic leader who will lead Mankind into victory against the imminent alien invasion.",
             "The patient you saved will one day invent a time machine, which he will use to go back in time and save your life, thereby ensuring the streamlined continuity of the universe and preventing a time-paradox from causing it to implode."
         };
@@ -152,8 +154,8 @@ public class LevelOverGUI : MonoBehaviour
         var overTitles = overTitleSet[GameWorld.levelOverReason];
         var overMessages = overMessageSet[GameWorld.levelOverReason];
 
-        overTitle = overTitles[Random.Range(0, overTitles.Length)];
-        overMessage = overMessages[Random.Range(0, overMessages.Length)];
+		overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
+		overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
     }
 
     void FadeToLevelStart()

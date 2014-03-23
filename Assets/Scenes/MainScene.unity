@@ -1282,6 +1282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuBackground: {fileID: 2800000, guid: 989b7a2d5f05b3c4fbd3cc0fc281d556, type: 3}
+  logoTexture: {fileID: 2800000, guid: d4f598aeb4245a04f981e3bea484051a, type: 3}
 --- !u!4 &1093820746
 Transform:
   m_ObjectHideFlags: 0
@@ -1879,6 +1880,7 @@ GameObject:
   - 114: {fileID: 1799188528}
   - 114: {fileID: 1799188529}
   - 114: {fileID: 1799188530}
+  - 114: {fileID: 1799188531}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -1950,6 +1952,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowSize: .600000024
   buttonSize: .200000003
+--- !u!114 &1799188531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6d62a857498a24b8ea3896ee564f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 19800000, guid: 04c88100bbb1c254c87809bf74578846, type: 2}
 --- !u!1 &1942921644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2129,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2130505890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2120001747}

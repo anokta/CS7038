@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     // Use this for initialization
     public Texture2D menuBackground;
+	public Texture logoTexture;
 
     void Start()
     {
@@ -19,20 +20,36 @@ public class MainMenu : MonoBehaviour
             // Exit the application
             Application.Quit();
         }
+
+
     }
 
     void OnGUI()
     {
-        GUI.skin = GUIManager.GetSkin();
+		GUI.skin = GUIManager.GetSkin(); 
 
-        //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), menuBackground);
-        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.4f), "Handy MD", GUI.skin.GetStyle("title"));
+		//LOGO
+		{
+			Rect logoRect = new Rect(0, 0, 0, Screen.height * 0.2f);
+			float logoRatio = (logoRect.height) / logoTexture.height;
+			logoRect.width = logoRatio * logoTexture.width; 
+			logoRect.x = (Screen.width - logoRect.width) * 0.5f;
+			logoRect.y = (Screen.height - logoRect.height) * 0.2f;
+
+			GUI.DrawTexture(logoRect, logoTexture);
+		}
+			//GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.4f), "Handy MD", GUI.skin.GetStyle("title"));
 
         // PLAY //
-        if (GUI.Button(new Rect(Screen.width / 2.0f - Screen.height / 4.0f, Screen.height / 2.0f - Screen.height / 8.0f, Screen.height / 2.0f, Screen.height / 2.0f), "Play", GUI.skin.GetStyle("play")))
-        {
-            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
-        }
+		{
+			float size = Screen.height * 0.3f;
+	        if (GUI.Button(
+				new Rect((Screen.width - size) * 0.5f, (Screen.height -size) * 0.65f, size, size),
+				"", GUI.skin.GetStyle("play")))
+	        {
+	            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, AfterFadeOut);
+	        }
+		}
 
 
         // LEFT CORNER //

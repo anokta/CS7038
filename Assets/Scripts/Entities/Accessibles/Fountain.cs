@@ -53,11 +53,13 @@ public class Fountain : Accessible
 
     void OnGUI()
     {
-        GUIpie.SetFloat("Value", timer.progress);
-        GUIpie.SetFloat("Clockwise", 1);
+		if (timer.progress > 0) {
+			GUIpie.SetFloat("Value", timer.progress);
+			GUIpie.SetFloat("Clockwise", 1);
 
-        Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
-        //Graphics.DrawTexture(new Rect(Screen.width * 0.5f - pieSize * 0.5f, Screen.height * 0.5f - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
+			Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
+			//Graphics.DrawTexture(new Rect(Screen.width * 0.5f - pieSize * 0.5f, Screen.height * 0.5f - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
+		}
     }
 
 	public override bool Enter()

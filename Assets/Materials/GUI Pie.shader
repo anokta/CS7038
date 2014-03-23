@@ -47,9 +47,13 @@
 				float4 vertex   : SV_POSITION;
 				fixed4 color    : COLOR;
 				half2 texcoord  : TEXCOORD0;
+				half2 axis : TEXCOORD1;
+				half2 axisCross : TEXCOORD2;
 			};
 			
 			fixed4 _Color;
+			float AxisX;
+			float AxisY;
 
 			v2f vert(appdata_t IN) {
 				v2f OUT;
@@ -57,14 +61,14 @@
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
 				OUT.vertex = UnityPixelSnap (OUT.vertex);
+				OUT.axis = normalize(float2(AxisX, AxisY));
 				return OUT;
 			}
 
 			sampler2D _MainTex;
 			float PivotX;
 			float PivotY;
-			float AxisX;
-			float AxisY;
+
 			float Value;
 			float Clockwise;
 
@@ -72,26 +76,26 @@
 			{
 				float4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
 				//Direction of the pie edge
-				float2 axis = normalize(float2(AxisX, AxisY));
+				//float2 axis = normalize(float2(AxisX, AxisY));
 				//Direction from origin to pixel
-				float2 dir = normalize(IN.texcoord - float2(PivotX, PivotY));
+				half2 dir = normalize(IN.texcoord - half2(PivotX, PivotY));
 				//The sign of z determines which half of the circle the dot product is for
-				float z = normalize(cross(float3(axis, 0), float3(dir, 0)).z);
+				half z = normalize(cross(half3(IN.axis, 0), half3(dir, 0)).z);
 				//The dot product is the cosine of the angle between two vectors:
-				float prod = dot(axis, dir);
+				half prod = dot(IN.axis, dir);
 				//Do some weird math magic to deal with angles > 180
 				prod = 0.25 * z * (1 - prod) + 0.5;
 				//Apply clockwise modifier
 				prod = Clockwise * (1 - 2 * prod) + prod;
 				
 				//What follows is equivalent to this if statement:
-				//if ( Value > 0.5 && prod  > Value || Value <= 0.5 && prod >= Value) {
-				//	OUT.a = 0;
-				//}
-				float mod = normalize(clamp(Value-0.5, 0, 1));
-				float diff = normalize(prod - Value);
-				OUT.a = OUT.a * ((1 - clamp(diff, 0, 1) * mod
-					+ (clamp(-diff, 0, 1) - 1) * (1-mod)));
+				if ( Value > 0.5 && prod  > Value || Value <= 0.5 && prod >= Value) {
+					OUT.a = 0;
+				}
+				//float mod = normalize(clamp(Value-0.5, 0, 1));
+				//float diff = normalize(prod - Value);
+				//OUT.a = OUT.a * ((1 - clamp(diff, 0, 1) * mod
+				//	+ (clamp(-diff, 0, 1) - 1) * (1-mod)));
 
 				return 2 * OUT;
 			}

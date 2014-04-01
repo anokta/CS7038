@@ -16,6 +16,8 @@ public class LevelSelector : MonoBehaviour, IPan
     int pagesCount;
     int currentPage;
 
+    float currentScroll, targetScroll;
+
     #region Gestures
 
     public float flingThreshold = 0.25f;
@@ -74,13 +76,15 @@ public class LevelSelector : MonoBehaviour, IPan
 
         canDrag = true;
         isHeld = false;
+
+        currentScroll = MainMenu.ScreenScrollValue - MainMenu.ScreenScrollValue * 0.05f;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
+            targetScroll = MainMenu.ScreenScrollValue;
         }
 
         if (!isHeld)
@@ -93,19 +97,36 @@ public class LevelSelector : MonoBehaviour, IPan
             {
                 if (canDrag) ToPreviousPage();
             }
-            else if(targetX == 0.0f)
+            else if (targetX == 0.0f)
             {
                 canDrag = true;
             }
         }
 
         currentX = Mathf.Lerp(currentX, targetX, Time.deltaTime * 6.0f);
+
+
+        if (Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.05f)
+        {
+            if (targetScroll == MainMenu.ScreenScrollValue)
+            {
+                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+
+                targetScroll = 0.0f;
+            }
+        }
+        else if (targetScroll == 0.0f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
+        {
+            currentX = currentScroll;
+        }
+
+        currentScroll = Mathf.Lerp(currentScroll, targetScroll, Time.deltaTime * 5.5f);
     }
 
     void OnGUI()
     {
         Matrix4x4 guiMatrix = GUI.matrix;
-        GUI.matrix *= Matrix4x4.TRS(new Vector3(currentX, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
+        GUI.matrix *= Matrix4x4.TRS(new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
         GUI.skin = GUIManager.GetSkin();
 
@@ -115,13 +136,16 @@ public class LevelSelector : MonoBehaviour, IPan
 
         int levelProgress = Mathf.Min(LevelManager.Instance.LevelCount - 1, PlayerPrefs.GetInt("Level", 0));
 
-        for (int p = 0; p < pagesCount; ++p)
+        for (int p = (targetScroll == 0.0f) ? 0 : currentPage; p < pagesCount; ++p)
         {
             int pageStart = p * columnCount * rowCount;
 
             if (pageStart == 0 && GUI.Button(new Rect((p - currentPage) * Screen.width + offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro"))
             {
                 ShowIntro();
+
+                currentScroll = MainMenu.ScreenScrollValue;
+                targetScroll = 0.0f;
             }
 
             for (int i = 0; i < rowCount; ++i)
@@ -152,6 +176,10 @@ public class LevelSelector : MonoBehaviour, IPan
                             {
                                 GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
                             });
+
+                            currentScroll = MainMenu.ScreenScrollValue;
+                            targetScroll = 0.0f;
+                            currentPage = 0;
                         }
                         if (checkmark)
                         {
@@ -169,12 +197,16 @@ public class LevelSelector : MonoBehaviour, IPan
         GUI.enabled = true;
 
         GUI.matrix = guiMatrix;
+        GUI.matrix *= Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
         // Back
         if (GUI.Button(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize / 2, buttonSize / 2), "Back", GUI.skin.GetStyle("back")))
         {
-            ScreenFader.FadeToState("Main Menu", 0.5f, 0.5f);
+            targetScroll = MainMenu.ScreenScrollValue;
         }
+
+        GUI.matrix = guiMatrix;
+        GUI.matrix *= Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
         GUI.Label(new Rect(Screen.width / 2.0f - buttonSize / 2, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), (currentPage + 1) + " / " + pagesCount, GUI.skin.GetStyle("over message"));
     }

@@ -1427,7 +1427,7 @@ MonoBehaviour:
     m_StretchHeight: 1
   - m_Name: next
     m_Normal:
-      m_Background: {fileID: 2800000, guid: fa6b30db411123242bebbef9ea92ed41, type: 3}
+      m_Background: {fileID: 2800000, guid: 96b7f96db9e21ea40814e5a7889724ee, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: fa6b30db411123242bebbef9ea92ed41, type: 3}

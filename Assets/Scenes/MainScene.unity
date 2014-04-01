@@ -1234,6 +1234,7 @@ MonoBehaviour:
   - Paused
   - Level Over
   - Fading
+  - Exiting
   caseSensitive: 0
   main: 1
 --- !u!1 &1093820743
@@ -1246,6 +1247,7 @@ GameObject:
   - 4: {fileID: 1093820746}
   - 114: {fileID: 1093820745}
   - 114: {fileID: 1093820744}
+  - 114: {fileID: 1093820747}
   m_Layer: 0
   m_Name: 11 Menu Manager
   m_TagString: Untagged
@@ -1294,6 +1296,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1093820747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093820743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5405cba4988c2f54baefc37d63f345d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowSize: 1
+  buttonSize: .25
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0

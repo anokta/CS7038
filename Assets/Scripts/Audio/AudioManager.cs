@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource menuMain, menuLevel, background, over;
     float menuMainVolume, menuLevelVolume, backgroundVolume, overVolume;
 
-    public AudioSource menuNext, menuPrev;
+    public AudioSource menuNext, menuPrev, levelSwipe;
     public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx, explosionSfx;
 
     private static AudioManager instance;
@@ -124,6 +124,11 @@ public class AudioManager : MonoBehaviour
 
             case "Menu Prev":
                 menuPrev.Play();
+                break;
+
+            case "Level Swipe":
+                levelSwipe.pitch += Random.Range(-0.05f, 0.05f);
+                levelSwipe.Play();
                 break;
         }
     }

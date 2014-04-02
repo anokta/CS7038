@@ -241,6 +241,8 @@ public class LevelSelector : MonoBehaviour, IPan
         {
             currentPage = currentPage - 1;
             currentX = -Screen.width + currentX;
+
+            audioManager.PlaySFX("Level Swipe");
         }
 
         targetX = 0;
@@ -254,6 +256,8 @@ public class LevelSelector : MonoBehaviour, IPan
         {
             currentPage = currentPage + 1;
             currentX = Screen.width + currentX;
+
+            audioManager.PlaySFX("Level Swipe");
         }
 
         targetX = 0;

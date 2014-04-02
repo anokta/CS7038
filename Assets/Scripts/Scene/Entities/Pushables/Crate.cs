@@ -2,7 +2,10 @@
 
 public class Crate : Pushable
 {
-    Timer handTimer;
+    private Vector2 previousPosition;
+    private Vector2 movement;
+    private Timer movementTimer;
+    private Timer handTimer;
 
     // Use this for initialization
     protected override void Start()
@@ -11,6 +14,11 @@ public class Crate : Pushable
 
         MovingWithPlayer = true;
 
+        previousPosition = transform.position;
+
+        movementTimer = new Timer(0.4f, CompleteMoving);
+        movementTimer.repeating = false;
+
         handTimer = new Timer(2.8f, HandTimerRanOut);
     }
 
@@ -18,10 +26,18 @@ public class Crate : Pushable
     {
         base.Update();
 
+        movementTimer.Update();
+
+        if (movementTimer.running)
+        {
+            var newPosition = previousPosition + movementTimer.progress * movement;
+            transform.position = newPosition;
+        }
+
         handTimer.Update();
     }
 
-    public override bool Push(Vector3 direction)
+    public override bool Push(Vector3 direction, bool byPlayer = true)
     {
         bool canPush = base.Push(direction);
 
@@ -29,13 +45,24 @@ public class Crate : Pushable
         {
             audioManager.PlaySFX("Push Crate");
 
-            if (SpoilHand)
+            if (byPlayer)
             {
-                if (playerHand.LastTouchedID != GetInstanceID())
+                if (SpoilHand)
                 {
-                    playerHand.SpoilHand(-0.75f, GetInstanceID());
+                    if (playerHand.LastTouchedID != GetInstanceID())
+                    {
+                        playerHand.SpoilHand(-0.75f, GetInstanceID());
 
-                    handTimer.Reset();
+                        handTimer.Reset();
+                    }
+                }
+            }
+            else
+            {
+                if (!movementTimer.running)
+                {
+                    movement = direction;
+                    movementTimer.Reset();
                 }
             }
         }
@@ -43,8 +70,10 @@ public class Crate : Pushable
         return canPush;
     }
 
-    public void Explode()
+    private void CompleteMoving()
     {
+        previousPosition += movement;
+        transform.position = previousPosition;
     }
 
     void HandTimerRanOut()

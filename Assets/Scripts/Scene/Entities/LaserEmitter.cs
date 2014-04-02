@@ -70,7 +70,8 @@ public class LaserEmitter : Entity
         var points = new List<Vector3>();
         points.Add(origin + offset);
 
-        for (; ; )
+        // Set max iteration 20 to avoid infinite reflection
+        for (var iteration = 0; iteration < 20; iteration++)
         {
             var hit = Physics2D.Raycast(origin + directionVector, directionVector, 100);  //TODO: change 100 to max level width
 
@@ -85,28 +86,38 @@ public class LaserEmitter : Entity
             {
                 audioManager.PlaySFX("Laser Hit");
 
-                GameWorld.levelOverReason = GameWorld.LevelOverReason.KilledByLaser;
+                GameWorld.levelOverReason = GameWorld.LevelOverReason.LaserKilledPlayer;
 
                 Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Level Over"];
 
                 break;
             }
 
-            var mirror = hit.collider.GetComponent<Mirror>();
-            if (mirror != null)
+            if (hit.collider.name.StartsWith("Mirror"))
             {
-                currDirection = mirror.Reflect(currDirection);
-                directionVector = currDirection.ToVector2();
-                continue;
+                var mirror = hit.collider.GetComponent<Mirror>();
+                if (mirror != null)
+                {
+                    currDirection = mirror.Reflect(currDirection);
+                    directionVector = currDirection.ToVector2();
+                    continue;
+                }
             }
-
-            if (hit.collider.name.StartsWith("Explosive"))
+            else if (hit.collider.name.StartsWith("Explosive"))
             {
                 if (lastExplosiveID != hit.transform.GetInstanceID())
                 {
                     lastExplosiveID = hit.transform.GetInstanceID();
 
-                    ExplosionManager.Instance.Add(hit.collider.gameObject);
+                    ExplosionManager.Instance.Add(hit.collider.gameObject, hit.collider.transform.position);
+                }
+            }
+            else if (hit.collider.name.StartsWith("Patient"))
+            {
+                var patient = hit.collider.GetComponent<Patient>();
+                if (patient != null)
+                {
+                    patient.Kill(GameWorld.LevelOverReason.LaserKilledPatient);
                 }
             }
 

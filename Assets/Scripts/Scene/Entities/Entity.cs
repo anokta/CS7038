@@ -10,13 +10,13 @@ public class Entity : MonoBehaviour
 
     protected HandController playerHand;
 
+    public EntityExplosionTask ExplosionHandler { get; protected set; }
+
     public Vector2 Position
     {
         get { return entity.position; }
         set { entity.position = value; }
     }
-
-    public bool Explosive { get; protected set; }
 
     protected virtual void Awake()
     {
@@ -40,4 +40,9 @@ public class Entity : MonoBehaviour
     {
         spriteRenderer.sortingOrder =  - Mathf.RoundToInt(4 * entity.position.y);
     }
+}
+
+public abstract class EntityExplosionTask : Task
+{
+    public Vector2 ExplosionSource;
 }

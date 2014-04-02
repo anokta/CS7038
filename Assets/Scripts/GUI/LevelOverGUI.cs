@@ -58,17 +58,44 @@ public class LevelOverGUI : MonoBehaviour
             "I am appalled at your unsanitary medical practices. Are you a real doctor?"
         };
 
-        overTitleSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
+        overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
         {
             "Hand on a minute.",
 			"Zapadabadoo!",
             "Care the Death Ray!"
         };
-        overMessageSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
+        overMessageSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
         {
 			"Your organs have been vaporized by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
 			"\"Step into the light\" is not always meant to be taken literally.",
 			"Lasers can be just as lethal as they can be handy."
+		};
+
+        overTitleSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
+        {
+            "TODO: LaserKilledPatient"
+        };
+        overMessageSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
+        {
+			"TODO: LaserKilledPatient"
+		};
+
+        overTitleSet[GameWorld.LevelOverReason.ExplosionKilledPlayer] = new[]
+        {
+            "TODO: ExplosionKilledPlayer"
+        };
+        overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPlayer] = new[]
+        {
+			"TODO: ExplosionKilledPlayer"
+		};
+
+        overTitleSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
+        {
+            "TODO: ExplosionKilledPatient"
+        };
+        overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
+        {
+			"TODO: ExplosionKilledPatient"
 		};
     }
 

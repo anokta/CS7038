@@ -29,7 +29,7 @@ public class TaskScheduler : MonoBehaviour
         }
     }
 
-    public bool Add(float delay, Task newTask, bool unique = true)
+    public bool Add(Task newTask, bool unique = true)
     {
         if (unique)
         {
@@ -39,7 +39,7 @@ public class TaskScheduler : MonoBehaviour
             }
         }
 
-        var time = Time.time + delay;
+        var time = Time.time + newTask.Delay;
         tasks.Add(time, newTask);
 
         return true;
@@ -48,7 +48,9 @@ public class TaskScheduler : MonoBehaviour
 
 public abstract class Task : IEquatable<Task>
 {
-    public abstract bool Equals(Task other);
+    public float Delay { get; protected set; }
 
     public abstract void Run();
+
+    public abstract bool Equals(Task other);
 }

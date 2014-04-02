@@ -14,10 +14,8 @@ public class Trolley : Pushable
 
         previousPosition = transform.position;
 
-        timer = new Timer();
-        timer.duration = 0.2f;
+        timer = new Timer(0.2f, CompleteMoving);
         timer.repeating = true;
-        timer.Complete += CompleteMoving;
     }
 
     // Update is called once per frame
@@ -36,7 +34,7 @@ public class Trolley : Pushable
         }
     }
 
-    public override bool Push(Vector3 direction)
+    public override bool Push(Vector3 direction, bool byPlayer = true)
     {
         movement = direction;
 
@@ -50,7 +48,10 @@ public class Trolley : Pushable
 
                 audioManager.PlaySFX("Push Trolley");
 
-                playerHand.SpoilHand(-0.75f, GetInstanceID());
+                if (byPlayer)
+                {
+                    playerHand.SpoilHand(-0.75f, GetInstanceID());
+                }
             }
         }
 

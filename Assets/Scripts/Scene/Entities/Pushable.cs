@@ -6,15 +6,17 @@ public abstract class Pushable : Entity
 
     public bool SpoilHand = true;
 
+    protected Pushable()
+    {
+        ExplosionHandler = new ExplosionTask(this);
+    }
 
     protected override void Start()
     {
         base.Start();
-
-        Explosive = true;
     }
 
-    public virtual bool Push(Vector3 direction)
+    public virtual bool Push(Vector3 direction, bool byPlayer = true)
     {
         var canPush = CanPush(direction);
 
@@ -38,5 +40,29 @@ public abstract class Pushable : Entity
     protected virtual bool CanPush(RaycastHit2D hit, Vector3 direction)
     {
         return false;
+    }
+
+    public class ExplosionTask : EntityExplosionTask
+    {
+        public Pushable Pushable { get; private set; }
+
+        public ExplosionTask(Pushable pushable)
+        {
+            Pushable = pushable;
+            Delay = 0;
+        }
+
+        public override void Run()
+        {
+            var direction = Pushable.Position - ExplosionSource;
+            direction.Normalize();
+            Pushable.Push(direction, false);
+        }
+
+        public override bool Equals(Task other)
+        {
+            var explosionTask = other as ExplosionTask;
+            return explosionTask != null && Pushable == explosionTask.Pushable;
+        }
     }
 }

@@ -20,6 +20,11 @@ public class Patient : Switchable
     public float pieSize;
     Vector2 guiPosition;
 
+    public Patient()
+    {
+        ExplosionHandler = new ExplosionTask(this);
+    }
+
     // Use this for initialization
     protected override void Start()
     {
@@ -109,6 +114,14 @@ public class Patient : Switchable
         treated = true;
     }
 
+    public void Kill(GameWorld.LevelOverReason reason)
+    {
+        Interrupted();
+        GameWorld.levelOverReason = reason;
+        animator.SetTrigger("Kill");
+        treated = true;
+    }
+
     void Interrupted()
     {
         isHeld = false;
@@ -118,6 +131,28 @@ public class Patient : Switchable
         if (player.AnimState == PlayerController.PlayerAnimState.Wash)
         {
             player.AnimState = PlayerController.PlayerAnimState.Idle;
+        }
+    }
+
+    public new class ExplosionTask : EntityExplosionTask
+    {
+        public Patient Patient { get; private set; }
+
+        public ExplosionTask(Patient patient)
+        {
+            Patient = patient;
+            Delay = 0;
+        }
+
+        public override void Run()
+        {
+            Patient.Kill(GameWorld.LevelOverReason.ExplosionKilledPatient);
+        }
+
+        public override bool Equals(Task other)
+        {
+            var explosionTask = other as ExplosionTask;
+            return explosionTask != null && Patient == explosionTask.Patient;
         }
     }
 }

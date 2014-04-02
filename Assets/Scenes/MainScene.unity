@@ -244,44 +244,6 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!1 &264533233
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 264533235}
-  - 114: {fileID: 264533234}
-  m_Layer: 0
-  m_Name: 21 Keyboard Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &264533234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 264533233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4064d9958283da4d8572bce2f5d2484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &264533235
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 264533233}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &279206008
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,8 +393,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 290804695}
   - 114: {fileID: 290804694}
+  - 114: {fileID: 290804696}
   m_Layer: 0
-  m_Name: 20 Mobile Input Manager
+  m_Name: 20 Input Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -476,6 +439,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &290804696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290804693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4064d9958283da4d8572bce2f5d2484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &291359992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1021,7 @@ GameObject:
   - 114: {fileID: 968405519}
   - 82: {fileID: 968405517}
   m_Layer: 0
-  m_Name: 13 Dialogue Manager
+  m_Name: Dialogue System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1063,7 +1037,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: .5
+  m_Volume: .400000006
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1121,7 +1095,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1799188526}
 --- !u!114 &968405519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1249,7 +1223,7 @@ GameObject:
   - 114: {fileID: 1093820744}
   - 114: {fileID: 1093820747}
   m_Layer: 0
-  m_Name: 11 Menu Manager
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,7 +1269,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1799188526}
 --- !u!114 &1093820747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1913,8 +1887,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 968405518}
   - {fileID: 336230963}
   - {fileID: 530502223}
+  - {fileID: 1093820746}
   m_Father: {fileID: 0}
 --- !u!114 &1799188527
 MonoBehaviour:

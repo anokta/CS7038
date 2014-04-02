@@ -4,9 +4,10 @@ using Grouping;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource menu, background, over;
-    float menuVolume, backgroundVolume, overVolume;
+    public AudioSource menuMain, menuLevel, background, over;
+    float menuMainVolume, menuLevelVolume, backgroundVolume, overVolume;
 
+    public AudioSource menuNext, menuPrev, levelSwipe;
     public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx, explosionSfx;
 
     private static AudioManager instance;
@@ -20,14 +21,17 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
+        GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, LevelSelect, null));
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 
-        menu.volume = 0.0f;
+        menuMain.volume = 0.0f;
+        menuLevel.volume = 0.0f;
         background.volume = 0.0f;
         over.volume = 0.0f;
 
-        menu.Play();
+        menuMain.Play();
+        menuLevel.Play();
         background.Play();
         over.Play();
     }
@@ -39,8 +43,10 @@ public class AudioManager : MonoBehaviour
 
         if (!fadeOut)
         {
-            if (menu.volume != menuVolume)
-                menu.volume = Mathf.Lerp(menu.volume, menuVolume, Time.deltaTime * 2);
+            if (menuMain.volume != menuMainVolume)
+                menuMain.volume = Mathf.Lerp(menuMain.volume, menuMainVolume, Time.deltaTime * 4); 
+            if (menuLevel.volume != menuLevelVolume)
+                menuLevel.volume = Mathf.Lerp(menuLevel.volume, menuLevelVolume, Time.deltaTime * 2);
             if (background.volume != backgroundVolume)
                 background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 2);
             if (over.volume != overVolume)
@@ -48,11 +54,13 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            if (menu.volume != menuVolume)
-                menu.volume = Mathf.Lerp(menu.volume, 0.0f, Time.deltaTime);
-            if (background.volume != backgroundVolume)
+            if (menuMain.volume != 0.0f)
+                menuMain.volume = Mathf.Lerp(menuMain.volume, 0.0f, Time.deltaTime * 2);
+            if (menuLevel.volume != 0.0f)
+                menuLevel.volume = Mathf.Lerp(menuLevel.volume, 0.0f, Time.deltaTime * 2);
+            if (background.volume != 0.0f)
                 background.volume = Mathf.Lerp(background.volume, 0.0f, Time.deltaTime);
-            if (over.volume != overVolume)
+            if (over.volume != 0.0f)
                 over.volume = Mathf.Lerp(over.volume, 0.0f, Time.deltaTime);
         }
     }
@@ -109,6 +117,19 @@ public class AudioManager : MonoBehaviour
             case "Laser Hit":
                 laserSfx.Play();
                 break;
+
+            case "Menu Next":
+                menuNext.Play();
+                break;
+
+            case "Menu Prev":
+                menuPrev.Play();
+                break;
+
+            case "Level Swipe":
+                levelSwipe.pitch += Random.Range(-0.05f, 0.05f);
+                levelSwipe.Play();
+                break;
         }
     }
 
@@ -138,7 +159,8 @@ public class AudioManager : MonoBehaviour
 
     void GameMenu()
     {
-        menuVolume = 0.3f;
+        menuMainVolume = 0.4f;
+        menuLevelVolume = 0.4f;
         backgroundVolume = 0.0f;
         overVolume = 0.0f;
     }
@@ -150,7 +172,8 @@ public class AudioManager : MonoBehaviour
         push2Sfx.pitch = 1.0f;
 
 
-        menuVolume = 0.0f;
+        menuMainVolume = 0.0f;
+        menuLevelVolume = 0.0f;
         backgroundVolume = 0.3f;
         overVolume = 0.0f;
 
@@ -160,5 +183,11 @@ public class AudioManager : MonoBehaviour
     {
         backgroundVolume = 0.0f;
         overVolume = 0.3f;
+    }
+
+    void LevelSelect()
+    {
+        menuMainVolume = 0.0f;
+        menuLevelVolume = 0.4f;
     }
 }

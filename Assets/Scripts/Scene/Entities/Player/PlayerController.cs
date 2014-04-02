@@ -355,5 +355,6 @@ public class PlayerController : MonoBehaviour, IPan
         animator.SetTrigger("Die");
 
         GameWorld.levelOverReason = GameWorld.LevelOverReason.LaserKilledPlayer;
+
     }
 }

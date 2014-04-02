@@ -80,6 +80,7 @@ public class Patient : Switchable
             isHeld = true;
 
             timer.Reset();
+            audioManager.PlaySFX("Loop Patient");
 
             lastPlayerDirection = player.NextDirection;
 
@@ -97,6 +98,7 @@ public class Patient : Switchable
         {
             GameWorld.levelOverReason = GameWorld.LevelOverReason.PatientInfected;
 			animator.SetTrigger("Kill");
+            audioManager.PlaySFX("Died");
         }
         else
         {
@@ -138,6 +140,8 @@ public class Patient : Switchable
 
     void Interrupted()
     {
+        audioManager.StopSFX("Loop Patient");
+
         isHeld = false;
 
         timer.Stop(); 

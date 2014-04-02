@@ -67,6 +67,7 @@ public class LevelSelector : MonoBehaviour, IPan
     void Start()
     {
         GroupManager.main.group["Level Select"].Add(this);
+        GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, FadeBackToLevelSelection, null));
 
         buttonSize *= Screen.height;
 
@@ -220,16 +221,40 @@ public class LevelSelector : MonoBehaviour, IPan
     void ShowIntro()
     {
         DialogueManager.CurrentDialogue = -1;
+
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
-            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+        });
+    }
+
+    void FadeBackToLevelSelection()
+    {
+        ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+        {
+            DialogueManager.DialogueComplete = delegate()
             {
-                DialogueManager.DialogueComplete = delegate()
+                ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
                 {
-                    ScreenFader.FadeToState("Level Select", 1.0f, 0.5f);
-                };
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-            });
+                    ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                    {
+                        DialogueManager.DialogueComplete = delegate()
+                        {
+                            ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
+                            {
+                                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                                {
+                                    GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
+                                });
+                            });
+                        };
+
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    });
+                });
+            };
+
+            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
         });
     }
 

@@ -19,29 +19,38 @@ public class LevelLoader
     {
         prefabs = new Dictionary<TileType, GameObject>();
         prefabs[TileType.Crate] = Resources.Load<GameObject>("Crate");
-        prefabs[TileType.Door] = Resources.Load<GameObject>("Door");
-        prefabs[TileType.Player] = Resources.Load<GameObject>("Dr Handrew");
         prefabs[TileType.Explosive] = Resources.Load<GameObject>("ExplosiveCrate");
+        prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
+        
+        prefabs[TileType.Player] = Resources.Load<GameObject>("Dr Handrew");
+        prefabs[TileType.Patient] = Resources.Load<GameObject>("Patient");
+        prefabs[TileType.Plant] = Resources.Load<GameObject>("Plant");
         prefabs[TileType.Fountain] = Resources.Load<GameObject>("Fountain");
-        prefabs[TileType.Gate1] = Resources.Load<GameObject>("Gate");
-        prefabs[TileType.Gate2] = Resources.Load<GameObject>("Gate");
-        prefabs[TileType.Gate3] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Door] = Resources.Load<GameObject>("Door");
         prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
+
         prefabs[TileType.Lever1] = Resources.Load<GameObject>("Lever");
         prefabs[TileType.Lever2] = Resources.Load<GameObject>("Lever");
         prefabs[TileType.Lever3] = Resources.Load<GameObject>("Lever");
+
+        prefabs[TileType.Gate1] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate2] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate3] = Resources.Load<GameObject>("Gate");
+
+        prefabs[TileType.Gate1Vertical] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate2Vertical] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate3Vertical] = Resources.Load<GameObject>("Gate Vertical");
+
         prefabs[TileType.LaserDown] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserUp] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserRight] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserLeft] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.Mirror] = Resources.Load<GameObject>("Mirror");
         prefabs[TileType.MirrorInverse] = Resources.Load<GameObject>("Mirror");
-        prefabs[TileType.Patient] = Resources.Load<GameObject>("Patient");
-        prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
-		prefabs[TileType.Plant] = Resources.Load<GameObject>("Plant");
-        prefabs[TileType.Trolley] = Resources.Load<GameObject>("Trolley");
+        
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
         prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
+        prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
 
 		//This shouldn't be a TileType object
 		shade = Resources.Load<GameObject>("Shade");
@@ -121,34 +130,14 @@ public class LevelLoader
                         break;
                     case TileType.Door:
                     case TileType.Fountain:
+                    case TileType.GateClean:
                         parent = accessibleContainer;
                         break;
                     case TileType.Patient:
                         parent = switchableContainer;
 						transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y) - 1;
+                        break;
 
-                        break;
-                    case TileType.Gate1:
-                        parent = accessibleContainer;
-                        var gate1 = gameObj.GetComponent<Gate>();
-                        gate1.LeverGateType = LeverGateType.Type1;
-                        leverGateManager.Add(gate1);
-                        break;
-                    case TileType.Gate2:
-                        parent = accessibleContainer;
-                        var gate2 = gameObj.GetComponent<Gate>();
-                        gate2.LeverGateType = LeverGateType.Type2;
-                        leverGateManager.Add(gate2);
-                        break;
-                    case TileType.Gate3:
-                        parent = accessibleContainer;
-                        var gate3 = gameObj.GetComponent<Gate>();
-                        gate3.LeverGateType = LeverGateType.Type3;
-                        leverGateManager.Add(gate3);
-                        break;
-                    case TileType.GateClean:
-                        parent = accessibleContainer;
-                        break;
                     case TileType.Lever1:
                         parent = accessibleContainer;
                         var lever1 = gameObj.GetComponent<Lever>();
@@ -167,6 +156,29 @@ public class LevelLoader
                         lever3.LeverGateType = LeverGateType.Type3;
                         leverGateManager.Add(lever3);
                         break;
+
+                    case TileType.Gate1:
+                    case TileType.Gate1Vertical:
+                        parent = accessibleContainer;
+                        var gate1 = gameObj.GetComponent<Gate>();
+                        gate1.LeverGateType = LeverGateType.Type1;
+                        leverGateManager.Add(gate1);
+                        break;
+                    case TileType.Gate2:
+                    case TileType.Gate2Vertical:
+                        parent = accessibleContainer;
+                        var gate2 = gameObj.GetComponent<Gate>();
+                        gate2.LeverGateType = LeverGateType.Type2;
+                        leverGateManager.Add(gate2);
+                        break;
+                    case TileType.Gate3:
+                    case TileType.Gate3Vertical:
+                        parent = accessibleContainer;
+                        var gate3 = gameObj.GetComponent<Gate>();
+                        gate3.LeverGateType = LeverGateType.Type3;
+                        leverGateManager.Add(gate3);
+                        break;
+
                     case TileType.LaserDown:
                         parent = wallContainer;
                         var laserDown = gameObj.GetComponent<LaserEmitter>();
@@ -187,6 +199,7 @@ public class LevelLoader
                         var laserLeft = gameObj.GetComponent<LaserEmitter>();
                         laserLeft.Direction = Direction.Left;
                         break;
+
                     case TileType.Mirror:
                         parent = switchableContainer;
                         break;
@@ -195,6 +208,7 @@ public class LevelLoader
                         var mirror = gameObj.GetComponent<Mirror>();
                         mirror.Forward = false;
                         break;
+
                     case TileType.Wall:
                         parent = wallContainer;
                         transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y);

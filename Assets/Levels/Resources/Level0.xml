@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="7" height="6" tilewidth="100" tileheight="100">
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
-  <image source="tileset.png" width="1000" height="600"/>
+  <image source="tileset.png" width="1000" height="1000"/>
  </tileset>
- <layer name="Floor" width="7" height="6">
+ <layer name="Floor" width="7" height="6" visible="0">
   <data encoding="csv">
-52,52,52,52,52,52,52,
-52,52,52,52,52,52,52,
-52,52,52,52,52,52,52,
-52,52,52,52,52,52,52,
-52,52,52,52,52,52,52,
-52,52,52,52,52,52,52
+62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,
+62,62,62,62,62,62,62
 </data>
  </layer>
  <layer name="Tile Layer 1" width="7" height="6">
   <data encoding="csv">
-51,51,51,51,51,51,51,
-51,11,51,0,14,0,51,
-51,0,51,0,0,0,51,
-51,0,0,0,51,24,51,
-51,0,0,0,51,12,51,
-51,51,51,51,51,51,51
+61,61,61,61,61,61,61,
+61,11,61,0,14,0,61,
+61,0,61,0,0,0,61,
+61,0,0,0,61,16,61,
+61,0,0,0,61,12,61,
+61,61,61,61,61,61,61
 </data>
  </layer>
 </map>

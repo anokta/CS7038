@@ -2,9 +2,10 @@
 {
     Empty,
     Crate = 1, Trolley, Explosive,
-	Player = 11, Patient, Plant, Fountain, Door,
-    Gate1 = 21, Gate2, Gate3, GateClean,
-    Lever1 = 31, Lever2, Lever3,
-    LaserDown = 41, LaserUp, LaserRight, LaserLeft, Mirror, MirrorInverse,
-	Wall = 51, Floor, Sanitizer
+	Player = 11, Patient, Plant, Fountain, Door, GateClean,
+    Lever1 = 21, Lever2, Lever3,
+    Gate1 = 31, Gate2, Gate3,
+    Gate1Vertical = 41, Gate2Vertical, Gate3Vertical,
+    LaserDown = 51, LaserUp, LaserRight, LaserLeft, Mirror, MirrorInverse,
+	Wall = 61, Floor, Sanitizer
 }

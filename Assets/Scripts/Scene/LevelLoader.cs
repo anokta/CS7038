@@ -6,12 +6,14 @@ using Object = UnityEngine.Object;
 
 public class LevelLoader
 {
+    public static LevelLoader Instance { get; private set; }
     // Entities
     private GameObject entityContainer;
 	private GameObject wallContainer, shadeContainer, floorContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer;
     private readonly Dictionary<TileType, GameObject> prefabs;
 
 	private GameObject shade;
+    public GameObject ExplosionContainer { get; private set; }
 
     public LevelLoader()
     {
@@ -52,6 +54,8 @@ public class LevelLoader
 
     public void Load(TmxMap map)
     {
+        Instance = this;
+
         // Instantiate the containers
         entityContainer = new GameObject("31 Entities");
 
@@ -76,8 +80,10 @@ public class LevelLoader
 		shadeContainer = new GameObject("Shades");
 		shadeContainer.transform.parent = entityContainer.transform;
 
-        var leverGateManager = new LeverGateManager();
+        ExplosionContainer = new GameObject("Explosions");
+        ExplosionContainer.transform.parent = entityContainer.transform;
 
+        var leverGateManager = new LeverGateManager();
 
         foreach (var layer in map.Layers)
         {

@@ -22,8 +22,10 @@ public class ExplosiveCrate : Crate
             if (ExplosiveCrate == null) return;
 
             var explosionSource = ExplosiveCrate.transform.position;
-            Instantiate(ExplosionManager.Instance.ExplosionPrefab, explosionSource, Quaternion.identity);
             Destroy(ExplosiveCrate.gameObject);
+
+            var explosion = Instantiate(ExplosionManager.Instance.ExplosionPrefab, explosionSource, Quaternion.identity) as GameObject;
+            explosion.transform.parent = LevelLoader.Instance.ExplosionContainer.transform;
 
             foreach (var direction in DirectionExt.Values)
             {

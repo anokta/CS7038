@@ -48,7 +48,8 @@ public class LevelOverGUI : MonoBehaviour
         overTitleSet[GameWorld.LevelOverReason.PatientInfected] = new[]
         {
             "Hand on a minute.",
-            "Caught you red handed!"
+            "Caught you red handed!",
+			"This is getting out of hand!"
         };
         overMessageSet[GameWorld.LevelOverReason.PatientInfected] = new[]
         {
@@ -60,12 +61,15 @@ public class LevelOverGUI : MonoBehaviour
         overTitleSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
         {
             "Hand on a minute.",
+			"Zapadabadoo!",
             "Care the Death Ray!"
         };
         overMessageSet[GameWorld.LevelOverReason.KilledByLaser] = new[]
         {
-            "Your organs are deconstructed by the Death Ray. But thanks to our cloning technology, we can create a copy from your DNA."
-        };
+			"Your organs have been vaporized by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
+			"\"Step into the light\" is not always meant to be taken literally.",
+			"Lasers can be just as lethal as they can be handy."
+		};
     }
 
     // Use this for initialization

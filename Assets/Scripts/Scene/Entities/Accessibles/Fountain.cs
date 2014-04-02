@@ -18,7 +18,7 @@ public class Fountain : Accessible
 
     public float pieSize;
     Vector2 guiPosition;
-
+	ParticleSystem bubbles;
 
 	protected override void Start()
 	{
@@ -28,7 +28,7 @@ public class Fountain : Accessible
 		animator = GetComponent<Animator>();
 
         player = GameObject.FindObjectOfType<PlayerController>();
-
+		bubbles = GetComponentInChildren<ParticleSystem>();
         pieSize *= Screen.height;
 	}
 
@@ -43,10 +43,15 @@ public class Fountain : Accessible
             {
 				Interrupted();
 			}
-               
+			if (!bubbles.isPlaying) {
+				bubbles.Play();
+			}
 			animator.SetBool("Water", true);
 		}
 		else {
+			if (bubbles.isPlaying) {
+				bubbles.Stop();
+			}
 			animator.SetBool("Water", false);
 		}
     }
@@ -98,7 +103,9 @@ public class Fountain : Accessible
         audioManager.StopSFX("Loop Fountain");
 
         isHeld = false;
-
+		if (bubbles.isPlaying) {
+			bubbles.Stop();
+		}
         timer.Stop();
 
         if (player.AnimState == PlayerController.PlayerAnimState.Wash)

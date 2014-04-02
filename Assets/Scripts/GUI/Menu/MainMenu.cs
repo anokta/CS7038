@@ -14,9 +14,13 @@ public class MainMenu : MonoBehaviour
         get { return Mathf.Max(Screen.width, Screen.height); }
     }
 
+    AudioManager audioManager;
+
     void Start()
     {
         GroupManager.main.group["Main Menu"].Add(this);
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -69,6 +73,7 @@ public class MainMenu : MonoBehaviour
                 "", GUI.skin.GetStyle("play")))
             {
                 targetScroll = -ScreenScrollValue;
+                audioManager.PlaySFX("Menu Next");
             }
         }
 

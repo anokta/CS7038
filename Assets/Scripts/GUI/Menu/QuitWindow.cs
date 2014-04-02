@@ -45,12 +45,12 @@ public class QuitWindow : MonoBehaviour
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("I won't", GUI.skin.GetStyle("button gray"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
+        if (GUILayout.Button("I won't", GUI.skin.GetStyle("button no"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
         }
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("I will", GUI.skin.GetStyle("button gray"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
+        if (GUILayout.Button("I will", GUI.skin.GetStyle("button yes"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
         {
             Application.Quit();
         }

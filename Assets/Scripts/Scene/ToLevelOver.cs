@@ -11,7 +11,7 @@ public class ToLevelOver : MonoBehaviour {
         GroupManager.main.group["To Level Over"].Add(this);
         GroupManager.main.group["To Level Over"].Add(this, new GroupDelegator(null, StartCounter, null));
 
-        timer = new Timer(0.8f, WaitComplete);
+        timer = new Timer(1.2f, WaitComplete);
         timer.Stop();
 	}
 	

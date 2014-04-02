@@ -84,11 +84,14 @@ public class LaserEmitter : Entity
 
             if (hit.transform.tag == "Player")
             {
-                audioManager.PlaySFX("Laser Hit");
+                PlayerController player = hit.transform.GetComponent<PlayerController>();
 
-                GameWorld.levelOverReason = GameWorld.LevelOverReason.LaserKilledPlayer;
+                if (player.IsAlive)
+                {
+                    player.Die();
 
-                Grouping.GroupManager.main.activeGroup = Grouping.GroupManager.main.group["Level Over"];
+                    audioManager.PlaySFX("Laser Hit");
+                }
 
                 break;
             }

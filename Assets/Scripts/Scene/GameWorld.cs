@@ -61,7 +61,7 @@ public class GameWorld : MonoBehaviour
             isOver &= patient.GetComponent<Patient>().IsTreated();
         }
 
-        if (isOver)
+        if (!success || isOver)
         {
             if (LevelManager.Instance.Level == 0 && success)
             {
@@ -77,7 +77,7 @@ public class GameWorld : MonoBehaviour
 
     void ToLevelOver()
     {
-        GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+        GroupManager.main.activeGroup = GroupManager.main.group["To Level Over"];
     }
 
     void LevelIntro()

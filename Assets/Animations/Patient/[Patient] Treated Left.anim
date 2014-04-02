@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: '[Patient] Revived'
+  m_Name: '[Patient] Treated Left'
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -18,7 +18,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300030, guid: ba7fcf4b15af6c64abdbd47a255fc4f1, type: 3}
+      value: {fileID: 21300030, guid: 8c07524b2f199aa4f9fbbd60ed1a1448, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212

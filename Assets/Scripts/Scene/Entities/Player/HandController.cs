@@ -91,7 +91,7 @@ public class HandController : MonoBehaviour
         }
 		if (this.state == HandState.Clean) {
 			var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.025f, Screen.height * 0.025f, 0));
-			Debug.Log(size);
+
 			//stars.transform.localScale = new Vector3(size.x, size.y, 1);
 			stars.startSize = size.y;
 			stars.transform.position = 

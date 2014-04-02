@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba7fcf4b15af6c64abdbd47a255fc4f1
+guid: 9ba696d3dffa9034b868db0143a313df
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -45,7 +45,7 @@ TextureImporter:
     compressionQuality: 50
   spriteSheet:
     sprites:
-    - name: patient_revival_0
+    - name: patient_reviving_down_0
       rect:
         serializedVersion: 2
         x: 0
@@ -54,7 +54,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_1
+    - name: patient_reviving_down_1
       rect:
         serializedVersion: 2
         x: 240
@@ -63,7 +63,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_2
+    - name: patient_reviving_down_2
       rect:
         serializedVersion: 2
         x: 480
@@ -72,7 +72,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_3
+    - name: patient_reviving_down_3
       rect:
         serializedVersion: 2
         x: 720
@@ -81,7 +81,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_4
+    - name: patient_reviving_down_4
       rect:
         serializedVersion: 2
         x: 0
@@ -90,7 +90,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_5
+    - name: patient_reviving_down_5
       rect:
         serializedVersion: 2
         x: 240
@@ -99,7 +99,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_6
+    - name: patient_reviving_down_6
       rect:
         serializedVersion: 2
         x: 480
@@ -108,7 +108,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_7
+    - name: patient_reviving_down_7
       rect:
         serializedVersion: 2
         x: 720
@@ -117,7 +117,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_8
+    - name: patient_reviving_down_8
       rect:
         serializedVersion: 2
         x: 0
@@ -126,7 +126,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_9
+    - name: patient_reviving_down_9
       rect:
         serializedVersion: 2
         x: 240
@@ -135,7 +135,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_10
+    - name: patient_reviving_down_10
       rect:
         serializedVersion: 2
         x: 480
@@ -144,7 +144,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_11
+    - name: patient_reviving_down_11
       rect:
         serializedVersion: 2
         x: 720
@@ -153,7 +153,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_12
+    - name: patient_reviving_down_12
       rect:
         serializedVersion: 2
         x: 0
@@ -162,7 +162,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_13
+    - name: patient_reviving_down_13
       rect:
         serializedVersion: 2
         x: 240
@@ -171,7 +171,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_14
+    - name: patient_reviving_down_14
       rect:
         serializedVersion: 2
         x: 480
@@ -180,7 +180,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient_revival_15
+    - name: patient_reviving_down_15
       rect:
         serializedVersion: 2
         x: 720

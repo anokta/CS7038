@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: '[Patient] Death'
+  m_Name: '[Patient] Reviving Up'
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -18,37 +18,37 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300000, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .0625
-      value: {fileID: 21300002, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300002, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .125
-      value: {fileID: 21300004, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300004, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .1875
-      value: {fileID: 21300006, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300006, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .25
-      value: {fileID: 21300008, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300008, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .3125
-      value: {fileID: 21300010, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300010, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .375
-      value: {fileID: 21300012, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300012, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .4375
-      value: {fileID: 21300014, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300014, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .5
-      value: {fileID: 21300016, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300016, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .5625
-      value: {fileID: 21300018, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300018, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .625
-      value: {fileID: 21300020, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300020, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .6875
-      value: {fileID: 21300022, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300022, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .75
-      value: {fileID: 21300024, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300024, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .8125
-      value: {fileID: 21300026, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300026, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .875
-      value: {fileID: 21300028, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300028, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     - time: .9375
-      value: {fileID: 21300030, guid: 9fbd8b19233322148b6adf126cd90fb9, type: 3}
+      value: {fileID: 21300030, guid: 507cd7b611a5b974f861a5830bdaece1, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212

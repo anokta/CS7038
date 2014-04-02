@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour, IPan
     private Timer timer;
     private bool Moving { get { return timer.running; } }
 
+    public bool IsAlive { get; set; }
+
     // Use this for initialization
     void Start()
     {
@@ -66,6 +68,8 @@ public class PlayerController : MonoBehaviour, IPan
         GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
 
         KeyboardController.Instance.KeyboardEventHandler = this;
+
+        IsAlive = true;
     }
 
     #region Gestures
@@ -147,38 +151,41 @@ public class PlayerController : MonoBehaviour, IPan
 
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
-        timer.Update();
-        actionTimer.Update();
-
-        if (Moving)
+        if (IsAlive)
         {
-            var newPosition = previousPosition + timer.progress * movement;
-            if (objectPushing != null)
+            timer.Update();
+            actionTimer.Update();
+
+            if (Moving)
             {
-                objectPushing.position += newPosition.xy0() - player.position;
-                animState = PlayerAnimState.Push;
+                var newPosition = previousPosition + timer.progress * movement;
+                if (objectPushing != null)
+                {
+                    objectPushing.position += newPosition.xy0() - player.position;
+                    animState = PlayerAnimState.Push;
+                }
+                else
+                {
+                    animState = PlayerAnimState.Walk;
+                }
+
+                player.position = newPosition;
             }
             else
             {
-                animState = PlayerAnimState.Walk;
+                if ((int)animState < 3)
+                {
+                    animState = PlayerAnimState.Idle;
+                }
             }
 
-            player.position = newPosition;
-        }
-        else
-        {
-            if ((int)animState < 3)
+            SetAnimationState(Moving ? movement : nextMovement);
+            animator.SetInteger("State", (int)animState);
+
+            if (lastSwitchDirection != nextMovement)
             {
-                animState = PlayerAnimState.Idle;
+                canSwitch = true;
             }
-        }
-
-        SetAnimationState(Moving ? movement : nextMovement);
-        animator.SetInteger("State", (int)animState);
-
-        if (lastSwitchDirection != nextMovement)
-        {
-            canSwitch = true;
         }
     }
 
@@ -330,9 +337,23 @@ public class PlayerController : MonoBehaviour, IPan
 
     private void GoBackToIdle()
     {
-        animState = PlayerAnimState.Idle;
+        if (IsAlive)
+        {
+            animState = PlayerAnimState.Idle;
 
-        SetAnimationState(nextMovement);
-        animator.SetInteger("State", (int)animState);
+            SetAnimationState(nextMovement);
+            animator.SetInteger("State", (int)animState);
+        }
+
+        IsAlive = true;
+    }
+
+    public void Die()
+    {
+        IsAlive = false;
+
+        animator.SetTrigger("Die");
+
+        GameWorld.levelOverReason = GameWorld.LevelOverReason.LaserKilledPlayer;
     }
 }

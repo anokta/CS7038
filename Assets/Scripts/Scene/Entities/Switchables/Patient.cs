@@ -4,7 +4,6 @@ using System.Collections;
 public class Patient : Switchable
 {
     private bool treated;
-	public Sprite treatedSprite;
 
     private bool isHeld;
 
@@ -32,7 +31,6 @@ public class Patient : Switchable
 
         treated = false;
 		animator = GetComponent<Animator>();
-		animator.Play("Sitting");
         player = GameObject.FindObjectOfType<PlayerController>();
 
         pieSize *= Screen.height;
@@ -93,8 +91,6 @@ public class Patient : Switchable
 
     void Finish()
     {
-		//spriteRenderer.sprite = treatedSprite;
-
         Interrupted();
 
         if (player.GetComponent<HandController>().state != HandController.HandState.Clean)
@@ -104,8 +100,26 @@ public class Patient : Switchable
         }
         else
         {
-            //GameWorld.success &= true;TODO: see if it works after commented
+            int direction = 0;
+            if (-lastPlayerDirection == new Vector2(0, -1))
+            {
+                direction = 0;
+            }
+            else if (-lastPlayerDirection == new Vector2(0, 1))
+            {
+                direction = 2;
+            }
+            else if (-lastPlayerDirection == new Vector2(1, 0))
+            {
+                direction = 1;
+            }
+            else if (-lastPlayerDirection == new Vector2(-1, 0))
+            {
+                direction = 3;
+            }
+            animator.SetInteger("Direction", direction);
 			animator.SetTrigger("Treat");
+
             audioManager.PlaySFX("Treated");
         }
 
@@ -118,7 +132,7 @@ public class Patient : Switchable
     {
         Interrupted();
         GameWorld.levelOverReason = reason;
-        animator.SetTrigger("Kill");
+        animator.SetTrigger(reason == GameWorld.LevelOverReason.PatientInfected ? "Kill" : "Die");
         treated = true;
     }
 

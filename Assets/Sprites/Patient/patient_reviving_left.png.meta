@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9fbd8b19233322148b6adf126cd90fb9
+guid: 8c07524b2f199aa4f9fbbd60ed1a1448
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -45,7 +45,7 @@ TextureImporter:
     compressionQuality: 50
   spriteSheet:
     sprites:
-    - name: patient death_0
+    - name: patient_left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -54,7 +54,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_1
+    - name: patient_left_1
       rect:
         serializedVersion: 2
         x: 240
@@ -63,7 +63,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_2
+    - name: patient_left_2
       rect:
         serializedVersion: 2
         x: 480
@@ -72,7 +72,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_3
+    - name: patient_left_3
       rect:
         serializedVersion: 2
         x: 720
@@ -81,7 +81,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_4
+    - name: patient_left_4
       rect:
         serializedVersion: 2
         x: 0
@@ -90,7 +90,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_5
+    - name: patient_left_5
       rect:
         serializedVersion: 2
         x: 240
@@ -99,7 +99,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_6
+    - name: patient_left_6
       rect:
         serializedVersion: 2
         x: 480
@@ -108,7 +108,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_7
+    - name: patient_left_7
       rect:
         serializedVersion: 2
         x: 720
@@ -117,7 +117,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_8
+    - name: patient_left_8
       rect:
         serializedVersion: 2
         x: 0
@@ -126,7 +126,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_9
+    - name: patient_left_9
       rect:
         serializedVersion: 2
         x: 240
@@ -135,7 +135,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_10
+    - name: patient_left_10
       rect:
         serializedVersion: 2
         x: 480
@@ -144,7 +144,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_11
+    - name: patient_left_11
       rect:
         serializedVersion: 2
         x: 720
@@ -153,7 +153,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_12
+    - name: patient_left_12
       rect:
         serializedVersion: 2
         x: 0
@@ -162,7 +162,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_13
+    - name: patient_left_13
       rect:
         serializedVersion: 2
         x: 240
@@ -171,7 +171,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_14
+    - name: patient_left_14
       rect:
         serializedVersion: 2
         x: 480
@@ -180,7 +180,7 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: patient death_15
+    - name: patient_left_15
       rect:
         serializedVersion: 2
         x: 720

@@ -28,7 +28,11 @@ Material:
       data:
         first:
           name: Value
-        second: .997705996
+<<<<<<< Updated upstream
+        second: .999098837
+=======
+        second: .999052584
+>>>>>>> Stashed changes
       data:
         first:
           name: AxisX

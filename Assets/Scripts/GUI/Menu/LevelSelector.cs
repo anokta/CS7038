@@ -93,6 +93,14 @@ public class LevelSelector : MonoBehaviour, IPan
             targetScroll = MainMenu.ScreenScrollValue;
             audioManager.PlaySFX("Menu Prev");
         }
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ToNextPage();
+        }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) 
+        {
+            ToPreviousPage();
+        }
 
         if (!isHeld)
         {

@@ -348,13 +348,12 @@ public class PlayerController : MonoBehaviour, IPan
 		this.collider2D.enabled = true;
     }
 
-    public void Die()
+    public void Die(GameWorld.LevelOverReason reason = GameWorld.LevelOverReason.LaserKilledPlayer)
     {
         IsAlive = false;
 		this.collider2D.enabled = false;
         animator.SetTrigger("Die");
 
-        GameWorld.levelOverReason = GameWorld.LevelOverReason.LaserKilledPlayer;
-
+        GameWorld.levelOverReason = reason;
     }
 }

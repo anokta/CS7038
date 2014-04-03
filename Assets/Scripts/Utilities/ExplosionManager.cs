@@ -18,14 +18,29 @@ public class ExplosionManager
     public void Add(GameObject gameObj, Vector3 explosionSource)
     {
         var entity = gameObj.GetComponent<Entity>();
-        if (entity != null && entity.ExplosionHandler != null)
+        if (entity != null)
         {
-            var handler = entity.ExplosionHandler;
-            handler.ExplosionSource = explosionSource;
-            TaskScheduler.Instance.Add(handler);
+            if (entity.ExplosionHandler != null)
+            {
+                var handler = entity.ExplosionHandler;
+                handler.ExplosionSource = explosionSource;
+                TaskScheduler.Instance.Add(handler);
 
-            const float sfxDelay = -0.02f;
-            AudioManager.PlaySfxDelayed("Explosion Crate", handler.Delay + sfxDelay);
+                const float sfxDelay = -0.02f;
+                AudioManager.PlaySfxDelayed("Explosion Crate", handler.Delay + sfxDelay);
+            }
+        }
+        else if (gameObj.name.StartsWith("Dr Handrew"))
+        {
+            var player = gameObj.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                if (player.IsAlive)
+                {
+                    player.Die(GameWorld.LevelOverReason.ExplosionKilledPlayer);
+                    AudioManager.PlaySfxDelayed("Explosion Crate", 0);
+                }
+            }
         }
     }
 }

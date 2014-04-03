@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="14" tilewidth="100" tileheight="100">
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
-  <image source="tileset.png" width="1000" height="600"/>
+  <image source="tileset.png" width="1000" height="1000"/>
  </tileset>
  <layer name="Floor" width="16" height="14" visible="0">
   <data encoding="csv">
@@ -35,7 +35,7 @@
 31,0,21,0,0,0,0,0,0,0,0,0,0,3,0,31,
 31,0,0,0,51,0,3,3,3,3,3,3,3,0,0,31,
 31,0,26,0,3,3,3,2,0,0,61,0,0,25,0,31,
-31,11,0,0,0,0,0,0,0,0,0,0,0,0,0,31,
+31,11,0,3,3,0,0,0,0,0,0,0,0,0,0,31,
 31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31
 </data>
  </layer>

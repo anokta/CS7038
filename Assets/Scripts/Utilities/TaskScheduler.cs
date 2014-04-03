@@ -1,4 +1,5 @@
 ﻿using System;
+using Grouping;
 using UnityEngine;
 
 public class TaskScheduler : MonoBehaviour
@@ -8,14 +9,19 @@ public class TaskScheduler : MonoBehaviour
     private SortedQueue<float, Task> tasks;
 
     // Use this for initialization
-    void Awake()
+    public void Awake()
     {
         Instance = this;
         tasks = new SortedQueue<float, Task>(false);
     }
 
+    public void Start()
+    {
+        GroupManager.main.group["Running"].Add(this);
+    }
+
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         for (var i = tasks.Count - 1; i >= 0; i--)
         {

@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, StopAllSfx));
     }
 
     public void PlaySFX(string type)
@@ -130,5 +131,12 @@ public class AudioManager : MonoBehaviour
         collectSfx.pitch = 1.0f;
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
+    }
+
+    void StopAllSfx()
+    {
+        trolleyLoopSfx.Stop();
+        fountainLoopSfx.Stop();
+        treatingSfx.Stop();
     }
 }

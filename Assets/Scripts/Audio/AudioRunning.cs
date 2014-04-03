@@ -15,6 +15,7 @@ public class AudioRunning : MonoBehaviour
         GroupManager.main.group["To Level Over"].Add(this, new GroupDelegator(null, ToLevelOver, null));
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
         GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, Stop, null));
+        GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, Stop, null));
     }
 
     void Update()
@@ -42,7 +43,10 @@ public class AudioRunning : MonoBehaviour
         if(!background.isPlaying)
             background.Play();
         if (!over.isPlaying)
+        {
+            over.volume = 0.0f;
             over.Play();
+        }
 
         backgroundVolume = volume;
         overVolume = 0.0f;

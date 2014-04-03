@@ -244,6 +244,8 @@ public class LevelSelector : MonoBehaviour, IPan
                             {
                                 ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
                                 {
+                                    audioManager.PlaySFX("Menu Prev");
+
                                     GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
                                 });
                             });

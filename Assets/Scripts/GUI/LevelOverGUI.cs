@@ -17,6 +17,8 @@ public class LevelOverGUI : MonoBehaviour
     private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
 
+    AudioManager audioManager;
+
     static LevelOverGUI()
     {
 		_rnd = new System.Random();
@@ -108,6 +110,8 @@ public class LevelOverGUI : MonoBehaviour
         buttonSize *= Screen.height;
         windowSize *= Screen.height;
         guiWindow = new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize);
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -206,7 +210,9 @@ public class LevelOverGUI : MonoBehaviour
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
-                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+                GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
+
+                audioManager.PlaySFX("Menu Next");
             });
         });
     }

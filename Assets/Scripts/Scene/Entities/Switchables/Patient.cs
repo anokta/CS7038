@@ -13,6 +13,9 @@ public class Patient : Switchable
     Vector2 lastPlayerDirection;
 	Animator animator;
 
+	[SerializeField]
+	public GameObject heart;
+
     public Material GUIpie;
     public Texture progressTexture;
 
@@ -121,6 +124,11 @@ public class Patient : Switchable
             }
             animator.SetInteger("Direction", direction);
 			animator.SetTrigger("Treat");
+			var h = Object.Instantiate(heart,
+				new Vector3(transform.position.x + 0.25f, transform.position.y + 0.5f, transform.position.z),
+				new Quaternion()) as GameObject;
+			h.transform.parent = transform.parent;
+			h.renderer.sortingOrder = short.MaxValue;
 
             audioManager.PlaySFX("Treated");
         }

@@ -8,9 +8,7 @@ public class Plant : Crate
 
 	 void Start() {
 		base.Start();
-		clock = new Timer(1, () => {
-			Break();
-		});
+		clock = new Timer(1, Break);
 		clock.Stop(); 
 	}
 
@@ -29,7 +27,8 @@ public class Plant : Crate
 
 	public void Burn()
 	{
-		clock.Resume();
+		Break();
+		//clock.Resume();
 		//Object.Instantiate(fire);
 		//Destroy(this.gameObject, 1);
 	}

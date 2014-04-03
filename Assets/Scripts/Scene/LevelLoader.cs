@@ -31,18 +31,6 @@ public class LevelLoader
         prefabs[TileType.Door] = Resources.Load<GameObject>("Door");
         prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
 
-        prefabs[TileType.Lever1] = Resources.Load<GameObject>("Lever");
-        prefabs[TileType.Lever2] = Resources.Load<GameObject>("Lever");
-        prefabs[TileType.Lever3] = Resources.Load<GameObject>("Lever");
-
-        prefabs[TileType.Gate1] = Resources.Load<GameObject>("Gate");
-        prefabs[TileType.Gate2] = Resources.Load<GameObject>("Gate");
-        prefabs[TileType.Gate3] = Resources.Load<GameObject>("Gate");
-
-        prefabs[TileType.Gate1Vertical] = Resources.Load<GameObject>("Gate Vertical");
-        prefabs[TileType.Gate2Vertical] = Resources.Load<GameObject>("Gate Vertical");
-        prefabs[TileType.Gate3Vertical] = Resources.Load<GameObject>("Gate Vertical");
-
         prefabs[TileType.LaserDown] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserUp] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserRight] = Resources.Load<GameObject>("LaserEmitter");
@@ -53,6 +41,26 @@ public class LevelLoader
         prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
         prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
         prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
+
+        prefabs[TileType.Lever1] = Resources.Load<GameObject>("Lever");
+        prefabs[TileType.Lever2] = Resources.Load<GameObject>("Lever");
+        prefabs[TileType.Lever3] = Resources.Load<GameObject>("Lever");
+
+        prefabs[TileType.Gate1] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate2] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate3] = Resources.Load<GameObject>("Gate");
+
+        prefabs[TileType.Gate1Open] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate2Open] = Resources.Load<GameObject>("Gate");
+        prefabs[TileType.Gate3Open] = Resources.Load<GameObject>("Gate");
+
+        prefabs[TileType.Gate1Vertical] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate2Vertical] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate3Vertical] = Resources.Load<GameObject>("Gate Vertical");
+
+        prefabs[TileType.Gate1VerticalOpen] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate2VerticalOpen] = Resources.Load<GameObject>("Gate Vertical");
+        prefabs[TileType.Gate3VerticalOpen] = Resources.Load<GameObject>("Gate Vertical");
 
 		//This shouldn't be a TileType object
 		shade = Resources.Load<GameObject>("Shade");
@@ -179,6 +187,31 @@ public class LevelLoader
                         var gate3 = gameObj.GetComponent<Gate>();
                         gate3.LeverGateType = LeverGateType.Type3;
                         leverGateManager.Add(gate3);
+                        break;
+
+                    case TileType.Gate1Open:
+                    case TileType.Gate1VerticalOpen:
+                        parent = accessibleContainer;
+                        var gate1Open = gameObj.GetComponent<Gate>();
+                        gate1Open.LeverGateType = LeverGateType.Type1;
+                        gate1Open.Open = true;
+                        leverGateManager.Add(gate1Open);
+                        break;
+                    case TileType.Gate2Open:
+                    case TileType.Gate2VerticalOpen:
+                        parent = accessibleContainer;
+                        var gate2Open = gameObj.GetComponent<Gate>();
+                        gate2Open.LeverGateType = LeverGateType.Type2;
+                        gate2Open.Open = true;
+                        leverGateManager.Add(gate2Open);
+                        break;
+                    case TileType.Gate3Open:
+                    case TileType.Gate3VerticalOpen:
+                        parent = accessibleContainer;
+                        var gate3Open = gameObj.GetComponent<Gate>();
+                        gate3Open.LeverGateType = LeverGateType.Type3;
+                        gate3Open.Open = true;
+                        leverGateManager.Add(gate3Open);
                         break;
 
                     case TileType.LaserDown:

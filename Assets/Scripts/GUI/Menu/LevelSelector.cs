@@ -20,7 +20,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
     #region Gestures
 
-    public float flingThreshold = 0.25f;
+    public float flingThreshold = 0.2f;
     float flingTimer;
 
     bool isHeld, canDrag;

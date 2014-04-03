@@ -109,10 +109,10 @@ AudioSource:
   m_GameObject: {fileID: 128905352}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: becd0cbc6bba2cd45876586914c2732f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b53db16245267da45b2e2ac06b536bbd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .5
-  m_Pitch: 1.10000002
+  m_Volume: .300000012
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Priority: 128
@@ -374,7 +374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuNext: {fileID: 1230182176}
   menuPrev: {fileID: 498515844}
-  levelSwipe: {fileID: 1836122832}
+  levelSwipe: {fileID: 1514964100}
+  levelSwipeRev: {fileID: 1836122832}
   collectSfx: {fileID: 1490680744}
   pushSfx: {fileID: 1784004755}
   push2Sfx: {fileID: 357585753}
@@ -756,7 +757,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 4f50c9422e09b8543b1da80f49bd4fe7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .400000006
+  m_Volume: .449999988
   m_Pitch: .899999976
   Loop: 0
   Mute: 0
@@ -1390,7 +1391,7 @@ MonoBehaviour:
   buttonSize: .200000003
   checkTexture: {fileID: 2800000, guid: bf4bd8f19fd1a244cb933636c317ea16, type: 3}
   lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
-  flingThreshold: .25
+  flingThreshold: .200000003
 --- !u!114 &1093820745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2080,6 +2081,91 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1514964098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1514964099}
+  - 82: {fileID: 1514964100}
+  m_Layer: 0
+  m_Name: Level Swipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1514964099
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1514964098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1771282041}
+--- !u!82 &1514964100
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1514964098}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 170a785a797b1c649a3594a15bbf73fe, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .800000012
+  m_Pitch: .899999976
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &1562966260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,6 +2400,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1836122831}
+  - {fileID: 1514964099}
   - {fileID: 1230182175}
   - {fileID: 498515843}
   m_Father: {fileID: 1562966261}
@@ -2510,7 +2597,7 @@ GameObject:
   - 4: {fileID: 1836122831}
   - 82: {fileID: 1836122832}
   m_Layer: 0
-  m_Name: Level Swipe
+  m_Name: Level Swipe Rev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2535,7 +2622,7 @@ AudioSource:
   m_GameObject: {fileID: 1836122830}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 170a785a797b1c649a3594a15bbf73fe, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 923de45539dbc0b479647cd0d7da8ced, type: 3}
   m_PlayOnAwake: 0
   m_Volume: .800000012
   m_Pitch: .899999976
@@ -2707,7 +2794,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 69690062a24822d46a0bb109fc8ae9c9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .800000012
+  m_Volume: .769999981
   m_Pitch: 1
   Loop: 0
   Mute: 0

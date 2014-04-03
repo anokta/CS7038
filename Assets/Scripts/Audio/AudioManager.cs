@@ -4,7 +4,7 @@ using Grouping;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource menuNext, menuPrev, levelSwipe;
+    public AudioSource menuNext, menuPrev, levelSwipe, levelSwipeRev;
     public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, treatingSfx, laserSfx, explosionSfx, burnSfx;
 
     private static AudioManager instance;
@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Door":
-                doorSfx.PlayScheduled(0.1f);
+                doorSfx.PlayScheduled(0.18f);
                 break;
 
             case "Fountain":
@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Lever":
+                leverSfx.pitch = Random.Range(1.075f, 1.125f);
                 leverSfx.Play();
                 break;
 
@@ -110,6 +111,11 @@ public class AudioManager : MonoBehaviour
             case "Level Swipe":
                 levelSwipe.pitch += Random.Range(-0.025f, 0.025f);
                 levelSwipe.Play();
+                break;
+
+            case "Level Swipe Reversed":
+                levelSwipeRev.pitch = levelSwipe.pitch;
+                levelSwipeRev.Play();
                 break;
 
             case "Loop Patient":

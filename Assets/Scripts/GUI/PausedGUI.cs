@@ -30,6 +30,7 @@ public class PausedGUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            AudioManager.PlaySFX("Level Swipe Reversed");
             guiTargetScale = 0.0f;
             action = ResumeGame;
         }
@@ -113,6 +114,8 @@ public class PausedGUI : MonoBehaviour
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
         {
+            AudioManager.PlaySFX("Level Swipe Reversed");
+
             guiTargetScale = 0.0f;
             action = ResumeGame;
         }

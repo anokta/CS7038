@@ -8,6 +8,7 @@ public class VerticalGate : Gate
         set
         {
             base.Open = value;
+            CreateBotPart();
             _botRenderer.enabled = value;
         }
     }
@@ -23,17 +24,26 @@ public class VerticalGate : Gate
     protected override void Start()
     {
         base.Start();
-        _bottom = new GameObject();
-        _bottom.transform.position = transform.position;
-        _bottom.transform.parent = transform;
-        _botRenderer = _bottom.AddComponent<SpriteRenderer>();
-        _botRenderer.sharedMaterial = renderer.sharedMaterial;
-        _botRenderer.sprite = GateOpenBot;
-        _botRenderer.enabled = false;
+        
+    }
+
+    private void CreateBotPart()
+    {
+        if (_bottom == null)
+        {
+            _bottom = new GameObject();
+            _bottom.transform.position = transform.position;
+            _bottom.transform.parent = transform;
+            _botRenderer = _bottom.AddComponent<SpriteRenderer>();
+            _botRenderer.sharedMaterial = renderer.sharedMaterial;
+            _botRenderer.sprite = GateOpenBot;
+            _botRenderer.enabled = false;
+        }
     }
 
     protected override void Update() {
         base.Update();
+        CreateBotPart();
         _botRenderer.sortingOrder = Entity.Place(transform.position.y - 1) - Entity.PlaceOffset + 1;
     }
 }

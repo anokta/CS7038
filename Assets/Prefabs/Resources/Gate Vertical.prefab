@@ -48,12 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d606a3047dd139e459e9d1a0aaea4aea, type: 3}
+  m_Script: {fileID: 11500000, guid: e85bdfc975e35334fa8c04ae217e0aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LeverGateType: 0
-  GateOpen: {fileID: 21300000, guid: 863dbaa6ef9af2746850eb9ccfbc1619, type: 3}
-  GateClosed: {fileID: 21300000, guid: 48a8274864cd2a649a39e1b3bb185056, type: 3}
+  GateOpen: {fileID: 21300000, guid: 7faf5867feaf9354ba9d179f04cce285, type: 3}
+  GateClosed: {fileID: 21300000, guid: e939b7fc3f3031347b12c6e71394390b, type: 3}
+  GateOpenBot: {fileID: 21300000, guid: 4f594e7b95b92594dafd31847cdeac30, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 48a8274864cd2a649a39e1b3bb185056, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e939b7fc3f3031347b12c6e71394390b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

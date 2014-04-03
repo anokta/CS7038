@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuMain: {fileID: 1435861072}
   menuLevel: {fileID: 291359994}
-  volume: .400000006
+  volume: .5
 --- !u!114 &287739716
 MonoBehaviour:
   m_ObjectHideFlags: 0

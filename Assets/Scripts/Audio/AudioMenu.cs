@@ -21,7 +21,7 @@ public class AudioMenu : MonoBehaviour {
         GroupManager.main.group["Fading"].Add(this, new GroupDelegator(null, FadeOut, null));
 
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, Stop, null));
-        GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, Stop, null));
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, Stop, null));
 	}
 	
 	// Update is called once per frame

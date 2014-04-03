@@ -25,13 +25,13 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GroupManager.main.activeGroup = GroupManager.main.group["Exiting"];
-        }
-
         if (Mathf.Abs(targetScroll - currentScroll) < ScreenScrollValue * 0.05f)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GroupManager.main.activeGroup = GroupManager.main.group["Exiting"];
+            }
+
             if (targetScroll == -ScreenScrollValue)
             {
                 AfterFadeOut();

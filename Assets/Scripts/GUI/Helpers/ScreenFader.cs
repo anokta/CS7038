@@ -68,9 +68,9 @@ public class ScreenFader : MonoBehaviour {
         speed = Time.deltaTime / duration;
         progress = 0.0f;
 
-        fading = true;
-
         GroupManager.main.activeGroup = GroupManager.main.group["Fading"];
+
+        fading = true;
     }
 
     public static void FadeToState(string state, float fadeOut = 1.0f, float fadeIn = 0.5f)

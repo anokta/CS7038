@@ -43,7 +43,7 @@ public class Crate : Pushable
 
         if (canPush)
         {
-            audioManager.PlaySFX("Push Crate");
+            AudioManager.PlaySFX("Push Crate");
 
             if (byPlayer)
             {

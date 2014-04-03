@@ -17,13 +17,9 @@ public class MainMenu : MonoBehaviour
         get { return Mathf.Max(Screen.width, Screen.height); }
     }
 
-    AudioManager audioManager;
-
     void Start()
     {
         GroupManager.main.group["Main Menu"].Add(this);
-
-        audioManager = FindObjectOfType<AudioManager>();
 
         logoRatio = logoTexture.width / logoTexture.height;
         logoTargetSize = 0.21f;
@@ -86,7 +82,7 @@ public class MainMenu : MonoBehaviour
                 "", GUI.skin.GetStyle("play")))
             {
                 targetScroll = -ScreenScrollValue;
-                audioManager.PlaySFX("Menu Next");
+                AudioManager.PlaySFX("Menu Next");
             }
         }
 

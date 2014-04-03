@@ -13,8 +13,6 @@ public class PausedGUI : MonoBehaviour
 
     Action action;
 
-    AudioManager audioManager;
-
     // Use this for initialization
     void Start()
     {
@@ -26,8 +24,6 @@ public class PausedGUI : MonoBehaviour
 
         guiCurrentScale = 0.0f;
         guiTargetScale = 0.0f;
-
-        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -138,7 +134,7 @@ public class PausedGUI : MonoBehaviour
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
 
-                audioManager.PlaySFX("Menu Next");
+                AudioManager.PlaySFX("Menu Next");
             });
         });
     }

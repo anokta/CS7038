@@ -87,7 +87,7 @@ public class Fountain : Accessible
             p.y = Screen.height - p.y;
             guiPosition = p;
 
-            audioManager.PlaySFX("Loop Fountain");
+            AudioManager.PlaySFX("Loop Fountain");
         }
 
 		return false;
@@ -97,14 +97,14 @@ public class Fountain : Accessible
     {
         Interrupted();
 
-        audioManager.PlaySFX("Fountain");
+        AudioManager.PlaySFX("Fountain");
 
         playerHand.SpoilHand(HandController.MaxValue, GetInstanceID());
     }
 
     void Interrupted()
     {
-        audioManager.StopSFX("Loop Fountain");
+        AudioManager.StopSFX("Loop Fountain");
 
         isHeld = false;
 		//if (bubbles.isPlaying) {

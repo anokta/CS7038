@@ -6,8 +6,6 @@ public class Entity : MonoBehaviour
     protected Transform entity;
     protected SpriteRenderer spriteRenderer;
 
-    protected AudioManager audioManager;
-
     protected HandController playerHand;
 
     public EntityExplosionTask ExplosionHandler { get; protected set; }
@@ -23,8 +21,6 @@ public class Entity : MonoBehaviour
     protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        audioManager = FindObjectOfType<AudioManager>();
     }
 
 	public static readonly short PlaceOffset = 4;

@@ -35,6 +35,8 @@ public class Plant : Crate
 
     public void Burn()
     {
+        AudioManager.PlaySFX("Burn");
+
         Break();
         //clock.Resume();
         //Object.Instantiate(fire);

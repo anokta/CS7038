@@ -27,10 +27,12 @@ public class ExplosionManager
                 TaskScheduler.Instance.Add(handler);
 
                 const float sfxDelay = -0.02f;
-                AudioManager.PlaySfxDelayed("Explosion Crate", handler.Delay + sfxDelay);
+
+                if(!entity.name.StartsWith("Patient"))
+                    AudioManager.PlaySFXDelayed("Explosion Crate", handler.Delay + sfxDelay);
             }
         }
-        else if (gameObj.name.StartsWith("Dr Handrew"))
+        else if (gameObj.tag == "Player")
         {
             var player = gameObj.GetComponent<PlayerController>();
             if (player != null)
@@ -38,7 +40,7 @@ public class ExplosionManager
                 if (player.IsAlive)
                 {
                     player.Die(GameWorld.LevelOverReason.ExplosionKilledPlayer);
-                    AudioManager.PlaySfxDelayed("Explosion Crate", 0);
+                    AudioManager.PlaySFX("Burn");
                 }
             }
         }

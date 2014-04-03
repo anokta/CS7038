@@ -93,7 +93,7 @@ public class LaserEmitter : Entity
                 {
                     player.Die();
 
-                    audioManager.PlaySFX("Laser Hit");
+                    AudioManager.PlaySFX("Laser Hit");
                 }
 
                 break;
@@ -124,6 +124,8 @@ public class LaserEmitter : Entity
                 if (patient != null)
                 {
                     patient.Kill(GameWorld.LevelOverReason.LaserKilledPatient);
+
+                    AudioManager.PlaySFX("Laser Hit");
                 }
             }
 

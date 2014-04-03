@@ -55,7 +55,7 @@ public class Mirror : Switchable
 
 	public override void Switch()
 	{
-        audioManager.PlaySFX("Mirror");
+        AudioManager.PlaySFX("Mirror");
 
 		Forward = !Forward;
 

@@ -5,7 +5,7 @@ using Grouping;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource menuNext, menuPrev, levelSwipe;
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, treatingSfx, laserSfx, explosionSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, treatingSfx, laserSfx, explosionSfx, burnSfx;
 
     private static AudioManager instance;
 
@@ -20,7 +20,27 @@ public class AudioManager : MonoBehaviour
         GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, StopAllSfx));
     }
 
-    public void PlaySFX(string type)
+    public static void PlaySFX(string type)
+    {
+        instance.playSfx(type);
+    }
+
+    public static void PlaySFXDelayed(string type, float delay)
+    {
+        switch (type)
+        {
+            case "Explosion Crate":
+                instance.explosionSfx.PlayScheduled(Mathf.Max(0.0f, delay));
+                break;
+        }
+    }
+
+    public static void StopSFX(string type)
+    {
+        instance.stopSfx(type);
+    }
+
+    void playSfx(string type)
     {
         switch (type)
         {
@@ -46,7 +66,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Door":
-                doorSfx.Play();
+                doorSfx.PlayScheduled(0.1f);
                 break;
 
             case "Fountain":
@@ -95,20 +115,14 @@ public class AudioManager : MonoBehaviour
             case "Loop Patient":
                 treatingSfx.Play();
                 break;
-        }
-    }
 
-    public static void PlaySfxDelayed(string type, float delay)
-    {
-        switch (type)
-        {
-            case "Explosion Crate":
-                instance.explosionSfx.PlayScheduled(Mathf.Max(0.0f, delay));
+            case "Burn":
+                burnSfx.Play();
                 break;
         }
     }
 
-    public void StopSFX(string type)
+    void stopSfx(string type)
     {
         switch (type)
         {

@@ -18,8 +18,6 @@ public class LevelSelector : MonoBehaviour, IPan
 
     float currentScroll, targetScroll;
 
-    AudioManager audioManager;
-
     #region Gestures
 
     public float flingThreshold = 0.25f;
@@ -82,8 +80,6 @@ public class LevelSelector : MonoBehaviour, IPan
         isHeld = false;
 
         currentScroll = MainMenu.ScreenScrollValue - MainMenu.ScreenScrollValue * 0.05f;
-
-        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -91,7 +87,7 @@ public class LevelSelector : MonoBehaviour, IPan
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             targetScroll = MainMenu.ScreenScrollValue;
-            audioManager.PlaySFX("Menu Prev");
+            AudioManager.PlaySFX("Menu Prev");
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -218,7 +214,7 @@ public class LevelSelector : MonoBehaviour, IPan
         if (GUI.Button(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize / 2, buttonSize / 2), "Back", GUI.skin.GetStyle("back")))
         {
             targetScroll = MainMenu.ScreenScrollValue;
-            audioManager.PlaySFX("Menu Prev");
+            AudioManager.PlaySFX("Menu Prev");
         }
 
         GUI.matrix = guiMatrix;
@@ -262,7 +258,7 @@ public class LevelSelector : MonoBehaviour, IPan
                             {
                                 ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
                                 {
-                                    audioManager.PlaySFX("Menu Prev");
+                                    AudioManager.PlaySFX("Menu Prev");
 
                                     GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
                                 });
@@ -287,7 +283,7 @@ public class LevelSelector : MonoBehaviour, IPan
             currentPage = currentPage - 1;
             currentX = -Screen.width + currentX;
 
-            audioManager.PlaySFX("Level Swipe");
+            AudioManager.PlaySFX("Level Swipe");
         }
 
         targetX = 0;
@@ -302,7 +298,7 @@ public class LevelSelector : MonoBehaviour, IPan
             currentPage = currentPage + 1;
             currentX = Screen.width + currentX;
 
-            audioManager.PlaySFX("Level Swipe");
+            AudioManager.PlaySFX("Level Swipe");
         }
 
         targetX = 0;

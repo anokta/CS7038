@@ -37,16 +37,21 @@ public class PlayerController : MonoBehaviour, IPan
 
     public bool IsAlive { get; set; }
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         player = transform;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        hands = GetComponent<HandController>();
+
+        animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
         timer = new Timer(PLAYER_SPEED, CompleteMoving);
         timer.repeating = true;
-
-        hands = GetComponent<HandController>();
 
         actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
 
@@ -58,7 +63,6 @@ public class PlayerController : MonoBehaviour, IPan
 
         previousPosition = player.position;
 
-        animator = GetComponent<Animator>();
         animState = PlayerAnimState.Idle;
 
         canSwitch = true;
@@ -230,7 +234,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (hit.collider == null) return true;
 
-        Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
+        //Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
 
         switch (hit.collider.tag)
         {

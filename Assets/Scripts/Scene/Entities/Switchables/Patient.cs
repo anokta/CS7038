@@ -83,7 +83,7 @@ public class Patient : Switchable
             isHeld = true;
 
             timer.Reset();
-            audioManager.PlaySFX("Loop Patient");
+            AudioManager.PlaySFX("Loop Patient");
 
             lastPlayerDirection = player.NextDirection;
 
@@ -101,7 +101,8 @@ public class Patient : Switchable
         {
             GameWorld.levelOverReason = GameWorld.LevelOverReason.PatientInfected;
 			animator.SetTrigger("Kill");
-            audioManager.PlaySFX("Died");
+
+            AudioManager.PlaySFX("Died");
         }
         else
         {
@@ -130,7 +131,7 @@ public class Patient : Switchable
 			h.transform.parent = transform.parent;
 			h.renderer.sortingOrder = short.MaxValue;
 
-            audioManager.PlaySFX("Treated");
+            AudioManager.PlaySFX("Treated");
         }
 
         playerHand.value = HandController.MinValue;
@@ -149,7 +150,7 @@ public class Patient : Switchable
 
     void Interrupted()
     {
-        audioManager.StopSFX("Loop Patient");
+        AudioManager.StopSFX("Loop Patient");
 
         isHeld = false;
 
@@ -174,6 +175,8 @@ public class Patient : Switchable
         public override void Run()
         {
             Patient.Kill(GameWorld.LevelOverReason.ExplosionKilledPatient);
+
+            AudioManager.PlaySFX("Burn");
         }
 
         public override bool Equals(Task other)

@@ -281,7 +281,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: eefa020592713e94b95915b02225d3b5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .800000012
+  m_Volume: .860000014
   m_Pitch: 1.10000002
   Loop: 0
   Mute: 0
@@ -387,8 +387,9 @@ MonoBehaviour:
   treatedSfx: {fileID: 2044349289}
   diedSfx: {fileID: 415478286}
   treatingSfx: {fileID: 1499635538}
-  laserSfx: {fileID: 1739171470}
+  laserSfx: {fileID: 1882310413}
   explosionSfx: {fileID: 1151801823}
+  burnSfx: {fileID: 1739171470}
 --- !u!114 &287739715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,7 +1550,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: abf0ed8664b92b247bc789c3f5e4cadf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .5
+  m_Volume: .449999988
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2105,6 +2106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1490680743}
+  - {fileID: 1882310412}
   - {fileID: 1771282041}
   - {fileID: 1739171469}
   - {fileID: 1942921645}
@@ -2126,7 +2128,7 @@ GameObject:
   - 4: {fileID: 1739171469}
   - 82: {fileID: 1739171470}
   m_Layer: 0
-  m_Name: Laser Hit
+  m_Name: Burn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,9 +2153,9 @@ AudioSource:
   m_GameObject: {fileID: 1739171468}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 0cae5e65c2065fa41b42a2673d01b1c4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 33c0926c87e09c649bcb77c03bd24513, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .75
+  m_Volume: .600000024
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2537,6 +2539,91 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: .800000012
   m_Pitch: .899999976
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!1 &1882310411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1882310412}
+  - 82: {fileID: 1882310413}
+  m_Layer: 0
+  m_Name: Laser Hit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1882310412
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1882310411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1562966261}
+--- !u!82 &1882310413
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1882310411}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 0cae5e65c2065fa41b42a2673d01b1c4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .720000029
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Priority: 128

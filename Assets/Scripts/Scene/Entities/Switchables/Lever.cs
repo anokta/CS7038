@@ -29,7 +29,7 @@ public class Lever : Switchable
     {
         Manager.Switch(LeverGateType);
 
-        audioManager.PlaySFX("Lever");
+        AudioManager.PlaySFX("Lever");
 
         playerHand.SpoilHand(-0.55f, GetInstanceID());
     }

@@ -4,9 +4,17 @@ public class Gate : Accessible
 {
     public LeverGateType LeverGateType;
     public LeverGateManager Manager;
+
+    private bool open;
     public bool Open
     {
-        get { return Manager[LeverGateType]; }
+        get { return open; }
+        set
+        {
+            open = value;
+            collider2D.enabled = !open;
+            spriteRenderer.sprite = open ? GateOpen : GateClosed;
+        }
     }
 
     // TO BE CHANGED
@@ -25,10 +33,8 @@ public class Gate : Accessible
         return Open;
     }
 
-    public void UpdateOpenState(bool open)
+    public void SwitchState()
     {
-        collider2D.enabled = !open;
-
-        spriteRenderer.sprite = open ? GateOpen : GateClosed;
+        Open = !Open;
     }
 }

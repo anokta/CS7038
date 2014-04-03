@@ -4,9 +4,16 @@ public class Lever : Switchable
 {
     public LeverGateType LeverGateType;
     public LeverGateManager Manager;
+
+    private bool open;
     public bool Open
     {
-        get { return Manager[LeverGateType]; }
+        get { return open; }
+        set
+        {
+            open = value;
+            spriteRenderer.sprite = open ? LeverOpen : LeverClosed;
+        }
     }
 
     public Sprite LeverOpen;
@@ -27,8 +34,8 @@ public class Lever : Switchable
         playerHand.SpoilHand(-0.55f, GetInstanceID());
     }
 
-    public void UpdateOpenState(bool open)
+    public void SwitchState()
     {
-        spriteRenderer.sprite = open ? LeverOpen : LeverClosed;
+        Open = !Open;
     }
 }

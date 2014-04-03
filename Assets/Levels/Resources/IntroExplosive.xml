@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="100" tileheight="100">
+ <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
+  <image source="tileset.png" width="1000" height="1000"/>
+ </tileset>
+ <layer name="Floor" width="10" height="8" visible="0">
+  <data encoding="csv">
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62,
+62,62,62,62,62,62,62,62,62,62
+</data>
+ </layer>
+ <layer name="Tile Layer 1" width="10" height="8">
+  <data encoding="csv">
+61,61,61,61,61,61,61,61,61,61,
+61,11,2,0,2,0,2,21,3,61,
+61,0,2,2,2,2,0,2,0,61,
+61,0,2,0,2,0,55,0,56,61,
+61,61,15,61,2,2,0,2,2,61,
+61,3,3,61,2,2,0,2,0,61,
+61,23,3,61,2,2,0,2,2,61,
+61,61,61,61,61,61,52,61,61,61
+</data>
+ </layer>
+</map>

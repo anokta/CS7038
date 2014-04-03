@@ -45,10 +45,16 @@ public class BubbleController : MonoBehaviour
 
     void DestroyBubbles()
     {
+<<<<<<< HEAD
+        if (_bubbles != null) {
+			Destroy(_bubbles.gameObject);
+		}
+=======
         if (_bubbles != null)
         {
             Destroy(_bubbles.gameObject);
         }
+>>>>>>> 6dcd645e596955f2e1177f9740dc4fc19fcdbf01
     }
 }
 

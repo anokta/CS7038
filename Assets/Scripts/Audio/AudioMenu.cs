@@ -91,6 +91,9 @@ public class AudioMenu : MonoBehaviour {
     {
         menuMain.Stop();
         menuLevel.Stop();
+
+        beatCount = 0;
+        timeNextBar = 0;
     }
 
     public static void TriggerOnNextBeat(int beatCount)

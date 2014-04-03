@@ -83,6 +83,11 @@ public class LevelSelector : MonoBehaviour, IPan
         targetScroll = 0.0f;
     }
 
+    void OnEnable()
+    {
+        currentPage = LevelManager.Instance.Level / (rowCount * columnCount);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

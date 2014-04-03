@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
 
     public Texture logoTexture;
     float logoSize, logoTargetSize, logoRatio;
-    Timer logoTimer;
 
     float currentScroll, targetScroll;
     public static float ScreenScrollValue
@@ -20,20 +19,15 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Main Menu"].Add(this);
+        AudioMenu.OnNextBeat += OnNextBeat;
 
         logoRatio = logoTexture.width / logoTexture.height;
-        logoTargetSize = 0.21f;
+        logoTargetSize = 0.2f;
         logoSize =  logoTargetSize;
-
-        logoTimer = new Timer(30.0f / 97.0f, delegate() { logoTargetSize = (logoTargetSize == 0.21f) ? 0.206f : 0.21f; });
-        logoTimer.repeating = true;
-        logoTimer.Reset();
     }
 
     void Update()
     {
-        logoTimer.Update();
-
         if (Mathf.Abs(targetScroll - currentScroll) < ScreenScrollValue * 0.05f)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -53,7 +47,7 @@ public class MainMenu : MonoBehaviour
 
         if (logoTargetSize != logoSize)
         {
-            logoSize = Mathf.Lerp(logoSize, logoTargetSize, 2 * Time.deltaTime / logoTimer.duration);
+            logoSize = Mathf.Lerp(logoSize, logoTargetSize, 4.0f * Time.deltaTime);
         }
 
     }
@@ -141,5 +135,10 @@ public class MainMenu : MonoBehaviour
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
         }
+    }
+
+    void OnNextBeat(int beatCount)
+    {
+        logoTargetSize = (beatCount % 2 == 1) ? 0.212f : 0.204f;
     }
 }

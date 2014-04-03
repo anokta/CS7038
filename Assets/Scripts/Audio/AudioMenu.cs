@@ -3,6 +3,14 @@ using System.Collections;
 using Grouping;
 
 public class AudioMenu : MonoBehaviour {
+
+    public delegate void AudioEvent(int beatCount);
+    public static event AudioEvent OnNextBeat;
+
+    private const int BPM = 97;
+    private const int BEATS = 8;
+    private int beatCount;
+    private float timeInterval, timeNextBar;
     
     public AudioSource menuMain, menuLevel;
     public float volume;
@@ -22,6 +30,8 @@ public class AudioMenu : MonoBehaviour {
 
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, Stop, null));
         GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, Stop, null));
+
+        timeInterval = 60.0f / (BEATS / 4.0f) / BPM;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +41,20 @@ public class AudioMenu : MonoBehaviour {
             menuMain.volume = Mathf.Lerp(menuMain.volume, menuMainVolume, Time.deltaTime * 4);
         if (menuLevel.volume != menuLevelVolume)
             menuLevel.volume = Mathf.Lerp(menuLevel.volume, menuLevelVolume, Time.deltaTime * 2);
+
+        // check if the next beat has come
+        if (menuLevel.time + timeInterval < timeNextBar)
+        {
+            timeNextBar = 0;
+        }
+        if (menuLevel.time >= timeNextBar)
+        {
+            timeNextBar += timeInterval;
+
+            beatCount = beatCount % BEATS + 1;
+            
+            TriggerOnNextBeat(beatCount);
+        }
     }
 
     void MainMenu()
@@ -67,5 +91,13 @@ public class AudioMenu : MonoBehaviour {
     {
         menuMain.Stop();
         menuLevel.Stop();
+    }
+
+    public static void TriggerOnNextBeat(int beatCount)
+    {
+        if (OnNextBeat != null)
+        {
+            OnNextBeat(beatCount);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Grouping;
 
 public class TaskScheduler : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class TaskScheduler : MonoBehaviour
     {
         Instance = this;
         tasks = new SortedQueue<float, Task>(false);
+    }
+
+    void Start()
+    {
+        GroupManager.main.group["Running"].Add(this);
     }
 
     // Update is called once per frame

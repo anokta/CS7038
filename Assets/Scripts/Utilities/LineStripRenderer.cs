@@ -56,7 +56,7 @@ public class LineStripRenderer : Component
                 line.SetColors(color, color);
                 line.SetWidth(width, width);
                 line.SetVertexCount(2);
-                line.sortingOrder = -1000 + 1;
+				line.sortingOrder = LevelLoader.FloorOrder + 100;
 
                 linePool.Add(line);
             }

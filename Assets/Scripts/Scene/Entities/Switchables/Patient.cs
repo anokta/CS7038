@@ -133,6 +133,7 @@ public class Patient : Switchable
         Interrupted();
         GameWorld.levelOverReason = reason;
         animator.SetTrigger(reason == GameWorld.LevelOverReason.PatientInfected ? "Kill" : "Die");
+		collider2D.enabled = false;
         treated = true;
     }
 

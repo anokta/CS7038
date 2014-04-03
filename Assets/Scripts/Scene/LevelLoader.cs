@@ -15,6 +15,8 @@ public class LevelLoader
 	private GameObject shade;
     public GameObject ExplosionContainer { get; private set; }
 
+	public static readonly short FloorOrder = -10000;
+
     public LevelLoader()
     {
         prefabs = new Dictionary<TileType, GameObject>();
@@ -215,7 +217,7 @@ public class LevelLoader
                         break;
                     case TileType.Floor:
                         parent = floorContainer;
-                        transform.GetComponent<SpriteRenderer>().sortingOrder = -1000;
+						transform.GetComponent<SpriteRenderer>().sortingOrder = FloorOrder;
                         break;
                     default:
                         throw new Exception("Impossible");

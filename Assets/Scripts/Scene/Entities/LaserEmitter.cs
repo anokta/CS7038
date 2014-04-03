@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Grouping;
 
 public class LaserEmitter : Entity
 {
@@ -55,6 +56,8 @@ public class LaserEmitter : Entity
         base.Start();
 
         lineStrip = new LineStripRenderer(this, LaserMaterial, LaserColor, LaserWidth);
+
+		GroupManager.main.group["To Level Over"].Add(this);
     }
 
     private readonly Vector2 offset = new Vector2(0, 0.3f);

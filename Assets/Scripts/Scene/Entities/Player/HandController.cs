@@ -138,29 +138,29 @@ public class HandController : MonoBehaviour
             {
                 stars.Stop();
             }
+        }
 
-            if (value <= MinValue)
+        if (value <= MinValue)
+        {
+            var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.03f, Screen.height * 0.03f, 0));
+
+            infection.startSize = size.y;
+            infection.transform.position =
+                Camera.main.ScreenToWorldPoint(
+                new Vector3(
+                    GUIManager.OffsetX() + Screen.height * 0.15f, GUIManager.OffsetY() + Screen.height * 0.15f,
+                        0)).xy().xy_(-1);
+            infection.startSpeed = size.y;
+            if (!infection.isPlaying)
             {
-                var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.03f, Screen.height * 0.03f, 0));
-
-                infection.startSize = size.y;
-                infection.transform.position =
-                    Camera.main.ScreenToWorldPoint(
-                    new Vector3(
-                        GUIManager.OffsetX() + Screen.height * 0.15f, GUIManager.OffsetY() + Screen.height * 0.15f,
-                            0)).xy().xy_(-1);
-                infection.startSpeed = size.y;
-                if (!infection.isPlaying)
-                {
-                    infection.Play();
-                }
+                infection.Play();
             }
-            else
+        }
+        else
+        {
+            if (!infection.isStopped)
             {
-                if (!infection.isStopped)
-                {
-                    infection.Stop();
-                }
+                infection.Stop();
             }
         }
     }

@@ -44,7 +44,7 @@ public class HandController : MonoBehaviour
     public float value
     {
         get { return _value; }
-        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue); }
+        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue); if (_value <= MinValue) AudioManager.PlaySFX("Heartbeat"); else AudioManager.StopSFX("Heartbeat"); }
     }
 
     float _guiValue = 2.0f;
@@ -102,12 +102,6 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
-        if (value <= InfectionThreshold)
-        {
-            GameWorld.levelOverReason = GameWorld.LevelOverReason.PlayerInfected;
-            return;
-        }
-
         if (_guiValue != _value)
         {
             _guiValue = Mathf.Lerp(_guiValue, _value, Time.deltaTime * 4);
@@ -197,6 +191,11 @@ public class HandController : MonoBehaviour
             }
             Graphics.DrawTexture(drawPos, hand, GUIpie);
         }
+    }
+
+    public bool IsInfected()
+    {
+        return value <= InfectionThreshold;
     }
 }
 

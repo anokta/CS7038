@@ -155,6 +155,20 @@ public class PlayerController : MonoBehaviour, IPan
 
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
 
+        if (hands.IsInfected())
+        {
+            animator.SetTrigger("Infect");
+
+            AudioManager.StopSFX("Heartbeat");
+            AudioManager.PlaySFX("Player Infected");
+
+            IsAlive = false;
+
+            GameWorld.levelOverReason = GameWorld.LevelOverReason.PlayerInfected;
+            
+            return;
+        }
+
         if (IsAlive)
         {
             timer.Update();

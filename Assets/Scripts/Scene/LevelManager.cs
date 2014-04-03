@@ -7,7 +7,7 @@ using YamlDotNet.Serialization;
 public class LevelManager
 {
     /// <summary>
-    /// 0-based
+    /// Level number is 0-based in this property. When showing in GUI, level number should be this property + 1
     /// </summary>
     public int Level { get; set; }
     public int LevelCount
@@ -39,7 +39,6 @@ public class LevelManager
 
         var asset = Resources.Load<TextAsset>("Levels");
         var reader = new StringReader(asset.text);
-
         var d = new Deserializer();
         levels = d.Deserialize<string[]>(reader);
     }

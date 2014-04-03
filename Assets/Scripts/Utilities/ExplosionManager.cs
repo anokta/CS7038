@@ -28,7 +28,7 @@ public class ExplosionManager
 
                 const float sfxDelay = -0.02f;
 
-                if(!entity.name.StartsWith("Patient"))
+                if(entity.name.StartsWith("ExplosiveCrate"))
                     AudioManager.PlaySFXDelayed("Explosion Crate", handler.Delay + sfxDelay);
             }
         }

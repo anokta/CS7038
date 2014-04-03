@@ -2486,8 +2486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f1465c55d685b42863be072f4df91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowSize: .600000024
-  buttonSize: .200000003
+  windowSize: .660000026
+  buttonSize: .239999995
 --- !u!114 &1799188531
 MonoBehaviour:
   m_ObjectHideFlags: 0

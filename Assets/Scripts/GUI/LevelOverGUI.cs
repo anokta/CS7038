@@ -57,6 +57,15 @@ public class LevelOverGUI : MonoBehaviour
             "In retrospect, treating a patient with filthy hands was more harmful than helpful",
             "I am appalled at your unsanitary medical practices. Are you a real doctor?"
         };
+        
+        overTitleSet[GameWorld.LevelOverReason.PlayerInfected] = new[]
+        {
+            "TODO: PlayerInfected"
+        };
+        overMessageSet[GameWorld.LevelOverReason.PlayerInfected] = new[]
+        {
+			"TODO: PlayerInfected"
+		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
         {

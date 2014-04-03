@@ -80,6 +80,7 @@ public class LevelSelector : MonoBehaviour, IPan
         isHeld = false;
 
         currentScroll = MainMenu.ScreenScrollValue - MainMenu.ScreenScrollValue * 0.05f;
+        targetScroll = 0.0f;
     }
 
     void Update()

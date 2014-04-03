@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635ceaf9bf8f3534bbb14bbd08c7ccd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 1}
+  movement: {x: 0, y: -1}
   playerMoving: 0
 --- !u!114 &11400002
 MonoBehaviour:
@@ -84,7 +84,8 @@ MonoBehaviour:
   hand: {fileID: 2800000, guid: 937ad09298f1e054c8da927d508f25ff, type: 3}
   circle: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
   background: {fileID: 2800000, guid: 1fd8905703f18894eaaf92aca0ebd05d, type: 3}
-  cleanParticles: {fileID: 19800000, guid: 326d64b14b929804db8ed2a93b6df83d, type: 2}
+  cleanParticles: {fileID: 100000, guid: 326d64b14b929804db8ed2a93b6df83d, type: 2}
+  infectionParticles: {fileID: 100000, guid: 8ff41520626eb95429e96c40200d9027, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

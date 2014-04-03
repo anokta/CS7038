@@ -72,6 +72,10 @@ public class PausedGUI : MonoBehaviour
         GUILayout.FlexibleSpace();
         GUILayout.FlexibleSpace();
 
+        GUILayout.Label("Level " + (LevelManager.Instance.Level + 1), GUI.skin.GetStyle("level label"));
+
+        GUILayout.FlexibleSpace();
+
         // Mute
         //TODO: Temporary hack, fix
         GUILayout.BeginHorizontal();

@@ -145,6 +145,7 @@ public class AudioManager : MonoBehaviour
         collectSfx.pitch = 1.0f;
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
+        levelSwipe.pitch = 1.0f;
     }
 
     void StopAllSfx()

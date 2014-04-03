@@ -7,7 +7,8 @@ public class Heart : MonoBehaviour
 	Timer fader;
 	float _swap = 1;
 	SpriteRenderer renderer;
-	// Use this for initialization
+    
+    // Use this for initialization
 	void Start()
 	{
 		rotator = new Timer(0.5f, Swap);

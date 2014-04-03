@@ -6,7 +6,10 @@ public class MainMenu : MonoBehaviour
 {
     // Use this for initialization
     public Texture2D menuBackground;
+
     public Texture logoTexture;
+    float logoSize, logoTargetSize, logoRatio;
+    Timer logoTimer;
 
     float currentScroll, targetScroll;
     public static float ScreenScrollValue
@@ -21,10 +24,20 @@ public class MainMenu : MonoBehaviour
         GroupManager.main.group["Main Menu"].Add(this);
 
         audioManager = FindObjectOfType<AudioManager>();
+
+        logoRatio = logoTexture.width / logoTexture.height;
+        logoTargetSize = 0.21f;
+        logoSize =  logoTargetSize;
+
+        logoTimer = new Timer(30.0f / 97.0f, delegate() { logoTargetSize = (logoTargetSize == 0.21f) ? 0.206f : 0.21f; });
+        logoTimer.repeating = true;
+        logoTimer.Reset();
     }
 
     void Update()
     {
+        logoTimer.Update();
+
         if (Mathf.Abs(targetScroll - currentScroll) < ScreenScrollValue * 0.05f)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -41,6 +54,12 @@ public class MainMenu : MonoBehaviour
         }
 
         currentScroll = Mathf.Lerp(currentScroll, targetScroll, Time.deltaTime * 5.0f);
+
+        if (logoTargetSize != logoSize)
+        {
+            logoSize = Mathf.Lerp(logoSize, logoTargetSize, 2 * Time.deltaTime / logoTimer.duration);
+        }
+
     }
 
     void OnGUI()
@@ -52,13 +71,7 @@ public class MainMenu : MonoBehaviour
 
         //LOGO
         {
-            Rect logoRect = new Rect(0, 0, 0, Screen.height * 0.2f);
-            float logoRatio = (logoRect.height) / logoTexture.height;
-            logoRect.width = logoRatio * logoTexture.width;
-            logoRect.x = (Screen.width - logoRect.width) * 0.5f;
-            logoRect.y = (Screen.height - logoRect.height) * 0.2f;
-
-            GUI.DrawTexture(logoRect, logoTexture);
+            GUI.DrawTexture(new Rect((Screen.width - Screen.height * logoSize * logoRatio) * 0.5f, Screen.height * 0.25f - Screen.height * logoSize * 0.5f, Screen.height * logoSize * logoRatio, Screen.height * logoSize), logoTexture);
         }
         //GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.4f), "Handy MD", GUI.skin.GetStyle("title"));
 

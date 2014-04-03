@@ -2300,10 +2300,10 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: .823529422, g: .823529422, b: .823529422, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: 4971b337c51ddab44866e39e5889d772, type: 3}
+      m_Background: {fileID: 0}
       m_TextColor: {r: .819607854, g: .819607854, b: .819607854, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: 4971b337c51ddab44866e39e5889d772, type: 3}
+      m_Background: {fileID: 0}
       m_TextColor: {r: .815686285, g: .815686285, b: .815686285, a: 1}
     m_Focused:
       m_Background: {fileID: 0}

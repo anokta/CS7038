@@ -88,7 +88,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Level Swipe":
-                levelSwipe.pitch += Random.Range(-0.05f, 0.05f);
+                levelSwipe.pitch += Random.Range(-0.025f, 0.025f);
                 levelSwipe.Play();
                 break;
 

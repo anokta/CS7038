@@ -215,12 +215,12 @@ public class LevelSelector : MonoBehaviour, IPan
 
         GUI.matrix = guiMatrix;
         GUI.matrix *= Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
-        
-        if(GUI.Button(new Rect(Screen.width / 2.0f - (buttonSize), Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize/2, buttonSize / 2),"", GUI.skin.GetStyle("previous page")))
+
+        if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "<-", GUI.skin.GetStyle("over message")))
         {
             ToPreviousPage();
         }
-        if(GUI.Button(new Rect(Screen.width / 2.0f + (buttonSize/2), Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize / 2, buttonSize / 2), "", GUI.skin.GetStyle("next page")))
+        if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "->", GUI.skin.GetStyle("over message")))
         {
             ToNextPage();
         }

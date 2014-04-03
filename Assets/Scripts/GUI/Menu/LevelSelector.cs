@@ -66,7 +66,9 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void Start()
     {
+
         GroupManager.main.group["Level Select"].Add(this);
+        GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, FadeBackToLevelSelection, null));
 
         buttonSize *= Screen.height;
 
@@ -214,22 +216,57 @@ public class LevelSelector : MonoBehaviour, IPan
         GUI.matrix = guiMatrix;
         GUI.matrix *= Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
+        if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "<-", GUI.skin.GetStyle("over message")))
+        {
+            ToPreviousPage();
+        }
+        if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "->", GUI.skin.GetStyle("over message")))
+        {
+            ToNextPage();
+        }
+        
         GUI.Label(new Rect(Screen.width / 2.0f - buttonSize / 2, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), (currentPage + 1) + " / " + pagesCount, GUI.skin.GetStyle("over message"));
     }
 
     void ShowIntro()
     {
         DialogueManager.CurrentDialogue = -1;
+
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
-            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+        });
+    }
+
+    void FadeBackToLevelSelection()
+    {
+        ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+        {
+            DialogueManager.DialogueComplete = delegate()
             {
-                DialogueManager.DialogueComplete = delegate()
+                ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
                 {
-                    ScreenFader.FadeToState("Level Select", 1.0f, 0.5f);
-                };
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-            });
+                    ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                    {
+                        DialogueManager.DialogueComplete = delegate()
+                        {
+                            ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
+                            {
+                                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                                {
+                                    audioManager.PlaySFX("Menu Prev");
+
+                                    GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
+                                });
+                            });
+                        };
+
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    });
+                });
+            };
+
+            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
         });
     }
 

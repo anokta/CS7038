@@ -4,11 +4,8 @@ using Grouping;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource menuMain, menuLevel, background, over;
-    float menuMainVolume, menuLevelVolume, backgroundVolume, overVolume;
-
     public AudioSource menuNext, menuPrev, levelSwipe;
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, laserSfx, explosionSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, treatingSfx, laserSfx, explosionSfx;
 
     private static AudioManager instance;
 
@@ -17,52 +14,10 @@ public class AudioManager : MonoBehaviour
         instance = this;
     }
 
-    // Use this for initialization
     void Start()
     {
-        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
-        GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, LevelSelect, null));
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
-        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
-
-        menuMain.volume = 0.0f;
-        menuLevel.volume = 0.0f;
-        background.volume = 0.0f;
-        over.volume = 0.0f;
-
-        menuMain.Play();
-        menuLevel.Play();
-        background.Play();
-        over.Play();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        bool fadeOut = GroupManager.main.activeGroup == GroupManager.main.group["Fading"];
-
-        if (!fadeOut)
-        {
-            if (menuMain.volume != menuMainVolume)
-                menuMain.volume = Mathf.Lerp(menuMain.volume, menuMainVolume, Time.deltaTime * 4); 
-            if (menuLevel.volume != menuLevelVolume)
-                menuLevel.volume = Mathf.Lerp(menuLevel.volume, menuLevelVolume, Time.deltaTime * 2);
-            if (background.volume != backgroundVolume)
-                background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 2);
-            if (over.volume != overVolume)
-                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 2);
-        }
-        else
-        {
-            if (menuMain.volume != 0.0f)
-                menuMain.volume = Mathf.Lerp(menuMain.volume, 0.0f, Time.deltaTime * 2);
-            if (menuLevel.volume != 0.0f)
-                menuLevel.volume = Mathf.Lerp(menuLevel.volume, 0.0f, Time.deltaTime * 2);
-            if (background.volume != 0.0f)
-                background.volume = Mathf.Lerp(background.volume, 0.0f, Time.deltaTime);
-            if (over.volume != 0.0f)
-                over.volume = Mathf.Lerp(over.volume, 0.0f, Time.deltaTime);
-        }
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, StopAllSfx));
     }
 
     public void PlaySFX(string type)
@@ -111,7 +66,13 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Treated":
+                treatedSfx.pitch += Random.Range(-0.025f, 0.025f);
                 treatedSfx.Play();
+                break;
+
+            case "Died":
+                diedSfx.pitch += Random.Range(-0.025f, 0.025f);
+                diedSfx.Play();
                 break;
 
             case "Laser Hit":
@@ -127,8 +88,12 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Level Swipe":
-                levelSwipe.pitch += Random.Range(-0.05f, 0.05f);
+                levelSwipe.pitch += Random.Range(-0.025f, 0.025f);
                 levelSwipe.Play();
+                break;
+
+            case "Loop Patient":
+                treatingSfx.Play();
                 break;
         }
     }
@@ -154,15 +119,11 @@ public class AudioManager : MonoBehaviour
             case "Loop Fountain":
                 fountainLoopSfx.Stop();
                 break;
-        }
-    }
 
-    void GameMenu()
-    {
-        menuMainVolume = 0.4f;
-        menuLevelVolume = 0.4f;
-        backgroundVolume = 0.0f;
-        overVolume = 0.0f;
+            case "Loop Patient":
+                treatingSfx.Stop();
+                break;
+        }
     }
 
     void LevelStart()
@@ -170,24 +131,12 @@ public class AudioManager : MonoBehaviour
         collectSfx.pitch = 1.0f;
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
-
-
-        menuMainVolume = 0.0f;
-        menuLevelVolume = 0.0f;
-        backgroundVolume = 0.3f;
-        overVolume = 0.0f;
-
     }
 
-    void LevelOver()
+    void StopAllSfx()
     {
-        backgroundVolume = 0.0f;
-        overVolume = 0.3f;
-    }
-
-    void LevelSelect()
-    {
-        menuMainVolume = 0.0f;
-        menuLevelVolume = 0.4f;
+        trolleyLoopSfx.Stop();
+        fountainLoopSfx.Stop();
+        treatingSfx.Stop();
     }
 }

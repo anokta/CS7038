@@ -6,7 +6,7 @@ public class Gate : Accessible
     public LeverGateManager Manager;
 
     private bool open;
-    public bool Open
+    public virtual bool Open
     {
         get { return open; }
         set
@@ -22,10 +22,17 @@ public class Gate : Accessible
     public Sprite GateClosed;
     //
 
+
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        spriteRenderer.sortingOrder = Entity.Place(transform.position.y) - 1;
     }
 
     public override bool Enter()

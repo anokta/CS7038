@@ -18,6 +18,8 @@ public class Entity : MonoBehaviour
         set { entity.position = value; }
     }
 
+	
+
     protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -25,13 +27,19 @@ public class Entity : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
+	public static readonly short PlaceOffset = 4;
+
+	public static short Place(float y) {
+		return (short)-Mathf.RoundToInt (4 * y);
+	}
+
     protected virtual void Start()
     {
         entity = transform;
 
         playerHand = FindObjectOfType<HandController>();
 
-        spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * entity.position.y);
+        spriteRenderer.sortingOrder = Place (entity.position.y);
         
         GroupManager.main.group["Running"].Add(this);
     }

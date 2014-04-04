@@ -646,6 +646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squareSize: 7
+  Tile: {fileID: 2100000, guid: 049a7d12d7992a64fa4563b4a77289ad, type: 2}
+  FunkySun: {fileID: 2100000, guid: d1f9a25615a98d047b4ed6ff087f89cf, type: 2}
 --- !u!1 &357585751
 GameObject:
   m_ObjectHideFlags: 0

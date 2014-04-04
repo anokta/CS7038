@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GUI Pie Patient
-  m_Shader: {fileID: 4800000, guid: ec5075bd3134dbc46afb1c0a88e024da, type: 3}
+  m_Name: FunkySun
+  m_Shader: {fileID: 4800000, guid: 49160c4addd3eb84fb493fdcd5ff9ad7, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -23,20 +23,16 @@ Material:
     m_Floats:
       data:
         first:
-          name: Clockwise
-        second: 1
-      data:
-        first:
           name: Value
-        second: .99726975
+        second: .318571419
       data:
         first:
           name: AxisX
-        second: 0
+        second: 1
       data:
         first:
           name: AxisY
-        second: -1
+        second: 0
       data:
         first:
           name: PivotX
@@ -44,33 +40,25 @@ Material:
       data:
         first:
           name: PivotY
-        second: .5
+        second: .400000006
       data:
         first:
-          name: _AxisX
-        second: 0
+          name: RepeatX
+        second: 7
       data:
         first:
-          name: _AxisY
-        second: -1
+          name: RepeatY
+        second: 5.38930368
       data:
         first:
-          name: _PivotX
-        second: .5
-      data:
-        first:
-          name: _PivotY
-        second: .5
-      data:
-        first:
-          name: _Clockwise
-        second: 1
-      data:
-        first:
-          name: _Value
+          name: Radius
         second: 0
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .323529422, g: .352535427, b: .647058845, a: .784313738}
+        second: {r: .481185138, g: .526095748, b: .654411793, a: 1}
+      data:
+        first:
+          name: _Back
+        second: {r: .424794525, g: .479448497, b: .595588207, a: 1}

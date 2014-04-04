@@ -15,7 +15,13 @@ public class HandController : MonoBehaviour
     public GameObject cleanParticles;
     public GameObject infectionParticles;
 
+	public Texture handEmpty;
+	public Texture warning1;
+	public Texture warning2;
+	public Texture warningSign;
+
     private ParticleSystem stars, infection;
+	bool _showing;
 
     public enum HandState
     {
@@ -163,6 +169,12 @@ public class HandController : MonoBehaviour
                 infection.Stop();
             }
         }
+
+		if (Time.timeSinceLevelLoad % 2 >= 1) {
+			_showing = false;
+		} else {
+			_showing = true;
+		}
     }
 
     void OnGUI()
@@ -183,19 +195,15 @@ public class HandController : MonoBehaviour
 
             GUIpie.SetFloat("Value", 1);
             GUIpie.color = Color.white;
-            switch (state)
-            {
-                case HandState.Clean:
-                    //GUIpie.color = new Color(1, 1, 1, 1);
-                    break;
-                case HandState.Dirty:
-                    //GUIpie.color = new Color(1, 1, 0, 1);
-                    break;
-                case HandState.Filthy:
-                    //GUIpie.color = new Color(1, 0, 0, 1);
-                    break;
-            }
-            Graphics.DrawTexture(drawPos, hand, GUIpie);
+
+			if (value <= MinValue) {
+				Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
+				if (_showing) {
+					Graphics.DrawTexture(drawPos, warningSign, GUIpie);
+				}
+			} else {
+				Graphics.DrawTexture(drawPos, hand, GUIpie);
+			}
         }
     }
 }

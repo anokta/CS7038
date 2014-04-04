@@ -139,6 +139,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public static void FasterHeartBeat()
+    {
+        instance.heartbeatSfx.pitch += 0.12f;
+    }
+
+    public static float HeartBeatProgress()
+    {
+        return instance.heartbeatSfx.time / instance.heartbeatSfx.clip.length;
+    }
+
     void stopSfx(string type)
     {
         switch (type)
@@ -170,6 +180,7 @@ public class AudioManager : MonoBehaviour
         treatedSfx.pitch = 1.1f;
         diedSfx.pitch = 0.9f;
         infectedSfx.pitch = 1.2f;
+        heartbeatSfx.pitch = 1.25f;
     }
 
     void StopAllSfx()

@@ -11,11 +11,17 @@ public class HandController : MonoBehaviour
     public Texture background;
     public static readonly float MaxValue = 4.0f;
     public static readonly float MinValue = 0.0f;
-    public static readonly float InfectionThreshold = -1.0f;
+	public static readonly float InfectionThreshold = -1.5f;
     public GameObject cleanParticles;
     public GameObject infectionParticles;
 
+	public Texture handEmpty;
+	public Texture warning1;
+	public Texture warning2;
+	public Texture warningSign;
+
     private ParticleSystem stars, infection;
+	bool _showing;
 
     public enum HandState
     {
@@ -44,7 +50,17 @@ public class HandController : MonoBehaviour
     public float value
     {
         get { return _value; }
-        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue); if (_value <= MinValue) AudioManager.PlaySFX("Heartbeat"); else AudioManager.StopSFX("Heartbeat"); }
+        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue);
+        if (_value <= MinValue)
+        {
+            AudioManager.PlaySFX("Heartbeat");
+            if (_value <= MinValue - 0.5f)
+            {
+                AudioManager.FasterHeartBeat();
+            }
+        }
+        else AudioManager.StopSFX("Heartbeat"); 
+        }
     }
 
     float _guiValue = 2.0f;
@@ -149,6 +165,9 @@ public class HandController : MonoBehaviour
             {
                 infection.Play();
             }
+
+            _showing = AudioManager.HeartBeatProgress() < 0.4f;
+
         }
         else
         {
@@ -177,19 +196,21 @@ public class HandController : MonoBehaviour
 
             GUIpie.SetFloat("Value", 1);
             GUIpie.color = Color.white;
-            switch (state)
-            {
-                case HandState.Clean:
-                    //GUIpie.color = new Color(1, 1, 1, 1);
-                    break;
-                case HandState.Dirty:
-                    //GUIpie.color = new Color(1, 1, 0, 1);
-                    break;
-                case HandState.Filthy:
-                    //GUIpie.color = new Color(1, 0, 0, 1);
-                    break;
-            }
-            Graphics.DrawTexture(drawPos, hand, GUIpie);
+
+			if (value <= MinValue) {
+				if (value == 0) {
+					Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
+				} else if (value >= -0.5f) {
+					Graphics.DrawTexture(drawPos, warning1, GUIpie);
+				} else if (value >= -1.0f) {
+					Graphics.DrawTexture(drawPos, warning2, GUIpie);
+				}
+				if (_showing) {
+					Graphics.DrawTexture(drawPos, warningSign, GUIpie);
+				}
+			} else {
+				Graphics.DrawTexture(drawPos, hand, GUIpie);
+			}
         }
     }
 

@@ -23,12 +23,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: Clockwise
-        second: 1
-      data:
-        first:
           name: Value
+<<<<<<< HEAD
+        second: .999036074
+=======
         second: .998842776
+>>>>>>> e1ad5d98801f04e0d9387053b9e00a9720bbb913
       data:
         first:
           name: AxisX
@@ -45,6 +45,10 @@ Material:
         first:
           name: PivotY
         second: .5
+      data:
+        first:
+          name: Clockwise
+        second: 1
       data:
         first:
           name: _AxisX

@@ -51,7 +51,7 @@ public class Trolley : Pushable
 
                 if (byPlayer)
                 {
-                    playerHand.SpoilHand(-0.75f, GetInstanceID());
+                    playerHand.SpoilHand(-0.5f, GetInstanceID());
                 }
             }
         }

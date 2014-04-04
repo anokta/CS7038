@@ -88,23 +88,35 @@ public class GameWorld : MonoBehaviour
     void LevelIntro()
     {
         // Fade In To Prologue
-        ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
-            DialogueManager.DialogueComplete = FadeToIntroDialogue;
-            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+            {
+                DialogueManager.DialogueComplete = FadeToIntroDialogue;
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            });
         });
     }
 
     void FadeToIntroDialogue()
     {
-        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+        if (LevelManager.Instance.Level == -1)
         {
-            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
             {
-                DialogueManager.DialogueComplete = delegate() { GroupManager.main.activeGroup = GroupManager.main.group["Level Start"]; };
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+                {
+                    DialogueManager.DialogueComplete = delegate()
+                    {
+                        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+                        {
+                            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+                        });
+                    };
+                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                });
             });
-        });
+        }
     }
 
     void LevelStart()

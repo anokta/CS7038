@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GUI Pie HandWash
+  m_Name: GUI Pie Patient
   m_Shader: {fileID: 4800000, guid: ec5075bd3134dbc46afb1c0a88e024da, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -23,12 +23,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: Clockwise
-        second: 1
-      data:
-        first:
           name: Value
-        second: .998842776
+<<<<<<< HEAD
+        second: .995113909
+=======
+        second: .998293698
+>>>>>>> e1ad5d98801f04e0d9387053b9e00a9720bbb913
       data:
         first:
           name: AxisX
@@ -45,6 +45,10 @@ Material:
         first:
           name: PivotY
         second: .5
+      data:
+        first:
+          name: Clockwise
+        second: 1
       data:
         first:
           name: _AxisX
@@ -73,4 +77,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .442798406, g: .934651256, b: .95588237, a: .784313738}
+        second: {r: .323529422, g: .352535427, b: .647058845, a: .784313738}

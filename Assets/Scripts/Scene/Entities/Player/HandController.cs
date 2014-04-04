@@ -50,7 +50,17 @@ public class HandController : MonoBehaviour
     public float value
     {
         get { return _value; }
-        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue); if (_value <= MinValue) AudioManager.PlaySFX("Heartbeat"); else AudioManager.StopSFX("Heartbeat"); }
+        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue);
+        if (_value <= MinValue)
+        {
+            AudioManager.PlaySFX("Heartbeat");
+            if (_value <= MinValue - 0.5f)
+            {
+                AudioManager.FasterHeartBeat();
+            }
+        }
+        else AudioManager.StopSFX("Heartbeat"); 
+        }
     }
 
     float _guiValue = 2.0f;
@@ -155,6 +165,9 @@ public class HandController : MonoBehaviour
             {
                 infection.Play();
             }
+
+            _showing = AudioManager.HeartBeatProgress() < 0.4f;
+
         }
         else
         {
@@ -163,12 +176,6 @@ public class HandController : MonoBehaviour
                 infection.Stop();
             }
         }
-
-		if (Time.timeSinceLevelLoad % 2 >= 1) {
-			_showing = false;
-		} else {
-			_showing = true;
-		}
     }
 
     void OnGUI()

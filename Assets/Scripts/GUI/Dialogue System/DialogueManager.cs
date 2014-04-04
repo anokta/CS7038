@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
 
     private static int currentDialogue;
     public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
+    public static int[] dialogueIndex = { 1, 6, 7, 8, 9, 11, 13, 14 }; 
 
     public static Action DialogueComplete;
 
@@ -87,6 +88,67 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         // Levels
+
+        // File cabinet hint
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Push a file cabinet or a plant by walking against it. But beware! Our hands will get dirty .."));
+        entries.Add(new DialogueEntry(authors[1], ".. make sure we clean our hands before treating the patient!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        // Lasers
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Lasers are dangerous! Don’t touch them, or we’ll die!"));
+        entries.Add(new DialogueEntry(authors[1], "Anything can block its beam, but some might as well catch on fire."));
+        entries.Add(new DialogueEntry(authors[2], "And why are active lethal laser emitters lying around so casually?"));
+        entries.Add(new DialogueEntry(authors[1], "That is a good question, one which I do not know the answer of."));
+        entries.Add(new DialogueEntry(authors[2], "..."));
+        entries.Add(new DialogueEntry(authors[1], "Exactly!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        
+        // Mirrors
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Mirrors can deflect lasers. Push on a mirror to change its direction."));
+        entries.Add(new DialogueEntry(authors[1], "Make sure you don’t deflect the beam towards us though!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        // Doors & Gates
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[2], "Doors! My sworn enemy!"));
+        entries.Add(new DialogueEntry(authors[1], "Don’t worry, doctor. We can pass through them easily, but make sure we wash our hands afterwards .."));
+        entries.Add(new DialogueEntry(authors[1], ".. we don’t know who touched those handles before!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Levers can make impossible, possible."));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        
+        // Trolley
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "A trolley acts like a file cabinet or a plant, except it cannot be stopped until it hits something."));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Indeed, you are not the only one here. They also can interact with the objects around."));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+        // Explosive
+        entries = new List<DialogueEntry>();
+        entries.Add(new DialogueEntry(authors[1], "Those chemical crates are safe to push around, but beware: They explode when struck by a laser!"));
+        entries.Add(new DialogueEntry(authors[1], "An explosion can please everything, and everyone."));
+        entries.Add(new DialogueEntry(authors[2], "Why are you encouraging the destruction of chemical supplies again?"));
+        entries.Add(new DialogueEntry(authors[1], "It will be worth it if it means you can save a life!"));
+
+        dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+
+        // Last
         entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[2], "What's next?"));
         entries.Add(new DialogueEntry(authors[1], "We haven't even started yet."));
@@ -94,7 +156,6 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[1], "..."));
         
         dialogues.Add(new DialogueInstance(entries, audioOutput));
-
 
         GroupManager.main.group["Dialogue"].Add(this);
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));

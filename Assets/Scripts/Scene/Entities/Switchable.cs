@@ -21,7 +21,10 @@
         {
             var direction = Switchable.Position - ExplosionSource;
             direction.Normalize();
-            Switchable.Switch();
+            HandController hand = FindObjectOfType<HandController>();
+            float value = hand.value;
+            Switchable.Switch(); 
+            hand.value = value;
         }
 
         public override bool Equals(Task other)

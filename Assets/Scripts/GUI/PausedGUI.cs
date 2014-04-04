@@ -53,7 +53,7 @@ public class PausedGUI : MonoBehaviour
     {
         if (guiCurrentScale > 0.0f)
         {
-            GUI.matrix *= Matrix4x4.Scale(new Vector3(guiCurrentScale, guiCurrentScale, 1.0f));
+            GUI.matrix = Matrix4x4.Scale(new Vector3(guiCurrentScale, guiCurrentScale, 1.0f));
 
             if (guiCurrentScale != guiTargetScale) GUI.enabled = false;
 

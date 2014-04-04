@@ -28,6 +28,13 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
+        // TODO: Remove before release
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+        //
+
         if (Mathf.Abs(targetScroll - currentScroll) < ScreenScrollValue * 0.05f)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -54,8 +61,7 @@ public class MainMenu : MonoBehaviour
 
     void OnGUI()
     {
-        Matrix4x4 guiMatrix = GUI.matrix;
-        GUI.matrix *= Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
+        GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
         GUI.skin = GUIManager.GetSkin();
 
@@ -65,8 +71,7 @@ public class MainMenu : MonoBehaviour
         }
         //GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.4f), "Handy MD", GUI.skin.GetStyle("title"));
 
-        GUI.matrix = guiMatrix;
-        GUI.matrix *= Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
+        GUI.matrix = Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
         // PLAY //
         {
@@ -80,8 +85,7 @@ public class MainMenu : MonoBehaviour
             }
         }
 
-        GUI.matrix = guiMatrix;
-        GUI.matrix *= Matrix4x4.TRS(new Vector3(0.0f, -currentScroll, 0.0f), Quaternion.identity, Vector3.one);
+        GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, -currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
         // LEFT CORNER //
         GUILayout.BeginArea(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - GUIManager.OffsetY() * 2.0f - GUIManager.ButtonSize(), 2.0f * GUIManager.ButtonSize(), GUIManager.ButtonSize()));

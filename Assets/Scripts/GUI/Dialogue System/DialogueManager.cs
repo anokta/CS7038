@@ -55,9 +55,9 @@ public class DialogueManager : MonoBehaviour
 
         /*Tutorial*/
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger across the screen."));
-        entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
-
+		entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger across the screen."));
+		entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
+	
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
@@ -66,13 +66,13 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "What was that? We need to spend at least 20 seconds to clean our hands properly!"));
-        entries.Add(new DialogueEntry(authors[1], "In game-time, however, we only have to wait for the washing bar to fill up.  Now try washing again, but this time hold your finger until our hands are clean."));
+		entries.Add(new DialogueEntry(authors[1], "What was that? You need to spend at least 20 seconds to clean your hands properly!"));
+		entries.Add(new DialogueEntry(authors[1], "In game-time, however, we only have to wait for the washing bar to fill up.  Now try washing again, but this time wait until your hands are clean."));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
         
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Now our hands are clean. Walk towards the patient to treat him."));
+		entries.Add(new DialogueEntry(authors[1], "Now your hands are clean. Walk towards the patient to treat him."));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
@@ -91,8 +91,8 @@ public class DialogueManager : MonoBehaviour
 
         // File cabinet hint
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Push a file cabinet or a plant by walking against it. But beware! Our hands will get dirty .."));
-        entries.Add(new DialogueEntry(authors[1], ".. make sure we clean our hands before treating the patient!"));
+		entries.Add(new DialogueEntry(authors[1], "Push a file cabinet or a plant by walking against it. But beware! Your hands will get dirty .."));
+		entries.Add(new DialogueEntry(authors[1], ".. make sure you clean your hands before treating the patient!"));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour
         // Doors & Gates
         entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[2], "Doors! My sworn enemy!"));
-        entries.Add(new DialogueEntry(authors[1], "Don’t worry, doctor. We can pass through them easily, but make sure we wash our hands afterwards .."));
+		entries.Add(new DialogueEntry(authors[1], "Don’t worry, doctor. We can pass through them easily, but make sure you wash your hands afterwards .."));
         entries.Add(new DialogueEntry(authors[1], ".. we don’t know who touched those handles before!"));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
@@ -134,7 +134,7 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Indeed, you are not the only one here. They also can interact with the objects around."));
+		entries.Add(new DialogueEntry(authors[1], "Indeed, you are not the only one here. They can interact with the objects they hit."));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 

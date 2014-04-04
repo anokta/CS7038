@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Grouping;
 
 public class Trolley : Pushable
 {
@@ -77,6 +78,14 @@ public class Trolley : Pushable
                 case "Switchable":
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
                     switchable.Switch();
+
+                    if (LevelManager.Instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.Instance.Level] + 1))
+                    {
+                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+
+                        return false;
+                    }
                     break;
             }
         }

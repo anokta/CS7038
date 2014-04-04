@@ -112,24 +112,23 @@ public class GameWorld : MonoBehaviour
 
         success = true;
 
-        // TEMPORARY HACK
-        DialogueManager.CurrentDialogue = (LevelManager.Instance.Level == 0) ? 1 : (LevelManager.Instance.Level + 5);
-        if (LevelManager.Instance.Level > 1)
+        if (LevelManager.Instance.Level >= DialogueManager.dialogueIndex.Length)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
                 GoBackToLevel();
             });
-
-            return;
         }
-        //
-
-        ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
+        else
         {
-            DialogueManager.DialogueComplete = GoBackToLevel;
-            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-        });
+            DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.Instance.Level];
+
+            ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
+            {
+                DialogueManager.DialogueComplete = GoBackToLevel;
+                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+            });
+        }
     }
 
     void GameMenu()

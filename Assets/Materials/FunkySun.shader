@@ -2,6 +2,7 @@
 {
 	Properties
 	{
+		[PerRendererData] _MainTex ("Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1, 1, 1, 1)
 		_Back ("Background", Color) = (0, 0, 0, 1)
 		Value ("Value", Range(0, 1)) = 1

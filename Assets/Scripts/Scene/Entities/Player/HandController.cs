@@ -191,7 +191,7 @@ public class HandController : MonoBehaviour
             GUIpie.color = Color.white;
 
 			if (value <= MinValue) {
-				if (value <= 0 && value > -0.5f) {
+				if (value == 0) {
 					Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
 				} else if (value >= -0.5f) {
 					Graphics.DrawTexture(drawPos, warning1, GUIpie);

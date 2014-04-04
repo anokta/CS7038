@@ -60,11 +60,22 @@ public class LevelOverGUI : MonoBehaviour
         
         overTitleSet[GameWorld.LevelOverReason.PlayerInfected] = new[]
         {
-            "TODO: PlayerInfected"
+			"Hand on a minute.",
+			"Caught you red handed!",
+			"This is getting out of hand!",
+			"Wash your hands!",
+			"You couldn't handle the flu."
         };
         overMessageSet[GameWorld.LevelOverReason.PlayerInfected] = new[]
         {
-			"TODO: PlayerInfected"
+			"You were infected by the Handurian flu. Why didn't you just wash your hands?",
+			"Over 90% of the people who don't wash their hands eventually die at some point.",
+			"All forest fires start with hands that aren't clean at the time of immolation.",
+			"80% of all infectious diseases are transmitted by touch. The Handurian Flu is one of them.",
+			"Hand cleaning might not kill all viruses, but it will dilute them to a point below viral threshold.",
+			"The thumb, fingertips and the area between fingers are most often missed when cleaning hands. Be meticulous!",
+			"Cleaning your hands will also make them smell better, but I guess it's too late now.",
+			"Soap and water are your friends. Don't forget your friends."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
@@ -77,34 +88,46 @@ public class LevelOverGUI : MonoBehaviour
         {
 			"Your organs have been vaporized by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
 			"\"Step into the light\" is not always meant to be taken literally.",
-			"Lasers can be just as lethal as they can be handy."
+			"Lasers can be just as lethal as they can be handy.",
+			"Where did you go? Oh. I see."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
         {
-            "TODO: LaserKilledPatient"
+			"Hand on a minute.",
+			"Zapadabadoo!",
+			"Care the Death Ray!"
         };
         overMessageSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
         {
-			"TODO: LaserKilledPatient"
+			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you shouldn't vaporize your patients.",
+			"Where did he go? Oh. I see.",
+			"Lasers can be just as lethal as they can be handy.",
+			"Your M.D. status has been revoked."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.ExplosionKilledPlayer] = new[]
         {
-            "TODO: ExplosionKilledPlayer"
+			"Kaboom!",
+			"Explosive circumstances"
         };
         overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPlayer] = new[]
         {
-			"TODO: ExplosionKilledPlayer"
+			"Where did you go? Oh. I see.",
+			"You just blew it."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
         {
-            "TODO: ExplosionKilledPatient"
+			"Kaboom!",
+			"Explosive circumstances"
         };
         overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
         {
-			"TODO: ExplosionKilledPatient"
+			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you shouldn't blow up your patients.",
+			"Where did he go? Oh. I see.",
+			"You just blew it.",
+			"Your M.D. status has been revoked."
 		};
     }
 

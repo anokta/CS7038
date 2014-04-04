@@ -56,7 +56,11 @@ public abstract class Pushable : Entity
         {
             var direction = Pushable.Position - ExplosionSource;
             direction.Normalize();
+
+            HandController hand = FindObjectOfType<HandController>();
+            float value = hand.value;
             Pushable.Push(direction, false);
+            hand.value = value;
         }
 
         public override bool Equals(Task other)

@@ -11,7 +11,7 @@ public class HandController : MonoBehaviour
     public Texture background;
     public static readonly float MaxValue = 4.0f;
     public static readonly float MinValue = 0.0f;
-    public static readonly float InfectionThreshold = -1.0f;
+	public static readonly float InfectionThreshold = -1.5f;
     public GameObject cleanParticles;
     public GameObject infectionParticles;
 
@@ -191,7 +191,13 @@ public class HandController : MonoBehaviour
             GUIpie.color = Color.white;
 
 			if (value <= MinValue) {
-				Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
+				if (value <= 0 && value > -0.5f) {
+					Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
+				} else if (value >= -0.5f) {
+					Graphics.DrawTexture(drawPos, warning1, GUIpie);
+				} else if (value >= -1.0f) {
+					Graphics.DrawTexture(drawPos, warning2, GUIpie);
+				}
 				if (_showing) {
 					Graphics.DrawTexture(drawPos, warningSign, GUIpie);
 				}

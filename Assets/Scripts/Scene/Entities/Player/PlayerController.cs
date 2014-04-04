@@ -130,30 +130,63 @@ public class PlayerController : MonoBehaviour, IPan
     {
         // Tutorial [Manually coded for now] //
         // TODO: Make it proper! 
-        if (LevelManager.Instance.Level == 0)
+
+        if (!GameWorld.dialogueOff)
         {
-            if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
+            if (LevelManager.Instance.Level == 0)
             {
-                playerMoving = false;
-                canMove = false;
-
-                if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
+                if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
                 {
-                    timer.Stop();
+                    playerMoving = false;
+                    canMove = false;
 
+                    if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
+                    {
+                        timer.Stop();
+
+                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    }
+                }
+                else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
+                {
                     DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                     GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 }
             }
-            else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
+            else if (LevelManager.Instance.Level == 4)
             {
-                DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f)
+                {
+                    playerMoving = false;
+                    canMove = false;
+
+                    if (DialogueManager.CurrentDialogue == 10 && (player.position == new Vector3(5, 2, 0) || Vector2.Distance(player.position, new Vector2(6, 1)) == 1.0f))
+                    {
+                        timer.Stop();
+
+                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    }
+                }
             }
         }
 
-
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
+
+        if (hands.IsInfected())
+        {
+            animator.SetTrigger("Infect");
+
+            AudioManager.StopSFX("Heartbeat");
+            AudioManager.PlaySFX("Player Infected");
+
+            IsAlive = false;
+
+            GameWorld.levelOverReason = GameWorld.LevelOverReason.PlayerInfected;
+            
+            return;
+        }
 
         if (IsAlive)
         {
@@ -270,7 +303,7 @@ public class PlayerController : MonoBehaviour, IPan
 
                 if (accessible.name.StartsWith("Fountain"))
                 {
-                    if (LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
+                    if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];

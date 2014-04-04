@@ -5,7 +5,7 @@ using Grouping;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource menuNext, menuPrev, levelSwipe, levelSwipeRev;
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, treatingSfx, laserSfx, explosionSfx, burnSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, infectedSfx, treatingSfx, laserSfx, explosionSfx, burnSfx, heartbeatSfx;
 
     private static AudioManager instance;
 
@@ -96,6 +96,11 @@ public class AudioManager : MonoBehaviour
                 diedSfx.Play();
                 break;
 
+            case "Player Infected":
+                infectedSfx.pitch += Random.Range(-0.025f, 0.025f);
+                infectedSfx.Play();
+                break;
+
             case "Laser Hit":
                 laserSfx.Play();
                 break;
@@ -125,6 +130,12 @@ public class AudioManager : MonoBehaviour
             case "Burn":
                 burnSfx.Play();
                 break;
+
+            case "Heartbeat":
+                //heartbeatSfx.pitch = Random.Range(0.995f, 1.005f);
+                if (!heartbeatSfx.isPlaying)
+                    heartbeatSfx.Play();
+                break;
         }
     }
 
@@ -143,6 +154,10 @@ public class AudioManager : MonoBehaviour
             case "Loop Patient":
                 treatingSfx.Stop();
                 break;
+
+            case "Heartbeat":
+                heartbeatSfx.Stop();
+                break;
         }
     }
 
@@ -151,7 +166,10 @@ public class AudioManager : MonoBehaviour
         collectSfx.pitch = 1.0f;
         pushSfx.pitch = 1.0f;
         push2Sfx.pitch = 1.0f;
-        levelSwipe.pitch = 1.0f;
+        levelSwipe.pitch = 0.9f;
+        treatedSfx.pitch = 1.1f;
+        diedSfx.pitch = 0.9f;
+        infectedSfx.pitch = 1.2f;
     }
 
     void StopAllSfx()
@@ -159,5 +177,6 @@ public class AudioManager : MonoBehaviour
         trolleyLoopSfx.Stop();
         fountainLoopSfx.Stop();
         treatingSfx.Stop();
+        heartbeatSfx.Stop();
     }
 }

@@ -151,22 +151,6 @@ public class PlayerController : MonoBehaviour, IPan
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             }
         }
-        else if (LevelManager.Instance.Level == 4)
-        {
-            if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f)
-            {
-                playerMoving = false;
-                canMove = false;
-
-                if (DialogueManager.CurrentDialogue == 10 && (player.position == new Vector3(5,2,0) || Vector2.Distance(player.position, new Vector2(6, 1)) == 1.0f))
-                {
-                    timer.Stop();
-
-                    DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                }
-            }
-        }
 
 
         spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;

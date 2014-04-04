@@ -151,6 +151,7 @@ public class PausedGUI : MonoBehaviour
         ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
         {
             LevelManager.Instance.Level--;
+            GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 
             // Clear resources

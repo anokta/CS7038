@@ -12,6 +12,8 @@ public class GameWorld : MonoBehaviour
         set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
     }
 
+    public static bool dialogueOff;
+
     // Use this for initialization
     void Start()
     {
@@ -20,11 +22,13 @@ public class GameWorld : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         AudioListener.volume = PlayerPrefs.GetFloat("Audio Volume", 1.0f);
 
-        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, LevelIntro, null));
         GroupManager.main.group["Running"].Add(this);
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
+        GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, delegate() { success = true; }, null));
+
+        dialogueOff = false;
     }
 
     // Update is called once per frame
@@ -49,6 +53,7 @@ public class GameWorld : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             LevelManager.Instance.Level--;
+            success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         }
@@ -110,9 +115,9 @@ public class GameWorld : MonoBehaviour
         // Next level
         LevelManager.Instance.Next();
 
-        success = true;
+        dialogueOff = !success;
 
-        if (LevelManager.Instance.Level >= DialogueManager.dialogueIndex.Length)
+        if (dialogueOff || LevelManager.Instance.Level >= DialogueManager.dialogueIndex.Length)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
@@ -129,12 +134,8 @@ public class GameWorld : MonoBehaviour
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });
         }
-    }
 
-    void GameMenu()
-    {
-        // Clear resources
-        LevelManager.Instance.Clear();
+        success = true;
     }
 
     public static void GoBackToLevel()
@@ -144,7 +145,7 @@ public class GameWorld : MonoBehaviour
 
     void LevelOver()
     {
-        if (levelOverReason == LevelOverReason.Success && PlayerPrefs.GetInt("Level", 0) <= LevelManager.Instance.Level)
+        if (success && PlayerPrefs.GetInt("Level", 0) <= LevelManager.Instance.Level)
         {
             PlayerPrefs.SetInt("Level", LevelManager.Instance.Level + 1);
             PlayerPrefs.Save();

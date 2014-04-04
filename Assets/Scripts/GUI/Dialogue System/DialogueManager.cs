@@ -123,7 +123,7 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[1], "Levers can make impossible, possible."));
+        entries.Add(new DialogueEntry(authors[1], "Levers can make the impossible, possible."));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
         
@@ -146,7 +146,6 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[1], "It will be worth it if it means you can save a life!"));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
-
 
         // Last
         entries = new List<DialogueEntry>();

@@ -27,20 +27,20 @@ Material:
         second: 1
       data:
         first:
-          name: PivotX
-        second: .5
-      data:
-        first:
-          name: PivotY
-        second: .5
-      data:
-        first:
           name: AxisX
         second: 0
       data:
         first:
           name: AxisY
         second: -1
+      data:
+        first:
+          name: PivotX
+        second: .5
+      data:
+        first:
+          name: PivotY
+        second: .5
       data:
         first:
           name: Clockwise

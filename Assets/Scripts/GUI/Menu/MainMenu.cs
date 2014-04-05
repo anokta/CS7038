@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             PlayerPrefs.DeleteAll();
+            LevelManager.Instance.Level = -1;
         }
         //
 

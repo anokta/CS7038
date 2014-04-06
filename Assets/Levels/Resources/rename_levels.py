@@ -30,7 +30,7 @@ with open('Levels.yaml', 'r') as f:
     
     new_yaml += line.replace(old_file_name, new_file_name)
     
-    print '%-30s -> %s' % (old_file_name, new_file_name)
+    print '%-30s -> %s' % (old_file_name, new_file_name if old_file_name != new_file_name else 'unchanged')
 
 with open('Levels.yaml', 'w') as f:
   f.write(new_yaml)

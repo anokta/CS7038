@@ -90,7 +90,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
             targetScroll = MainMenu.ScreenScrollValue;
             AudioManager.PlaySFX("Menu Prev");

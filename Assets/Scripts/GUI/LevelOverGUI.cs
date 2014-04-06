@@ -151,6 +151,17 @@ public class LevelOverGUI : MonoBehaviour
 
             FadeToMainMenu();
         }
+        if (Input.GetKeyDown(KeyCode.Return)) 
+        {
+            if (!GameWorld.success)
+            {
+                LevelManager.Instance.Level--;
+                FadeToLevelStart();
+            }
+            else{
+                FadeToLevelStart();
+            }
+        }
     }
 
     // Update is called once per frame

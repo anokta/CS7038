@@ -36,6 +36,12 @@ public class MainMenu : MonoBehaviour
         }
         //
 
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) )
+        {
+            targetScroll = -ScreenScrollValue;
+            AudioManager.PlaySFX("Menu Next");
+        }
+
         if (Mathf.Abs(targetScroll - currentScroll) < ScreenScrollValue * 0.05f)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

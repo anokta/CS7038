@@ -1,7 +1,7 @@
 import os
 import re
 
-regex_file_name = re.compile('(-?\s*)(.*)')
+regex_file_name = re.compile('(-?\s*)([^#\n]*)')
 regex_level_name = re.compile('(\d*-?)(.*)')
 i = 1
 new_yaml = ''
@@ -13,6 +13,7 @@ with open('Levels.yaml', 'r') as f:
     
     # e.g. 02-Tutorial
     old_file_name = match_file_name.group(2)
+    old_file_name = old_file_name.strip()
     
     match_level_name = regex_level_name.search(old_file_name)
     if match_level_name is None: raise Exception('Cant find level name for `%s`' % old_file_name)
@@ -27,7 +28,7 @@ with open('Levels.yaml', 'r') as f:
     os.rename(old_file_name + '.xml', new_file_name + '.xml')
     os.rename(old_file_name + '.xml.meta', new_file_name + '.xml.meta')
     
-    new_yaml += '- %s\n' % new_file_name
+    new_yaml += line.replace(old_file_name, new_file_name)
     
     print '%-30s -> %s' % (old_file_name, new_file_name)
 

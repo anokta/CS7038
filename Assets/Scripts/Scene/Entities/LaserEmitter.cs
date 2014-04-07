@@ -82,7 +82,15 @@ public class LaserEmitter : Entity
             if (hit.collider == null)
                 break; // for robustness
 
-            origin = hit.collider.transform.position;
+            if (directionVector.x.IsZero())
+            {
+                origin.y = hit.collider.transform.position.y;
+            }
+            else
+            {
+                origin.x = hit.collider.transform.position.x;
+            }
+            
             points.Add(origin.xy0() + new Vector3(0, 0.3f, 0));
 
             if (hit.transform.tag == "Player")

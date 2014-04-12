@@ -15,7 +15,37 @@ public class LevelLoader
 	private GameObject shade;
     public GameObject ExplosionContainer { get; private set; }
 
-	public static readonly short FloorOrder = -10000;
+	/// <summary>
+	/// Sorting order for the floor
+	/// </summary>
+	public static readonly short FloorOrder = short.MinValue;
+	/// <summary>
+	/// Sorting order for any ashes
+	/// </summary>
+	public static readonly short AshesOrder = (short)(FloorOrder + 10);
+
+	/// <summary>
+	/// Distance of sorting order between two levels of walls.
+	/// </summary>
+	public static readonly short PlaceWallOffset = 10;
+	/// <summary>
+	/// Distance of sorting order between an object and a wall of the same level.
+	/// </summary>
+	public static readonly short PlaceDepthOffset = 5;
+	/// <summary>
+	/// Equal to: PlaceDepthOffset - 1
+	/// </summary>
+	public static readonly short UsableOffset = 4;
+
+
+	public static short PlaceWall(float y) {
+		return (short)-Mathf.RoundToInt(10 * y);
+	}
+
+	public static short PlaceDepth(float y) {
+		return (short)(-Mathf.RoundToInt(10 * y) - 5);
+	}
+
 
     public LevelLoader()
     {
@@ -29,7 +59,7 @@ public class LevelLoader
         prefabs[TileType.Plant] = Resources.Load<GameObject>("Plant");
         prefabs[TileType.Fountain] = Resources.Load<GameObject>("Fountain");
         prefabs[TileType.Door] = Resources.Load<GameObject>("Door");
-        prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
+		prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
 
         prefabs[TileType.LaserDown] = Resources.Load<GameObject>("LaserEmitter");
         prefabs[TileType.LaserUp] = Resources.Load<GameObject>("LaserEmitter");
@@ -143,9 +173,9 @@ public class LevelLoader
                     case TileType.GateClean:
                         parent = accessibleContainer;
                         break;
-                    case TileType.Patient:
-                        parent = switchableContainer;
-						transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y) - 1;
+					case TileType.Patient:
+						parent = switchableContainer;
+						transform.GetComponent<SpriteRenderer>().sortingOrder = PlaceDepth(transform.position.y);//-Mathf.RoundToInt(4 * transform.position.y) - 1;
                         break;
 
                     case TileType.Lever1:
@@ -246,7 +276,7 @@ public class LevelLoader
 
                     case TileType.Wall:
                         parent = wallContainer;
-                        transform.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(4 * transform.position.y);
+						transform.GetComponent<SpriteRenderer>().sortingOrder = PlaceWall(transform.position.y);
                         break;
                     case TileType.Floor:
                         parent = floorContainer;
@@ -285,7 +315,7 @@ public class LevelLoader
 	ShadeController makeGradient(TmxMap map, float x, float y) {
 		var position = new Vector2(x, map.Height - y - 1);
 		var gradient = Object.Instantiate(shade, position, Quaternion.identity) as GameObject;
-		gradient.transform.GetComponent<SpriteRenderer>().sortingOrder = -1000;
+		gradient.transform.GetComponent<SpriteRenderer>().sortingOrder = FloorOrder;
 		gradient.transform.parent = shadeContainer.transform;
 		return gradient.GetComponent<ShadeController>();
 	}

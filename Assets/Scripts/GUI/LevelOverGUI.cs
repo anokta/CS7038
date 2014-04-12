@@ -70,11 +70,11 @@ public class LevelOverGUI : MonoBehaviour
         {
 			"You were infected by the Handurian flu. Why didn't you just wash your hands?",
 			"Over 90% of the people who don't wash their hands eventually die at some point.",
-			"All forest fires start with hands that aren't clean at the time of immolation.",
+			//"All forest fires start with hands that aren't clean at the time of immolation.",
 			"80% of all infectious diseases are transmitted by touch. The Handurian Flu is one of them.",
 			"Hand cleaning might not kill all viruses, but it will dilute them to a point below viral threshold.",
 			"The thumb, fingertips and the area between fingers are most often missed when cleaning hands. Be meticulous!",
-			"Cleaning your hands will also make them smell better, but I guess it's too late now.",
+			"Cleaning your hands will also make them smell better.",
 			"Soap and water are your friends. Don't forget your friends."
 		};
 

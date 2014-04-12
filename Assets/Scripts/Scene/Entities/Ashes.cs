@@ -9,7 +9,7 @@ public class Ashes : MonoBehaviour
 	{
 		timer = new Timer(
 			0.2f, () => {
-			GetComponent<SpriteRenderer>().sortingOrder = LevelLoader.FloorOrder + 50;
+				GetComponent<SpriteRenderer>().sortingOrder = LevelLoader.AshesOrder;
 			Destroy(this);
 			timer.Stop();
 		});

@@ -16,6 +16,9 @@ public class Patient : Switchable
 	[SerializeField]
 	public GameObject heart;
 
+	[SerializeField]
+	private GameObject ashes;
+
     public Material GUIpie;
     public Texture progressTexture;
 
@@ -45,7 +48,7 @@ public class Patient : Switchable
     {
         base.Update();
 
-		spriteRenderer.sortingOrder =  - Mathf.RoundToInt(4 * entity.position.y) - 1;
+		spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(entity.position.y) - LevelLoader.UsableOffset;//- Mathf.RoundToInt(4 * entity.position.y) - 1;
 
         timer.Update();
 
@@ -143,7 +146,12 @@ public class Patient : Switchable
     {
         Interrupted();
         GameWorld.levelOverReason = reason;
-        animator.SetTrigger(reason == GameWorld.LevelOverReason.PatientInfected ? "Kill" : "Die");
+		if (reason == GameWorld.LevelOverReason.PatientInfected) {
+			animator.SetTrigger("Kill");
+		} else {
+			Entity.Replace(this.gameObject, ashes);
+		}
+			//animator.SetTrigger(reason == GameWorld.LevelOverReason.PatientInfected ? "Kill" : "Die");
 		collider2D.enabled = false;
         treated = true;
     }

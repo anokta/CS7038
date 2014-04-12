@@ -16,7 +16,7 @@ public class BackgroundRenderer : MonoBehaviour
 	void Start()
 	{
 		_renderer = GetComponent<SpriteRenderer>();
-		_renderer.sortingOrder = short.MinValue;
+		_renderer.sortingLayerName = "Background";
 		//_renderer.material = FunkySun;
 		//var sun = new GroupDelegator(null, SetSunBackground, SetTileBackground);
 	//	var tiled = new GroupDelegator(null, SetTileBackground, null);

@@ -32,7 +32,7 @@ public class Gate : Accessible
     protected override void Update()
     {
         base.Update();
-        spriteRenderer.sortingOrder = Entity.Place(transform.position.y) - 1;
+		spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(transform.position.y) - LevelLoader.UsableOffset;
     }
 
     public override bool Enter()

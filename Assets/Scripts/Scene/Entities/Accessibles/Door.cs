@@ -6,7 +6,7 @@ public class Door : Accessible
     protected override void Start()
     {
         base.Start();
-		spriteRenderer.sortingOrder = spriteRenderer.sortingOrder + 2;
+		spriteRenderer.sortingOrder = spriteRenderer.sortingOrder + LevelLoader.UsableOffset;
     }
 
     protected override void Update()

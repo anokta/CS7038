@@ -24,7 +24,19 @@ Material:
       data:
         first:
           name: Value
+<<<<<<< Updated upstream
         second: .998145878
+=======
+        second: .994133413
+      data:
+        first:
+          name: PivotX
+        second: .5
+      data:
+        first:
+          name: PivotY
+        second: .5
+>>>>>>> Stashed changes
       data:
         first:
           name: AxisX
@@ -35,12 +47,8 @@ Material:
         second: -1
       data:
         first:
-          name: PivotX
-        second: .5
-      data:
-        first:
-          name: PivotY
-        second: .5
+          name: Clockwise
+        second: 1
       data:
         first:
           name: Clockwise

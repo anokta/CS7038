@@ -38,12 +38,15 @@ public class VerticalGate : Gate
             _botRenderer.sharedMaterial = renderer.sharedMaterial;
             _botRenderer.sprite = GateOpenBot;
             _botRenderer.enabled = false;
+			_botRenderer.sortingOrder = LevelLoader.PlaceDepth(transform.position.y) + LevelLoader.UsableOffset;
         }
     }
 
     protected override void Update() {
         base.Update();
+
+		renderer.sortingOrder = LevelLoader.PlaceDepth(transform.position.y) - LevelLoader.UsableOffset;
         CreateBotPart();
-        _botRenderer.sortingOrder = Entity.Place(transform.position.y - 1) - Entity.PlaceOffset + 1;
+			//Entity.Place(transform.position.y - 1) - Entity.PlaceOffset + 1;
     }
 }

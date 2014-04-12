@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour, IPan
 {
     private Transform player;
     private SpriteRenderer spriteRenderer;
+	[SerializeField]
+	private GameObject ashes;
+
 
     private Animator animator;
 
@@ -172,7 +175,7 @@ public class PlayerController : MonoBehaviour, IPan
             }
         }
 
-        spriteRenderer.sortingOrder = -Mathf.RoundToInt(4 * player.position.y) + 1;
+		spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
         if (hands.IsInfected())
         {
@@ -390,6 +393,8 @@ public class PlayerController : MonoBehaviour, IPan
         IsAlive = false;
 		this.collider2D.enabled = false;
         animator.SetTrigger("Die");
+
+		Entity.Replace(this.gameObject, ashes);
 
         GameWorld.levelOverReason = reason;
     }

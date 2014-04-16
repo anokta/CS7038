@@ -19,7 +19,7 @@ public class Patient : Switchable
 	[SerializeField]
 	private GameObject ashes;
 
-    public Material GUIpie;
+	//  public Material GUIpie;
     public Texture progressTexture;
 
     public float pieSize;
@@ -64,10 +64,11 @@ public class Patient : Switchable
     void OnGUI()
     {
 		if (timer.progress > 0) {
-			GUIpie.SetFloat("Value", timer.progress);
-			GUIpie.SetFloat("Clockwise", 1);
-
-			Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
+			GUIManager.GUIPie.color = Color.white;
+			GUIManager.GUIPie.SetFloat("Value", timer.progress);
+			GUIManager.GUIPie.SetFloat("Clockwise", 1);
+			 
+			Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIManager.GUIPie);
 		}
     }
 

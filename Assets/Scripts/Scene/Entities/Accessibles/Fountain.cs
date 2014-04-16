@@ -13,7 +13,7 @@ public class Fountain : Accessible
 
     private Animator animator;
 
-    public Material GUIpie;
+	// public Material GUIpie;
     public Texture progressTexture;
 
     public float pieSize;
@@ -63,6 +63,8 @@ public class Fountain : Accessible
     void OnGUI()
     {
 		if (timer.progress > 0) {
+			var GUIpie = GUIManager.GUIPie;
+			GUIpie.color = new Color(113f / 255f, 238f / 255f, 244f / 255f);
 			GUIpie.SetFloat("Value", timer.progress);
 			GUIpie.SetFloat("Clockwise", 1);
 

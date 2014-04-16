@@ -11,21 +11,21 @@ public class GUIManager : MonoBehaviour
 
 	public int defaultFontSize = 16;
 
+	[SerializeField]
+	private Material _GuiPieMaterial;
+
+	public static Material GUIPie { get; private set; }
+
 	//Called when screen resizes
 	void ResetScreen() { 
 		_width = Screen.width;
 		_height = Screen.height;
 
 		float ratio = (float)Screen.height / VerticalResolution;
-		for (int i = 0; i < _customStyles.Length; ++i) {
-			_customStyles[i].style.fontSize = Mathf.RoundToInt(ratio * _customStyles[i].originalSize);
-			_customStyles[i].style.margin = _customStyles[i].originalMargin.Scale(ratio);
-			_customStyles[i].style.padding = _customStyles[i].originalPadding.Scale(ratio);
-		}
-		for (int i = 0; i < _builtinStyles.Count; ++i) {
-			_builtinStyles[i].style.fontSize = Mathf.RoundToInt(ratio * _builtinStyles[i].originalSize);
-			_builtinStyles[i].style.margin = _builtinStyles[i].originalMargin.Scale(ratio);
-			_builtinStyles[i].style.padding = _builtinStyles[i].originalPadding.Scale(ratio);
+		for (int i = 0; i < _styles.Count; ++i) {
+			_styles[i].style.fontSize = Mathf.RoundToInt(ratio * _styles[i].originalSize);
+			_styles[i].style.margin = _styles[i].originalMargin.Scale(ratio);
+			_styles[i].style.padding = _styles[i].originalPadding.Scale(ratio);
 		}
 	}
 		
@@ -53,8 +53,7 @@ public class GUIManager : MonoBehaviour
 		public RectOffset originalPadding;
 	}
 		
-	private List<StyleEntry> _builtinStyles;
-	StyleEntry[] _customStyles;
+	List<StyleEntry> _styles;
 
 	public int VerticalResolution = 500;
 
@@ -80,22 +79,22 @@ public class GUIManager : MonoBehaviour
     void Awake()
 	{
 		StyleEntry.DefaultFontSize = defaultFontSize;
-
+		GUIPie = Material.Instantiate(_GuiPieMaterial) as Material;
 		instance = this;
 		guiSkin = GUISkin.Instantiate(guiSkin) as GUISkin;
-		_customStyles = new StyleEntry[guiSkin.customStyles.Length];
-		for (int i = 0; i < _customStyles.Length; ++i) {
-			_customStyles[i] = new StyleEntry(guiSkin.customStyles[i]);
+		_styles = new List<StyleEntry>();
+		//_customStyles = new StyleEntry[guiSkin.customStyles.Length];
+		for (int i = 0; i < guiSkin.customStyles.Length; ++i) {
+			_styles.Add(new StyleEntry(guiSkin.customStyles[i]));
 		}
-		_builtinStyles = new List<StyleEntry>();
-		_builtinStyles.Add(new StyleEntry(guiSkin.box));
-		_builtinStyles.Add(new StyleEntry(guiSkin.label));
-		_builtinStyles.Add(new StyleEntry(guiSkin.textArea));
-		_builtinStyles.Add(new StyleEntry(guiSkin.textField));
-		_builtinStyles.Add(new StyleEntry(guiSkin.button));
-		_builtinStyles.Add(new StyleEntry(guiSkin.window));
-		_builtinStyles.Add(new StyleEntry(guiSkin.toggle));
-		_builtinStyles.Add(new StyleEntry(guiSkin.scrollView));
+		_styles.Add(new StyleEntry(guiSkin.box));	
+		_styles.Add(new StyleEntry(guiSkin.label));
+		_styles.Add(new StyleEntry(guiSkin.textArea));
+		_styles.Add(new StyleEntry(guiSkin.textField));
+		_styles.Add(new StyleEntry(guiSkin.button));
+		_styles.Add(new StyleEntry(guiSkin.window));
+		_styles.Add(new StyleEntry(guiSkin.toggle));
+		_styles.Add(new StyleEntry(guiSkin.scrollView));
 
 		ResetScreen();
 	}

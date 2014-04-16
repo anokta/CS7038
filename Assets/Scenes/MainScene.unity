@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squareSize: 7
-  Tile: {fileID: 2100000, guid: 049a7d12d7992a64fa4563b4a77289ad, type: 2}
+  _tile: {fileID: 2100000, guid: 049a7d12d7992a64fa4563b4a77289ad, type: 2}
   FunkySun: {fileID: 2100000, guid: d1f9a25615a98d047b4ed6ff087f89cf, type: 2}
 --- !u!1 &357585751
 GameObject:
@@ -2712,6 +2712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultFontSize: 16
+  _GuiPieMaterial: {fileID: 2100000, guid: 3b215657dccf32241879e11d588708df, type: 2}
   VerticalResolution: 500
   guiSkin: {fileID: 11400000, guid: 797a33c8361795e42b4fae147b1e22a7, type: 2}
   screenOffset: {x: .00999999978, y: .00999999978}

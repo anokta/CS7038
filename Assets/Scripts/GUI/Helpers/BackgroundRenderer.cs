@@ -8,9 +8,13 @@ public class BackgroundRenderer : MonoBehaviour
 	SpriteRenderer _renderer;
 
 	public float squareSize = 10;
-
-	public Material Tile;
+	[SerializeField]
+	private Material _tile;
 	public Material FunkySun;
+
+	void Awake() {
+		_tile = Material.Instantiate(_tile) as Material;
+	}
 		
 	// Use this for initialization
 	void Start()
@@ -30,7 +34,7 @@ public class BackgroundRenderer : MonoBehaviour
 		_renderer.material = FunkySun;
 	}
 	void SetTileBackground() {
-		_renderer.material = Tile;
+		_renderer.material = _tile;
 	}
 
 	void ResetSize() {

@@ -5,7 +5,7 @@ using Grouping;
 public class HandController : MonoBehaviour
 {
     //public Material GUInormal;
-    public Material GUIpie;
+	// public Material GUIpie;
     public Texture hand;
     public Texture circle;
     public Texture background;
@@ -182,6 +182,7 @@ public class HandController : MonoBehaviour
     {
         if (Event.current.type.Equals(EventType.Repaint))
         {
+			Material GUIpie = GUIManager.GUIPie;
             Rect drawPos = new Rect(GUIManager.OffsetX(), Screen.height - Screen.height * 0.1f - GUIManager.OffsetY() - Screen.height * 0.1f, Screen.height * 0.2f, Screen.height * 0.2f);
             GUIpie.SetFloat("Value", 1);
             GUIpie.color = new Color(1, 1, 1, 0.6f);

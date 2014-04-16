@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowSize: 1
-  buttonSize: .25
+  buttonSize: .300000012
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,6 +2711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909d23a0ec9b0fc479ad27d2a2fbdafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultFontSize: 16
+  VerticalResolution: 500
   guiSkin: {fileID: 11400000, guid: 797a33c8361795e42b4fae147b1e22a7, type: 2}
   screenOffset: {x: .00999999978, y: .00999999978}
   defaultButtonSize: .125

@@ -6,19 +6,28 @@ using System;
 public class QuitWindow : MonoBehaviour
 {
     public float windowSize = 0.5f;
-    public float buttonSize = 0.2f;
+    public float buttonSize = 0.25f;
+
+	private float _windowSize;
+	private float _buttonSize;
 
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Exiting"].Add(this);
-
-        windowSize *= Screen.height;
-        buttonSize *= Screen.height;
+		ResetSize();
     }
+
+	void ResetSize() {
+		_windowSize = windowSize * Screen.height;
+		_buttonSize = buttonSize * Screen.height;
+	}
 
     void Update()
     {
+		if (GUIManager.ScreenResized) {
+			ResetSize();
+		}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
@@ -29,7 +38,7 @@ public class QuitWindow : MonoBehaviour
     {
             GUI.skin = GUIManager.GetSkin();
 
-            GUI.Window(1, new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 4.0f, windowSize, windowSize / 2.0f), DoMenuWindow, "Quit Game?", GUI.skin.GetStyle("ingame window"));
+		GUI.Window(1, new Rect(Screen.width / 2.0f - _windowSize / 2.0f, Screen.height / 2.0f - _windowSize / 4.0f, _windowSize, _windowSize / 2.0f), DoMenuWindow, "Quit Game?", GUI.skin.GetStyle("ingame window"));
     }
 
     void DoMenuWindow(int windowID)
@@ -45,12 +54,12 @@ public class QuitWindow : MonoBehaviour
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("I won't", GUI.skin.GetStyle("button no"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("I won't", GUI.skin.GetStyle("button no"), GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
         }
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("I will", GUI.skin.GetStyle("button yes"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("I will", GUI.skin.GetStyle("button yes"), GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
         {
             Application.Quit();
         }

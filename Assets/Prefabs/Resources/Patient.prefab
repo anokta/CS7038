@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heart: {fileID: 100000, guid: 2e1a5846949f5f24a91b774652440d5d, type: 2}
+  ashes: {fileID: 100000, guid: 3eac968dec98f50409a89491f8159c65, type: 2}
   GUIpie: {fileID: 2100000, guid: 3b215657dccf32241879e11d588708df, type: 2}
   progressTexture: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
   pieSize: .0399999991

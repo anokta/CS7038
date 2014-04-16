@@ -6,6 +6,9 @@ using Grouping;
 
 public class LevelOverGUI : MonoBehaviour
 {
+	private float _actualWindowSize;
+	private float _actualButtonSize;
+
     public float windowSize = 0.9f;
     public float buttonSize = 0.2f;
 
@@ -131,19 +134,34 @@ public class LevelOverGUI : MonoBehaviour
 		};
     }
 
+	float windowWidth;
+	float windowHeight;
+
+	void ResetSize() {
+		_actualButtonSize = buttonSize * Screen.height;
+		_actualWindowSize = windowSize * Screen.height;
+		windowWidth = _actualWindowSize * 1.3f;
+		windowHeight = _actualWindowSize * 1f;
+		guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
+	}
+
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Level Over"].Add(this);
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, Enter, null));
-
-        buttonSize *= Screen.height;
-        windowSize *= Screen.height;
-        guiWindow = new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize);
+		ResetSize();
     }
+
+	void OnEnable() {
+		//	ResetSize();
+	}
 
     void Update()
     {
+		if (GUIManager.ScreenResized) {
+			ResetSize();
+		}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!GameWorld.success)
@@ -184,7 +202,7 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         // Restart
-        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
         {
             LevelManager.Instance.Level--;
 
@@ -194,7 +212,7 @@ public class LevelOverGUI : MonoBehaviour
         // Next Level
         if (GameWorld.success)
         {
-            if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+			if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
             {
                 FadeToLevelStart();
             }
@@ -208,7 +226,7 @@ public class LevelOverGUI : MonoBehaviour
         // Go Back To Menu
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
         {
             if (!GameWorld.success)
                 LevelManager.Instance.Level--;
@@ -225,6 +243,7 @@ public class LevelOverGUI : MonoBehaviour
 
     void Enter()
     {
+		ResetSize();
         var overTitles = overTitleSet[GameWorld.levelOverReason];
         var overMessages = overMessageSet[GameWorld.levelOverReason];
 

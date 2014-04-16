@@ -33,18 +33,21 @@ public class BackgroundRenderer : MonoBehaviour
 		_renderer.material = Tile;
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		//FIXME: Optimize
+	void ResetSize() {
 		transform.localPosition = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
 		transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 1);
 		transform.localScale = Camera.main.ScreenToWorldLength(new Vector3(Screen.width, Screen.height, 0));
 		float repY = transform.localScale.y / transform.localScale.x * squareSize;
 		_renderer.material.SetFloat("RepeatX", squareSize);
 		_renderer.material.SetFloat("RepeatY", repY);
-		//_renderer.material.SetFloat("Radius", 0.01f * (repY / squareSize));
-		//transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		if (GUIManager.CameraChanged || GUIManager.ScreenResized) {
+			ResetSize();
+		}
 	}
 }
 

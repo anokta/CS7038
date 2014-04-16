@@ -9,6 +9,7 @@ public class LevelSelector : MonoBehaviour, IPan
     public int columnCount = 4;
     public int rowCount = 3;
 
+	private float _originalButtonSize;
     public float buttonSize = 0.2f;
 
     public Texture checkTexture, lockTexture;
@@ -62,13 +63,18 @@ public class LevelSelector : MonoBehaviour, IPan
 
     #endregion
 
+	void ResetSize() {
+		buttonSize = _originalButtonSize * Screen.height;
+	}
+
     void Start()
     {
 
         GroupManager.main.group["Level Select"].Add(this);
+		GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, ResetSize, null));
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, FadeBackToLevelSelection, null));
-
-        buttonSize *= Screen.height;
+		_originalButtonSize = buttonSize;
+		ResetSize();
 
         currentX = 0;
         targetX = 0;
@@ -90,6 +96,10 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void Update()
     {
+		if (GUIManager.ScreenResized) {
+			ResetSize();
+		}
+
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
             targetScroll = MainMenu.ScreenScrollValue;

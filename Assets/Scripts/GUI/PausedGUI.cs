@@ -9,18 +9,23 @@ public class PausedGUI : MonoBehaviour
     public float windowSize = 0.6f;
     public float buttonSize = 0.2f;
 
+	private float _actualWindowSize;
+	private float _actualButtonSize;
+
     float guiCurrentScale, guiTargetScale;
 
     Action action;
+
+	void ResetSize() {
+		_actualWindowSize = windowSize * Screen.height;
+		_actualButtonSize = buttonSize * Screen.height;
+	}
 
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Paused"].Add(this);
-        GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, Enter, null));
-
-        windowSize *= Screen.height;
-        buttonSize *= Screen.height;
+        GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, Enter, null));        
 
         guiCurrentScale = 0.0f;
         guiTargetScale = 0.0f;
@@ -28,6 +33,10 @@ public class PausedGUI : MonoBehaviour
 
     void Update()
     {
+		if (GUIManager.ScreenResized) {
+			ResetSize();
+		}
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             AudioManager.PlaySFX("Level Swipe Reversed");
@@ -59,7 +68,7 @@ public class PausedGUI : MonoBehaviour
 
             GUI.skin = GUIManager.GetSkin();
 
-            GUI.Window(1, new Rect(Screen.width / 2.0f - windowSize / 2.0f, Screen.height / 2.0f - windowSize / 2.0f, windowSize, windowSize), DoMenuWindow, "PAUSED", GUI.skin.GetStyle("ingame window"));
+			GUI.Window(1, new Rect(Screen.width / 2.0f - _actualWindowSize / 2.0f, Screen.height / 2.0f - _actualWindowSize / 2.0f, _actualWindowSize, _actualWindowSize), DoMenuWindow, "PAUSED", GUI.skin.GetStyle("ingame window"));
         }
     }
 
@@ -81,7 +90,7 @@ public class PausedGUI : MonoBehaviour
         //TODO: Temporary hack, fix
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart ingame"), GUILayout.Width(buttonSize), GUILayout.Height(buttonSize)))
+		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart ingame"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
         {
             RestartLevel();
         }
@@ -93,13 +102,13 @@ public class PausedGUI : MonoBehaviour
         // Options
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
         {
             FadeToMainMenu();
         }
         GUILayout.FlexibleSpace();
         string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
@@ -112,7 +121,7 @@ public class PausedGUI : MonoBehaviour
         // Go Back
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(buttonSize / 2.0f), GUILayout.Height(buttonSize / 2.0f)))
+		if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
         {
             AudioManager.PlaySFX("Level Swipe Reversed");
 
@@ -170,5 +179,6 @@ public class PausedGUI : MonoBehaviour
     {
         guiTargetScale = 1.0f;
         action = null;
+		ResetSize();
     }
 }

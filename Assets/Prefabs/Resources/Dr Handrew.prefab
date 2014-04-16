@@ -67,7 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635ceaf9bf8f3534bbb14bbd08c7ccd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 1}
+  ashes: {fileID: 100000, guid: 3eac968dec98f50409a89491f8159c65, type: 2}
+  movement: {x: -1, y: 0}
   playerMoving: 0
 --- !u!114 &11400002
 MonoBehaviour:

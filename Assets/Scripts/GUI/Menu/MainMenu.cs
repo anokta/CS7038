@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
         AudioMenu.OnNextBeat += OnNextBeat;
 
         logoRatio = logoTexture.width / logoTexture.height;
-        logoTargetSize = 0.2f;
+		logoTargetSize = minLogoSize;
         logoSize =  logoTargetSize;
     }
 
@@ -148,8 +148,13 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+	[SerializeField]
+	float minLogoSize = 0.212f;
+	[SerializeField]
+	float maxLogoSize = 0.204f;
+
     void OnNextBeat(int beatCount)
     {
-        logoTargetSize = (beatCount % 2 == 1) ? 0.212f : 0.204f;
+		logoTargetSize = (beatCount % 2 == 1) ? minLogoSize : maxLogoSize;
     }
 }

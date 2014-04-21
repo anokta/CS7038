@@ -24,8 +24,8 @@ public class GUIManager : MonoBehaviour
 		float ratio = (float)Screen.height / VerticalResolution;
 		for (int i = 0; i < _styles.Count; ++i) {
 			_styles[i].style.fontSize = Mathf.RoundToInt(ratio * _styles[i].originalSize);
-			_styles[i].style.margin = _styles[i].originalMargin.Scale(ratio);
-			_styles[i].style.padding = _styles[i].originalPadding.Scale(ratio);
+			_styles[i].style.margin.ScaleBy(_styles[i].originalMargin, ratio);// = _styles[i].originalMargin.Scale(ratio);
+			_styles[i].style.padding.ScaleBy(_styles[i].originalPadding, ratio);
 		}
 	}
 		

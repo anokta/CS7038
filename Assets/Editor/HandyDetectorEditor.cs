@@ -27,6 +27,9 @@ public class HandyDetectorEditor : Editor
 	public override void OnInspectorGUI()
 	{
 		var detTarget = (HandyDetector)target;
+
+		detTarget.DisableCasting = EditorGUILayout.ToggleLeft("Disable casting", detTarget.DisableCasting);
+
 		detTarget.longTime = EditorGUILayout.FloatField(
 			"Tap Threshold", detTarget.longTime);
 		if (detTarget.longTime < 0) {

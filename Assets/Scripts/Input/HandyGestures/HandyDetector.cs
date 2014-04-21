@@ -46,7 +46,7 @@ public class HandyDetector : MonoBehaviour
     #endregion
 
     #region settings
-
+	public bool DisableCasting;
 	public CollisionMode CastMode;
 	public CollisionMethodType CollisionMethod;
 	public CollisionMethodType2D CollisionMethod2D;
@@ -531,58 +531,62 @@ public class HandyDetector : MonoBehaviour
 	List<Transform> GetAllObjects2D(Vector2 pos)
 	{
 		//var results = Physics2D.RaycastAll(pos, -Vector2.up, castDistance, layerMask);
+		_resList.Clear();
 		var results = _function2D(pos, layerMask, minDepth, maxDepth);
 		if (results == null) {
-			return _empty;
+			return _resList;
 		}
-		var list = new List<Transform>();
 		if (interceptor != null) {
-			list.Add(interceptor.transform);
+			_resList.Add(interceptor.transform);
 		}
-		list.AddRange(
-            from _ in results
-               where (interceptor == null || _.transform != interceptor.transform)
-			&& (defaultObject == null || _.transform != defaultObject.transform)
-               orderby _.transform.position.z
-               select _.transform);
+		if (!DisableCasting) {
+			_resList.AddRange(
+				from _ in results
+				where (interceptor == null || _.transform != interceptor.transform)
+				    && (defaultObject == null || _.transform != defaultObject.transform)
+				orderby _.transform.position.z
+				select _.transform);
+		}
 		//results.Where(_ => _.transform != interceptor && _.transform != defaultObject)
 		//   .OrderBy(_ => _.transform.position.z).Select(_ => _.transform));
 		if (defaultObject != null) {
-			list.Add(defaultObject.transform);
+			_resList.Add(defaultObject.transform);
 		}
-		return list;
+		return _resList;
 	}
-
-	readonly List<Transform> _empty = new List<Transform>();
 
 	static bool IsEnabled(Behaviour b)
 	{
 		return b != null && (b.enabled || b.GetType().IsDefined(typeof(PersistentGestureAttribute), false));
 	}
 
+	List<Transform> _resList = new List<Transform>();
+
 	List<Transform> GetAllObjects3D(Vector3 pos)
 	{
 		//var results = Physics2D.RaycastAll(pos, -Vector2.up, castDistance, layerMask);
+		_resList.Clear();
 		var results = _function(pos, castDistance, layerMask);
 		if (results == null) {
-			return _empty;
+			return _resList;
 		}
-		var list = new List<Transform>();
 		if (interceptor != null) {
-			list.Add(interceptor.transform);
+			_resList.Add(interceptor.transform);
 		}
-		list.AddRange(
-            from _ in results
-			where (interceptor == null || _.transform != interceptor.transform)
-			&& (defaultObject == null || _.transform != defaultObject.transform)
-               orderby _.distance
-               select _.transform);
+		if (!DisableCasting) {
+			_resList.AddRange(
+				from _ in results
+				        where (interceptor == null || _.transform != interceptor.transform)
+				            && (defaultObject == null || _.transform != defaultObject.transform)
+				        orderby _.distance
+				        select _.transform);
+		}
 		//   results.Where(_ => _.transform != interceptor && _.transform != defaultObject)
 		// .OrderBy(_ => _.distance).Select(_ => _.transform));
 		if (defaultObject != null) {
-			list.Add(defaultObject.transform);
+			_resList.Add(defaultObject.transform);
 		}
-		return list;
+		return _resList;
 	}
 
 	RaycastHit[] CustomResults(Vector3 position, float distance, int mask)

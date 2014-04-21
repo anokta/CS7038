@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a458310b4a5a17479e18f2886473e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisableCasting: 1
   CastMode: 1
   CollisionMethod: 0
   CollisionMethod2D: 0
@@ -1493,7 +1494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuBackground: {fileID: 2800000, guid: 989b7a2d5f05b3c4fbd3cc0fc281d556, type: 3}
-  logoTexture: {fileID: 2800000, guid: ea39d0cc39a57a94a80fb11c3107a3f7, type: 3}
+  logoTexture: {fileID: 2800000, guid: a4f6063779271f941ab9885214aabf5a, type: 3}
   minLogoSize: .349999994
   maxLogoSize: .360000014
 --- !u!4 &1093820746

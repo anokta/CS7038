@@ -6,7 +6,7 @@ public class Heart : MonoBehaviour
 	Timer rotator;
 	Timer fader;
 	float _swap = 1;
-	SpriteRenderer renderer;
+	SpriteRenderer spriteRenderer;
     
     // Use this for initialization
 	void Start()
@@ -17,7 +17,7 @@ public class Heart : MonoBehaviour
 		rotator.repeating = true;
 		fader = new Timer(3.0f, Dispose);
 		fader.Resume();
-		renderer = GetComponent<SpriteRenderer>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	void Dispose() {
@@ -39,7 +39,7 @@ public class Heart : MonoBehaviour
 		angle = _swap * ratio * 30;
 
 		transform.localEulerAngles = new Vector3(0, 0, angle);
-		renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 1 - fader.progress);
+		spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - fader.progress);
 		//renderer.s
 	}
 }

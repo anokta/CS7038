@@ -9,7 +9,8 @@ public class LevelOverGUI : MonoBehaviour
 	private float _actualWindowSize;
 	private float _actualButtonSize;
 
-    public float windowSize = 0.9f;
+	public float windowSize = 0.55f;
+	public float widthRatio = 2.1f;
     public float buttonSize = 0.2f;
 
 	private static System.Random _rnd;
@@ -140,8 +141,8 @@ public class LevelOverGUI : MonoBehaviour
 	void ResetSize() {
 		_actualButtonSize = buttonSize * Screen.height;
 		_actualWindowSize = windowSize * Screen.height;
-		windowWidth = _actualWindowSize * 1.3f;
-		windowHeight = _actualWindowSize * 1f;
+		windowHeight = _actualWindowSize;
+		windowWidth = windowHeight * widthRatio;
 		guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
 	}
 
@@ -177,7 +178,7 @@ public class LevelOverGUI : MonoBehaviour
                 FadeToLevelStart();
             }
             else{
-                FadeToLevelStart();
+				FadeToLevelStart(); 
             }
         }
     }
@@ -187,15 +188,69 @@ public class LevelOverGUI : MonoBehaviour
     {
         GUI.skin = GUIManager.GetSkin();
 
-        GUI.Window(2, guiWindow, DoGameOverWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
+		var style = GUI.skin.GetStyle("over title");
+		float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth);
+		var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
+
+		var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
+		float backSize = _actualButtonSize / 2.0f;
+
+
+		var backRec = new Rect((rect.xMax - backSize*0.75f), (rect.y - backSize * 0.25f), backSize, backSize);
+		GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
+		GUI.BringWindowToFront(2);
     }
+
+	void DoWindow(int windowID) {
+
+		GUILayout.Label(overTitle, GUI.skin.GetStyle("over title"));
+
+		GUILayout.BeginVertical();
+		//GUILayout.FlexibleSpace();
+		GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
+		GUILayout.FlexibleSpace();
+		GUILayout.BeginHorizontal(); 
+		GUILayout.FlexibleSpace();
+		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+		{
+			LevelManager.Instance.Level--;
+
+			FadeToLevelStart();
+		}
+		GUILayout.FlexibleSpace();
+		if (GameWorld.success)
+		{
+			if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+			{
+				FadeToLevelStart();
+			}
+
+			GUILayout.FlexibleSpace();
+		}
+		GUILayout.EndHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.EndVertical();
+		//GUILayout.FlexibleSpace();
+
+		//GUILayout.BeginHorizontal();
+		//GUILayout.FlexibleSpace();
+	}
+
+	void DoMenuButtonWindow(int windowID) {
+		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
+			if (!GameWorld.success) {
+				LevelManager.Instance.Level--;
+			}
+			FadeToMainMenu();
+		}
+	}
 
     void DoGameOverWindow(int windowID)
     {
         // Info
         GUILayout.BeginVertical();
         GUILayout.Label(overTitle, GUI.skin.GetStyle("over title"));
-        GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
+		//GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
 
         GUILayout.FlexibleSpace();
 
@@ -226,13 +281,7 @@ public class LevelOverGUI : MonoBehaviour
         // Go Back To Menu
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
-        {
-            if (!GameWorld.success)
-                LevelManager.Instance.Level--;
 
-            FadeToMainMenu();
-        }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 

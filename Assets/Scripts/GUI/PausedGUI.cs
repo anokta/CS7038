@@ -68,72 +68,78 @@ public class PausedGUI : MonoBehaviour
 
             GUI.skin = GUIManager.GetSkin();
 
-			GUI.Window(1, new Rect(Screen.width / 2.0f - _actualWindowSize / 2.0f, Screen.height / 2.0f - _actualWindowSize / 2.0f, _actualWindowSize, _actualWindowSize), DoMenuWindow, "PAUSED", GUI.skin.GetStyle("ingame window"));
+			var rect = GUI.Window(1, new Rect(Screen.width / 2.0f - _actualWindowSize / 2.0f, Screen.height / 2.0f - (_actualWindowSize* 0.7f) / 2.0f, _actualWindowSize, _actualWindowSize * 0.7f), DoMenuWindow, "", GUI.skin.GetStyle("ingame window"));
+			//var butRec = new Rect(rect.x - _actualButtonSize * 0.75f, (Screen.height - _actualButtonSize / 2) / 2, _actualButtonSize / 2, _actualButtonSize / 2);
+			float backSize = _actualButtonSize / 2;
+			//var butRec = new Rect((rect.xMax - backSize/2), (rect.y - backSize/2), backSize, backSize);
+			var backRec = new Rect((rect.xMax - backSize*0.75f), (rect.y - backSize * 0.25f), backSize, backSize);
+			GUI.Window(2, backRec, DoBackButton, "", GUIStyle.none);
+			//GUI.FocusWindow(2);
+			GUI.BringWindowToFront(2);
         }
     }
+
+	void DoBackButton(int windowID) {
+		if (GUILayout.Button("Back", GUI.skin.GetStyle("xbutton")) )
+		{
+			AudioManager.PlaySFX("Level Swipe Reversed");
+
+			guiTargetScale = 0.0f;
+			action = ResumeGame;
+		}
+	}
 
     void DoMenuWindow(int windowID)
     {
         if (guiCurrentScale != guiTargetScale)
             return;
+		GUILayout.BeginVertical();
+		GUILayout.Label("Paused", GUI.skin.GetStyle("over title"));
+        
+		//GUILayout.FlexibleSpace();
+		GUILayout.Label("Level " + (LevelManager.Instance.Level + 1), GUI.skin.GetStyle("level label"));
 
-        GUILayout.BeginVertical();
-
-        GUILayout.FlexibleSpace();
-        GUILayout.FlexibleSpace();
-
-        GUILayout.Label("Level " + (LevelManager.Instance.Level + 1), GUI.skin.GetStyle("level label"));
-
-        GUILayout.FlexibleSpace();
-
-        // Mute
-        //TODO: Temporary hack, fix
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart ingame"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
-        {
-            RestartLevel();
-        }
-        GUILayout.FlexibleSpace();
+		GUILayout.BeginHorizontal(); {
+			GUILayout.FlexibleSpace();
+			//Volume controls
+			GUILayout.BeginVertical();
+			{
+				GUILayout.FlexibleSpace();
+				string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+				if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
+					AudioListener.volume = 1 - AudioListener.volume;
+					PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
+				}
+				GUILayout.FlexibleSpace();
+			}
+			GUILayout.EndVertical();
+			GUILayout.FlexibleSpace();
+			//Restart
+			GUILayout.BeginVertical(); {
+				GUILayout.FlexibleSpace();
+				if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart ingame"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
+					RestartLevel();
+				}
+				GUILayout.FlexibleSpace();
+			} GUILayout.EndVertical();
+			GUILayout.FlexibleSpace();
+			// Menu
+			GUILayout.BeginVertical();
+			{
+				GUILayout.FlexibleSpace();
+				if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
+					FadeToMainMenu();
+				}
+				GUILayout.FlexibleSpace();
+			}
+			GUILayout.EndVertical();
+			GUILayout.FlexibleSpace();
+		}
         GUILayout.EndHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.EndVertical();
 
-        GUILayout.FlexibleSpace();
 
-        // Options
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
-        {
-            FadeToMainMenu();
-        }
-        GUILayout.FlexibleSpace();
-        string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-		if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
-        {
-            AudioListener.volume = 1 - AudioListener.volume;
-            PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
-        }
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-
-        GUILayout.FlexibleSpace();
-
-        // Go Back
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Back", GUI.skin.GetStyle("back"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
-        {
-            AudioManager.PlaySFX("Level Swipe Reversed");
-
-            guiTargetScale = 0.0f;
-            action = ResumeGame;
-        }
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-
-        GUILayout.FlexibleSpace();
-
-        GUILayout.EndVertical();
     }
 
     void FadeToMainMenu()

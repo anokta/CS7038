@@ -90,7 +90,7 @@ public class LevelOverGUI : MonoBehaviour
         };
         overMessageSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
         {
-			"Your organs have been vaporized by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
+			"Your organs have been disintegrated by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
 			"\"Step into the light\" is not always meant to be taken literally.",
 			"Lasers can be just as lethal as they can be handy.",
 			"Where did you go? Oh. I see."
@@ -104,7 +104,7 @@ public class LevelOverGUI : MonoBehaviour
         };
         overMessageSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
         {
-			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you shouldn't vaporize your patients.",
+			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you shouldn't disintegrate your patients.",
 			"Where did he go? Oh. I see.",
 			"Lasers can be just as lethal as they can be handy.",
 			"Your M.D. status has been revoked."

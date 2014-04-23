@@ -28,7 +28,7 @@ Material:
       data:
         first:
           name: RepeatY
-        second: 5.38930368
+        second: 1
       data:
         first:
           name: Value
@@ -48,7 +48,7 @@ Material:
       data:
         first:
           name: PivotY
-        second: .400000006
+        second: .395000011
       data:
         first:
           name: Radius

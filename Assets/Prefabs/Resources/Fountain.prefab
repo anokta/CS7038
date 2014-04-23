@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6244dbbaffd5b94bbd4dabc8187f790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIpie: {fileID: 2100000, guid: 7601dfbd846c41c4e8870822a567fd7e, type: 2}
   progressTexture: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
   pieSize: .0399999991
 --- !u!198 &19800000
@@ -272,7 +271,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4294955257
       minMaxState: 0
     startSize:
       scalar: .300000012

@@ -144,6 +144,8 @@ public class PausedGUI : MonoBehaviour
 
     void FadeToMainMenu()
     {
+
+		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
             LevelManager.Instance.Level--;

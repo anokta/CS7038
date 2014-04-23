@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using Grouping;
+using System.Collections.Generic;
 
 public class ScreenFader : MonoBehaviour {
     
@@ -23,6 +24,12 @@ public class ScreenFader : MonoBehaviour {
         fading = false;
         progress = 0.0f;
 	}
+
+	private static Queue<System.Action> _actions = new Queue<System.Action>();
+
+	public static void QueueEvent(System.Action action) {
+		_actions.Enqueue(action);
+	}
 	
 
 	void Update () {
@@ -31,6 +38,10 @@ public class ScreenFader : MonoBehaviour {
             progress += speed;
             if (progress >= 1.0f)
             {
+				foreach (var action in _actions) {
+					action();
+				}
+				_actions.Clear();
                 fading = false;
 
                 FadeComplete();

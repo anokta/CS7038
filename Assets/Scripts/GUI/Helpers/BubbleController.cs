@@ -9,6 +9,8 @@ public class BubbleController : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+
+		return;
 		GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, InstantiateBubbles, null));
 		GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, InstantiateBubbles, null));
 		GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, DestroyBubbles, null));

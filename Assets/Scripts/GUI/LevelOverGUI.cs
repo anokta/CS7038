@@ -93,7 +93,8 @@ public class LevelOverGUI : MonoBehaviour
 			"Your organs have been disintegrated by the Death Ray. But do not worry, they will be restored thanks to our advanced cloning technology.",
 			"\"Step into the light\" is not always meant to be taken literally.",
 			"Lasers can be just as lethal as they can be handy.",
-			"Where did you go? Oh. I see."
+			"Where did you go? Oh. I see.",
+			"In times like this, you must learn to pick up the pieces and move on."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
@@ -118,7 +119,8 @@ public class LevelOverGUI : MonoBehaviour
         overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPlayer] = new[]
         {
 			"Where did you go? Oh. I see.",
-			"You just blew it."
+			"You just blew it.",
+			"In times like this, you must learn to pick up the pieces and move on."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
@@ -310,6 +312,7 @@ public class LevelOverGUI : MonoBehaviour
 
     void FadeToMainMenu()
     {
+		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
             // Clear resources
@@ -317,6 +320,7 @@ public class LevelOverGUI : MonoBehaviour
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
+				
                 GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
 
                 AudioManager.PlaySFX("Menu Next");

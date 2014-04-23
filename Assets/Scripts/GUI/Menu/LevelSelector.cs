@@ -198,6 +198,8 @@ public class LevelSelector : MonoBehaviour, IPan
                         {
                             LevelManager.Instance.Level = level - 1;
 
+							ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
+
                             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
                             {
                                 GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
@@ -248,22 +250,23 @@ public class LevelSelector : MonoBehaviour, IPan
     void ShowIntro()
     {
         DialogueManager.CurrentDialogue = -1;
-
-        if (LevelManager.Instance.Level != -1)
+		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
+		  if (LevelManager.Instance.Level != -1)
         {
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
             });
         }
-        else
-        {
-            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
-        }
+		else
+		{
+		      GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+		}
     }
 
     void FadeBackToLevelSelection()
     {
+		//Disclaimer: This is Alper's code. Shame on him.
         if (LevelManager.Instance.Level != -1)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
@@ -276,6 +279,7 @@ public class LevelSelector : MonoBehaviour, IPan
                         {
                             DialogueManager.DialogueComplete = delegate()
                             {
+								ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
                                 ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
                                 {
                                     ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()

@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
         logoSize =  logoTargetSize;
     }
 
-    void Update()
+	void Update()	
     {
         // TODO: Remove before release
         if (Input.GetKeyDown(KeyCode.O))
@@ -140,6 +140,8 @@ public class MainMenu : MonoBehaviour
         // Start the level
         if (LevelManager.Instance.Level == -1)
         {
+
+			ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
             GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
         }
         else

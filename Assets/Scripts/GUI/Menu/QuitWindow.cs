@@ -38,17 +38,17 @@ public class QuitWindow : MonoBehaviour
     {
             GUI.skin = GUIManager.GetSkin();
 
-		GUI.Window(1, new Rect(Screen.width / 2.0f - _windowSize / 2.0f, Screen.height / 2.0f - _windowSize / 4.0f, _windowSize, _windowSize / 2.0f), DoMenuWindow, "Quit Game?", GUI.skin.GetStyle("ingame window"));
+		GUI.Window(1, new Rect((Screen.width- _windowSize) * 0.5f, (Screen.height - _windowSize * 0.55f) * 0.5f, _windowSize, _windowSize * 0.55f), DoMenuWindow, "", GUI.skin.GetStyle("ingame window"));
     }
 
     void DoMenuWindow(int windowID)
     {
         GUILayout.BeginVertical();
+		GUILayout.Label("So, you want to quit.", GUI.skin.GetStyle("over title"));
+		//  GUILayout.FlexibleSpace();
+		//  GUILayout.FlexibleSpace();
 
-        GUILayout.FlexibleSpace();
-        GUILayout.FlexibleSpace();
-
-        GUILayout.FlexibleSpace();
+		//  GUILayout.FlexibleSpace();
         GUILayout.Label("Make sure you clean your hands after playing this game!", GUI.skin.GetStyle("over message"));
         GUILayout.FlexibleSpace();
 

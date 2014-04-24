@@ -3,7 +3,10 @@ using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
-    public enum LevelOverReason { Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient }
+    public enum LevelOverReason {
+		Squashed,
+
+ Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient }
     public static LevelOverReason levelOverReason;
 
     public static bool success

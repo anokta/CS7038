@@ -235,11 +235,11 @@ public class LevelSelector : MonoBehaviour, IPan
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
-        if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "<-", GUI.skin.GetStyle("over message")))
+		if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25C0'.ToString(), GUI.skin.GetStyle("over message")))
         {
             ToPreviousPage();
         }
-        if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), "->", GUI.skin.GetStyle("over message")))
+		if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25B6'.ToString(), GUI.skin.GetStyle("over message")))
         {
             ToNextPage();
         }
@@ -262,7 +262,7 @@ public class LevelSelector : MonoBehaviour, IPan
 		{
 		      GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
 		}
-    }
+	}
 
     void FadeBackToLevelSelection()
     {

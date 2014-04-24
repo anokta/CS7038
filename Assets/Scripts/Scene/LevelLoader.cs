@@ -134,6 +134,9 @@ public class LevelLoader
 
         var leverGateManager = new LeverGateManager();
 
+		//Initialized with a seed, so that every time the randomizer produces the same level
+		var random = new System.Random(0);
+
         foreach (var layer in map.Layers)
         {
             var tiles = layer.Tiles;
@@ -153,6 +156,9 @@ public class LevelLoader
                 var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
                 var transform = gameObj.transform;
                 GameObject parent;
+
+				//Calling this adds some variety between levels, but ensures the same level will always look the same
+				random.NextDouble();
 
                 switch (tileType)
                 {
@@ -277,10 +283,17 @@ public class LevelLoader
                     case TileType.Wall:
                         parent = wallContainer;
 						transform.GetComponent<SpriteRenderer>().sortingOrder = PlaceWall(transform.position.y);
-                        break;
+						break;
                     case TileType.Floor:
                         parent = floorContainer;
 						transform.GetComponent<SpriteRenderer>().sortingOrder = FloorOrder;
+						var blenderer = gameObj.renderer as SpriteRenderer;
+						float brighter = ((float)random.NextDouble() - 0.5f) * 0.02f;
+						blenderer.color = new Color(
+							blenderer.color.r + (float)(random.NextDouble()*0) + brighter,
+							blenderer.color.g + (float)(random.NextDouble()*0.01f) + brighter,
+							blenderer.color.b + (float)(random.NextDouble()*0.015f) + brighter,
+							blenderer.color.a);
                         break;
                     default:
                         throw new Exception("Impossible");

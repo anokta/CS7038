@@ -14,10 +14,24 @@ public class BackgroundRenderer : MonoBehaviour
 
 	public static BackgroundRenderer instance { get; private set; }
 
+	float targetSunValue;
+	float sunValue;
+
+
+	void OnNextBeat(int beatCount) {
+		targetSunValue = (beatCount % 2 == 1) ? minSunValue : maxSunValue;
+	}
+
+	public float minSunValue= 0.9f;
+	public float maxSunValue= 1.1f;
+
 	void Awake() {
 		instance = this;
 		_tile = Material.Instantiate(_tile) as Material;
 		FunkySun = Material.Instantiate(FunkySun) as Material;
+		targetSunValue = sunValue = minSunValue;
+		renderer.material.SetFloat("Value", 0.8f);
+		AudioMenu.OnNextBeat += OnNextBeat;
 	}
 
 	bool sun = false;
@@ -84,6 +98,14 @@ public class BackgroundRenderer : MonoBehaviour
 			t = t % 360f;
 			_renderer.material.SetFloat("AxisX", Mathf.Cos(t));
 			_renderer.material.SetFloat("AxisY", Mathf.Sin(t));
+
+			float repY = transform.localScale.y / transform.localScale.x * squareSize;
+			_renderer.material.SetFloat("Radius", ( transform.localScale.y / transform.localScale.x) * SunRadius * sunValue);
+			//if (targetSunValue != sunValue)
+			//{
+				sunValue = Mathf.Lerp(sunValue, targetSunValue, 4.0f * Time.deltaTime);
+			//}
+			//renderer.material.SetFloat("Value", sunValue);
 		}
 	}
 }

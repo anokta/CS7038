@@ -392,10 +392,17 @@ public class PlayerController : MonoBehaviour, IPan
     {
         IsAlive = false;
 		this.collider2D.enabled = false;
-        animator.SetTrigger("Die");
-
-		Entity.Replace(this.gameObject, ashes);
-
+       
+		if (reason == GameWorld.LevelOverReason.Squashed) {
+			animator.enabled = false;
+			transform.localScale = new Vector3(
+				transform.localScale.x*0.1f,
+				transform.localScale.y,
+				transform.localScale.z);
+		} else {
+			animator.SetTrigger("Die");
+			Entity.Replace(this.gameObject, ashes);
+		}
         GameWorld.levelOverReason = reason;
     }
 }

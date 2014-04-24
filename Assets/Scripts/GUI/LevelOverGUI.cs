@@ -82,6 +82,13 @@ public class LevelOverGUI : MonoBehaviour
 			"Soap and water are your friends. Don't forget your friends."
 		};
 
+		overTitleSet[GameWorld.LevelOverReason.Squashed] = new[] {
+			"Squashed!",
+		};
+		overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
+			""
+		};
+
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
         {
             "Hand on a minute.",
@@ -198,7 +205,7 @@ public class LevelOverGUI : MonoBehaviour
 		float backSize = _actualButtonSize / 2.0f;
 
 
-		var backRec = new Rect((rect.xMax - backSize*0.75f), (rect.y - backSize * 0.25f), backSize, backSize);
+				var backRec = new Rect((rect.xMin - backSize*0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
 		GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
 		GUI.BringWindowToFront(2);
     }

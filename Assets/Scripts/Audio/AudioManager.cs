@@ -17,7 +17,8 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         GroupManager.main.group["Level Start"].Add(this, new GroupDelegator(null, LevelStart, null));
-        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, StopAllSfx));
+        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, UnmuteSfx, MuteSfx));
+        GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
     }
 
     public static void PlaySFX(string type)
@@ -167,6 +168,7 @@ public class AudioManager : MonoBehaviour
 
             case "Heartbeat":
                 heartbeatSfx.Stop();
+                heartbeatSfx.pitch = 1.25f;
                 break;
         }
     }
@@ -183,11 +185,32 @@ public class AudioManager : MonoBehaviour
         heartbeatSfx.pitch = 1.25f;
     }
 
+    void LevelOver()
+    {
+        StopAllSfx();
+    }
+
     void StopAllSfx()
     {
         trolleyLoopSfx.Stop();
         fountainLoopSfx.Stop();
         treatingSfx.Stop();
         heartbeatSfx.Stop();
+    }
+
+    void MuteSfx()
+    {
+        trolleyLoopSfx.mute = true;
+        fountainLoopSfx.mute = true;
+        treatingSfx.mute = true;
+        heartbeatSfx.mute = true;
+    }
+
+    void UnmuteSfx()
+    {
+        trolleyLoopSfx.mute = false;
+        fountainLoopSfx.mute = false;
+        treatingSfx.mute = false;
+        heartbeatSfx.mute = false;
     }
 }

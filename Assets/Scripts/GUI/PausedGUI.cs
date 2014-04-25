@@ -101,18 +101,17 @@ public class PausedGUI : MonoBehaviour
 
 		GUILayout.BeginHorizontal(); {
 			GUILayout.FlexibleSpace();
-			//Volume controls
-			GUILayout.BeginVertical();
-			{
-				GUILayout.FlexibleSpace();
-				string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-				if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
-					AudioListener.volume = 1 - AudioListener.volume;
-					PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
-				}
-				GUILayout.FlexibleSpace();
-			}
-			GUILayout.EndVertical();
+            // Menu
+            GUILayout.BeginVertical();
+            {
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
+                {
+                    FadeToMainMenu();
+                }
+                GUILayout.FlexibleSpace();
+            }
+            GUILayout.EndVertical();
 			GUILayout.FlexibleSpace();
 			//Restart
 			GUILayout.BeginVertical(); {
@@ -123,16 +122,19 @@ public class PausedGUI : MonoBehaviour
 				GUILayout.FlexibleSpace();
 			} GUILayout.EndVertical();
 			GUILayout.FlexibleSpace();
-			// Menu
-			GUILayout.BeginVertical();
-			{
-				GUILayout.FlexibleSpace();
-				if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
-					FadeToMainMenu();
-				}
-				GUILayout.FlexibleSpace();
-			}
-			GUILayout.EndVertical();
+            //Volume controls
+            GUILayout.BeginVertical();
+            {
+                GUILayout.FlexibleSpace();
+                string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+                if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
+                {
+                    AudioListener.volume = 1 - AudioListener.volume;
+                    PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
+                }
+                GUILayout.FlexibleSpace();
+            }
+            GUILayout.EndVertical();
 			GUILayout.FlexibleSpace();
 		}
         GUILayout.EndHorizontal();

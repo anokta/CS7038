@@ -42,6 +42,30 @@ public static class VectorExtensions
 	{
 		return new Vector3(x, vec.x, vec.y);
 	}
+
+	public static Vector3 xTo(this Vector3 vec, float x) {
+		return new Vector3(x, vec.y, vec.z);
+	}
+
+	public static Vector3 yTo(this Vector3 vec, float y) {
+		return new Vector3(vec.x, y, vec.z);
+	}
+
+	public static Vector3 zTo(this Vector3 vec, float z) {
+		return new Vector3(vec.x, vec.y, z);
+	}
+
+	public static Vector3 xyTo(this Vector3 vec, float x, float y) {
+		return new Vector3(x, y, vec.z);
+	}
+
+	public static Vector3 xzTo(this Vector3 vec, float x, float z) {
+		return new Vector3(x, vec.y, z);
+	}
+
+	public static Vector3 yzTo(this Vector3 vec, float y, float z) {
+		return new Vector3(vec.x, y, z);
+	}
 	
 	//UNDONE: Related Vector4 extension methods
 }

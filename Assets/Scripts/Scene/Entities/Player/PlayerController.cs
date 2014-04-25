@@ -5,409 +5,368 @@ using Grouping;
 
 public class PlayerController : MonoBehaviour, IPan
 {
-    private Transform player;
-    private SpriteRenderer spriteRenderer;
+	private Transform player;
+	private SpriteRenderer spriteRenderer;
 	[SerializeField]
 	private GameObject ashes;
+	private Animator animator;
 
+	public enum PlayerAnimState
+	{
+		Idle = 0,
+		Walk = 1,
+		Push = 2,
+		Action = 3,
+		Wash = 4
 
-    private Animator animator;
+	}
 
-    public enum PlayerAnimState { Idle = 0, Walk = 1, Push = 2, Action = 3, Wash = 4 }
-    private PlayerAnimState animState;
-    public PlayerAnimState AnimState { get { return animState; } set { animState = value; } }
+	private PlayerAnimState animState;
 
-    private Timer actionTimer;
+	public PlayerAnimState AnimState { get { return animState; } set { animState = value; } }
 
-    private const float PLAYER_SPEED = 0.4f;
+	private Timer actionTimer;
+	private const float PLAYER_SPEED = 0.4f;
+	private bool canSwitch;
+	private bool canMove;
+	private Vector2 lastSwitchDirection;
+	private HandController hands;
+	private Vector2 previousPosition;
+	public Vector2 movement;
+	private Vector2 nextMovement;
 
-    private bool canSwitch;
-    private bool canMove;
+	public Vector2 NextDirection { get { return nextMovement; } }
 
-    private Vector2 lastSwitchDirection;
+	public bool playerMoving;
+	private Transform objectPushing;
+	private Vector2 previousPushablePosition;
+	private Timer timer;
 
-    private HandController hands;
+	private bool Moving { get { return timer.running; } }
 
-    private Vector2 previousPosition;
-    public Vector2 movement;
-    private Vector2 nextMovement;
-    public Vector2 NextDirection { get { return nextMovement; } }
-    public bool playerMoving;
-    private Transform objectPushing;
-    private Vector2 previousPushablePosition;
-    private Timer timer;
-    private bool Moving { get { return timer.running; } }
+	public bool IsAlive { get; set; }
 
-    public bool IsAlive { get; set; }
+	void Awake()
+	{
+		player = transform;
 
-    void Awake()
-    {
-        player = transform;
+		spriteRenderer = GetComponent<SpriteRenderer>();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+		hands = GetComponent<HandController>();
 
-        hands = GetComponent<HandController>();
+		animator = GetComponent<Animator>();
+	}
 
-        animator = GetComponent<Animator>();
-    }
+	void Start()
+	{
+		timer = new Timer(PLAYER_SPEED, CompleteMoving);
+		timer.repeating = true;
 
-    void Start()
-    {
-        timer = new Timer(PLAYER_SPEED, CompleteMoving);
-        timer.repeating = true;
+		actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
 
-		Debug.Log(LevelManager.Instance.Level);
-		Debug.Log(GameWorld.dialogueOff);
+		var detector = FindObjectOfType<HandyDetector>();
+		if (detector != null) {
+			detector.defaultObject = gameObject;
+		}
 
-        actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
+		previousPosition = player.position;
 
-        var detector = FindObjectOfType<HandyDetector>();
-        if (detector != null)
-        {
-            detector.defaultObject = gameObject;
-        }
+		animState = PlayerAnimState.Idle;
 
-        previousPosition = player.position;
+		canSwitch = true;
+		canMove = true;
 
-        animState = PlayerAnimState.Idle;
+		GroupManager.main.group["Running"].Add(this);
+		GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
 
-        canSwitch = true;
-        canMove = true;
+		KeyboardController.Instance.KeyboardEventHandler = this;
 
-        GroupManager.main.group["Running"].Add(this);
-        GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, null, GoBackToIdle));
+		IsAlive = true;
+	}
 
-        KeyboardController.Instance.KeyboardEventHandler = this;
+	#region Gestures
 
-        IsAlive = true;
-    }
+	public void OnGesturePan(PanArgs args)
+	{
+		if (timer == null)
+			timer = new Timer();
 
-    #region Gestures
+		PlayerMoving(args);
+	}
 
-    public void OnGesturePan(PanArgs args)
-    {
-        if (timer == null) timer = new Timer();
+	public void PlayerMoving(PanArgs args)
+	{
+		//Debug.Log(args.state);
+		switch (args.state) {
+			case PanArgs.State.Move:
+				var x = args.delta.x;
+				var y = args.delta.y;
 
-        PlayerMoving(args);
-    }
+				if (Math.Abs(x - y) >= 1f) {
+					nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
+				}
 
-    public void PlayerMoving(PanArgs args)
-    {
-        //Debug.Log(args.state);
-        switch (args.state)
-        {
-            case PanArgs.State.Move:
-                var x = args.delta.x;
-                var y = args.delta.y;
+				if ((canMove || nextMovement != movement) && !Moving && CanMove()) {
+					timer.Reset();
+					canSwitch = true;
+					canMove = true;
+				}
 
-                if (Math.Abs(x - y) >= 1f)
-                {
-                    nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
-                }
+				playerMoving = true;
+				break;
+			case PanArgs.State.Hold:
+				playerMoving = true;
+				break;
+			case PanArgs.State.Interrupt:
+			case PanArgs.State.Up:
+				canSwitch = true;
+				canMove = true;
+				playerMoving = false;
+				break;
+			default:
+				playerMoving = false;
+				break;
+		}
+	}
 
-                if ((canMove || nextMovement != movement) && !Moving && CanMove())
-                {
-                    timer.Reset();
-                    canSwitch = true;
-                    canMove = true;
-                }
+	#endregion
 
-                playerMoving = true;
-                break;
-            case PanArgs.State.Hold:
-                playerMoving = true;
-                break;
-            case PanArgs.State.Interrupt:
-            case PanArgs.State.Up:
-                canSwitch = true;
-                canMove = true;
-                playerMoving = false;
-                break;
-            default:
-                playerMoving = false;
-                break;
-        }
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		// Tutorial [Manually coded for now] //
+		// TODO: Make it proper! 
 
-    #endregion
+		if (!GameWorld.dialogueOff) {
+			if (LevelManager.Instance.Level == 0) {
+				if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1) {
+					playerMoving = false;
+					canMove = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Tutorial [Manually coded for now] //
-        // TODO: Make it proper! 
+					if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f) {
+						timer.Stop();
 
-        if (!GameWorld.dialogueOff)
-        {
-			Debug.Log("Dialogue Off!");
-            if (LevelManager.Instance.Level == 0)
-            {
-                if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
-                {
-                    playerMoving = false;
-                    canMove = false;
+						DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+						GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+					}
+				} else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean) {
+					DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+					GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				}
+			} else if (LevelManager.Instance.Level == 4) {
+				if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f) {
+					playerMoving = false;
+					canMove = false;
 
-                    if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
-                    {
-                        timer.Stop();
+					if (DialogueManager.CurrentDialogue == 10 && (player.position == new Vector3(5, 2, 0) || Vector2.Distance(player.position, new Vector2(6, 1)) == 1.0f)) {
+						timer.Stop();
 
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                    }
-                }
-                else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
-                {
-                    DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                }
-            }
-            else if (LevelManager.Instance.Level == 4)
-            {
-                if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f)
-                {
-                    playerMoving = false;
-                    canMove = false;
-
-                    if (DialogueManager.CurrentDialogue == 10 && (player.position == new Vector3(5, 2, 0) || Vector2.Distance(player.position, new Vector2(6, 1)) == 1.0f))
-                    {
-                        timer.Stop();
-
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                    }
-                }
-            }
-        }
+						DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+						GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+					}
+				}
+			}
+		}
 
 		spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
-        if (hands.IsInfected())
-        {
-            animator.SetTrigger("Infect");
+		if (hands.IsInfected()) {
+			animator.SetTrigger("Infect");
 
-            AudioManager.StopSFX("Heartbeat");
-            AudioManager.PlaySFX("Player Infected");
+			AudioManager.StopSFX("Heartbeat");
+			AudioManager.PlaySFX("Player Infected");
 
-            IsAlive = false;
+			IsAlive = false;
 
-            GameWorld.levelOverReason = GameWorld.LevelOverReason.PlayerInfected;
+			GameWorld.levelOverReason = GameWorld.LevelOverReason.PlayerInfected;
             
-            return;
-        }
+			return;
+		}
 
-        if (IsAlive)
-        {
-            timer.Update();
-            actionTimer.Update();
+		if (IsAlive) {
+			timer.Update();
+			actionTimer.Update();
 
-            if (Moving)
-            {
-                var newPosition = previousPosition + timer.progress * movement;
-                if (objectPushing != null)
-                {
-                    objectPushing.position += newPosition.xy0() - player.position;
-                    animState = PlayerAnimState.Push;
-                }
-                else
-                {
-                    animState = PlayerAnimState.Walk;
-                }
+			if (Moving) {
+				var newPosition = previousPosition + timer.progress * movement;
+				if (objectPushing != null) {
+					objectPushing.position += newPosition.xy0() - player.position;
+					animState = PlayerAnimState.Push;
+				} else {
+					animState = PlayerAnimState.Walk;
+				}
 
-                player.position = newPosition;
-            }
-            else
-            {
-                if ((int)animState < 3)
-                {
-                    animState = PlayerAnimState.Idle;
-                }
-            }
+				player.position = newPosition;
+			} else {
+				if ((int)animState < 3) {
+					animState = PlayerAnimState.Idle;
+				}
+			}
 
-            SetAnimationState(Moving ? movement : nextMovement);
-            animator.SetInteger("State", (int)animState);
+			SetAnimationState(Moving ? movement : nextMovement);
+			animator.SetInteger("State", (int)animState);
 
-            if (lastSwitchDirection != nextMovement)
-            {
-                canSwitch = true;
-            }
-        }
-    }
+			if (lastSwitchDirection != nextMovement) {
+				canSwitch = true;
+			}
+		}
+	}
 
-    private void SetAnimationState(Vector2 directionVector)
-    {
-        string direction = null;
+	private void SetAnimationState(Vector2 directionVector)
+	{
+		string direction = null;
 
-        if (directionVector == new Vector2(0, -1))
-        {
-            direction = "Down";
-        }
-        else if (directionVector == new Vector2(0, 1))
-        {
-            direction = "Up";
-        }
-        else if (directionVector == new Vector2(1, 0))
-        {
-            direction = "Right";
-        }
-        else if (directionVector == new Vector2(-1, 0))
-        {
-            direction = "Left";
-        }
+		if (directionVector == new Vector2(0, -1)) {
+			direction = "Down";
+		} else if (directionVector == new Vector2(0, 1)) {
+			direction = "Up";
+		} else if (directionVector == new Vector2(1, 0)) {
+			direction = "Right";
+		} else if (directionVector == new Vector2(-1, 0)) {
+			direction = "Left";
+		}
 
-        if (direction != null)
-        {
-            animator.CrossFade(animState.ToString() + " " + direction, 0.0f);
-        }
-    }
+		if (direction != null) {
+			animator.CrossFade(animState.ToString() + " " + direction, 0.0f);
+		}
+	}
 
-    private bool CanMove()
-    {
-        objectPushing = null;
+	private bool CanMove()
+	{
+		objectPushing = null;
 
-        movement = nextMovement;
+		movement = nextMovement;
 
-        // Get the next position
-        var nextPosition = previousPosition + nextMovement;
+		// Get the next position
+		var nextPosition = previousPosition + nextMovement;
 
-        // Check collisions
-        var hit = Physics2D.Raycast(nextPosition, nextMovement, 0.0f);
+		// Check collisions
+		var hit = Physics2D.Raycast(nextPosition, nextMovement, 0.0f);
 
-        if (hit.collider == null) return true;
+		if (hit.collider == null)
+			return true;
 
-        //Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
+		//Debug.Log("Collided with " + hit.collider.name + " [" + hit.collider.tag + "].");
 
-        switch (hit.collider.tag)
-        {
-            case "Wall":
-                return false;
+		switch (hit.collider.tag) {
+			case "Wall":
+				return false;
 
-            case "Pushable":
-                var pushable = hit.collider.GetComponent<Pushable>();
-                var canPush = pushable.Push(nextMovement);
+			case "Pushable":
+				var pushable = hit.collider.GetComponent<Pushable>();
+				var canPush = pushable.Push(nextMovement);
 
-                if (canPush && hit.transform.name.StartsWith("Trolley"))
-                {
-                    StartAction();
-                }
+				if (canPush && hit.transform.name.StartsWith("Trolley")) {
+					StartAction();
+				}
 
-                canMove &= canPush && pushable.MovingWithPlayer;
-                if (canMove)
-                {
-                    objectPushing = pushable.transform;
-                    previousPushablePosition = objectPushing.position;
-                }
+				canMove &= canPush && pushable.MovingWithPlayer;
+				if (canMove) {
+					objectPushing = pushable.transform;
+					previousPushablePosition = objectPushing.position;
+				}
 
-                return canMove;
+				return canMove;
 
-            case "Collectible":
-                var collectible = hit.collider.GetComponent<Collectible>();
-                collectible.Collect();
+			case "Collectible":
+				var collectible = hit.collider.GetComponent<Collectible>();
+				collectible.Collect();
 
-                return true;
+				return true;
 
-            case "Accessible":
-                var accessible = hit.collider.GetComponent<Accessible>();
+			case "Accessible":
+				var accessible = hit.collider.GetComponent<Accessible>();
 
-                if (accessible.name.StartsWith("Fountain"))
-                {
-                    if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
-                    {
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				if (accessible.name.StartsWith("Fountain")) {
+					if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3) {
+						DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+						GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
 
-                        return false;
-                    }
-                }
+						return false;
+					}
+				}
 
-                return accessible.Enter();
+				return accessible.Enter();
 
-            case "Switchable":
-                if (canSwitch)
-                {
-                    Switchable switchable = hit.collider.GetComponent<Switchable>();
-                    switchable.Switch();
+			case "Switchable":
+				if (canSwitch) {
+					Switchable switchable = hit.collider.GetComponent<Switchable>();
+					switchable.Switch();
 
-                    canSwitch = false;
-                    lastSwitchDirection = nextMovement;
+					canSwitch = false;
+					lastSwitchDirection = nextMovement;
 
-                    if (!switchable.name.StartsWith("Patient"))
-                    {
-                        StartAction();
-                    }
-                }
-                return false;
+					if (!switchable.name.StartsWith("Patient")) {
+						StartAction();
+					}
+				}
+				return false;
 
-            default:
-                return true;
-        }
-    }
+			default:
+				return true;
+		}
+	}
 
-    private void CompleteMoving()
-    {
-        previousPosition += movement;
-        player.position = previousPosition;
+	private void CompleteMoving()
+	{
+		previousPosition += movement;
+		player.position = previousPosition;
 
-        if (objectPushing != null)
-        {
-            previousPushablePosition += movement;
-            objectPushing.position = previousPushablePosition;
-        }
+		if (objectPushing != null) {
+			previousPushablePosition += movement;
+			objectPushing.position = previousPushablePosition;
+		}
 
-        if (playerMoving && CanMove())
-        {
-            movement = nextMovement;
-        }
-        else
-        {
-            timer.Stop();
+		if (playerMoving && CanMove()) {
+			movement = nextMovement;
+		} else {
+			timer.Stop();
 
-            objectPushing = null;
-        }
-    }
+			objectPushing = null;
+		}
+	}
 
-    private void StartAction()
-    {
-        animState = PlayerAnimState.Action;
-        actionTimer.Reset();
-    }
+	private void StartAction()
+	{
+		animState = PlayerAnimState.Action;
+		actionTimer.Reset();
+	}
 
-    private void CompleteAction()
-    {
-        if (animState == PlayerAnimState.Action)
-        {
-            animState = PlayerAnimState.Idle;
-        }
-    }
+	private void CompleteAction()
+	{
+		if (animState == PlayerAnimState.Action) {
+			animState = PlayerAnimState.Idle;
+		}
+	}
 
-    private void GoBackToIdle()
-    {
-        if (IsAlive)
-        {
-            animState = PlayerAnimState.Idle;
+	private void GoBackToIdle()
+	{
+		if (IsAlive) {
+			animState = PlayerAnimState.Idle;
 
-            SetAnimationState(nextMovement);
-            animator.SetInteger("State", (int)animState);
-        }
+			SetAnimationState(nextMovement);
+			animator.SetInteger("State", (int)animState);
+		}
 		IsAlive = true;
 		this.collider2D.enabled = true;
-    }
+	}
 
-    public void Die(GameWorld.LevelOverReason reason = GameWorld.LevelOverReason.LaserKilledPlayer)
-    {
-        IsAlive = false;
+	public void Die(GameWorld.LevelOverReason reason = GameWorld.LevelOverReason.LaserKilledPlayer)
+	{
+		IsAlive = false;
 		this.collider2D.enabled = false;
        
 		if (reason == GameWorld.LevelOverReason.Squashed) {
 			renderer.enabled = false;
 			animator.enabled = false;
 			transform.localScale = new Vector3(
-				transform.localScale.x*0.1f,
+				transform.localScale.x * 0.1f,
 				transform.localScale.y,
 				transform.localScale.z);
 		} else {
 			animator.SetTrigger("Die");
 			Entity.Replace(this.gameObject, ashes);
 		}
-        GameWorld.levelOverReason = reason;
-    }
+		GameWorld.levelOverReason = reason;
+	}
 }

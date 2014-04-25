@@ -11,13 +11,10 @@ public class Ashes : MonoBehaviour
 	void Start()
 	{
 		var animator = GetComponent<Animator>();
-		_smoke = Object.Instantiate(_smoke) as GameObject;
-		_smoke.transform.parent = transform;
-		_smoke.transform.position = new Vector3(
-			transform.position.x,
-			transform.position.y + 0.5f,
-			transform.position.z);
-		_smoke.renderer.sortingOrder = renderer.sortingOrder + 1;
+		_smoke = Entity.Spawn(this.gameObject, _smoke);
+
+		_smoke.transform.position = _smoke.transform.position + new Vector3(0, 0.45f, 0);
+		_smoke.renderer.sortingOrder += 2;
 		GroupManager.main.group["Running"].Add(animator);
 		GroupManager.main.group["To Level Over"].Add(animator);
 

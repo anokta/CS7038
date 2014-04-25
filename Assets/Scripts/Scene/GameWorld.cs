@@ -19,7 +19,7 @@ public class GameWorld : MonoBehaviour
 	public static bool dialogueOff {
 		get { return _dialogueOff; }
 		set {
-			Debug.Log("DialogueOff was set to " + value + " from " + _dialogueOff);
+			//Debug.Log("DialogueOff was set to " + value + " from " + _dialogueOff);
 			_dialogueOff = value;
 			
 		}

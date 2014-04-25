@@ -10,16 +10,18 @@ public class Entity : MonoBehaviour
 
     public EntityExplosionTask ExplosionHandler { get; protected set; }
 
-	public static void Replace(GameObject original, GameObject newObject, bool destroy) {
+	public static GameObject Spawn(GameObject original, GameObject newObject) {
 		var obj = Object.Instantiate(
 			newObject, original.transform.position, original.transform.rotation) as GameObject;
 		obj.GetComponent<SpriteRenderer>().sortingOrder = original.renderer.sortingOrder;
 		obj.transform.parent = original.transform.parent;
-		Destroy(original);
+		return obj;
 	}
 
-	public static void Replace(GameObject original, GameObject newObject) {
-		Replace(original, newObject, true);
+	public static GameObject Replace(GameObject original, GameObject newObject) {
+		var obj = Spawn(original, newObject);
+		Destroy(original);
+		return obj;
 	}
 
     public Vector2 Position

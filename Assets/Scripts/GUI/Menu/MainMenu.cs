@@ -66,6 +66,10 @@ public class MainMenu : MonoBehaviour
 
     }
 
+	void OnEnable() {
+		GameWorld.success = true;
+	}
+
     void OnGUI()
     {
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
@@ -140,7 +144,8 @@ public class MainMenu : MonoBehaviour
         // Start the level
         if (LevelManager.Instance.Level == -1)
         {
-
+			//
+			//GameWorld.dialogueOff = true;
 			ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
             GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
         }

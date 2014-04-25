@@ -15,7 +15,15 @@ public class GameWorld : MonoBehaviour
         set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
     }
 
-    public static bool dialogueOff;
+	private static bool _dialogueOff;
+	public static bool dialogueOff {
+		get { return _dialogueOff; }
+		set {
+			Debug.Log("DialogueOff was set to " + value + " from " + _dialogueOff);
+			_dialogueOff = value;
+			
+		}
+	}
 
     // Use this for initialization
     void Start()
@@ -113,6 +121,7 @@ public class GameWorld : MonoBehaviour
                     {
                         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
                         {
+							GameWorld.dialogueOff = false;
                             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
                         });
                     };

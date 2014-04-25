@@ -1604,7 +1604,7 @@ MonoBehaviour:
       m_Background: {fileID: 2800000, guid: 8256fecb35872c44082915e5430cc8f7, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: .588235319}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: a361ab0387cbb6c499fc7408023c738c, type: 3}
+      m_Background: {fileID: 2800000, guid: fdbee9f59c1b9b946bc837047dc55295, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: .588235319}
     m_Active:
       m_Background: {fileID: 2800000, guid: 6baadcfbd370a88498dbeb63ca8ef66d, type: 3}

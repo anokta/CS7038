@@ -91,6 +91,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void OnEnable()
     {
+		GameWorld.success = true;
         currentPage = LevelManager.Instance.Level / (rowCount * columnCount);
     }
 

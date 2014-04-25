@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour, IPan
         timer = new Timer(PLAYER_SPEED, CompleteMoving);
         timer.repeating = true;
 
+		Debug.Log(LevelManager.Instance.Level);
+		Debug.Log(GameWorld.dialogueOff);
+
         actionTimer = new Timer(PLAYER_SPEED, CompleteAction);
 
         var detector = FindObjectOfType<HandyDetector>();
@@ -136,6 +139,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (!GameWorld.dialogueOff)
         {
+			Debug.Log("Dialogue Off!");
             if (LevelManager.Instance.Level == 0)
             {
                 if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
@@ -394,6 +398,7 @@ public class PlayerController : MonoBehaviour, IPan
 		this.collider2D.enabled = false;
        
 		if (reason == GameWorld.LevelOverReason.Squashed) {
+			renderer.enabled = false;
 			animator.enabled = false;
 			transform.localScale = new Vector3(
 				transform.localScale.x*0.1f,

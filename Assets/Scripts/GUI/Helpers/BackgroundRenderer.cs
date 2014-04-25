@@ -17,13 +17,36 @@ public class BackgroundRenderer : MonoBehaviour
 	float targetSunValue;
 	float sunValue;
 
+	GroupManager.Group _menu;
+	GroupManager.Group _selector;
+
 
 	void OnNextBeat(int beatCount) {
-		targetSunValue = (beatCount % 2 == 1) ? minSunValue : maxSunValue;
+		//If the center (pivot) is moving, then don't change radius to beat
+		//This check makes transitioning look a lot better
+		if (Mathf.Abs(_currentPivotY - _targetPivotY) > 0.1f) {
+			if (GroupManager.main.activeGroup == _selector) {
+				targetSunValue = maxSunValueLS;
+			} else {
+				targetSunValue = maxSunValue;
+			}
+		} // The pivot is not moving, change radius to beat
+		else if (GroupManager.main.activeGroup == _selector) {
+			targetSunValue = (beatCount % 2 == 0) ? minSunValueLS : maxSunValueLS;
+		} else {
+			targetSunValue = (beatCount % 2 == 0) ? minSunValue : maxSunValue;
+		}
 	}
 
-	public float minSunValue= 0.9f;
+	public float minSunValue= 0.95f;
 	public float maxSunValue= 1.1f;
+	public float minSunValueLS = 1.6f;
+	public float maxSunValueLS = 1.8f;
+	public float pivotY = 0.395f;
+	public float pivotYLS = 0.5f;
+
+	float _currentPivotY;
+	float _targetPivotY;
 
 	void Awake() {
 		instance = this;
@@ -32,6 +55,7 @@ public class BackgroundRenderer : MonoBehaviour
 		targetSunValue = sunValue = minSunValue;
 		renderer.material.SetFloat("Value", 0.8f);
 		AudioMenu.OnNextBeat += OnNextBeat;
+		_currentPivotY = _targetPivotY = pivotY;
 	}
 
 	bool sun = false;
@@ -40,6 +64,8 @@ public class BackgroundRenderer : MonoBehaviour
 	void Start()
 	{
 		_renderer = GetComponent<SpriteRenderer>();
+		_menu = GroupManager.main.group["Main Menu"];
+		_selector = GroupManager.main.group["Level Select"];
 		_renderer.sortingLayerName = "Background";
 		//_renderer.material = FunkySun;
 		//var sun = new GroupDelegator(null, SetSunBackground, SetTileBackground);
@@ -106,6 +132,15 @@ public class BackgroundRenderer : MonoBehaviour
 				sunValue = Mathf.Lerp(sunValue, targetSunValue, 4.0f * Time.deltaTime);
 			//}
 			//renderer.material.SetFloat("Value", sunValue);
+			if (GroupManager.main.activeGroup == _selector) {
+				_targetPivotY = pivotYLS;
+			} else {
+				_targetPivotY = pivotY;
+			}
+			if (_currentPivotY != _targetPivotY) {
+				_currentPivotY = Mathf.Lerp(_currentPivotY, _targetPivotY, 2.0f * Time.deltaTime);
+				_renderer.material.SetFloat("PivotY", _currentPivotY);
+			}
 		}
 	}
 }

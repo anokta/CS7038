@@ -151,12 +151,12 @@ public class MainMenu : MonoBehaviour
     }
 
 	[SerializeField]
-	float minLogoSize = 0.212f;
+	float minLogoSize = 0.34f;
 	[SerializeField]
-	float maxLogoSize = 0.204f;
+	float maxLogoSize = 0.37f;
 
     void OnNextBeat(int beatCount)
     {
-		logoTargetSize = (beatCount % 2 == 1) ? minLogoSize : maxLogoSize;
+		logoTargetSize = (beatCount % 2 == 0) ? minLogoSize : maxLogoSize;
     }
 }

@@ -394,6 +394,7 @@ public class PlayerController : MonoBehaviour, IPan
 		this.collider2D.enabled = false;
        
 		if (reason == GameWorld.LevelOverReason.Squashed) {
+			renderer.enabled = false;
 			animator.enabled = false;
 			transform.localScale = new Vector3(
 				transform.localScale.x*0.1f,

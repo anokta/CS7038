@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour, IPan
         GroupManager.main.group["Running"].Add(this);
         GroupManager.main.group["To Level Over"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
 
+        // not sure which one is better.
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
         //GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 

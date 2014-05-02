@@ -21,6 +21,8 @@ public class GUIManager : MonoBehaviour
 		_width = Screen.width;
 		_height = Screen.height;
 
+		Printer.Print("Width: " + _width + ", Height: " + _height);
+
 		float ratio = (float)Screen.height / VerticalResolution;
 		for (int i = 0; i < _styles.Count; ++i) {
 			_styles[i].style.fontSize = Mathf.RoundToInt(ratio * _styles[i].originalSize);
@@ -97,6 +99,10 @@ public class GUIManager : MonoBehaviour
 		_styles.Add(new StyleEntry(guiSkin.scrollView));
 
 		ResetScreen();
+	}
+
+	void Start() {
+		Printer.Print("Width: " + _width + ", Height: " + _height);
 	}
 
     public static GUISkin GetSkin()

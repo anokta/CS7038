@@ -2,7 +2,7 @@
 {
 	Properties
 	{
-		[PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+		//[PerRendererData] _MainTex ("Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1, 1, 1, 1)
 		_Back ("Background", Color) = (0, 0, 0, 1)
 		Value ("Value", Range(0, 1)) = 1
@@ -50,8 +50,8 @@
 			};
 			
 			
-			fixed RepeatX;
-			fixed RepeatY;
+			half RepeatX;
+			half RepeatY;
 			//inout float PivotX;
 			half AxisX;
 			half AxisY;
@@ -60,7 +60,8 @@
 			v2f vert(appdata_t IN) {
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
-				OUT.texcoord =	float2(
+				//OUT.texcoord = IN.texcoord;
+				OUT.texcoord =	half2(
 					IN.texcoord.x,// * (RepeatX / RepeatY),
 					IN.texcoord.y * (RepeatY / RepeatX)
 					);
@@ -89,14 +90,8 @@
 				//The dot product is the cosine of the angle between two vectors:
 				half prod = dot(IN.axis, dir);
 				//Do some weird math magic to deal with angles > 180
-				// prod = 0.25 * z * (1 - prod) + 0.5;
-				
-			//	if (z > 0) {
-			//		prod = (1-prod) * 0.5 ;
-			//	}
-			//	else {
-			//		prod = prod * 0.5 + 0.5;
-			//	}
+				//prod = 0.25 * z * (1 - prod) + 0.5;
+
 				if (distance(IN.texcoord, IN.pivot) < Radius) {
 					return _Color;
 				} else {

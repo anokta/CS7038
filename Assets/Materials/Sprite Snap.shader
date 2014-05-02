@@ -30,6 +30,7 @@ Shader "Sprites/Snap"
 		CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#pragma multi_compile DUMMY PIXELSNAP_ON
 			#include "UnityCG.cginc"
 			
 			struct appdata_t
@@ -54,9 +55,9 @@ Shader "Sprites/Snap"
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
-				#ifndef DUMMY
+				//#ifndef DUMMY
 					OUT.vertex = UnityPixelSnap (OUT.vertex);
-				#endif
+				//#endif
 
 				return OUT;
 			}

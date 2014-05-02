@@ -10,7 +10,10 @@ public class BackgroundRenderer : MonoBehaviour
 	public float squareSize = 10;
 	[SerializeField]
 	private Material _tile;
-	public Material FunkySun;
+	[SerializeField]
+	private Material _funkySun;
+
+	private Material _current;
 
 	public static BackgroundRenderer instance { get; private set; }
 
@@ -51,7 +54,7 @@ public class BackgroundRenderer : MonoBehaviour
 	void Awake() {
 		instance = this;
 		_tile = Material.Instantiate(_tile) as Material;
-		FunkySun = Material.Instantiate(FunkySun) as Material;
+		_funkySun = Material.Instantiate(_funkySun) as Material;
 		targetSunValue = sunValue = minSunValue;
 		renderer.material.SetFloat("Value", 0.8f);
 		AudioMenu.OnNextBeat += OnNextBeat;
@@ -78,14 +81,18 @@ public class BackgroundRenderer : MonoBehaviour
 
 		SetSunBackground();
 
-		ResetSize();
+		//ResetSize();
 	}
 	
 	public void SetSunBackground() {
 		if (this == null || !this.enabled) {
 			return;
 		}
-		_renderer.material = FunkySun;
+		_current = _renderer.material = _funkySun;
+		/*_matAxisX  = _current.shader.;
+		_matAxisY  = _current.Ge;
+     	_matRadius = _current.Ge;
+     	_matPivotY = _current.;*/
 		sun = true;
 		ResetSize();
 	}
@@ -94,12 +101,13 @@ public class BackgroundRenderer : MonoBehaviour
 		if (this == null || !this.enabled) {
 			return;
 		}
-		_renderer.material = _tile;
+		_current = _renderer.material = _tile;
 		sun = false;
 		ResetSize();
 	}
 
 	public void ResetSize() {
+		Printer.Print("Width: " + Screen.width + ", Height: " + Screen.height);
 		transform.localPosition = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
 		transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 1);
 		transform.localScale = Camera.main.ScreenToWorldLength(new Vector3(Screen.width, Screen.height, 0));
@@ -107,11 +115,21 @@ public class BackgroundRenderer : MonoBehaviour
 		_renderer.material.SetFloat("RepeatX", squareSize);
 		_renderer.material.SetFloat("RepeatY", repY);
 		_renderer.material.SetFloat("Radius", ( transform.localScale.y / transform.localScale.x) * SunRadius);
+		Printer.Print("Position: " + transform.position.x + ", " + transform.position.y + ", " + transform.position.z);
+		Printer.Print("Scale: " + transform.localScale.x + ", " + transform.localScale.y + ", " + transform.localScale.z);
+		Printer.Print(repY);
+		Printer.Print(squareSize);
 	}
 
 	public float SunRadius = 0.15f;
 
 	float t;
+
+	//Cache for performance
+	int _matAxisX;
+	int _matAxisY;
+	int _matRadius;
+	int _matPivotY;
 
 	// Update is called once per frame
 	void Update()

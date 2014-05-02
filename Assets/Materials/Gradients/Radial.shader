@@ -30,14 +30,14 @@
 
 		struct appdata_t
 		{
-			float4 vertex   : POSITION;
-			float4 color    : COLOR;
-			float2 texcoord : TEXCOORD0;
+			half4 vertex   : POSITION;
+			half4 color    : COLOR;
+			half2 texcoord : TEXCOORD0;
 		};
 
 		struct v2f
 		{
-			float4 vertex   : SV_POSITION;
+			half4 vertex   : SV_POSITION;
 			fixed4 color    : COLOR;
 			half2 texcoord  : TEXCOORD0;
 		};
@@ -61,8 +61,8 @@
 
 		fixed4 frag(v2f IN) : COLOR
 		{
-			float4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
-			float d = clamp(1 - distance(IN.texcoord.xy, float2(CenterX, 1-CenterY)), 0, 1);
+			half4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
+			half d = clamp(1 - distance(IN.texcoord.xy, half2(CenterX, 1-CenterY)), 0, 1);
 			OUT.a *= d;
 			//OUT.a = sqrt(OUT.a);
 			OUT.a *= OUT.a;

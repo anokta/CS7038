@@ -19,7 +19,6 @@ public class Door : Accessible
     public override bool Enter()
     {
         AudioManager.PlaySFX("Door");
-
         playerHand.SpoilHand(-0.5f, GetInstanceID());
 
         return true;

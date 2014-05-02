@@ -735,7 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squareSize: 7
   _tile: {fileID: 2100000, guid: 049a7d12d7992a64fa4563b4a77289ad, type: 2}
-  FunkySun: {fileID: 2100000, guid: d1f9a25615a98d047b4ed6ff087f89cf, type: 2}
+  _funkySun: {fileID: 2100000, guid: d1f9a25615a98d047b4ed6ff087f89cf, type: 2}
   minSunValue: .949999988
   maxSunValue: 1.10000002
   minSunValueLS: 1.60000002
@@ -2688,6 +2688,7 @@ GameObject:
   - 114: {fileID: 1799188529}
   - 114: {fileID: 1799188530}
   - 114: {fileID: 1799188531}
+  - 114: {fileID: 1799188532}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -2777,6 +2778,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 19800000, guid: 04c88100bbb1c254c87809bf74578846, type: 2}
+--- !u!114 &1799188532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0f5d448ed84234ca0da4508c03f3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLines: 15
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

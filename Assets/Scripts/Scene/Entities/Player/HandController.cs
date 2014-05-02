@@ -23,6 +23,18 @@ public class HandController : MonoBehaviour
     private ParticleSystem stars, infection;
 	bool _showing;
 
+	Transform _transform;
+
+	//Removes overhead?
+	public new Transform transform {
+		get {	return _transform; }
+	}
+
+	void Awake() {
+		_transform = base.transform;
+	}
+
+
     public enum HandState
     {
         Clean,
@@ -130,13 +142,15 @@ public class HandController : MonoBehaviour
             var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.025f, Screen.height * 0.025f, 0));
 
             //stars.transform.localScale = new Vector3(size.x, size.y, 1);
-            stars.startSize = size.y;
-            stars.transform.position =
+			//if (GUIManager.ScreenResized || GUIManager.CameraChanged) {
+				stars.startSize = size.y;
+				stars.transform.position =
                 Camera.main.ScreenToWorldPoint(
-                new Vector3(
-                    GUIManager.OffsetX() + Screen.height * 0.15f, GUIManager.OffsetY() + Screen.height * 0.15f,
-                        0)).xy().xy_(-1);
-            stars.startSpeed = size.y * 3.5f;
+					new Vector3(
+						GUIManager.OffsetX() + Screen.height * 0.15f, GUIManager.OffsetY() + Screen.height * 0.15f,
+						0)).xy().xy_(-1);
+				stars.startSpeed = size.y * 3.5f;
+			//}
             if (!stars.isPlaying)
             {
                 stars.Play();
@@ -186,7 +200,7 @@ public class HandController : MonoBehaviour
             Rect drawPos = new Rect(GUIManager.OffsetX(), Screen.height - Screen.height * 0.1f - GUIManager.OffsetY() - Screen.height * 0.1f, Screen.height * 0.2f, Screen.height * 0.2f);
             GUIpie.SetFloat("Value", 1);
             GUIpie.color = new Color(1, 1, 1, 0.6f);
-            //	GUIpie.color = Color.white;
+            //GUIpie.color = Color.white;
             Graphics.DrawTexture(drawPos, background, GUIpie);
 
             GUIpie.SetFloat("Value", Ratio);
@@ -195,22 +209,22 @@ public class HandController : MonoBehaviour
 
             Graphics.DrawTexture(drawPos, circle, GUIpie);
 
-            GUIpie.SetFloat("Value", 1);
-            GUIpie.color = Color.white;
+          //  GUIpie.SetFloat("Value", 1);
+          //  GUIpie.color = Color.white;
 
 			if (value <= MinValue) {
 				if (value == 0) {
-					Graphics.DrawTexture(drawPos, handEmpty, GUIpie);
+					Graphics.DrawTexture(drawPos, handEmpty);
 				} else if (value >= -0.5f) {
-					Graphics.DrawTexture(drawPos, warning1, GUIpie);
+					Graphics.DrawTexture(drawPos, warning1);
 				} else if (value >= -1.0f) {
-					Graphics.DrawTexture(drawPos, warning2, GUIpie);
+					Graphics.DrawTexture(drawPos, warning2);
 				}
 				if (_showing) {
-					Graphics.DrawTexture(drawPos, warningSign, GUIpie);
+					Graphics.DrawTexture(drawPos, warningSign);
 				}
 			} else {
-				Graphics.DrawTexture(drawPos, hand, GUIpie);
+				Graphics.DrawTexture(drawPos, hand);
 			}
         }
     }

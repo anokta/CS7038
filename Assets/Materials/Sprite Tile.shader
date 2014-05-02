@@ -34,21 +34,21 @@
 			
 			struct appdata_t
 			{
-				float4 vertex   : POSITION;
-				float4 color    : COLOR;
-				float2 texcoord : TEXCOORD0;
+				half4 vertex   : POSITION;
+				half4 color    : COLOR;
+				half2 texcoord : TEXCOORD0;
 			};
 
 			struct v2f
 			{
-				float4 vertex   : SV_POSITION;
+				half4 vertex   : SV_POSITION;
 				fixed4 color    : COLOR;
 				half2 texcoord  : TEXCOORD0;
 			};
 			
 			fixed4 _Color;
-			fixed RepeatX;
-			fixed RepeatY;
+			half RepeatX;
+			half RepeatY;
 
 			v2f vert(appdata_t IN)
 			{

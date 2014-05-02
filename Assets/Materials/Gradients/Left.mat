@@ -33,6 +33,10 @@ Material:
         first:
           name: DirectionY
         second: 0
+      data:
+        first:
+          name: Inverted
+        second: 0
     m_Colors:
       data:
         first:

@@ -23,14 +23,6 @@ Material:
     m_Floats:
       data:
         first:
-          name: RepeatX
-        second: 7
-      data:
-        first:
-          name: RepeatY
-        second: 1
-      data:
-        first:
           name: Value
         second: .604285717
       data:
@@ -49,6 +41,14 @@ Material:
         first:
           name: PivotY
         second: .395000011
+      data:
+        first:
+          name: RepeatX
+        second: 7
+      data:
+        first:
+          name: RepeatY
+        second: .5
       data:
         first:
           name: Radius

@@ -38,8 +38,9 @@ public class Gate : Accessible
 		if (drHandrew == null) {
 			drHandrew = GameObject.FindObjectOfType<PlayerController>();
 		} else {
-			if (!Open && (transform.position - drHandrew.transform.position).magnitude < 0.1f) {
+			if (!Open && Vector3.Distance(transform.position, drHandrew.transform.position) < 0.1f) {
 				Debug.Log("Squashed!");
+                AudioManager.PlaySFX("Squashed");
 				drHandrew.Die(GameWorld.LevelOverReason.Squashed);
 
 			}

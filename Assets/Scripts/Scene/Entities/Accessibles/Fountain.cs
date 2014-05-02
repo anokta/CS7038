@@ -4,6 +4,8 @@ using HandyGestures;
 
 public class Fountain : Accessible
 {
+    private static bool isWashing;
+
     private bool isHeld;
 
     private Timer timer;
@@ -75,7 +77,7 @@ public class Fountain : Accessible
 
 	public override bool Enter()
 	{
-        if (!isHeld)
+        if (!isWashing && !isHeld)
         {
             player.AnimState = PlayerController.PlayerAnimState.Wash;
 
@@ -90,6 +92,8 @@ public class Fountain : Accessible
             guiPosition = p;
 
             AudioManager.PlaySFX("Loop Fountain");
+
+            isWashing = true;
         }
 
 		return false;
@@ -106,18 +110,20 @@ public class Fountain : Accessible
 
     void Interrupted()
     {
-        AudioManager.StopSFX("Loop Fountain");
+            AudioManager.StopSFX("Loop Fountain");
 
-        isHeld = false;
-		//if (bubbles.isPlaying) {
-		//	bubbles.Stop();
-		//}
-		bubbles.enableEmission = false;
-        timer.Stop();
+            isHeld = false;
+            //if (bubbles.isPlaying) {
+            //	bubbles.Stop();
+            //}
+            bubbles.enableEmission = false;
+            timer.Stop();
 
-        if (player.AnimState == PlayerController.PlayerAnimState.Wash)
-        {
-            player.AnimState = PlayerController.PlayerAnimState.Idle;
-        }
+            if (player.AnimState == PlayerController.PlayerAnimState.Wash)
+            {
+                player.AnimState = PlayerController.PlayerAnimState.Idle;
+            }
+
+            isWashing = false;
     }
 }

@@ -5,7 +5,7 @@ using Grouping;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource menuNext, menuPrev, levelSwipe, levelSwipeRev;
-    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, infectedSfx, treatingSfx, laserSfx, explosionSfx, burnSfx, heartbeatSfx;
+    public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, infectedSfx, treatingSfx, laserSfx, squashSfx, explosionSfx, burnSfx, heartbeatSfx;
 
     private static AudioManager instance;
 
@@ -104,6 +104,10 @@ public class AudioManager : MonoBehaviour
 
             case "Laser Hit":
                 laserSfx.Play();
+                break;
+
+            case "Squashed":
+                squashSfx.Play();
                 break;
 
             case "Menu Next":

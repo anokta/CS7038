@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour, IPan
 					StartAction();
 				}
 
-				canMove &= canPush && pushable.MovingWithPlayer;
+				canMove = canPush && pushable.MovingWithPlayer;
 				if (canMove) {
 					objectPushing = pushable.transform;
 					previousPushablePosition = objectPushing.position;

@@ -224,12 +224,23 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
         GUILayout.FlexibleSpace();
 
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
         if (GUILayout.Button("Twitter"))
         {
             ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
         }
 
         GUILayout.FlexibleSpace();
+
+        if (GUILayout.Button("Facebook"))
+        {
+            ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+        }
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
@@ -312,4 +323,9 @@ public class LevelOverGUI : MonoBehaviour
         Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(textToDisplay) + "&amp;url=" + WWW.EscapeURL(urlToDisplay) + "&amp;lang=en");
     }
 
+    void ShareToFacebook(string textToDisplay, string urlToDisplay)
+    {
+        // Sample text doesn't work for now.
+        Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
+    }
 }

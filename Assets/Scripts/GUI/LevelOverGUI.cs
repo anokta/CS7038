@@ -6,14 +6,14 @@ using Grouping;
 
 public class LevelOverGUI : MonoBehaviour
 {
-	private float _actualWindowSize;
-	private float _actualButtonSize;
+    private float _actualWindowSize;
+    private float _actualButtonSize;
 
-	public float windowSize = 0.55f;
-	public float widthRatio = 2.1f;
+    public float windowSize = 0.55f;
+    public float widthRatio = 2.1f;
     public float buttonSize = 0.2f;
 
-	private static System.Random _rnd;
+    private static System.Random _rnd;
 
     Rect guiWindow;
 
@@ -23,7 +23,7 @@ public class LevelOverGUI : MonoBehaviour
 
     static LevelOverGUI()
     {
-		_rnd = new System.Random();
+        _rnd = new System.Random();
         overTitleSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
         overMessageSet = new Dictionary<GameWorld.LevelOverReason, string[]>();
 
@@ -61,7 +61,7 @@ public class LevelOverGUI : MonoBehaviour
             "In retrospect, treating a patient with filthy hands was more harmful than helpful",
             "I am appalled at your unsanitary medical practices. Are you a real doctor?"
         };
-        
+
         overTitleSet[GameWorld.LevelOverReason.PlayerInfected] = new[]
         {
 			"Hand on a minute.",
@@ -82,10 +82,10 @@ public class LevelOverGUI : MonoBehaviour
 			"Soap and water are your friends. Don't forget your friends."
 		};
 
-		overTitleSet[GameWorld.LevelOverReason.Squashed] = new[] {
+        overTitleSet[GameWorld.LevelOverReason.Squashed] = new[] {
 			"Squashed!",
 		};
-		overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
+        overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
 			""
 		};
 
@@ -144,34 +144,37 @@ public class LevelOverGUI : MonoBehaviour
 		};
     }
 
-	float windowWidth;
-	float windowHeight;
+    float windowWidth;
+    float windowHeight;
 
-	void ResetSize() {
-		_actualButtonSize = buttonSize * Screen.height;
-		_actualWindowSize = windowSize * Screen.height;
-		windowHeight = _actualWindowSize;
-		windowWidth = windowHeight * widthRatio;
-		guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
-	}
+    void ResetSize()
+    {
+        _actualButtonSize = buttonSize * Screen.height;
+        _actualWindowSize = windowSize * Screen.height;
+        windowHeight = _actualWindowSize;
+        windowWidth = windowHeight * widthRatio;
+        guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
+    }
 
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Level Over"].Add(this);
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, Enter, null));
-		ResetSize();
+        ResetSize();
     }
 
-	void OnEnable() {
-		//	ResetSize();
-	}
+    void OnEnable()
+    {
+        //	ResetSize();
+    }
 
     void Update()
     {
-		if (GUIManager.ScreenResized) {
-			ResetSize();
-		}
+        if (GUIManager.ScreenResized)
+        {
+            ResetSize();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!GameWorld.success)
@@ -179,15 +182,16 @@ public class LevelOverGUI : MonoBehaviour
 
             FadeToMainMenu();
         }
-        if (Input.GetKeyDown(KeyCode.Return)) 
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (!GameWorld.success)
             {
                 LevelManager.Instance.Level--;
                 FadeToLevelStart();
             }
-            else{
-				FadeToLevelStart(); 
+            else
+            {
+                FadeToLevelStart();
             }
         }
     }
@@ -197,86 +201,48 @@ public class LevelOverGUI : MonoBehaviour
     {
         GUI.skin = GUIManager.GetSkin();
 
-		var style = GUI.skin.GetStyle("over title");
-		float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth);
-		var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
+        var style = GUI.skin.GetStyle("over title");
+        float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth);
+        var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
-		var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
-		float backSize = _actualButtonSize / 2.0f;
+        var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
+        float backSize = _actualButtonSize / 2.0f;
 
 
-				var backRec = new Rect((rect.xMin - backSize*0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
-		GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
-		GUI.BringWindowToFront(2);
+        var backRec = new Rect((rect.xMin - backSize * 0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
+        GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
+        GUI.BringWindowToFront(2);
     }
 
-	void DoWindow(int windowID) {
-
-		GUILayout.Label(overTitle, GUI.skin.GetStyle("over title"));
-
-		GUILayout.BeginVertical();
-		//GUILayout.FlexibleSpace();
-		GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
-		GUILayout.FlexibleSpace();
-		GUILayout.BeginHorizontal(); 
-		GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
-		{
-			LevelManager.Instance.Level--;
-
-			FadeToLevelStart();
-		}
-		GUILayout.FlexibleSpace();
-		if (GameWorld.success)
-		{
-			if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
-			{
-				FadeToLevelStart();
-			}
-
-			GUILayout.FlexibleSpace();
-		}
-		GUILayout.EndHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.EndVertical();
-		//GUILayout.FlexibleSpace();
-
-		//GUILayout.BeginHorizontal();
-		//GUILayout.FlexibleSpace();
-	}
-
-	void DoMenuButtonWindow(int windowID) {
-		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f))) {
-			if (!GameWorld.success) {
-				LevelManager.Instance.Level--;
-			}
-			FadeToMainMenu();
-		}
-	}
-
-    void DoGameOverWindow(int windowID)
+    void DoWindow(int windowID)
     {
-        // Info
-        GUILayout.BeginVertical();
+
         GUILayout.Label(overTitle, GUI.skin.GetStyle("over title"));
-		//GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
+
+        GUILayout.BeginVertical();
+        //GUILayout.FlexibleSpace();
+        GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
+        GUILayout.FlexibleSpace();
+
+        if (GUILayout.Button("Twitter"))
+        {
+            ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+        }
 
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        // Restart
-		if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
         {
             LevelManager.Instance.Level--;
 
             FadeToLevelStart();
         }
         GUILayout.FlexibleSpace();
-        // Next Level
         if (GameWorld.success)
         {
-			if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+            if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
             {
                 FadeToLevelStart();
             }
@@ -286,27 +252,33 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.EndHorizontal();
 
         GUILayout.FlexibleSpace();
-
-        // Go Back To Menu
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-
-        GUILayout.FlexibleSpace();
-
         GUILayout.EndVertical();
+        //GUILayout.FlexibleSpace();
+
+        //GUILayout.BeginHorizontal();
+        //GUILayout.FlexibleSpace();
+    }
+
+    void DoMenuButtonWindow(int windowID)
+    {
+        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
+        {
+            if (!GameWorld.success)
+            {
+                LevelManager.Instance.Level--;
+            }
+            FadeToMainMenu();
+        }
     }
 
     void Enter()
     {
-		ResetSize();
+        ResetSize();
         var overTitles = overTitleSet[GameWorld.levelOverReason];
         var overMessages = overMessageSet[GameWorld.levelOverReason];
 
-		overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
-		overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
+        overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
+        overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
     }
 
     void FadeToLevelStart()
@@ -319,7 +291,7 @@ public class LevelOverGUI : MonoBehaviour
 
     void FadeToMainMenu()
     {
-		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
+        ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
             // Clear resources
@@ -327,11 +299,17 @@ public class LevelOverGUI : MonoBehaviour
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
-				
+
                 GroupManager.main.activeGroup = GroupManager.main.group["Level Select"];
 
                 AudioManager.PlaySFX("Menu Next");
             });
         });
     }
+
+    void ShareToTwitter(string textToDisplay, string urlToDisplay)
+    {
+        Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(textToDisplay) + "&amp;url=" + WWW.EscapeURL(urlToDisplay) + "&amp;lang=en");
+    }
+
 }

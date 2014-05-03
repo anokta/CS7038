@@ -1525,6 +1525,7 @@ MonoBehaviour:
   - Paused
   - Level Over
   - Fading
+  - Credits
   - Exiting
   - To Level Over
   caseSensitive: 0
@@ -1551,6 +1552,7 @@ GameObject:
   - 114: {fileID: 1093820745}
   - 114: {fileID: 1093820744}
   - 114: {fileID: 1093820747}
+  - 114: {fileID: 1093820748}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -1614,6 +1616,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowSize: 1
   buttonSize: .300000012
+--- !u!114 &1093820748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093820743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cace6d02f9f84664d87bb71c40ec4bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowSize: 1
+  buttonSize: .075000003
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0

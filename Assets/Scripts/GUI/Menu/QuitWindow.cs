@@ -72,35 +72,4 @@ public class QuitWindow : MonoBehaviour
 
         GUILayout.EndVertical();
     }
-
-    void FadeToMainMenu()
-    {
-        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
-        {
-            LevelManager.Instance.Level--;
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-
-            // Clear resources
-            LevelManager.Instance.Clear();
-
-            ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
-            {
-                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
-            });
-        });
-    }
-
-    void RestartLevel()
-    {
-        ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
-        {
-            LevelManager.Instance.Level--;
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-
-            // Clear resources
-            LevelManager.Instance.Clear();
-
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-        });
-    }
 }

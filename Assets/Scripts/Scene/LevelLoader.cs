@@ -105,6 +105,12 @@ public class LevelLoader
     {
         Instance = this;
 
+
+		foreach (var property in map.Properties) {
+			Debug.Log(property.Key + ", " + property.Value);
+		}
+
+
         // Instantiate the containers
         entityContainer = new GameObject("31 Entities");
 

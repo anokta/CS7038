@@ -15,10 +15,14 @@ namespace TiledMax
         public int Height;                 // The map height in tiles.
         public int TileWidth;              // The width of a tile.
         public int TileHeight;             // The height of a tile
+		public Dictionary<string, string> Properties {
+			get; private set;
+		}
 
         public TmxMap()
         {
             Layers = new List<Layer>();
+			Properties = new Dictionary<string, string>();
             Orientation = MapOrientation.Orthogonal;
         }
 
@@ -63,11 +67,22 @@ namespace TiledMax
                     case "layer":
                         ReadLayer(xNode, ref result);
                         break;
+					case "properties":
+						ReadProperties(xNode, ref result);
+						break;
                 }
             }
 
             return result;
         }
+
+		private static void ReadProperties(XmlNode node, ref TmxMap map) {
+			if (node.HasChildNodes) {
+				foreach (XmlNode child in node.ChildNodes) {
+					map.Properties.Add(child.ReadTag("name"), child.ReadTag("value"));
+				}
+			}
+		}
 
         private static void ReadLayer(XmlNode node, ref TmxMap map)
         {

@@ -641,7 +641,7 @@ MonoBehaviour:
   CustomFunction2D: {fileID: 0}
   longTime: .25
   flingTime: .25
-  interceptor: {fileID: 1093820743}
+  interceptor: {fileID: 1093820746}
   defaultObject: {fileID: 0}
   layerMask: -1
   castDistance: Infinity

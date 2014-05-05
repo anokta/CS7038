@@ -86,8 +86,13 @@ public class LevelOverGUI : MonoBehaviour
         overTitleSet[GameWorld.LevelOverReason.Squashed] = new[] {
 			"Squashed!",
 		};
-        overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
+<<<<<<< HEAD
+		overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
 			"It's actually pretty hard to achieve this. Good job, but you still lose."
+=======
+        overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
+			""
+>>>>>>> 4a390c4f698ba20fcfa3e6742a1aa47e8494006a
 		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]
@@ -289,8 +294,9 @@ public class LevelOverGUI : MonoBehaviour
         var overTitles = overTitleSet[GameWorld.levelOverReason];
         var overMessages = overMessageSet[GameWorld.levelOverReason];
 
-        overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
-        overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
+<<<<<<< HEAD
+		overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
+		overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
 
 		if (GameWorld.success) {
 			if (LevelManager.Instance.minScore == 0 || GameWorld.score <= LevelManager.Instance.minScore) {
@@ -301,6 +307,10 @@ public class LevelOverGUI : MonoBehaviour
 				Debug.Log("Bronze Soap");
 			}
 		}
+=======
+        overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
+        overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
+>>>>>>> 4a390c4f698ba20fcfa3e6742a1aa47e8494006a
     }
 
     void FadeToLevelStart()

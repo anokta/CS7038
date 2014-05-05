@@ -115,7 +115,7 @@ public class MainMenu : MonoBehaviour
         // Credits
         if (GUILayout.Button("Credits", GUI.skin.GetStyle("credits"), GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
-            // TODO : Credits
+            GroupManager.main.activeGroup = GroupManager.main.group["Credits"];
         }
 
         GUILayout.EndHorizontal();

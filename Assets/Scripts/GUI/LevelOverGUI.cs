@@ -234,7 +234,6 @@ public class LevelOverGUI : MonoBehaviour
         }
 
         GUILayout.FlexibleSpace();
-
         if (GUILayout.Button("Facebook"))
         {
             ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");

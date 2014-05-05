@@ -34,11 +34,12 @@ public class LevelOverGUI : MonoBehaviour
             "Hands down, you rock!",
             "Well handled!",
             "Cleanly done!",
+			"You go hand in hand with greatness!",
 			"I’ve got to hand it to you..."
         };
         overMessageSet[GameWorld.LevelOverReason.Success] = new[]
         {
-			"Excellent work! Mankind will forever be grateful of your honorable exploits.",
+			"Excellent work! Mankind will forever be grateful for your honorable exploits.",
 			"The patient you saved will one day discover a cure for cancer, diabetes, pessimism and dislocative shoulder disorder.",
 			"You deserve a handful of medals for bravery beyond the call of duty.",
             "You are a brilliant doctor, well deserving your M.D status.",
@@ -86,7 +87,7 @@ public class LevelOverGUI : MonoBehaviour
 			"Squashed!",
 		};
 		overMessageSet[GameWorld.LevelOverReason.Squashed] = new[] {
-			""
+			"It's actually pretty hard to achieve this. Good job, but you still lose."
 		};
 
         overTitleSet[GameWorld.LevelOverReason.LaserKilledPlayer] = new[]

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="7" height="6" tilewidth="100" tileheight="100">
+ <properties>
+  <property name="934r343" value=""/>
+  <property name="Shalahatharsam" value="asf"/>
+  <property name="wsefre3" value="2515"/>
+ </properties>
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
   <image source="tileset.png" width="1000" height="1000"/>
  </tileset>

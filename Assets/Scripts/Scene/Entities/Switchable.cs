@@ -5,7 +5,7 @@
         ExplosionHandler = new ExplosionTask(this);
     }
 
-    public abstract void Switch();
+    public abstract void Switch(bool byPlayer);
 
     public class ExplosionTask : EntityExplosionTask
     {
@@ -22,9 +22,9 @@
             var direction = Switchable.Position - ExplosionSource;
             direction.Normalize();
             HandController hand = FindObjectOfType<HandController>();
-            float value = hand.value;
-            Switchable.Switch(); 
-            hand.value = value;
+            //float value = hand.value;
+            Switchable.Switch(false); 
+            //hand.value = value;
         }
 
         public override bool Equals(Task other)

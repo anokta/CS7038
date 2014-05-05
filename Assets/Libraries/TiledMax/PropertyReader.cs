@@ -15,16 +15,16 @@ public class PropertyReader : IEnumerable<KeyValuePair<string, string>>
 		get { return _data[key]; }
 	}
 
-	public int getInt(string name) {
+	public int GetInt(string name) {
 		return int.Parse(_data[name]);
 	}
-	public float getFloat(string name) {
+	public float GetFloat(string name) {
 		return float.Parse(_data[name]);
 	}
-	public string getTag(string name) {
+	public string GetTag(string name) {
 		return _data[name];
 	}
-	public bool getBoolean(string name) {
+	public bool GetBoolean(string name) {
 		return bool.Parse(_data[name]);
 	}
 
@@ -50,22 +50,22 @@ public class PropertyReader : IEnumerable<KeyValuePair<string, string>>
 
 	#endregion
 	
-	public bool getInt(string name, out int value) {
+	public bool GetInt(string name, out int value) {
 		string strVal;
 		return (_data.TryGetValue(name, out strVal) && int.TryParse(strVal, out value));
 	}
 
-	public bool getFloat(string name, out float value) {
+	public bool GetFloat(string name, out float value) {
 		string strVal;
 		return (_data.TryGetValue(name, out strVal) && float.TryParse(strVal, out value));
 	}
 
-	public bool getBoolean(string name, out bool value) {
+	public bool GetBoolean(string name, out bool value) {
 		string strVal;
 		return (_data.TryGetValue(name, out strVal) && bool.TryParse(strVal, out value));
 	}
 
-	public bool getTag(string name, out string value) {
+	public bool GetTag(string name, out string value) {
 		return (_data.TryGetValue(name, out value));
 	}
 }

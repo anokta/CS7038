@@ -56,8 +56,8 @@ public class HandyDetector : MonoBehaviour
 	CollisionFunction2D _function2D;
 	public float longTime = 0.2f;
 	public float flingTime = 0.2f;
-	public GameObject interceptor;
-	public GameObject defaultObject;
+	public Transform interceptor;
+	public Transform defaultObject;
 	public int layerMask = -1;
 	public float castDistance = Mathf.Infinity;
 	public float maxDepth = Mathf.Infinity;
@@ -537,7 +537,7 @@ public class HandyDetector : MonoBehaviour
 			return _resList;
 		}
 		if (interceptor != null) {
-			_resList.Add(interceptor.transform);
+			_resList.Add(interceptor);
 		}
 		if (!DisableCasting) {
 			_resList.AddRange(
@@ -550,7 +550,7 @@ public class HandyDetector : MonoBehaviour
 		//results.Where(_ => _.transform != interceptor && _.transform != defaultObject)
 		//   .OrderBy(_ => _.transform.position.z).Select(_ => _.transform));
 		if (defaultObject != null) {
-			_resList.Add(defaultObject.transform);
+			_resList.Add(defaultObject);
 		}
 		return _resList;
 	}

@@ -51,7 +51,7 @@ public class Crate : Pushable
                 {
                     if (playerHand.LastTouchedID != GetInstanceID())
                     {
-						playerHand.SpoilHand(-0.5f, GetInstanceID());
+						playerHand.SpoilHand(GetInstanceID());
                         handTimer.Reset();
                     }
                 }

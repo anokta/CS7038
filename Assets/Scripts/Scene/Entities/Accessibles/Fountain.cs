@@ -105,7 +105,8 @@ public class Fountain : Accessible
 
         AudioManager.PlaySFX("Fountain");
 
-        playerHand.SpoilHand(HandController.MaxValue - HandController.InfectionThreshold, GetInstanceID());
+		playerHand.RestoreHand(GetInstanceID());
+        //playerHand.SpoilHand(HandController.MaxValue - HandController.InfectionThreshold, GetInstanceID());
     }
 
     void Interrupted()

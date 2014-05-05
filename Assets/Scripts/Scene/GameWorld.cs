@@ -15,6 +15,14 @@ public class GameWorld : MonoBehaviour
         set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
     }
 
+	static int _score;
+	public static int score {
+		get { return _score; }
+		set { _score = value;
+			Debug.Log("Current score: " + _score);
+		}
+	}
+
 	private static bool _dialogueOff;
 	public static bool dialogueOff {
 		get { return _dialogueOff; }

@@ -308,6 +308,16 @@ public class LevelOverGUI : MonoBehaviour
 
 		overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
 		overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
+
+		if (GameWorld.success) {
+			if (LevelManager.Instance.minScore == 0 || GameWorld.score <= LevelManager.Instance.minScore) {
+				Debug.Log("Golden Soap");
+			} else if (LevelManager.Instance.maxScore == 0 || GameWorld.score <= LevelManager.Instance.maxScore) {
+				Debug.Log("Silver Soap");
+			} else {
+				Debug.Log("Bronze Soap");
+			}
+		}
     }
 
     void FadeToLevelStart()

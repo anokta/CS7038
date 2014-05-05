@@ -35,7 +35,7 @@ public class Trolley : Pushable
         }
     }
 
-    public override bool Push(Vector3 direction, bool byPlayer = true)
+    public override bool Push(Vector3 direction, bool byPlayer)
     {
         movement = direction;
 
@@ -51,7 +51,7 @@ public class Trolley : Pushable
 
                 if (byPlayer)
                 {
-                    playerHand.SpoilHand(-0.5f, GetInstanceID());
+                    playerHand.SpoilHand(GetInstanceID());
                 }
             }
         }
@@ -70,17 +70,17 @@ public class Trolley : Pushable
                     var trolley = hit.collider.GetComponent<Trolley>();
                     if (trolley != null)
                     {
-                        value = playerHand.value;
-                        trolley.Push(direction);
-                        playerHand.value = value;
+                    //    value = playerHand.value;
+                        trolley.Push(direction, false);
+                      //  playerHand.value = value;
                         break;
                     }
                     break;
                 case "Switchable":
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
-                    value = playerHand.value;
-                    switchable.Switch();
-                    playerHand.value = value;
+                    //value = playerHand.value;
+                    switchable.Switch(false);
+                  //  playerHand.value = value;
 
                     if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.Instance.Level] + 1))
                     {

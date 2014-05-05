@@ -25,13 +25,15 @@ public class Lever : Switchable
         base.Start();
     }
 
-    public override void Switch()
+    public override void Switch(bool byPlayer)
     {
         Manager.Switch(LeverGateType);
 
         AudioManager.PlaySFX("Lever");
 
-        playerHand.SpoilHand(-0.5f, GetInstanceID());
+		if (byPlayer) {
+        	playerHand.SpoilHand(GetInstanceID());
+		}
     }
 
     public void SwitchState()

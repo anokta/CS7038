@@ -9,9 +9,9 @@ public class HandController : MonoBehaviour
     public Texture hand;
     public Texture circle;
     public Texture background;
-    public static readonly float MaxValue = 4.0f;
-    public static readonly float MinValue = 0.0f;
-	public static readonly float InfectionThreshold = -1.5f;
+	public static readonly int MaxValue = 8;
+	public static readonly int MinValue = 0;
+	public static readonly int InfectionThreshold = -3;
     public GameObject cleanParticles;
     public GameObject infectionParticles;
 
@@ -58,15 +58,15 @@ public class HandController : MonoBehaviour
         }
     }
 
-    float _value = 2.0f;
-    public float value
+	int _value = 4;
+	public int value
     {
         get { return _value; }
-        set { _value = Mathf.Clamp(value, InfectionThreshold, MaxValue);
+		set { _value = Math.Min(MaxValue, Math.Max(InfectionThreshold, value));
         if (_value <= MinValue)
         {
             AudioManager.PlaySFX("Heartbeat");
-            if (_value <= MinValue - 0.5f)
+			if (_value <= -1)
             {
                 AudioManager.FasterHeartBeat();
             }
@@ -75,7 +75,7 @@ public class HandController : MonoBehaviour
         }
     }
 
-    float _guiValue = 2.0f;
+    float _guiValue = 4.0f;
 
     public float Ratio { get { return _guiValue / (MaxValue - MinValue); } }
 
@@ -86,14 +86,43 @@ public class HandController : MonoBehaviour
         set { lastTouchedId = value; }
     }
 
-    public void SpoilHand(float amount, int id)
-    {
-        value += amount;
-        lastTouchedId = id;
-    }
+	public void SpoilHand(int id)
+	{
+		--value;//value += amount;
+	    lastTouchedId = id;
+		++score;
+	}
+
+	int _score;
+	public int score {
+		get { return _score; }
+		private set { _score = value;
+			Debug.Log("Current score: " + _score);
+		}
+	}
+
+	public void ResetHand(int id) {
+		value = MinValue;
+		lastTouchedId = id;
+		++score;
+	}
+
+	public void AddHandValue(int value, int id)
+	{
+		value = value;
+		lastTouchedId = id;
+		score += Math.Abs(value);
+	}
+
+	public void RestoreHand(int id) {
+		value = MaxValue;
+		lastTouchedId = id;
+		++score;
+	}
 
     void Start()
     {
+		GameWorld.score = 0;
         GroupManager.main.group["Running"].Add(this);
         stars = (GameObject.Instantiate(cleanParticles) as GameObject).particleSystem;
         stars.transform.parent = transform.parent;
@@ -160,11 +189,11 @@ public class HandController : MonoBehaviour
         {
             if (!stars.isStopped)
             {
-                stars.Stop();
+				stars.Stop();
             }
         }
 
-        if (value <= MinValue)
+		if (value <= MinValue)
         {
             var size = Camera.main.ScreenToWorldLength(new Vector3(Screen.height * 0.03f, Screen.height * 0.03f, 0));
 
@@ -213,11 +242,11 @@ public class HandController : MonoBehaviour
           //  GUIpie.color = Color.white;
 
 			if (value <= MinValue) {
-				if (value == 0) {
+				if (value == MinValue) {
 					Graphics.DrawTexture(drawPos, handEmpty);
-				} else if (value >= -0.5f) {
+				} else if (value == -1) {
 					Graphics.DrawTexture(drawPos, warning1);
-				} else if (value >= -1.0f) {
+				} else if (value >= -2) {
 					Graphics.DrawTexture(drawPos, warning2);
 				}
 				if (_showing) {
@@ -229,9 +258,9 @@ public class HandController : MonoBehaviour
         }
     }
 
-    public bool IsInfected()
+    public bool isInfected
     {
-        return value <= InfectionThreshold;
+		get { return value <= InfectionThreshold; }
     }
 }
 

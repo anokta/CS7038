@@ -53,12 +53,14 @@ public class Mirror : Switchable
         base.Update();
     }
 
-	public override void Switch()
+	public override void Switch(bool byPlayer)
 	{
         AudioManager.PlaySFX("Mirror");
 
 		Forward = !Forward;
 
-        playerHand.SpoilHand(-0.5f, GetInstanceID());
+		if (byPlayer) {
+        	playerHand.SpoilHand(GetInstanceID());
+		}
 	}
 }

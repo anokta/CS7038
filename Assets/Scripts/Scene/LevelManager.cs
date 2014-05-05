@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using TiledMax;
 using UnityEngine;
@@ -81,13 +81,34 @@ public class LevelManager
             tileMaps[level] = map;
         }
 
+
         Width = map.Width;
         Height = map.Height;
         Camera.main.transform.position = CameraPosition;
         Camera.main.orthographicSize = OrthographicSize;
-
         loader.Load(map);
+
+		//Load map settings
+		int min;
+		int max;
+		if (!map.Properties.GetInt("MinScore", out min)) {
+			min = 0;
+		}
+		if (!map.Properties.GetInt("MaxScore", out max)) {
+			max = 0;
+		}
+
+		minScore = min;
+		maxScore = max;
     }
+
+	public int maxScore {
+		get; private set;
+	}
+
+	public int minScore {
+		get; private set;
+	}
 
     public void Clear()
     {

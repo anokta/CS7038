@@ -15,8 +15,8 @@ public class HandControllerEditor : Editor
 
 	public override void OnInspectorGUI() {
 		DrawDefaultInspector();
-		_target.value = EditorGUILayout.FloatField(_target.value);
-		_target.value = EditorGUILayout.Slider(_target.value, HandController.MinValue, HandController.MaxValue);
+		_target.value = EditorGUILayout.IntField(_target.value);
+		_target.value = EditorGUILayout.IntSlider(_target.value, HandController.MinValue, HandController.InfectionThreshold);
 		_foldout = EditorGUILayout.Foldout(_foldout, "Info");
 		if (_foldout) {
 			GUI.enabled = false;

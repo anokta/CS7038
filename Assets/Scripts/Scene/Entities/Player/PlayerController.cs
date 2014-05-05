@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour, IPan
         var detector = FindObjectOfType<HandyDetector>();
         if (detector != null)
         {
-            detector.defaultObject = gameObject;
+			detector.defaultObject = transform;
         }
 
         previousPosition = player.position;
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
-        if (hands.IsInfected())
+        if (hands.isInfected)
         {
             animator.SetTrigger("Infect");
 
@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour, IPan
                 if (canSwitch)
                 {
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
-                    switchable.Switch();
+                    switchable.Switch(true);
 
                     canSwitch = false;
                     lastSwitchDirection = nextMovement;

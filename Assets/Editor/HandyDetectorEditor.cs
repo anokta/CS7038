@@ -57,7 +57,7 @@ public class HandyDetectorEditor : Editor
 			}
 			if (GUILayout.Button("Info")) {
 				ShowInfoFor(
-					detTarget.interceptor,
+					detTarget.interceptor.gameObject,
 					"All gesture detection will go through the interceptor before any other objects in the scene.");
 			}
 			if (GUILayout.Button("Clear")) {
@@ -68,8 +68,8 @@ public class HandyDetectorEditor : Editor
 		EditorGUILayout.EndHorizontal();
 
 		detTarget.interceptor =
-			EditorGUILayout.ObjectField(detTarget.interceptor, typeof(GameObject), true, null) as
-			GameObject;
+			EditorGUILayout.ObjectField(detTarget.interceptor, typeof(Transform), true, null) as
+			Transform;
 
 		EditorGUILayout.BeginHorizontal();
 		{
@@ -79,7 +79,7 @@ public class HandyDetectorEditor : Editor
 			}
 			if (GUILayout.Button("Info")) {
 				ShowInfoFor(
-					detTarget.defaultObject,
+					detTarget.defaultObject.gameObject,
 					"This object handles all detected gestures that have not yet been handled.");
 			}
 			if (GUILayout.Button("Clear")) {
@@ -90,8 +90,8 @@ public class HandyDetectorEditor : Editor
 		EditorGUILayout.EndHorizontal();
 
 		detTarget.defaultObject =
-			EditorGUILayout.ObjectField(detTarget.defaultObject, typeof(GameObject), true, null) as
-			GameObject;
+			EditorGUILayout.ObjectField(detTarget.defaultObject, typeof(Transform), true, null) as
+			Transform;
 		#endregion
 
 		EditorGUILayout.Space();

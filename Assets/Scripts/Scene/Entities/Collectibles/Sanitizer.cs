@@ -14,7 +14,7 @@ public class Sanitizer : Collectible
 	{
         AudioManager.PlaySFX("Collect");
 
-        playerHand.SpoilHand(1.0f, GetInstanceID());
+        //playerHand.SpoilHand(1.0f, GetInstanceID());
 
 		base.Collect();
 	}

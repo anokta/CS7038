@@ -78,7 +78,7 @@ public class Patient : Switchable
         return treated;
     }
 
-    public override void Switch()
+    public override void Switch(bool byPlayer)
     {
         if (!treated && !isHeld)
         {
@@ -138,7 +138,8 @@ public class Patient : Switchable
             AudioManager.PlaySFX("Treated");
         }
 
-        playerHand.value = HandController.MinValue;
+       // playerHand.value = HandController.MinValue;
+		playerHand.ResetHand(GetInstanceID());
 
         treated = true;
     }

@@ -11,7 +11,8 @@ public class LevelOverGUI : MonoBehaviour
 
     public float windowSize = 0.55f;
     public float widthRatio = 2.1f;
-    public float buttonSize = 0.2f;
+	public float largeButtonSize = 0.2f;
+	public float smallButtonSize = 0.15f;
 
     private static System.Random _rnd;
 
@@ -148,9 +149,12 @@ public class LevelOverGUI : MonoBehaviour
     float windowWidth;
     float windowHeight;
 
+	float _actualButtonSizeSmall;
+
     void ResetSize()
     {
-        _actualButtonSize = buttonSize * Screen.height;
+		_actualButtonSize = largeButtonSize * Screen.height;
+		_actualButtonSizeSmall = smallButtonSize * Screen.height;
         _actualWindowSize = windowSize * Screen.height;
         windowHeight = _actualWindowSize;
         windowWidth = windowHeight * widthRatio;
@@ -207,7 +211,7 @@ public class LevelOverGUI : MonoBehaviour
         var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
         var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
-        float backSize = _actualButtonSize / 2.0f;
+		float backSize = _actualButtonSizeSmall;
 
 
         var backRec = new Rect((rect.xMin - backSize * 0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
@@ -272,7 +276,7 @@ public class LevelOverGUI : MonoBehaviour
 
     void DoMenuButtonWindow(int windowID)
     {
-        if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSize / 2.0f), GUILayout.Height(_actualButtonSize / 2.0f)))
+		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSizeSmall), GUILayout.Height(_actualButtonSizeSmall)))
         {
             if (!GameWorld.success)
             {

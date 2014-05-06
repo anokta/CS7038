@@ -78,12 +78,19 @@ public class GUIManager : MonoBehaviour
 
     private static GUIManager instance;
 
+	private HandyStyles _handyStyles;
+
+	public static HandyStyles Style {
+		get { return instance._handyStyles; }
+	}
+
     void Awake()
 	{
 		StyleEntry.DefaultFontSize = defaultFontSize;
 		GUIPie = Material.Instantiate(_GuiPieMaterial) as Material;
 		instance = this;
 		guiSkin = GUISkin.Instantiate(guiSkin) as GUISkin;
+		_handyStyles = new HandyStyles(guiSkin);
 		_styles = new List<StyleEntry>();
 		//_customStyles = new StyleEntry[guiSkin.customStyles.Length];
 		for (int i = 0; i < guiSkin.customStyles.Length; ++i) {
@@ -105,10 +112,12 @@ public class GUIManager : MonoBehaviour
 		Printer.Print("Width: " + _width + ", Height: " + _height);
 	}
 
-    public static GUISkin GetSkin()
-    {
-        return instance.guiSkin;
-    }
+	public static GUISkin GetSkin()
+	{
+	    return instance.guiSkin;
+	}
+
+	public static GUISkin Skin { get { return instance.guiSkin; } }
 
 	void LateUpdate () {
 		if (Screen.width != _width || Screen.height != _height) {

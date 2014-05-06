@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, IPan
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private GameObject ashes;
+	private Ashes _ashController;
     private Animator animator;
 
     public enum PlayerAnimState
@@ -87,6 +88,10 @@ public class PlayerController : MonoBehaviour, IPan
         GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 
         KeyboardController.Instance.KeyboardEventHandler = this;
+
+		ashes = Entity.Spawn(gameObject, ashes);
+		_ashController = ashes.GetComponent<Ashes>();
+		ashes.SetActive(false);
 
         IsAlive = true;
     }
@@ -392,6 +397,10 @@ public class PlayerController : MonoBehaviour, IPan
 
     private void GoBackToIdle()
     {
+		//if (this == null) {
+			//So, it has come to this...
+	//		return;
+	//	}
         if (IsAlive)
         {
             animState = PlayerAnimState.Idle;
@@ -430,7 +439,11 @@ public class PlayerController : MonoBehaviour, IPan
         else
         {
             animator.SetTrigger("Die");
-            Entity.Replace(this.gameObject, ashes);
+			//ashes.SetActive(true);
+			_ashController.Trigger(transform.position);
+			Destroy(this.gameObject);
+			//Entity.Replace(this.gameObject, ashes);
+
         }
         GameWorld.levelOverReason = reason;
     }

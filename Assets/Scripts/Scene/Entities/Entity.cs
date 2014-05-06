@@ -11,10 +11,11 @@ public class Entity : MonoBehaviour
     public EntityExplosionTask ExplosionHandler { get; protected set; }
 
 	public static GameObject Spawn(GameObject original, GameObject newObject) {
+		Transform t = original.transform;
 		var obj = Object.Instantiate(
-			newObject, original.transform.position, original.transform.rotation) as GameObject;
+			newObject, t.position, t.rotation) as GameObject;
 		obj.GetComponent<SpriteRenderer>().sortingOrder = original.renderer.sortingOrder;
-		obj.transform.parent = original.transform.parent;
+		obj.transform.parent = t.parent;
 		return obj;
 	}
 

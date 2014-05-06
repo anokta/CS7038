@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Grouping;
 
@@ -139,7 +139,7 @@ public class LaserEmitter : Entity
 
 			var plant = hit.collider.GetComponent<Plant>();
 			if (plant != null) {
-				plant.Burn();
+				plant.Break();
 			}
 
             break;

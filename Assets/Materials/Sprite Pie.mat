@@ -29,10 +29,6 @@ Material:
         second: 1
       data:
         first:
-          name: Clockwise
-        second: 1
-      data:
-        first:
           name: Value
         second: 0
       data:
@@ -51,6 +47,10 @@ Material:
         first:
           name: PivotY
         second: .5
+      data:
+        first:
+          name: Clockwise
+        second: 1
       data:
         first:
           name: _AxisX

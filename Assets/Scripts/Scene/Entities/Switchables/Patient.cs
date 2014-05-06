@@ -18,6 +18,7 @@ public class Patient : Switchable
 
 	[SerializeField]
 	private GameObject ashes;
+	private Ashes _ashController;
 
 	//  public Material GUIpie;
     public Texture progressTexture;
@@ -29,6 +30,10 @@ public class Patient : Switchable
     {
         ExplosionHandler = new ExplosionTask(this);
     }
+
+
+	public GameObject indicatorObject;
+	private TimeIndicator indicator;
 
     // Use this for initialization
     protected override void Start()
@@ -42,7 +47,25 @@ public class Patient : Switchable
         pieSize *= Screen.height;
 
         timer = new Timer(0.8f, Finish);
-    }
+
+		indicatorObject = Entity.Spawn(this.gameObject, indicatorObject);
+		indicator = indicatorObject.GetComponent<TimeIndicator>();
+		indicator.transform.position = indicator.transform.position + new Vector3(0, 0.95f, 0); 
+		indicator.Receiver = timer.GetProgress;
+		//indicator.color = new Color(113f / 255f, 238f / 255f, 244f / 255f);
+		indicator.color = new Color(1, 1, 1, 0.8f);
+
+		heart = Object.Instantiate(heart,
+		                           new Vector3(transform.position.x + 0.25f, transform.position.y + 0.5f, transform.position.z),
+		                           new Quaternion()) as GameObject;
+		heart.transform.parent = transform.parent;
+		heart.renderer.sortingOrder = short.MaxValue;
+		heart.SetActive(false);
+
+		ashes = Entity.Spawn(gameObject, ashes);
+		_ashController = ashes.GetComponent<Ashes>();
+		ashes.SetActive(false);
+	}
 
     protected override void Update()
     {
@@ -61,7 +84,7 @@ public class Patient : Switchable
         }
     }
 
-    void OnGUI()
+	/* void OnGUI()
     {
 		if (timer.progress > 0) {
 			GUIManager.GUIPie.color = Color.white;
@@ -70,7 +93,7 @@ public class Patient : Switchable
 			 
 			Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIManager.GUIPie);
 		}
-    }
+    }*/
 
 
     public bool IsTreated()
@@ -129,11 +152,7 @@ public class Patient : Switchable
             }
             animator.SetInteger("Direction", direction);
 			animator.SetTrigger("Treat");
-			var h = Object.Instantiate(heart,
-				new Vector3(transform.position.x + 0.25f, transform.position.y + 0.5f, transform.position.z),
-				new Quaternion()) as GameObject;
-			h.transform.parent = transform.parent;
-			h.renderer.sortingOrder = short.MaxValue;
+			heart.SetActive(true);
 
             AudioManager.PlaySFX("Treated");
         }
@@ -151,7 +170,9 @@ public class Patient : Switchable
 		if (reason == GameWorld.LevelOverReason.PatientInfected) {
 			animator.SetTrigger("Kill");
 		} else {
-			Entity.Replace(this.gameObject, ashes);
+			_ashController.Trigger(entity.position);
+			Destroy(this.gameObject);
+			//Entity.Replace(this.gameObject, ashes);
 		}
 			//animator.SetTrigger(reason == GameWorld.LevelOverReason.PatientInfected ? "Kill" : "Die");
 		collider2D.enabled = false;

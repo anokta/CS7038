@@ -2855,6 +2855,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e69a0ea50fd714d8dbe41be3018385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 2800000, guid: 937ad09298f1e054c8da927d508f25ff, type: 3}
+  circle: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
+  background: {fileID: 2800000, guid: 1fd8905703f18894eaaf92aca0ebd05d, type: 3}
+  cleanParticles: {fileID: 0}
+  infectionParticles: {fileID: 0}
+  handEmpty: {fileID: 2800000, guid: cbd975da888a03349ba17190138bf8ad, type: 3}
+  warning1: {fileID: 2800000, guid: 2f67e9490adad0246a34a864d8aaa5f4, type: 3}
+  warning2: {fileID: 2800000, guid: 52a25f7d0a1e4dd48b8945e7e27bb1fa, type: 3}
+  warningSign: {fileID: 2800000, guid: 7673402a1e35f184ab37669395710017, type: 3}
 --- !u!114 &1799188530
 MonoBehaviour:
   m_ObjectHideFlags: 0

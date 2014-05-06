@@ -22,6 +22,9 @@ public class Fountain : Accessible
     Vector2 guiPosition;
 	ParticleSystem bubbles;
 
+	public GameObject indicatorObject;
+	private TimeIndicator indicator;
+
 	protected override void Start()
 	{
 		base.Start();
@@ -34,6 +37,11 @@ public class Fountain : Accessible
 		bubbles.enableEmission = false;
 		bubbles.Play();
         pieSize *= Screen.height;
+		indicatorObject = Entity.Spawn(this.gameObject, indicatorObject);
+		indicator = indicatorObject.GetComponent<TimeIndicator>();
+		indicator.transform.position = indicator.transform.position + new Vector3(0, 0.95f, 0); 
+		indicator.Receiver = timer.GetProgress;
+		indicator.color = new Color(113f / 255f, 238f / 255f, 244f / 255f, 0.8f);
 	}
 
     protected override void Update()
@@ -62,18 +70,18 @@ public class Fountain : Accessible
 		}
     }
 
-    void OnGUI()
-    {
-		if (timer.progress > 0) {
-			var GUIpie = GUIManager.GUIPie;
-			GUIpie.color = new Color(113f / 255f, 238f / 255f, 244f / 255f);
-			GUIpie.SetFloat("Value", timer.progress);
-			GUIpie.SetFloat("Clockwise", 1);
-
-			Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
+  //  void OnGUI()
+  //  {
+		//if (timer.progress > 0) {
+		//	var GUIpie = GUIManager.GUIPie;
+		//	GUIpie.color = new Color(113f / 255f, 238f / 255f, 244f / 255f);
+		//	GUIpie.SetFloat("Value", timer.progress);
+		//	GUIpie.SetFloat("Clockwise", 1);
+		//
+		//	Graphics.DrawTexture(new Rect(guiPosition.x - pieSize * 0.5f, guiPosition.y - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
 			//Graphics.DrawTexture(new Rect(Screen.width * 0.5f - pieSize * 0.5f, Screen.height * 0.5f - pieSize * 0.5f, pieSize, pieSize), progressTexture, GUIpie);
-		}
-    }
+		//}
+  //  }
 
 	public override bool Enter()
 	{

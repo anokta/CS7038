@@ -6,22 +6,18 @@ public class HandController : MonoBehaviour
 {
     //public Material GUInormal;
 	// public Material GUIpie;
-    public Texture hand;
-    public Texture circle;
-    public Texture background;
 	public static readonly int MaxValue = 8;
 	public static readonly int MinValue = 0;
 	public static readonly int InfectionThreshold = -3;
     public GameObject cleanParticles;
     public GameObject infectionParticles;
 
-	public Texture handEmpty;
-	public Texture warning1;
-	public Texture warning2;
-	public Texture warningSign;
-
     private ParticleSystem stars, infection;
 	bool _showing;
+
+	public bool showingWarning {
+		get { return _showing; }
+	}
 
 	Transform _transform;
 
@@ -120,8 +116,14 @@ public class HandController : MonoBehaviour
 		++score;
 	}
 
+	public static HandController activeHand {
+		get;
+		set;
+	}
+
     void Start()
     {
+		activeHand = this;
 		GameWorld.score = 0;
         GroupManager.main.group["Running"].Add(this);
         stars = (GameObject.Instantiate(cleanParticles) as GameObject).particleSystem;
@@ -218,43 +220,6 @@ public class HandController : MonoBehaviour
             {
                 infection.Stop();
             }
-        }
-    }
-
-    void OnGUI()
-    {
-        if (Event.current.type.Equals(EventType.Repaint))
-        {
-			Material GUIpie = GUIManager.GUIPie;
-            Rect drawPos = new Rect(GUIManager.OffsetX(), Screen.height - Screen.height * 0.1f - GUIManager.OffsetY() - Screen.height * 0.1f, Screen.height * 0.2f, Screen.height * 0.2f);
-            GUIpie.SetFloat("Value", 1);
-            GUIpie.color = new Color(1, 1, 1, 0.6f);
-            //GUIpie.color = Color.white;
-            Graphics.DrawTexture(drawPos, background, GUIpie);
-
-            GUIpie.SetFloat("Value", Ratio);
-            GUIpie.SetFloat("Clockwise", 0);
-            GUIpie.color = new Color((1 - Ratio) * 0.75f, 0.75f, 0, 0.5f);
-
-            Graphics.DrawTexture(drawPos, circle, GUIpie);
-
-          //  GUIpie.SetFloat("Value", 1);
-          //  GUIpie.color = Color.white;
-
-			if (value <= MinValue) {
-				if (value == MinValue) {
-					Graphics.DrawTexture(drawPos, handEmpty);
-				} else if (value == -1) {
-					Graphics.DrawTexture(drawPos, warning1);
-				} else if (value >= -2) {
-					Graphics.DrawTexture(drawPos, warning2);
-				}
-				if (_showing) {
-					Graphics.DrawTexture(drawPos, warningSign);
-				}
-			} else {
-				Graphics.DrawTexture(drawPos, hand);
-			}
         }
     }
 

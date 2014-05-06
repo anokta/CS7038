@@ -7,10 +7,8 @@ public class Heart : MonoBehaviour
 	Timer fader;
 	float _swap = 1;
 	SpriteRenderer spriteRenderer;
-    
-    // Use this for initialization
-	void Start()
-	{
+
+	void Awake() {
 		rotator = new Timer(0.5f, Swap);
 		rotator.Resume();
 		rotator.time = 0.25f;
@@ -18,6 +16,12 @@ public class Heart : MonoBehaviour
 		fader = new Timer(3.0f, Dispose);
 		fader.Resume();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+	}
+    
+    // Use this for initialization
+	void Start()
+	{
+	
 	}
 
 	void Dispose() {

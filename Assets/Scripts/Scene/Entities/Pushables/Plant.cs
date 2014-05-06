@@ -4,7 +4,8 @@ public class Plant : Crate
 {
     public GameObject fire;
     public GameObject ashes;
-    private Timer clock;
+	private Ashes _ashController;
+//    private Timer clock;
 
     public Plant()
     {
@@ -14,33 +15,18 @@ public class Plant : Crate
     protected override void Start()
     {
         base.Start();
-        clock = new Timer(1, Break);
-        clock.Stop();
-    }
-
-    protected override void Update()
-    {
-        clock.Update();
+     //   clock = new Timer(1, Break);
+       // clock.Stop();
+		ashes = Entity.Spawn(gameObject, ashes);
+		_ashController = ashes.GetComponent<Ashes>();
+		ashes.SetActive(false);
     }
 
     public void Break()
     {
-        var obj = Object.Instantiate(
-            ashes, transform.position, transform.rotation) as GameObject;
-        obj.GetComponent<SpriteRenderer>().sortingOrder = this.spriteRenderer.sortingOrder;
-        obj.transform.parent = transform.parent;
-        Destroy(this.gameObject);
-        clock.Stop();
-    }
-
-    public void Burn()
-    {
         AudioManager.PlaySFX("Burn");
-
-        Break();
-        //clock.Resume();
-        //Object.Instantiate(fire);
-        //Destroy(this.gameObject, 1);
+		_ashController.Trigger(entity.position);
+		Destroy(this.gameObject);
     }
 
     public new class ExplosionTask : EntityExplosionTask

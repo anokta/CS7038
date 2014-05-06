@@ -4,7 +4,6 @@
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1, 1, 1, 1)
-		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
 		[MaterialToggle] Clockwise ("Clockwise", Float) = 1
 		Value ("Value", Range(0, 1)) = 0
 		AxisX ("Direction X", Float) = 0
@@ -35,69 +34,74 @@
 		CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma multi_compile DUMMY PIXELSNAP_ON
+			//#pragma multi_compile DUMMY PIXELSNAP_ON
 			#include "UnityCG.cginc"
 			
-			struct appdata_t
+				struct appdata_t
 			{
-				float4 vertex   : POSITION;
-				float4 color    : COLOR;
-				float2 texcoord : TEXCOORD0;
+				half4 vertex   : POSITION;
+				half4 color    : COLOR;
+				half2 texcoord : TEXCOORD0;
 			};
 
 			struct v2f
 			{
-				float4 vertex   : SV_POSITION;
+				half4 vertex   : SV_POSITION;
 				fixed4 color    : COLOR;
 				half2 texcoord  : TEXCOORD0;
+				half2 axis : TEXCOORD1;
+				half2 pivot : TEXCOORD2;
 			};
 			
 			fixed4 _Color;
+			half AxisX;
+			half AxisY;
+			half PivotX;
+			half PivotY;
 
 			v2f vert(appdata_t IN) {
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
-				#ifndef DUMMY
-					OUT.vertex = UnityPixelSnap (OUT.vertex); 
-				#endif
+				//OUT.vertex = UnityPixelSnap (OUT.vertex);
+				OUT.axis = normalize(half2(AxisX, AxisY));
+				OUT.pivot = half2(PivotX, PivotY);
 				return OUT;
 			}
 
 			sampler2D _MainTex;
-			float PivotX;
-			float PivotY;
-			float AxisX;
-			float AxisY;
-			float Value;
-			float Clockwise;
 
-			fixed4 frag(v2f IN) : COLOR
+			half Value;
+			half Clockwise;
+
+			half4 frag(v2f IN) : COLOR
 			{
-				float4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
+				half4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
+				//OUT.a *= Value; 
 				//Direction of the pie edge
-				float2 axis = normalize(float2(AxisX, AxisY));
+				//float2 axis = normalize(float2(AxisX, AxisY));
 				//Direction from origin to pixel
-				float2 dir = normalize(IN.texcoord - float2(PivotX, PivotY));
+				half2 dir = normalize(IN.texcoord - IN.pivot);
 				//The sign of z determines which half of the circle the dot product is for
-				float z = normalize(cross(float3(axis, 0), float3(dir, 0)).z);
+				half z = normalize(cross(half3(IN.axis, 0), half3(dir, 0)).z);
+	//			if (z < 0) { z = -1; }
+	//			else { z = 1; }
 				//The dot product is the cosine of the angle between two vectors:
-				float prod = dot(axis, dir);
+				half prod = dot(IN.axis, dir);
 				//Do some weird math magic to deal with angles > 180
 				prod = 0.25 * z * (1 - prod) + 0.5;
 				//Apply clockwise modifier
 				prod = Clockwise * (1 - 2 * prod) + prod;
 				
-				//What follows is equivalent to this if statement:
-				//if ( Value > 0.5 && prod  > Value || Value <= 0.5 && prod >= Value) {
-				//	OUT.a = 0;
-				//}
-				float mod = normalize(clamp(Value-0.5, 0, 1));
-				float diff = normalize(prod - Value);
-				OUT.a = OUT.a * ((1 - clamp(diff, 0, 1) * mod
-					+ (clamp(-diff, 0, 1) - 1) * (1-mod)));
-				
+				if ( prod > Value) { //Value > 0.5 && prod  > Value || Value <= 0.5 && prod >= Value) {
+					OUT.a = 0;
+				}
+				//float mod = normalize(clamp(Value-0.5, 0, 1));
+				//float diff = normalize(prod - Value);
+				//OUT.a = OUT.a * ((1 - clamp(diff, 0, 1) * mod
+				//	+ (clamp(-diff, 0, 1) - 1) * (1-mod)));
+
 				return OUT;
 			}
 		ENDCG

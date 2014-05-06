@@ -8,7 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Sprite Tile
   m_Shader: {fileID: 4800000, guid: b61b48faf08efa740a7f7ca7bae964ce, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords:
+  - CLOCKWISE_ON
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -33,6 +34,30 @@ Material:
         first:
           name: RepeatY
         second: 4.17293978
+      data:
+        first:
+          name: Value
+        second: 0
+      data:
+        first:
+          name: AxisX
+        second: 0
+      data:
+        first:
+          name: AxisY
+        second: -1
+      data:
+        first:
+          name: PivotX
+        second: .5
+      data:
+        first:
+          name: PivotY
+        second: .5
+      data:
+        first:
+          name: Clockwise
+        second: 1
     m_Colors:
       data:
         first:

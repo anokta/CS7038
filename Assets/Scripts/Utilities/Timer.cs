@@ -22,6 +22,10 @@ public class Timer
 
     public Action Complete;
 
+	public float GetProgress() {
+		return time / duration;
+	}
+
     public Timer()
     {
     }

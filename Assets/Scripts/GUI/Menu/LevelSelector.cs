@@ -153,7 +153,8 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void OnGUI()
     {
-        GUI.matrix = Matrix4x4.TRS(new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
+		Vector3 position = new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f);
+		GUI.matrix = Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
 
 //        GUI.skin = GUIManager.GetSkin();
 
@@ -195,21 +196,23 @@ public class LevelSelector : MonoBehaviour, IPan
 
                     if (GUI.enabled)
                     {
-                        if (GUI.Button(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton))
-                        {
-                            LevelManager.Instance.Level = level - 1;
+						//if (Mathf.Abs(position.x) <= 0.2f) {
+							if (GUI.Button(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton)) {
+								LevelManager.Instance.Level = level - 1;
 
-							ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
+								ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
 
-                            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
-                            {
-                                GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-                            });
+								ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate() {
+									GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+								});
 
-                            currentScroll = MainMenu.ScreenScrollValue;
-                            targetScroll = 0.0f;
-                            currentPage = 0;
-                        }
+								currentScroll = MainMenu.ScreenScrollValue;
+								targetScroll = 0.0f;
+								currentPage = 0;
+							}
+						//} else {
+						//	GUI.Label(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton);
+						//}
                         if (checkmark)
                         {
                             GUI.DrawTexture(buttonRect, checkTexture);
@@ -217,7 +220,7 @@ public class LevelSelector : MonoBehaviour, IPan
                     }
                     else
                     {
-                        GUI.Button(buttonRect, "", GUIManager.Style.rectButton);
+						GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
                         GUI.DrawTexture(buttonRect, lockTexture);
                     }
                 }

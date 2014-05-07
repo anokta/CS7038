@@ -11,6 +11,7 @@ public class LevelOverGUI : MonoBehaviour
 
     public float windowSize = 0.55f;
     public float widthRatio = 2.1f;
+	public float heightToWidth = 1.155f;
 	public float largeButtonSize = 0.2f;
 	public float smallButtonSize = 0.15f;
 
@@ -157,7 +158,8 @@ public class LevelOverGUI : MonoBehaviour
 		_actualButtonSizeSmall = smallButtonSize * Screen.height;
         _actualWindowSize = windowSize * Screen.height;
         windowHeight = _actualWindowSize;
-        windowWidth = windowHeight * widthRatio;
+		//windowWidth = windowHeight * widthRatio;
+		windowWidth = heightToWidth * Screen.height;
         guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
     }
 

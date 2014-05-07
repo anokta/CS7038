@@ -38,9 +38,7 @@ public class Credits : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.skin = GUIManager.GetSkin();
-
-        GUI.Window(1, new Rect((Screen.width - _windowSize) * 0.5f, (Screen.height - _windowSize * 0.9f) * 0.5f, _windowSize, _windowSize * 0.9f), DoMenuWindow, "Credits", GUI.skin.GetStyle("ingame window"));
+        GUI.Window(1, new Rect((Screen.width - _windowSize) * 0.5f, (Screen.height - _windowSize * 0.9f) * 0.5f, _windowSize, _windowSize * 0.9f), DoMenuWindow, "Credits", GUIManager.Style.inGameWindow);
     }
 
     void DoMenuWindow(int windowID)
@@ -53,20 +51,20 @@ public class Credits : MonoBehaviour
         GUILayout.FlexibleSpace();
         GUILayout.FlexibleSpace();
       
-        GUILayout.Label("Alper Gungormusler\nCharis Marangos\nChris Xue\nJonathan Kernan", GUI.skin.GetStyle("over title"));
+        GUILayout.Label("Alper Gungormusler\nCharis Marangos\nChris Xue\nJonathan Kernan", GUIManager.Style.overTitle);
         GUILayout.FlexibleSpace();
 
-        GUILayout.Label("Interactive Entertainment Technology\nTrinity College Dublin", GUI.skin.GetStyle("over message"));
+		GUILayout.Label("Interactive Entertainment Technology\nTrinity College Dublin", GUIManager.Style.overMessage);
         GUILayout.FlexibleSpace();
         GUILayout.FlexibleSpace();
-        GUILayout.Label("brought to you by Surewash", GUI.skin.GetStyle("over message"));
+		GUILayout.Label("brought to you by Surewash", GUIManager.Style.overMessage);
 
         GUILayout.FlexibleSpace();
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Back", GUI.skin.GetStyle("xbutton"), GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize)))
+		if (GUILayout.Button("Back", GUIManager.Style.xbutton, GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize)))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
         }

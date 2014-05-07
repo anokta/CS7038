@@ -6,7 +6,7 @@ using Grouping;
 
 public class DialogueManager : MonoBehaviour
 {
-    GUISkin guiSkin;
+   // GUISkin guiSkin;
 
     public float textSpeed = 40.0f;
 
@@ -164,11 +164,12 @@ public class DialogueManager : MonoBehaviour
 
         waitTimer = new Timer(0.6f, delegate()
         {
-            guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
+			GUIManager.Style.next.normal.background = (GUIManager.Style.next.normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
+           // guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
         });
         waitTimer.repeating = true;
 
-        guiSkin = GUIManager.GetSkin();
+//        guiSkin = GUIManager.GetSkin();
     }
 
     // Update is called once per frame
@@ -191,9 +192,9 @@ public class DialogueManager : MonoBehaviour
 		
     void OnGUI()
     {
-        GUI.skin = guiSkin;
+        //GUI.skin = guiSkin;
 
-        if (GUI.Button(new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), GUIContent.none, guiSkin.GetStyle("skip")))
+        if (GUI.Button(new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), GUIContent.none, GUIManager.Style.skip))
         {
             DialogueComplete();
 
@@ -202,7 +203,7 @@ public class DialogueManager : MonoBehaviour
 
         if (currentDialogue >= 0)
         {
-            dialogues[currentDialogue].OnGUI(GUI.skin);
+            dialogues[currentDialogue].OnGUI(GUIManager.skin);
         }
     }
 

@@ -36,30 +36,30 @@ public class QuitWindow : MonoBehaviour
 
     void OnGUI()
     {
-            GUI.skin = GUIManager.GetSkin();
+            //GUI.skin = GUIManager.GetSkin();
 
-		GUI.Window(1, new Rect((Screen.width- _windowSize) * 0.5f, (Screen.height - _windowSize * 0.55f) * 0.5f, _windowSize, _windowSize * 0.55f), DoMenuWindow, "", GUI.skin.GetStyle("ingame window"));
+		GUI.Window(1, new Rect((Screen.width- _windowSize) * 0.5f, (Screen.height - _windowSize * 0.55f) * 0.5f, _windowSize, _windowSize * 0.55f), DoMenuWindow, "", GUIManager.Style.inGameWindow);
     }
 
     void DoMenuWindow(int windowID)
     {
         GUILayout.BeginVertical();
-		GUILayout.Label("So, you want to quit.", GUI.skin.GetStyle("over title"));
+		GUILayout.Label("So, you want to quit.", GUIManager.Style.overTitle);
 		//  GUILayout.FlexibleSpace();
 		//  GUILayout.FlexibleSpace();
 
 		//  GUILayout.FlexibleSpace();
-        GUILayout.Label("Make sure you clean your hands after playing this game!", GUI.skin.GetStyle("over message"));
+		GUILayout.Label("Make sure you clean your hands after playing this game!", GUIManager.Style.overMessage);
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-		if (GUILayout.Button("I won't", GUI.skin.GetStyle("button no"), GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
+		if (GUILayout.Button("I won't", GUIManager.Style.buttonNo, GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
         }
         GUILayout.FlexibleSpace();
-		if (GUILayout.Button("I will", GUI.skin.GetStyle("button yes"), GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
+		if (GUILayout.Button("I will", GUIManager.Style.buttonYes, GUILayout.Width(_buttonSize), GUILayout.Height(_buttonSize / 2.0f)))
         {
             Application.Quit();
         }

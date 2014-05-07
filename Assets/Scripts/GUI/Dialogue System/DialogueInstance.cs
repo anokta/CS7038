@@ -68,11 +68,11 @@ public class DialogueInstance
     {
         if (entries.Count > 0 && currentEntry != null)
         {
-            currentEntry.DisplayEntry(guiSkin, displayedText);
+            currentEntry.DisplayEntry(displayedText);
             
             if (displayedText.Length == currentEntry.Content.Length)
             {
-                currentEntry.DisplayContinueButton(guiSkin.GetStyle("next"));
+				currentEntry.DisplayContinueButton(GUIManager.Style.next);
 
                 if (fastforward)
                 {

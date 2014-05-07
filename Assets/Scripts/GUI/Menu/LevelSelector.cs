@@ -155,7 +155,7 @@ public class LevelSelector : MonoBehaviour, IPan
     {
         GUI.matrix = Matrix4x4.TRS(new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
-        GUI.skin = GUIManager.GetSkin();
+//        GUI.skin = GUIManager.GetSkin();
 
         // Levels
         float offsetX = 0.5f * Screen.width - columnCount * buttonSize / 2.0f;
@@ -167,7 +167,7 @@ public class LevelSelector : MonoBehaviour, IPan
         {
             int pageStart = p * columnCount * rowCount;
 
-            if (pageStart == 0 && GUI.Button(new Rect((p - currentPage) * Screen.width + offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro"))
+			if (pageStart == 0 && GUI.Button(new Rect((p - currentPage) * Screen.width + offsetX - buttonSize, offsetY, buttonSize, buttonSize), "Intro", GUIManager.skin.button))
             {
                 ShowIntro();
 
@@ -195,7 +195,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
                     if (GUI.enabled)
                     {
-                        if (GUI.Button(buttonRect, (level + 1).ToString(), GUI.skin.GetStyle("rect button")))
+                        if (GUI.Button(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton))
                         {
                             LevelManager.Instance.Level = level - 1;
 
@@ -217,7 +217,7 @@ public class LevelSelector : MonoBehaviour, IPan
                     }
                     else
                     {
-                        GUI.Button(buttonRect, "", GUI.skin.GetStyle("rect button"));
+                        GUI.Button(buttonRect, "", GUIManager.Style.rectButton);
                         GUI.DrawTexture(buttonRect, lockTexture);
                     }
                 }
@@ -228,7 +228,7 @@ public class LevelSelector : MonoBehaviour, IPan
         GUI.matrix = Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
         // Back
-        if (GUI.Button(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize / 2, buttonSize / 2), "Back", GUI.skin.GetStyle("back")))
+		if (GUI.Button(new Rect(GUIManager.OffsetX() * 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize / 2, buttonSize / 2), "Back", GUIManager.Style.back))
         {
             targetScroll = MainMenu.ScreenScrollValue;
             AudioManager.PlaySFX("Menu Prev");
@@ -236,16 +236,16 @@ public class LevelSelector : MonoBehaviour, IPan
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
-		if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25C0'.ToString(), GUI.skin.GetStyle("over message")))
+		if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - buttonSize, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25C0'.ToString(), GUIManager.Style.overMessage))
         {
             ToPreviousPage();
         }
-		if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25B6'.ToString(), GUI.skin.GetStyle("over message")))
+		if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), '\u25B6'.ToString(), GUIManager.Style.overMessage))
         {
             ToNextPage();
         }
         
-        GUI.Label(new Rect(Screen.width / 2.0f - buttonSize / 2, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), (currentPage + 1) + " / " + pagesCount, GUI.skin.GetStyle("over message"));
+		GUI.Label(new Rect(Screen.width / 2.0f - buttonSize / 2, Screen.height - buttonSize / 2 - GUIManager.OffsetY() * 2.0f, buttonSize, buttonSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
     }
 
     void ShowIntro()

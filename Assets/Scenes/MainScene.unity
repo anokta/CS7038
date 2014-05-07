@@ -2843,7 +2843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowSize: .550000012
   widthRatio: 2.0999999
-  buttonSize: .300000012
+  largeButtonSize: .200000003
+  smallButtonSize: .150000006
 --- !u!114 &1799188529
 MonoBehaviour:
   m_ObjectHideFlags: 0

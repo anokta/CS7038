@@ -90,6 +90,7 @@ public class GUIManager : MonoBehaviour
 		GUIPie = Material.Instantiate(_GuiPieMaterial) as Material;
 		instance = this;
 		guiSkin = GUISkin.Instantiate(guiSkin) as GUISkin;
+		//GUI.skin = guiSkin;
 		_handyStyles = new HandyStyles(guiSkin);
 		_styles = new List<StyleEntry>();
 		//_customStyles = new StyleEntry[guiSkin.customStyles.Length];
@@ -112,12 +113,12 @@ public class GUIManager : MonoBehaviour
 		Printer.Print("Width: " + _width + ", Height: " + _height);
 	}
 
-	public static GUISkin GetSkin()
-	{
-	    return instance.guiSkin;
-	}
+	//public static GUISkin GetSkin()
+	//{
+	//    return instance.guiSkin;
+	//}
 
-	public static GUISkin Skin { get { return instance.guiSkin; } }
+	public static GUISkin skin { get { return instance.guiSkin; } }
 
 	void LateUpdate () {
 		if (Screen.width != _width || Screen.height != _height) {

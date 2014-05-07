@@ -204,13 +204,13 @@ public class LevelOverGUI : MonoBehaviour
     // Update is called once per frame
     void OnGUI()
     {
-        GUI.skin = GUIManager.GetSkin();
+      // GUI.skin = GUIManager.GetSkin();
 
-        var style = GUI.skin.GetStyle("over title");
+		var style = GUIManager.Style.overTitle;
         float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth);
         var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
-        var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUI.skin.GetStyle("over window"));
+		var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUIManager.Style.overWindow);
 		float backSize = _actualButtonSizeSmall;
 
 
@@ -222,11 +222,11 @@ public class LevelOverGUI : MonoBehaviour
     void DoWindow(int windowID)
     {
 
-        GUILayout.Label(overTitle, GUI.skin.GetStyle("over title"));
+		GUILayout.Label(overTitle, GUIManager.Style.overTitle);
 
         GUILayout.BeginVertical();
         //GUILayout.FlexibleSpace();
-        GUILayout.Label(overMessage, GUI.skin.GetStyle("over message"));
+		GUILayout.Label(overMessage, GUIManager.Style.overMessage);
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
@@ -248,7 +248,7 @@ public class LevelOverGUI : MonoBehaviour
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Restart", GUI.skin.GetStyle("restart over"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+		if (GUILayout.Button("Restart", GUIManager.Style.restartOver, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
         {
             LevelManager.Instance.Level--;
 
@@ -257,7 +257,7 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.FlexibleSpace();
         if (GameWorld.success)
         {
-            if (GUILayout.Button("Next Level", GUI.skin.GetStyle("continue"), GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
+			if (GUILayout.Button("Next Level", GUIManager.Style.continueButton, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
             {
                 FadeToLevelStart();
             }
@@ -276,7 +276,7 @@ public class LevelOverGUI : MonoBehaviour
 
     void DoMenuButtonWindow(int windowID)
     {
-		if (GUILayout.Button("Menu", GUI.skin.GetStyle("menu"), GUILayout.Width(_actualButtonSizeSmall), GUILayout.Height(_actualButtonSizeSmall)))
+		if (GUILayout.Button("Menu", GUIManager.Style.menu, GUILayout.Width(_actualButtonSizeSmall), GUILayout.Height(_actualButtonSizeSmall)))
         {
             if (!GameWorld.success)
             {

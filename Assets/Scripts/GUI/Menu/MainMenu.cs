@@ -74,7 +74,7 @@ public class MainMenu : MonoBehaviour
     {
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
-        GUI.skin = GUIManager.GetSkin();
+        //GUI.skin = GUIManager.GetSkin();
 
         //LOGO
         {
@@ -89,7 +89,7 @@ public class MainMenu : MonoBehaviour
             float size = Screen.height * 0.3f;
             if (GUI.Button(
                 new Rect((Screen.width - size) * 0.5f, (Screen.height - size) * 0.65f, size, size),
-                "", GUI.skin.GetStyle("play")))
+				"", GUIManager.Style.play))
             {
                 targetScroll = -ScreenScrollValue;
                 AudioManager.PlaySFX("Menu Next");
@@ -105,15 +105,16 @@ public class MainMenu : MonoBehaviour
 
         // Mute
         //TODO: Temporary hack, fix
-        string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
-        if (GUILayout.Button("Mute", GUI.skin.GetStyle(styleOfVolume), GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
+        //string styleOfVolume = AudioListener.volume <= 0.001f ? "volume off" : "volume on";
+		GUIStyle styleOfVolue = AudioListener.volume <= 0.001f ? GUIManager.Style.volumeOff: GUIManager.Style.volumeOn;
+        if (GUILayout.Button("Mute", styleOfVolue, GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
             AudioListener.volume = 1 - AudioListener.volume;
             PlayerPrefs.SetFloat("Audio Volume", AudioListener.volume);
         }
 
         // Credits
-        if (GUILayout.Button("Credits", GUI.skin.GetStyle("credits"), GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
+		if (GUILayout.Button("Credits",GUIManager.Style.credits, GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
             GroupManager.main.activeGroup = GroupManager.main.group["Credits"];
         }
@@ -129,7 +130,7 @@ public class MainMenu : MonoBehaviour
         GUILayout.BeginHorizontal();
 
         // Url
-        if (GUILayout.Button("i", GUI.skin.GetStyle("info"), GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
+		if (GUILayout.Button("i", GUIManager.Style.info, GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
         {
             Application.OpenURL("http://www.surewash.com/");
         }

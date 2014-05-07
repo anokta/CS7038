@@ -36,9 +36,9 @@ public class InGameGUI : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.skin = GUIManager.GetSkin();
+//        GUI.skin = GUIManager.GetSkin();
 
-        if (GUI.Button(new Rect(GUIManager.OffsetX(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), "Pause", GUI.skin.GetStyle("pause")))
+		if (GUI.Button(new Rect(GUIManager.OffsetX(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), "Pause", GUIManager.Style.pause))
         {
             AudioManager.PlaySFX("Level Swipe");
 

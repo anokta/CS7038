@@ -28,7 +28,7 @@ public class DialogueEntry
         this.content = content;
     }
 
-    public void DisplayEntry(GUISkin guiSkin, string displayedText)
+    public void DisplayEntry(string displayedText)
     {
         if (Author.Avatar != null)
         {
@@ -50,20 +50,20 @@ public class DialogueEntry
 
         GUILayout.BeginArea(Author.GuiRectangle);
 
-		string content;
+		GUIStyle contentStyle;
 
 		if (Author.Name != "[Narrator]") {
-			GUIStyle authorStyle = guiSkin.GetStyle("author");
+			GUIStyle authorStyle = GUIManager.Style.author;
 			authorStyle.alignment = Author.Alignment;
 
 			authorStyle.normal.textColor = Author.TextColor;
             GUILayout.Label(Author.Name, authorStyle);
-			content = "content";
+			contentStyle = GUIManager.Style.content;
 		} else {
-			content = "narrator content";
+			contentStyle = GUIManager.Style.narratorContent;
 		}
 
-		GUIStyle contentStyle = guiSkin.GetStyle(content);
+		///= GUIManager.Style.content;
 
         contentStyle.normal.textColor = Author.TextColor + new Color(0.5f, 0.5f, 0.5f);
         GUILayout.Label(displayedText, contentStyle);

@@ -39,7 +39,7 @@ public class Printer : MonoBehaviour
 	void OnGUI() {
 		GUILayout.BeginVertical();
 		foreach (string text in lines) {
-			GUILayout.Label(text, GUIManager.GetSkin().GetStyle("debug text"));
+			GUILayout.Label(text, GUIManager.Style.debugText);
 		}
 		GUILayout.EndVertical();
 	}

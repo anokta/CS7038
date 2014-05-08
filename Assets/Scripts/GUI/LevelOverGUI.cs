@@ -8,12 +8,14 @@ public class LevelOverGUI : MonoBehaviour
 {
     private float _actualWindowSize;
     private float _actualButtonSize;
+	private float _actualSocialSize;
 
     public float windowSize = 0.55f;
-    public float widthRatio = 2.1f;
+	// public float widthRatio = 2.1f;
 	public float heightToWidth = 1.155f;
 	public float largeButtonSize = 0.2f;
 	public float smallButtonSize = 0.15f;
+	public float socialButtonSize = 0.15f;
 
     private static System.Random _rnd;
 
@@ -157,6 +159,7 @@ public class LevelOverGUI : MonoBehaviour
 		_actualButtonSize = largeButtonSize * Screen.height;
 		_actualButtonSizeSmall = smallButtonSize * Screen.height;
         _actualWindowSize = windowSize * Screen.height;
+		_actualSocialSize = socialButtonSize * Screen.height;
         windowHeight = _actualWindowSize;
 		//windowWidth = windowHeight * widthRatio;
 		windowWidth = heightToWidth * Screen.height;
@@ -208,8 +211,9 @@ public class LevelOverGUI : MonoBehaviour
     {
       // GUI.skin = GUIManager.GetSkin();
 
-		var style = GUIManager.Style.overTitle;
-        float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth);
+		var style = GUIManager.Style.overMessage;
+		float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth -
+			(GUIManager.Style.overWindow.padding.left +  GUIManager.Style.overWindow.padding.right));
         var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
 		var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUIManager.Style.overWindow);
@@ -218,8 +222,18 @@ public class LevelOverGUI : MonoBehaviour
 
         var backRec = new Rect((rect.xMin - backSize * 0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
         GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
-        GUI.BringWindowToFront(2);
-    }
+
+		//Note #1: The current window graphic has an inner margin of 3. Change accordingly if the graphic changes.
+		//Note #2: The current window graphic has an inner border of 4. ^^^^^^^
+		int innerMargin = 3;
+		int innerBorder = 4;
+		var socialRec = new Rect(rect.xMax - _actualSocialSize * 3, rect.y - _actualSocialSize + innerMargin + innerBorder, _actualSocialSize * 2.5f, _actualSocialSize);
+		GUI.Window(3, socialRec, DoSocialWindow, "", GUIStyle.none);
+
+		GUI.BringWindowToFront(2);
+		GUI.BringWindowToFront(3);
+
+	}
 
     void DoWindow(int windowID)
     {
@@ -232,40 +246,26 @@ public class LevelOverGUI : MonoBehaviour
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
+		{
+			GUILayout.FlexibleSpace();
+			if (GameWorld.success) {
+				GUILayout.FlexibleSpace();
+			}
+			if (GUILayout.Button("Restart", GUIManager.Style.restartOver, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
+				LevelManager.Instance.Level--;
 
-        if (GUILayout.Button("Twitter"))
-        {
-            ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
-        }
+				FadeToLevelStart();
+			}
+			GUILayout.FlexibleSpace();
+			if (GameWorld.success) {
+				if (GUILayout.Button("Next Level", GUIManager.Style.continueButton, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
+					FadeToLevelStart();
+				}
 
-        GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Facebook"))
-        {
-            ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
-        }
-
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-		if (GUILayout.Button("Restart", GUIManager.Style.restartOver, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
-        {
-            LevelManager.Instance.Level--;
-
-            FadeToLevelStart();
-        }
-        GUILayout.FlexibleSpace();
-        if (GameWorld.success)
-        {
-			if (GUILayout.Button("Next Level", GUIManager.Style.continueButton, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize)))
-            {
-                FadeToLevelStart();
-            }
-
-            GUILayout.FlexibleSpace();
-        }
+				GUILayout.FlexibleSpace();
+				GUILayout.FlexibleSpace();
+			}
+		}
         GUILayout.EndHorizontal();
 
         GUILayout.FlexibleSpace();
@@ -315,6 +315,22 @@ public class LevelOverGUI : MonoBehaviour
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         });
     }
+
+	void DoSocialWindow(int windowID) {
+		GUILayout.BeginHorizontal();
+		{
+			if (GUILayout.Button("Twitter", GUIManager.Style.twitter, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
+			{
+				ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+			}
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("Facebook", GUIManager.Style.facebook, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
+			{
+				ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+			}
+		}
+		GUILayout.EndHorizontal();
+	}
 
     void FadeToMainMenu()
     {

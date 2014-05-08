@@ -1628,7 +1628,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowSize: 1
-  buttonSize: .075000003
+  buttonSize: .150000006
+  TrinityLogo: {fileID: 2800000, guid: a52582a81db50f54e8c4fc2e236d958c, type: 3}
+  LogoBackground: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,10 +2843,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37636a9ef37bd2e4d8c4768b110f66a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowSize: .550000012
-  widthRatio: 2.0999999
+  windowSize: .425000012
+  heightToWidth: 1.10000002
   largeButtonSize: .200000003
   smallButtonSize: .150000006
+  socialButtonSize: .100000001
 --- !u!114 &1799188529
 MonoBehaviour:
   m_ObjectHideFlags: 0

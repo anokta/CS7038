@@ -46,6 +46,11 @@ public class HandyStyles
 		buttonYes = skin.customStyles[count++];
 		buttonNo = skin.customStyles[count++];
 		debugText = skin.customStyles[count++];
+		creditsName = skin.customStyles[count++];
+		creditsDescription = skin.customStyles[count++];
+		creditsMessage = skin.customStyles[count++];
+		facebook = skin.customStyles[count++];
+		twitter = skin.customStyles[count++];
 	}
 
 	public readonly GUIStyle author;
@@ -76,5 +81,10 @@ public class HandyStyles
 	public readonly GUIStyle buttonYes;
 	public readonly GUIStyle buttonNo;
 	public readonly GUIStyle debugText;
+	public readonly GUIStyle creditsName;
+	public readonly GUIStyle creditsDescription;
+	public readonly GUIStyle creditsMessage;
+	public readonly GUIStyle facebook;
+	public readonly GUIStyle twitter;
 }
 

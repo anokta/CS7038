@@ -49,7 +49,7 @@ public class Entity : MonoBehaviour
 
     protected virtual void Update()
     {
-		spriteRenderer.sortingOrder =  LevelLoader.PlaceDepth(entity.position.y);
+        spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(entity.position.y);
     }
 }
 

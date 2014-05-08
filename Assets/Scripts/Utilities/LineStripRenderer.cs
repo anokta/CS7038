@@ -3,48 +3,69 @@ using UnityEngine;
 
 public class LineStripRenderer : Component
 {
-    private readonly List<LineRenderer> linePool;
-    private int enabledLinesCount;
+    private readonly List<LineRenderer> rendererPool;
+    private int numEnabledRenderers;
     private readonly Component parent;
-	private readonly Material material;
+    private readonly Material material;
     private readonly Color color;
     private readonly float width;
 
-	public LineStripRenderer(Component parent, Material material, Color color, float width)
+    public LineStripRenderer(Component parent, Material material, Color color, float width)
     {
-        linePool = new List<LineRenderer>();
-        enabledLinesCount = 0;
+        rendererPool = new List<LineRenderer>();
+        numEnabledRenderers = 0;
         this.parent = parent;
-		this.material = material;
-	    this.color = color;
-	    this.width = width;
+        this.material = material;
+        this.color = color;
+        this.width = width;
     }
 
-    public void Draw(List<Vector3> points)
+    public void Draw(List<Vector2> points, List<int> sortingOrderOffsets)
     {
-        var newLinesCount = points.Count - 1;
+        var numLines = points.Count - 1;
+        var numRenderers = numLines * 3;
 
-        EnableRenderers(newLinesCount);
+        EnableRenderers(numRenderers);
 
-        for (var i = 0; i < newLinesCount; i++)
+        for (var i = 0; i < numLines; i++)
         {
-            linePool[i].SetPosition(0, points[i]);
-            linePool[i].SetPosition(1, points[i + 1]);
+            var point1 = points[i];
+            var point4 = points[i + 1];
+            var direction = point4 - point1;
+            direction.Normalize();
+            var point2 = point1 + direction * 0.5f;
+            var point3 = point4 - direction * 0.5f;
+
+            var startRenderer = rendererPool[3 * i];
+            var middleRenderer = rendererPool[3 * i + 1];
+            var endRenderer = rendererPool[3 * i + 2];
+
+            startRenderer.SetPosition(0, point1);
+            startRenderer.SetPosition(1, point2);
+            startRenderer.sortingOrder = LevelLoader.PlaceDepth(point1.y) + sortingOrderOffsets[i];
+
+            middleRenderer.SetPosition(0, point2);
+            middleRenderer.SetPosition(1, point3);
+            middleRenderer.sortingOrder = LevelLoader.FloorOrder + 100;
+
+            endRenderer.SetPosition(0, point3);
+            endRenderer.SetPosition(1, point4);
+            endRenderer.sortingOrder = LevelLoader.PlaceDepth(point4.y) + sortingOrderOffsets[i + 1];
         }
     }
 
-    private void EnableRenderers(int newLinesCount)
+    private void EnableRenderers(int numRenderers)
     {
-        for (var i = newLinesCount; i < linePool.Count; i++)
+        for (var i = numRenderers; i < numEnabledRenderers; i++)
         {
-            linePool[i].enabled = false;
+            rendererPool[i].enabled = false;
         }
 
-        for (var i = enabledLinesCount; i < newLinesCount; i++)
+        for (var i = numEnabledRenderers; i < numRenderers; i++)
         {
-            if (i < linePool.Count)
+            if (i < rendererPool.Count)
             {
-                linePool[i].enabled = true;
+                rendererPool[i].enabled = true;
             }
             else
             {
@@ -52,16 +73,15 @@ public class LineStripRenderer : Component
                 laser.transform.parent = parent.transform;
 
                 var line = laser.AddComponent<LineRenderer>();
-				line.material = material;
+                line.material = material;
                 line.SetColors(color, color);
                 line.SetWidth(width, width);
                 line.SetVertexCount(2);
-				line.sortingOrder = LevelLoader.FloorOrder + 100;
 
-                linePool.Add(line);
+                rendererPool.Add(line);
             }
         }
 
-        enabledLinesCount = newLinesCount;
+        numEnabledRenderers = numRenderers;
     }
 }

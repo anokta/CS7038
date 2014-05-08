@@ -5,7 +5,8 @@ using Grouping;
 public class LaserEmitter : Entity
 {
     /// <summary>
-    /// The direction that laser is going (not coming from)
+    /// The direction that laser is going to (not coming from).
+    /// For example: Right means the laser direction is left to right.
     /// </summary>
     private Direction direction;
 
@@ -60,7 +61,7 @@ public class LaserEmitter : Entity
 		GroupManager.main.group["To Level Over"].Add(this);
     }
 
-    private readonly Vector2 offset = new Vector2(0, 0.3f);
+    private readonly Vector2 laserPositionOffset = new Vector2(0, 0.3f);
 
     // Update is called once per frame
     protected override void Update()
@@ -70,8 +71,12 @@ public class LaserEmitter : Entity
         var currDirection = Direction;
         var directionVector = currDirection.ToVector2();
         var origin = transform.position.xy();
-        var points = new List<Vector3>();
-        points.Add(origin + offset);
+
+        var points = new List<Vector2>();
+        points.Add(origin + laserPositionOffset);
+
+        var sortingOrderOffsets = new List<int>();
+        sortingOrderOffsets.Add(-1);
 
         // Set max iteration 20 to avoid infinite reflection
         for (var iteration = 0; iteration < 20; iteration++)
@@ -90,12 +95,12 @@ public class LaserEmitter : Entity
             {
                 origin.x = hit.collider.transform.position.x;
             }
-            
-            points.Add(origin.xy0() + new Vector3(0, 0.3f, 0));
+
+            points.Add(origin + laserPositionOffset);
 
             if (hit.transform.tag == "Player")
             {
-                PlayerController player = hit.transform.GetComponent<PlayerController>();
+                var player = hit.transform.GetComponent<PlayerController>();
 
                 if (player.IsAlive)
                 {
@@ -112,7 +117,10 @@ public class LaserEmitter : Entity
                 var mirror = hit.collider.GetComponent<Mirror>();
                 if (mirror != null)
                 {
-                    currDirection = mirror.Reflect(currDirection);
+                    var newDirection = mirror.Reflect(currDirection);
+                    var sortingOrderOffset = currDirection == Direction.Down || newDirection == Direction.Up ? - 1 : 1;
+                    sortingOrderOffsets.Add(sortingOrderOffset);
+                    currDirection = newDirection;
                     directionVector = currDirection.ToVector2();
                     continue;
                 }
@@ -145,6 +153,7 @@ public class LaserEmitter : Entity
             break;
         }
 
-        lineStrip.Draw(points);
+        sortingOrderOffsets.Add(-1);
+        lineStrip.Draw(points, sortingOrderOffsets);
     }
 }

@@ -111,6 +111,12 @@ public class LaserEmitter : Entity
             else if (!endpoint.Equals(previousEndpoints[endpointIndex]))
             {
                 previousEndpoint = previousEndpoints[endpointIndex];
+                var previousDirection = previousEndpoint.Value - previousEndpoints[endpointIndex - 1];
+                previousDirection.Normalize();
+                if (directionVector != previousDirection)
+                {
+                    previousEndpoint = endpoints[endpointIndex - 1];
+                }
             }
 
             if (previousEndpoint.HasValue)

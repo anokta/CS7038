@@ -13,7 +13,7 @@ public class InputExt
         return false;
     }
 
-    public static bool GetAnyKeyDown(params KeyCode[] keys)
+    public static bool IsAnyKeyDown(params KeyCode[] keys)
     {
         foreach (var keyCode in keys)
         {
@@ -23,7 +23,7 @@ public class InputExt
         return false;
     }
 
-    public static bool GetAnyKeyUp(params KeyCode[] keys)
+    public static bool IsAnyKeyUp(params KeyCode[] keys)
     {
         foreach (var keyCode in keys)
         {

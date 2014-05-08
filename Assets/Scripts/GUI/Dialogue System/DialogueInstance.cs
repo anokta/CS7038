@@ -60,7 +60,7 @@ public class DialogueInstance
             }
         }
 
-        fastforward = Input.GetMouseButtonDown(0) || InputExt.GetAnyKeyDown(KeyCode.Space, KeyCode.Return);
+        fastforward = Input.GetMouseButtonDown(0) || InputExt.IsAnyKeyDown(KeyCode.Space, KeyCode.Return);
     }
 
 

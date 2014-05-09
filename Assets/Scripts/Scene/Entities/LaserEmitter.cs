@@ -5,11 +5,12 @@ using Grouping;
 public class LaserEmitter : Entity
 {
     /// <summary>
-    /// The direction that laser is going (not coming from)
+    /// The direction that laser is going to (not coming from).
+    /// For example: Right means the laser direction is left to right.
     /// </summary>
     private Direction direction;
 
-	public Material LaserMaterial;
+    public Material LaserMaterial;
     public Color LaserColor;
     public float LaserWidth;
 
@@ -45,6 +46,10 @@ public class LaserEmitter : Entity
 
     private int lastExplosiveID;
 
+    private static readonly Vector2 LaserPositionOffset = new Vector2(0, 0.3f);
+    private const float LaserSpeed = 20;
+    private List<Vector2> previousEndpoints;
+
     public LaserEmitter()
     {
         direction = Direction.Down;
@@ -57,10 +62,10 @@ public class LaserEmitter : Entity
 
         lineStrip = new LineStripRenderer(this, LaserMaterial, LaserColor, LaserWidth);
 
-		GroupManager.main.group["To Level Over"].Add(this);
-    }
+        GroupManager.main.group["To Level Over"].Add(this);
 
-    private readonly Vector2 offset = new Vector2(0, 0.3f);
+        previousEndpoints = new List<Vector2> { transform.position.xy() };
+    }
 
     // Update is called once per frame
     protected override void Update()
@@ -69,14 +74,20 @@ public class LaserEmitter : Entity
 
         var currDirection = Direction;
         var directionVector = currDirection.ToVector2();
-        var origin = transform.position.xy();
-        var points = new List<Vector3>();
-        points.Add(origin + offset);
+        var endpoint = transform.position.xy();
+
+        var endpoints = new List<Vector2>();
+        endpoints.Add(endpoint);
+
+        var sortingOrderOffsets = new List<int>();
+        sortingOrderOffsets.Add(-1);
+
+        var movement = Time.deltaTime * LaserSpeed;
 
         // Set max iteration 20 to avoid infinite reflection
-        for (var iteration = 0; iteration < 20; iteration++)
+        for (var endpointIndex = 1; endpointIndex < 20; endpointIndex++)
         {
-            var hit = Physics2D.Raycast(origin + directionVector, directionVector, 100);  //TODO: change 100 to max level width
+            var hit = Physics2D.Raycast(endpoint + directionVector, directionVector, 100);  //TODO: change 100 to max level width
 
             DebugExt.Assert(hit.collider != null);
             if (hit.collider == null)
@@ -84,18 +95,49 @@ public class LaserEmitter : Entity
 
             if (directionVector.x.IsZero())
             {
-                origin.y = hit.collider.transform.position.y;
+                endpoint.y = hit.collider.transform.position.y;
             }
             else
             {
-                origin.x = hit.collider.transform.position.x;
+                endpoint.x = hit.collider.transform.position.x;
             }
-            
-            points.Add(origin.xy0() + new Vector3(0, 0.3f, 0));
+
+            Vector2? previousEndpoint = null;
+
+            if (endpointIndex >= previousEndpoints.Count)
+            {
+                previousEndpoint = endpoints[endpointIndex - 1];
+            }
+            else if (!endpoint.Equals(previousEndpoints[endpointIndex]))
+            {
+                previousEndpoint = previousEndpoints[endpointIndex];
+                var previousDirection = previousEndpoint.Value - previousEndpoints[endpointIndex - 1];
+                previousDirection.Normalize();
+                if (directionVector != previousDirection)
+                {
+                    previousEndpoint = endpoints[endpointIndex - 1];
+                }
+            }
+
+            if (previousEndpoint.HasValue)
+            {
+                var newEndpoint = previousEndpoint.Value + movement * directionVector;
+
+                var diff = Vector2.Dot(endpoint - newEndpoint, directionVector);
+
+                if (diff > 0)
+                {
+                    endpoints.Add(newEndpoint);
+                    break;
+                }
+                movement += diff;
+            }
+
+            endpoints.Add(endpoint);
 
             if (hit.transform.tag == "Player")
             {
-                PlayerController player = hit.transform.GetComponent<PlayerController>();
+                var player = hit.transform.GetComponent<PlayerController>();
 
                 if (player.IsAlive)
                 {
@@ -112,7 +154,12 @@ public class LaserEmitter : Entity
                 var mirror = hit.collider.GetComponent<Mirror>();
                 if (mirror != null)
                 {
+                    var oldDirection = currDirection;
                     currDirection = mirror.Reflect(currDirection);
+
+                    var sortingOrderOffset = oldDirection == Direction.Down || currDirection == Direction.Up ? -1 : 1;
+                    sortingOrderOffsets.Add(sortingOrderOffset);
+
                     directionVector = currDirection.ToVector2();
                     continue;
                 }
@@ -137,14 +184,18 @@ public class LaserEmitter : Entity
                 }
             }
 
-			var plant = hit.collider.GetComponent<Plant>();
-			if (plant != null) {
-				plant.Break();
-			}
+            var plant = hit.collider.GetComponent<Plant>();
+            if (plant != null)
+            {
+                plant.Break();
+            }
 
             break;
         }
 
-        lineStrip.Draw(points);
+        sortingOrderOffsets.Add(-1);
+        lineStrip.Draw(endpoints, sortingOrderOffsets, LaserPositionOffset);
+
+        previousEndpoints = endpoints;
     }
 }

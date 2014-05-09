@@ -39,11 +39,11 @@ public class LevelLoader
 
 
 	public static short PlaceWall(float y) {
-		return (short)-Mathf.RoundToInt(10 * y);
+        return (short)(-10 * Mathf.RoundToInt(y));
 	}
 
 	public static short PlaceDepth(float y) {
-		return (short)(-Mathf.RoundToInt(10 * y) - 5);
+        return (short)(-10 * Mathf.RoundToInt(y) - 5);
 	}
 
 

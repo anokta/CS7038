@@ -3,10 +3,11 @@ using Grouping;
 
 public class GameWorld : MonoBehaviour
 {
-    public enum LevelOverReason {
-		Squashed,
-
- Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient }
+    public enum LevelOverReason
+    {
+        Squashed,
+        Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient
+    }
     public static LevelOverReason levelOverReason;
 
     public static bool success
@@ -15,23 +16,28 @@ public class GameWorld : MonoBehaviour
         set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
     }
 
-	static int _score;
-	public static int score {
-		get { return _score; }
-		set { _score = value;
-			Debug.Log("Current score: " + _score);
-		}
-	}
+    static int _score;
+    public static int score
+    {
+        get { return _score; }
+        set
+        {
+            _score = value;
+            Debug.Log("Current score: " + _score);
+        }
+    }
 
-	private static bool _dialogueOff;
-	public static bool dialogueOff {
-		get { return _dialogueOff; }
-		set {
-			//Debug.Log("DialogueOff was set to " + value + " from " + _dialogueOff);
-			_dialogueOff = value;
-			
-		}
-	}
+    private static bool _dialogueOff;
+    public static bool dialogueOff
+    {
+        get { return _dialogueOff; }
+        set
+        {
+            //Debug.Log("DialogueOff was set to " + value + " from " + _dialogueOff);
+            _dialogueOff = value;
+
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -48,36 +54,15 @@ public class GameWorld : MonoBehaviour
         GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, delegate() { success = true; }, null));
 
         dialogueOff = false;
+
+        CheatManager.Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TODO: remove this when releasing
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            LevelManager.Instance.Level -= 2;
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-        }
+        CheatManager.Instance.Update();
 
-        //TODO: remove this when releasing
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-        }
-
-        //TODO: remove this when releasing
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LevelManager.Instance.Level--;
-            success = false;
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-            GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-        }
-
-        //TODO: remove this when releasing
         var patients = FindObjectsOfType<Patient>();
         var isOver = true;
         foreach (var patient in patients)
@@ -129,7 +114,7 @@ public class GameWorld : MonoBehaviour
                     {
                         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
                         {
-							GameWorld.dialogueOff = false;
+                            GameWorld.dialogueOff = false;
                             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
                         });
                     };

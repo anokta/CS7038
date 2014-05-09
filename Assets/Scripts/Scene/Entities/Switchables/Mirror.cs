@@ -17,8 +17,8 @@ public class Mirror : Switchable
         }
     }
 
-	public Sprite MirrorForward;
-	public Sprite MirrorInverse;
+    public Sprite MirrorForward;
+    public Sprite MirrorInverse;
 
     public Mirror()
     {
@@ -31,9 +31,9 @@ public class Mirror : Switchable
         base.Start();
     }
 
-    public Direction Reflect(Direction incoming)
+    public Direction Reflect(Direction laserDirection)
     {
-        switch (incoming)
+        switch (laserDirection)
         {
             case Direction.Up:
                 return Forward ? Direction.Left : Direction.Right;
@@ -53,14 +53,15 @@ public class Mirror : Switchable
         base.Update();
     }
 
-	public override void Switch(bool byPlayer)
-	{
+    public override void Switch(bool byPlayer)
+    {
         AudioManager.PlaySFX("Mirror");
 
-		Forward = !Forward;
+        Forward = !Forward;
 
-		if (byPlayer) {
-        	playerHand.SpoilHand(GetInstanceID());
-		}
-	}
+        if (byPlayer)
+        {
+            playerHand.SpoilHand(GetInstanceID());
+        }
+    }
 }

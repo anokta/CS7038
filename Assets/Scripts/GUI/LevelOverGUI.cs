@@ -9,6 +9,7 @@ public class LevelOverGUI : MonoBehaviour
     private float _actualWindowSize;
     private float _actualButtonSize;
 	private float _actualSocialSize;
+	private float _actualStarSize;
 
     public float windowSize = 0.55f;
 	// public float widthRatio = 2.1f;
@@ -16,6 +17,7 @@ public class LevelOverGUI : MonoBehaviour
 	public float largeButtonSize = 0.2f;
 	public float smallButtonSize = 0.15f;
 	public float socialButtonSize = 0.15f;
+	public float starSize = 0.1f;
 
     private static System.Random _rnd;
 
@@ -38,7 +40,7 @@ public class LevelOverGUI : MonoBehaviour
             "Hands down, you rock!",
             "Well handled!",
             "Cleanly done!",
-			"You go hand in hand with greatness!",
+			"You go hand in hand with victory!",
 			"I’ve got to hand it to you..."
         };
         overMessageSet[GameWorld.LevelOverReason.Success] = new[]
@@ -160,6 +162,7 @@ public class LevelOverGUI : MonoBehaviour
 		_actualButtonSizeSmall = smallButtonSize * Screen.height;
         _actualWindowSize = windowSize * Screen.height;
 		_actualSocialSize = socialButtonSize * Screen.height;
+		_actualStarSize = starSize * Screen.height;
         windowHeight = _actualWindowSize;
 		//windowWidth = windowHeight * widthRatio;
 		windowWidth = heightToWidth * Screen.height;
@@ -211,23 +214,40 @@ public class LevelOverGUI : MonoBehaviour
     {
       // GUI.skin = GUIManager.GetSkin();
 
+		//Note #1: The current window graphic has an inner margin of 3. Change accordingly if the graphic changes.
+		//Note #2: The current window graphic has an inner border of 4. ^^^^^^^
+		int innerMargin = 3;
+		int innerBorder = 4;
+		float innerHalf = 3.5f; //3 + 4 / 2
+
 		var style = GUIManager.Style.overMessage;
 		float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth -
 			(GUIManager.Style.overWindow.padding.left +  GUIManager.Style.overWindow.padding.right));
+		if (GameWorld.success) {
+			extra += _actualStarSize + GUIManager.Style.starFull.margin.vertical;
+		}
         var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
 		var rect = GUI.Window(1, rectIn, DoWindow, GUIContent.none, GUIManager.Style.overWindow);
 		float backSize = _actualButtonSizeSmall;
 
 
-        var backRec = new Rect((rect.xMin - backSize * 0.25f), (rect.y - backSize * 0.25f), backSize, backSize);
+		var backRec = new Rect((rect.xMin - backSize * 0.45f + innerHalf ), (rect.y - backSize * 0.45f + innerHalf), backSize, backSize);
         GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
 
-		//Note #1: The current window graphic has an inner margin of 3. Change accordingly if the graphic changes.
-		//Note #2: The current window graphic has an inner border of 4. ^^^^^^^
-		int innerMargin = 3;
-		int innerBorder = 4;
-		var socialRec = new Rect(rect.xMax - _actualSocialSize * 3, rect.y - _actualSocialSize + innerMargin + innerBorder, _actualSocialSize * 2.5f, _actualSocialSize);
+
+		/*var socialRec = 
+			(new Rect(
+				rect.xMax - _actualSocialSize * 3,
+				rect.y - _actualSocialSize * 0.6f,
+				_actualSocialSize * 2.5f, _actualSocialSize)).Rounded();*/
+		var socialRec = new Rect(
+			rect.x - _actualSocialSize * 1.25f,
+			                0,
+			                _actualSocialSize * 2,
+			_actualSocialSize * 2.25f);
+		//socialRec.x = socialRec.Centered().x;
+		socialRec.y = socialRec.Centered().y;
 		GUI.Window(3, socialRec, DoSocialWindow, "", GUIStyle.none);
 
 		GUI.BringWindowToFront(2);
@@ -240,15 +260,32 @@ public class LevelOverGUI : MonoBehaviour
 
 		GUILayout.Label(overTitle, GUIManager.Style.overTitle);
 
-        GUILayout.BeginVertical();
+		GUILayout.BeginVertical();
         //GUILayout.FlexibleSpace();
 		GUILayout.Label(overMessage, GUIManager.Style.overMessage);
+		if (GameWorld.success) {
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			int i = 0;
+			for (; i < currentScore; ++i) {
+				GUILayout.Label("", GUIManager.Style.starFull,
+					GUILayout.Width(_actualStarSize), GUILayout.Height(_actualStarSize));
+			}
+			for (; i < 3; ++i) {
+				GUILayout.Label("", GUIManager.Style.starEmpty,
+					GUILayout.Width(_actualStarSize), GUILayout.Height(_actualStarSize));
+			}
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+		}
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
 		{
 			GUILayout.FlexibleSpace();
 			if (GameWorld.success) {
+				GUILayout.FlexibleSpace();
+				GUILayout.FlexibleSpace();
 				GUILayout.FlexibleSpace();
 			}
 			if (GUILayout.Button("Restart", GUIManager.Style.restartOver, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
@@ -262,6 +299,8 @@ public class LevelOverGUI : MonoBehaviour
 					FadeToLevelStart();
 				}
 
+				GUILayout.FlexibleSpace();
+				GUILayout.FlexibleSpace();
 				GUILayout.FlexibleSpace();
 				GUILayout.FlexibleSpace();
 			}
@@ -288,6 +327,8 @@ public class LevelOverGUI : MonoBehaviour
         }
     }
 
+	int currentScore = 0;
+
     void Enter()
     {
         ResetSize();
@@ -299,12 +340,14 @@ public class LevelOverGUI : MonoBehaviour
 
 		if (GameWorld.success) {
 			if (LevelManager.Instance.minScore == 0 || GameWorld.score <= LevelManager.Instance.minScore) {
-				Debug.Log("Golden Soap");
+				currentScore = 3;
 			} else if (LevelManager.Instance.maxScore == 0 || GameWorld.score <= LevelManager.Instance.maxScore) {
-				Debug.Log("Silver Soap");
+				currentScore = 2;
 			} else {
-				Debug.Log("Bronze Soap");
+				currentScore = 1;
 			}
+		} else {
+			currentScore = 0;
 		}
     }
 
@@ -317,7 +360,7 @@ public class LevelOverGUI : MonoBehaviour
     }
 
 	void DoSocialWindow(int windowID) {
-		GUILayout.BeginHorizontal();
+		GUILayout.BeginVertical();
 		{
 			if (GUILayout.Button("Twitter", GUIManager.Style.twitter, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
 			{
@@ -329,7 +372,7 @@ public class LevelOverGUI : MonoBehaviour
 				ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
 			}
 		}
-		GUILayout.EndHorizontal();
+		GUILayout.EndVertical();
 	}
 
     void FadeToMainMenu()

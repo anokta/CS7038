@@ -14,6 +14,12 @@ public static class RectExtensions
 			rect.width, rect.height);
 	}
 
+	public static Rect Rounded(this Rect rect) {
+		return new Rect(
+			Mathf.Round(rect.x), Mathf.Round(rect.y),
+			Mathf.Round(rect.width), Mathf.Round(rect.height));
+	}
+
 	public static RectOffset Scaled(this RectOffset rect, float scale) {
 		return new RectOffset(
 			Mathf.RoundToInt(rect.left * scale), 

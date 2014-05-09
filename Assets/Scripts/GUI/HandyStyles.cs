@@ -51,6 +51,8 @@ public class HandyStyles
 		creditsMessage = skin.customStyles[count++];
 		facebook = skin.customStyles[count++];
 		twitter = skin.customStyles[count++];
+		starFull = skin.customStyles[count++];
+		starEmpty = skin.customStyles[count++];
 	}
 
 	public readonly GUIStyle author;
@@ -86,5 +88,7 @@ public class HandyStyles
 	public readonly GUIStyle creditsMessage;
 	public readonly GUIStyle facebook;
 	public readonly GUIStyle twitter;
+	public readonly GUIStyle starFull;
+	public readonly GUIStyle starEmpty;
 }
 

@@ -47,7 +47,7 @@ public class LaserEmitter : Entity
     private int lastExplosiveID;
 
     private static readonly Vector2 LaserPositionOffset = new Vector2(0, 0.3f);
-    private const float LaserSpeed = 20;
+	public float LaserSpeed = 40;
     private List<Vector2> previousEndpoints;
 
     public LaserEmitter()

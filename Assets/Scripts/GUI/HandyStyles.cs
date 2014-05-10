@@ -15,8 +15,10 @@ public class HandyStyles
 {
 	public HandyStyles(GUISkin skin)
 	{
-		//This is in case the ordering changes
-		//We only need to have the same ordering here as well
+		/*
+		 * This is in case the ordering changes
+		 * We only need to have the same ordering here as well
+		*/
 		int count = 0;
 		author = skin.customStyles[count++];
 		content = skin.customStyles[count++];
@@ -38,6 +40,7 @@ public class HandyStyles
 		xbutton = skin.customStyles[count++];
 		title = skin.customStyles[count++];
 		overTitle = skin.customStyles[count++];
+		overSuccess = skin.customStyles[count++];
 		overMessage = skin.customStyles[count++];
 		levelLabel = skin.customStyles[count++];
 		inGameWindow = skin.customStyles[count++];
@@ -75,6 +78,7 @@ public class HandyStyles
 	public readonly GUIStyle xbutton;
 	public readonly GUIStyle title;
 	public readonly GUIStyle overTitle;
+	public readonly GUIStyle overSuccess;
 	public readonly GUIStyle overMessage;
 	public readonly GUIStyle levelLabel;
 	public readonly GUIStyle inGameWindow;

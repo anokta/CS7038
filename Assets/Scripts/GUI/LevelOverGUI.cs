@@ -21,11 +21,26 @@ public class LevelOverGUI : MonoBehaviour
 
     private static System.Random _rnd;
 
+	Timer starTimer;
+
     Rect guiWindow;
 
     string overTitle, overMessage;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
+
+	public LevelOverGUI() {
+		starTimer = new Timer(
+			0.3f, () => {
+				if (visibleScore == currentScore) {
+					starTimer.Stop();
+				}
+				else {
+					++visibleScore;
+				}
+		});
+		starTimer.repeating = true;
+	}
 
     static LevelOverGUI()
     {
@@ -184,6 +199,9 @@ public class LevelOverGUI : MonoBehaviour
 
     void Update()
     {
+		if (GameWorld.success) {
+			starTimer.Update();
+		}
         if (GUIManager.ScreenResized)
         {
             ResetSize();
@@ -225,6 +243,7 @@ public class LevelOverGUI : MonoBehaviour
 			(GUIManager.Style.overWindow.padding.left +  GUIManager.Style.overWindow.padding.right));
 		if (GameWorld.success) {
 			extra += _actualStarSize + GUIManager.Style.starFull.margin.vertical;
+			extra -= (GUIManager.Style.overTitle.padding.bottom - GUIManager.Style.overSuccess.padding.bottom);
 		}
         var rectIn = (new Rect(0, 0, windowWidth, windowHeight + extra)).Centered();
 
@@ -232,7 +251,7 @@ public class LevelOverGUI : MonoBehaviour
 		float backSize = _actualButtonSizeSmall;
 
 
-		var backRec = new Rect((rect.xMin - backSize * 0.45f + innerHalf ), (rect.y - backSize * 0.45f + innerHalf), backSize, backSize);
+		var backRec = new Rect((rect.xMin - backSize * 0.4f + innerHalf ), (rect.y - backSize * 0.4f + innerHalf), backSize, backSize);
         GUI.Window(2, backRec, DoMenuButtonWindow, "", GUIStyle.none);
 
 
@@ -255,19 +274,12 @@ public class LevelOverGUI : MonoBehaviour
 
 	}
 
-    void DoWindow(int windowID)
-    {
-
-		GUILayout.Label(overTitle, GUIManager.Style.overTitle);
-
-		GUILayout.BeginVertical();
-        //GUILayout.FlexibleSpace();
-		GUILayout.Label(overMessage, GUIManager.Style.overMessage);
+	void DoStars() {
 		if (GameWorld.success) {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			int i = 0;
-			for (; i < currentScore; ++i) {
+			for (; i < visibleScore; ++i) {
 				GUILayout.Label("", GUIManager.Style.starFull,
 					GUILayout.Width(_actualStarSize), GUILayout.Height(_actualStarSize));
 			}
@@ -278,8 +290,22 @@ public class LevelOverGUI : MonoBehaviour
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 		}
-        GUILayout.FlexibleSpace();
+	}
 
+    void DoWindow(int windowID)
+    {
+		GUILayout.BeginVertical();
+		if (GameWorld.success) {
+			GUILayout.Label(overTitle, GUIManager.Style.overSuccess);
+		} else {
+			GUILayout.Label(overTitle, GUIManager.Style.overTitle);
+		}
+
+		DoStars();
+        //GUILayout.FlexibleSpace();
+		GUILayout.Label(overMessage, GUIManager.Style.overMessage);
+
+		GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
 		{
 			GUILayout.FlexibleSpace();
@@ -306,7 +332,7 @@ public class LevelOverGUI : MonoBehaviour
 			}
 		}
         GUILayout.EndHorizontal();
-
+		GUILayout.FlexibleSpace();	
         GUILayout.FlexibleSpace();
         GUILayout.EndVertical();
         //GUILayout.FlexibleSpace();
@@ -328,6 +354,7 @@ public class LevelOverGUI : MonoBehaviour
     }
 
 	int currentScore = 0;
+	int visibleScore = 0;
 
     void Enter()
     {
@@ -338,7 +365,10 @@ public class LevelOverGUI : MonoBehaviour
         overTitle = overTitles[_rnd.Next(0, overTitles.Length)];
         overMessage = overMessages[_rnd.Next(0, overMessages.Length)];
 
+		visibleScore = 0;
+
 		if (GameWorld.success) {
+			starTimer.Reset();
 			if (LevelManager.Instance.minScore == 0 || GameWorld.score <= LevelManager.Instance.minScore) {
 				currentScore = 3;
 			} else if (LevelManager.Instance.maxScore == 0 || GameWorld.score <= LevelManager.Instance.maxScore) {

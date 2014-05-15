@@ -131,6 +131,8 @@ public class BackgroundRenderer : MonoBehaviour
 	int _matRadius;
 	int _matPivotY;
 
+
+	public float backgroundSpeed = 0.2f;
 	// Update is called once per frame
 	void Update()
 	{
@@ -138,7 +140,7 @@ public class BackgroundRenderer : MonoBehaviour
 			ResetSize();
 		}
 		if (sun) {
-			t += Time.deltaTime / 3;
+			t += Time.deltaTime * backgroundSpeed;
 			t = t % 360f;
 			_renderer.material.SetFloat("AxisX", Mathf.Cos(t));
 			_renderer.material.SetFloat("AxisY", Mathf.Sin(t));

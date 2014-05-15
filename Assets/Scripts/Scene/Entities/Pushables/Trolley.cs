@@ -82,7 +82,7 @@ public class Trolley : Pushable
                     switchable.Switch(false);
                   //  playerHand.value = value;
 
-                    if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.Instance.Level] + 1))
+                    if (!GameWorld.dialogueOff && LevelManager.instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.instance.Level] + 1))
                     {
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];

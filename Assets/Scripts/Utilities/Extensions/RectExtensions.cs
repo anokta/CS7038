@@ -7,6 +7,18 @@ public static class RectExtensions
 		return new Rect(rect.x * scale,	rect.y * scale,	rect.width * scale, rect.height * scale);
 	}
 
+	public static Rect Add(this Rect rect, Rect other) {
+		return new Rect(
+			rect.x + other.x,
+			rect.y + other.y,
+			rect.width + other.width,
+			rect.height + other.height);
+	}
+
+	public static Rect Add(this Rect rect, float x, float y, float width, float height) {
+		return new Rect(rect.x + x, rect.y + y, rect.width + width, rect.height + height);
+	}
+
 	public static Rect Centered(this Rect rect) {
 		return new Rect(
 			Mathf.Round((Screen.width - rect.width) * 0.5f),

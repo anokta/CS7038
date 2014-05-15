@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (!GameWorld.dialogueOff)
         {
-            if (LevelManager.Instance.Level == 0)
+            if (LevelManager.instance.Level == 0)
             {
                 if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
                 {
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour, IPan
                     GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 }
             }
-            else if (LevelManager.Instance.Level == 4)
+            else if (LevelManager.instance.Level == 4)
             {
                 if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f)
                 {
@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour, IPan
 
                 if (accessible.name.StartsWith("Fountain"))
                 {
-                    if (!GameWorld.dialogueOff && LevelManager.Instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
+                    if (!GameWorld.dialogueOff && LevelManager.instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];

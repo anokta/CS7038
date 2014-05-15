@@ -97,7 +97,7 @@ public class PausedGUI : MonoBehaviour
 		GUILayout.Label("Paused", GUIManager.Style.overTitle);
         
 		//GUILayout.FlexibleSpace();
-		GUILayout.Label("Level " + (LevelManager.Instance.Level + 1), GUIManager.Style.levelLabel);
+		GUILayout.Label("Level " + (LevelManager.instance.Level + 1), GUIManager.Style.levelLabel);
 
 		GUILayout.BeginHorizontal(); {
 			GUILayout.FlexibleSpace();
@@ -151,11 +151,11 @@ public class PausedGUI : MonoBehaviour
 		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
-            LevelManager.Instance.Level--;
+            LevelManager.instance.Level--;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 
             // Clear resources
-            LevelManager.Instance.Clear();
+            LevelManager.instance.Clear();
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
@@ -170,12 +170,12 @@ public class PausedGUI : MonoBehaviour
     {
         ScreenFader.StartFade(Color.clear, Color.black, 0.5f, delegate()
         {
-            LevelManager.Instance.Level--;
+            LevelManager.instance.Level--;
             GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 
             // Clear resources
-            LevelManager.Instance.Clear();
+            LevelManager.instance.Clear();
 
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         });

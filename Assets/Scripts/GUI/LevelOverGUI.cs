@@ -209,7 +209,7 @@ public class LevelOverGUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!GameWorld.success)
-                LevelManager.Instance.Level--;
+                LevelManager.instance.Level--;
 
             FadeToMainMenu();
         }
@@ -217,7 +217,7 @@ public class LevelOverGUI : MonoBehaviour
         {
             if (!GameWorld.success)
             {
-                LevelManager.Instance.Level--;
+                LevelManager.instance.Level--;
                 FadeToLevelStart();
             }
             else
@@ -315,7 +315,7 @@ public class LevelOverGUI : MonoBehaviour
 				GUILayout.FlexibleSpace();
 			}
 			if (GUILayout.Button("Restart", GUIManager.Style.restartOver, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
-				LevelManager.Instance.Level--;
+				LevelManager.instance.Level--;
 
 				FadeToLevelStart();
 			}
@@ -347,7 +347,7 @@ public class LevelOverGUI : MonoBehaviour
         {
             if (!GameWorld.success)
             {
-                LevelManager.Instance.Level--;
+                LevelManager.instance.Level--;
             }
             FadeToMainMenu();
         }
@@ -369,13 +369,15 @@ public class LevelOverGUI : MonoBehaviour
 
 		if (GameWorld.success) {
 			starTimer.Reset();
-			if (LevelManager.Instance.minScore == 0 || GameWorld.score <= LevelManager.Instance.minScore) {
+			if (LevelManager.instance.minScore == 0 || GameWorld.score <= LevelManager.instance.minScore) {
 				currentScore = 3;
-			} else if (LevelManager.Instance.maxScore == 0 || GameWorld.score <= LevelManager.Instance.maxScore) {
+			} else if (LevelManager.instance.maxScore == 0 || GameWorld.score <= LevelManager.instance.maxScore) {
 				currentScore = 2;
 			} else {
 				currentScore = 1;
 			}
+			//Debug.Log(LevelManager.instance.Level);
+			LevelManager.SetScore(LevelManager.instance.Level, currentScore);
 		} else {
 			currentScore = 0;
 		}
@@ -411,7 +413,7 @@ public class LevelOverGUI : MonoBehaviour
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
             // Clear resources
-            LevelManager.Instance.Clear();
+            LevelManager.instance.Clear();
 
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {

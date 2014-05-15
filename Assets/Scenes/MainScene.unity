@@ -829,6 +829,7 @@ MonoBehaviour:
   pivotY: .395000011
   pivotYLS: .5
   SunRadius: .159999996
+  backgroundSpeed: .200000003
 --- !u!1 &357585751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1476,7 @@ GameObject:
   - 114: {fileID: 1017749685}
   - 114: {fileID: 1017749684}
   - 114: {fileID: 1017749686}
+  - 114: {fileID: 1017749687}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -1516,6 +1518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
+  - Loading
   - Main Menu
   - Level Select
   - Intro
@@ -1539,6 +1542,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 312d5a40e18aa684f838352225adb478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017749687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1017749682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d998e0b1a6bfb42882f92309d86eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1093820743
@@ -1574,9 +1588,14 @@ MonoBehaviour:
   columnCount: 4
   rowCount: 3
   buttonSize: .200000003
+  elemSize: .200000003
+  levelSize: 0
   checkTexture: {fileID: 2800000, guid: bf4bd8f19fd1a244cb933636c317ea16, type: 3}
   lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
+  starFullTexture: {fileID: 2800000, guid: 353f58b97c5e1f44fbb8f7ef6aaa4610, type: 3}
+  starEmptyTexture: {fileID: 2800000, guid: 654f1e260c20492488c7b3d8025c879d, type: 3}
   flingThreshold: .200000003
+  starBorder: .100000001
 --- !u!114 &1093820745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,7 +1610,7 @@ MonoBehaviour:
   menuBackground: {fileID: 2800000, guid: 989b7a2d5f05b3c4fbd3cc0fc281d556, type: 3}
   logoTexture: {fileID: 2800000, guid: 3b76a15b9d85a9b4abd637f9a0809dd4, type: 3}
   minLogoSize: .340000004
-  maxLogoSize: .370000005
+  maxLogoSize: .354999989
 --- !u!4 &1093820746
 Transform:
   m_ObjectHideFlags: 0

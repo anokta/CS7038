@@ -72,7 +72,7 @@ public class GameWorld : MonoBehaviour
 
         if (!success || isOver)
         {
-            if (LevelManager.Instance.Level == 0 && success)
+            if (LevelManager.instance.Level == 0 && success)
             {
                 DialogueManager.DialogueComplete = ToLevelOver;
                 GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
@@ -104,7 +104,7 @@ public class GameWorld : MonoBehaviour
 
     void FadeToIntroDialogue()
     {
-        if (LevelManager.Instance.Level == -1)
+        if (LevelManager.instance.Level == -1)
         {
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
             {
@@ -127,14 +127,14 @@ public class GameWorld : MonoBehaviour
     void LevelStart()
     {
         // Clear resources
-        LevelManager.Instance.Clear();
+        LevelManager.instance.Clear();
 
         // Next level
-        LevelManager.Instance.Next();
+        LevelManager.instance.Next();
 
         dialogueOff = !success;
 
-        if (dialogueOff || LevelManager.Instance.Level >= DialogueManager.dialogueIndex.Length)
+        if (dialogueOff || LevelManager.instance.Level >= DialogueManager.dialogueIndex.Length)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
@@ -143,7 +143,7 @@ public class GameWorld : MonoBehaviour
         }
         else
         {
-            DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.Instance.Level];
+            DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.instance.Level];
 
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
@@ -162,9 +162,9 @@ public class GameWorld : MonoBehaviour
 
     void LevelOver()
     {
-        if (success && PlayerPrefs.GetInt("Level", 0) <= LevelManager.Instance.Level)
+        if (success && PlayerPrefs.GetInt("Level", 0) <= LevelManager.instance.Level)
         {
-            PlayerPrefs.SetInt("Level", LevelManager.Instance.Level + 1);
+            PlayerPrefs.SetInt("Level", LevelManager.instance.Level + 1);
             PlayerPrefs.Save();
         }
     }

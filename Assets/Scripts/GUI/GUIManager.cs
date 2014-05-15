@@ -36,7 +36,7 @@ public class GUIManager : MonoBehaviour
 		_cameraSize = Camera.main.orthographicSize;
 	}
 
-	private struct StyleEntry {
+	public struct StyleEntry {
 		public static int DefaultFontSize;
 		public StyleEntry(GUIStyle style) {
 			this.style = style;
@@ -84,6 +84,10 @@ public class GUIManager : MonoBehaviour
 		get { return instance._handyStyles; }
 	}
 
+	public static List<StyleEntry> StyleList {
+		get { return instance._styles; }
+	}
+
     void Awake()
 	{
 		StyleEntry.DefaultFontSize = defaultFontSize;
@@ -93,6 +97,7 @@ public class GUIManager : MonoBehaviour
 		//GUI.skin = guiSkin;
 		_handyStyles = new HandyStyles(guiSkin);
 		_styles = new List<StyleEntry>();
+		//StyleList = new List<GUIStyle>();
 		//_customStyles = new StyleEntry[guiSkin.customStyles.Length];
 		for (int i = 0; i < guiSkin.customStyles.Length; ++i) {
 			_styles.Add(new StyleEntry(guiSkin.customStyles[i]));

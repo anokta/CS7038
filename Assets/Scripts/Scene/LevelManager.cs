@@ -3,6 +3,7 @@ using System.IO;
 using TiledMax;
 using UnityEngine;
 using YamlDotNet.Serialization;
+using System.Linq;
 
 public class LevelManager
 {
@@ -24,13 +25,16 @@ public class LevelManager
     private readonly LevelLoader loader;
 
     private readonly string[] levels;
+	public readonly int[] scores;
+	private int totalStars;
     private readonly Dictionary<int, TmxMap> tileMaps;
+	private ulong totalScore;
 
-
-    private static LevelManager instance;
+	private static LevelManager _instance;
 
     private LevelManager()
     {
+		//_instance = this;
         Level = PlayerPrefs.GetInt("Level", 0) - 1;
 
         loader = new LevelLoader();
@@ -41,11 +45,47 @@ public class LevelManager
         var reader = new StringReader(asset.text);
         var d = new Deserializer();
         levels = d.Deserialize<string[]>(reader);
+		scores = new int[levels.Length];
+		for (int i = 0; i < scores.Length; ++i) {
+			scores[i] = GetScore(i);
+			//Debug.Log(scores[i]);
+		}
+		//totalStars = 0;
+		//for (int i = 0; i < scores.Length; ++i) {
+		//		totalStars += scores[i];
+		//}
+		RecalculateTotal();
     }
 
-    public static LevelManager Instance
+	public static ulong TotalScore { get { return instance.totalScore; } }
+
+	public static int TotalStars { get { return instance.totalStars; } }
+
+	public void RecalculateTotal() {
+		totalStars = 0;
+		totalScore = 0;
+		for (int i = 0; i < scores.Length; ++i) {
+			totalStars += scores[i];
+			if (scores[i] >= 1 && scores[i] <= 3) {
+				totalScore += (ulong)((i + 1) * 100);
+				if (scores[i] == 2) {
+					totalScore += 50UL;
+				}
+				if (scores[i] == 3) {
+					totalScore += 100UL;
+				}
+			}
+		}
+	}
+
+    public static LevelManager instance
     {
-        get { return instance ?? (instance = new LevelManager()); }
+		get {
+			if (_instance == null) { 
+				_instance = new LevelManager();
+			}
+			return _instance;
+		}
     }
 
     public void Next()
@@ -114,4 +154,58 @@ public class LevelManager
     {
         loader.Clear();
     }
+
+	private static int DecryptScore(int level, int value) {
+		int extra;
+		if ((level &2) == 0) {
+			extra = 137;
+		}
+		else {
+			extra = 71;
+		}
+		//value -= extra;
+		return ((value ^ 0xFFFF) - extra - level) >> 1;;
+	}
+
+	private static int EncryptScore(int level, int value) {
+		int extra;
+		if ((level & 2) == 0) {
+			extra = 137;
+		}
+		else {
+			extra = 71;
+		}
+		return ((value << 1) + extra + level) ^ 0xFFFF;
+	}
+
+	public static void SetScore(int level, int score) {
+		if (score < 0 || score > 3) {
+			return;
+		}
+		string key = "Level:" + level.ToString();
+		int currentScore = 0;
+		if (PlayerPrefs.HasKey(key)) {
+			currentScore = DecryptScore(level, PlayerPrefs.GetInt(key));
+		}
+		if (score > currentScore) {
+			instance.scores[level] = score;
+			PlayerPrefs.SetInt(key, EncryptScore(level, score));
+			instance.RecalculateTotal();
+		}
+		//score = EncryptScore(level, score);
+	}
+
+	public static int GetScore(int level) {
+		//int 
+		string key = "Level:" + level.ToString();
+		if (PlayerPrefs.HasKey(key)) {
+			int score = DecryptScore(level, PlayerPrefs.GetInt(key));
+			if (score < 0 || score > 3) {
+				PlayerPrefs.DeleteKey(key);
+			} else {
+				return score;
+			}
+		}
+		return 0;
+	}
 }

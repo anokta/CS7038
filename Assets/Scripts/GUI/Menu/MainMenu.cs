@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             PlayerPrefs.DeleteAll();
-            LevelManager.Instance.Level = -1;
+            LevelManager.instance.Level = -1;
         }
         //
 
@@ -143,7 +143,7 @@ public class MainMenu : MonoBehaviour
     void AfterFadeOut()
     {
         // Start the level
-        if (LevelManager.Instance.Level == -1)
+        if (LevelManager.instance.Level == -1)
         {
 			//
 			//GameWorld.dialogueOff = true;

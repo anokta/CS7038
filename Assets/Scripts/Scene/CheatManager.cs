@@ -28,7 +28,7 @@ public class CheatManager
     {
         if (IsCheating && Input.GetKeyDown(KeyCode.Q))
         {
-            LevelManager.Instance.Level -= 2;
+            LevelManager.instance.Level -= 2;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         }
@@ -41,7 +41,7 @@ public class CheatManager
 
         if (IsCheating && Input.GetKeyDown(KeyCode.R))
         {
-            LevelManager.Instance.Level--;
+            LevelManager.instance.Level--;
             GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];

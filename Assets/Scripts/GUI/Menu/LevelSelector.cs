@@ -79,9 +79,10 @@ public class LevelSelector : MonoBehaviour, IPan
 		_starSize = (_actualButtonSize - (_starBorder * 2)) / 3;
 		_stars = new Rect[3];
 
-		_stars[0] = new Rect(_starBorder, _actualButtonSize-_starSize-_starBorder, _starSize, _starSize);
+		_stars[0] = new Rect(_starBorder, _actualButtonSize-_starSize-_starBorder*2, _starSize, _starSize);
 		_stars[1] = _stars[0].Add(_starSize, 0, 0, 0);
 		_stars[2] = _stars[1].Add(_starSize, 0, 0, 0);
+		_stars[1].y += _starBorder * 0.5f;
 	}
 
     void Start()
@@ -166,6 +167,8 @@ public class LevelSelector : MonoBehaviour, IPan
 
         currentScroll = Mathf.Lerp(currentScroll, targetScroll, Time.deltaTime * 5.5f);
     }
+
+	Color outline = new Color(0.25f, 0.25f, 0.25f);
 
     void OnGUI()
     {
@@ -268,9 +271,9 @@ public class LevelSelector : MonoBehaviour, IPan
             AudioManager.PlaySFX("Menu Prev");
         }
 		if (LevelManager.TotalScore > 0) {
-			GUIExt.LabelOutlined(
+			GUI.Label(
 				new Rect(0, Screen.height * 0.05f, Screen.width, 0),
-				"Score: " + LevelManager.TotalScore, GUIManager.Style.scores, Color.gray);
+				"Score: " + LevelManager.TotalScore, GUIManager.Style.scores);
 		}
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
@@ -284,7 +287,7 @@ public class LevelSelector : MonoBehaviour, IPan
 		}
 
 		//GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
-		GUIExt.LabelOutlined(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage, Color.gray);
+		GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
 	}
 
     void ShowIntro()

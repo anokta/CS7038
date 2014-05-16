@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
 
         /*Intro*/
         entries = new List<DialogueEntry>();
-		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Onionghost, and I am the embodiment of your conscience."));
+		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Didier Pittet, and I am the embodiment of your conscience."));
         entries.Add(new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."));
         entries.Add(new DialogueEntry(authors[1], "That is correct. I am inside your head, and I’m here to guide you through this lab."));
         entries.Add(new DialogueEntry(authors[2], "What is the situation again?"));
@@ -101,9 +101,9 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[1], "Lasers are dangerous! Don’t touch them, or we’ll die!"));
         entries.Add(new DialogueEntry(authors[1], "Anything can block its beam, but some might as well catch on fire."));
         entries.Add(new DialogueEntry(authors[2], "And why are active lethal laser emitters lying around so casually?"));
-        entries.Add(new DialogueEntry(authors[1], "That is a good question, one which I do not know the answer of."));
-        entries.Add(new DialogueEntry(authors[2], "..."));
-        entries.Add(new DialogueEntry(authors[1], "Exactly!"));
+		entries.Add(new DialogueEntry(authors[1], "That is a good question, one that I do not know the answer to."));
+		entries.Add(new DialogueEntry(authors[2], "..."));
+		//entries.Add(new DialogueEntry(authors[1], "Exactly!"));
 
         dialogues.Add(new DialogueInstance(entries, audioOutput));
         

@@ -270,7 +270,7 @@ public class LevelSelector : MonoBehaviour, IPan
 		if (LevelManager.TotalScore > 0) {
 			GUIExt.LabelOutlined(
 				new Rect(0, Screen.height * 0.05f, Screen.width, 0),
-				"Score: " + LevelManager.TotalScore, GUIManager.Style.scores, Color.black);
+				"Score: " + LevelManager.TotalScore, GUIManager.Style.scores, Color.gray);
 		}
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
@@ -284,7 +284,7 @@ public class LevelSelector : MonoBehaviour, IPan
 		}
 
 		//GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
-		GUIExt.LabelOutlined(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage, Color.black);
+		GUIExt.LabelOutlined(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage, Color.gray);
 	}
 
     void ShowIntro()

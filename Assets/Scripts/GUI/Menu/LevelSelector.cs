@@ -19,6 +19,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
     int pagesCount;
     int currentPage;
+    bool firstLoad;
 
     float currentScroll, targetScroll;
 
@@ -110,6 +111,8 @@ public class LevelSelector : MonoBehaviour, IPan
     {
 		GameWorld.success = true;
         currentPage = LevelManager.instance.Level / (rowCount * columnCount);
+        
+        firstLoad = true;
     }
 
     void Update()
@@ -163,6 +166,7 @@ public class LevelSelector : MonoBehaviour, IPan
         else if (targetScroll == 0.0f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
         {
             currentX = currentScroll;
+            firstLoad = false;
         }
 
         currentScroll = Mathf.Lerp(currentScroll, targetScroll, Time.deltaTime * 5.5f);
@@ -186,7 +190,7 @@ public class LevelSelector : MonoBehaviour, IPan
         int levelProgress = Mathf.Min(LevelManager.instance.LevelCount - 1, PlayerPrefs.GetInt("Level", 0));
 
 
-        for (int p = (targetScroll == 0.0f) ? 0 : currentPage; p < pagesCount; ++p)
+        for (int p = (targetScroll == 0.0f && !firstLoad) ? 0 : currentPage; p < pagesCount; ++p)
         {
             int pageStart = p * columnCount * rowCount;
 
@@ -270,6 +274,9 @@ public class LevelSelector : MonoBehaviour, IPan
             targetScroll = MainMenu.ScreenScrollValue;
             AudioManager.PlaySFX("Menu Prev");
         }
+
+        GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, -currentScroll, 0.0f), Quaternion.identity, Vector3.one);
+
 		if (LevelManager.TotalScore > 0) {
 			GUI.Label(
 				new Rect(0, Screen.height * 0.05f, Screen.width, 0),

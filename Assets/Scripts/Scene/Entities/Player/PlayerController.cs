@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour, IPan
         Walk = 1,
         Push = 2,
         Action = 3,
-        Wash = 4
+        Wash = 4,
+        Treat = 5
 
     }
 
@@ -270,7 +271,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         if (direction != null)
         {
-            animator.CrossFade(animState.ToString() + " " + direction, 0.0f);
+            animator.CrossFade((animState != PlayerAnimState.Treat ? animState.ToString() : "Wash") + " " + direction, 0.0f);
         }
 
     }

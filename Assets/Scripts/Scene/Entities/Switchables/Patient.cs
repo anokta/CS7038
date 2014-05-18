@@ -105,7 +105,7 @@ public class Patient : Switchable
     {
         if (byPlayer && !treated && !isHeld)
         {
-            player.AnimState = PlayerController.PlayerAnimState.Wash;
+            player.AnimState = PlayerController.PlayerAnimState.Treat;
 
             isHeld = true;
 
@@ -187,7 +187,7 @@ public class Patient : Switchable
 
         timer.Stop(); 
         
-        if (player.AnimState == PlayerController.PlayerAnimState.Wash)
+        if (player.AnimState == PlayerController.PlayerAnimState.Treat)
         {
             player.AnimState = PlayerController.PlayerAnimState.Idle;
         }

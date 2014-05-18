@@ -59,9 +59,9 @@ public class Credits : MonoBehaviour
       
 			//GUILayout.Label("Alper Gungormusler\nCharis Marangos\nChris Xue\nJonathan Kernan", GUIManager.Style.overTitle);
 			GUILayout.Label("Alper Gungormusler", GUIManager.Style.creditsName);
-			GUILayout.Label("Programming, Music, Sounds", GUIManager.Style.creditsDescription);
+			GUILayout.Label("Programming, Design & Audio", GUIManager.Style.creditsDescription);
 			GUILayout.Label("Charis Marangos", GUIManager.Style.creditsName);
-			GUILayout.Label("Programming, Graphics, Design, Puns", GUIManager.Style.creditsDescription);
+			GUILayout.Label("Programming, Graphics, Design & Puns", GUIManager.Style.creditsDescription);
 			GUILayout.Label("Chris Xue", GUIManager.Style.creditsName);
 			GUILayout.Label("Programming", GUIManager.Style.creditsDescription);
 			GUILayout.Label("Jonathan Kernan", GUIManager.Style.creditsName);

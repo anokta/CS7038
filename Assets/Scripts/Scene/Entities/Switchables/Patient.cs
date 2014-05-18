@@ -103,7 +103,7 @@ public class Patient : Switchable
 
     public override void Switch(bool byPlayer)
     {
-        if (!treated && !isHeld)
+        if (byPlayer && !treated && !isHeld)
         {
             player.AnimState = PlayerController.PlayerAnimState.Wash;
 

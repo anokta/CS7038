@@ -49,12 +49,12 @@ Material:
         second: 1
       data:
         first:
-          name: _Shininess
-        second: .078125
-      data:
-        first:
           name: _InvFade
         second: .971071422
+      data:
+        first:
+          name: _Shininess
+        second: .078125
       data:
         first:
           name: DirectionX
@@ -71,10 +71,6 @@ Material:
         first:
           name: CenterY
         second: 0
-      data:
-        first:
-          name: _SquashAmount
-        second: 1
     m_Colors:
       data:
         first:

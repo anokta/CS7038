@@ -157,7 +157,7 @@ PlayerSettings:
   ps3SaveGameSlots: 1
   ps3TrialMode: 0
   flashStrippingLevel: 2
-  spritePackerPolicy: 
+  spritePackerPolicy: PackerPolicy1024
   scriptingDefineSymbols:
     4: 
   metroPackageName: CS7038

@@ -1592,7 +1592,7 @@ MonoBehaviour:
   levelSize: 0
   checkTexture: {fileID: 2800000, guid: bf4bd8f19fd1a244cb933636c317ea16, type: 3}
   lockTexture: {fileID: 2800000, guid: 24a1a3a2e30cf6542bbc448ff9eb30d9, type: 3}
-  starFullTexture: {fileID: 2800000, guid: 353f58b97c5e1f44fbb8f7ef6aaa4610, type: 3}
+  starFullTexture: {fileID: 2800000, guid: b13b613e225b6df41b452ece54138369, type: 3}
   starEmptyTexture: {fileID: 2800000, guid: 654f1e260c20492488c7b3d8025c879d, type: 3}
   flingThreshold: .150000006
   starBorder: .100000001

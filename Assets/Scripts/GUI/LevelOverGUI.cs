@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections;
 using Grouping;
 
+using LOR = GameWorld.LevelOverReason;
+
 public class LevelOverGUI : MonoBehaviour
 {
     private float _actualWindowSize;
@@ -28,6 +30,7 @@ public class LevelOverGUI : MonoBehaviour
     string overTitle, overMessage;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
+	private static Dictionary<GameWorld.LevelOverReason, string> twitterMessages;
 
 	public LevelOverGUI() {
 		starTimer = new Timer(
@@ -164,6 +167,18 @@ public class LevelOverGUI : MonoBehaviour
 			"You just blew it.",
 			"Your M.D. status has been revoked."
 		};
+
+		twitterMessages = new Dictionary<GameWorld.LevelOverReason, string>() {
+			{LOR.ExplosionKilledPatient, "I blew up a patient in #HandyMD!"},
+			{LOR.ExplosionKilledPlayer, "I got blown up in #HandyMD!"},
+			{LOR.LaserKilledPatient, "I disintegrated a patient with a laser in #HandyMD!"},
+			{LOR.LaserKilledPlayer, "I was disintegrated by a laser in #HandyMD!"},
+			{LOR.PatientInfected, "I am a horrible doctor, because I just treated a patient with filthy hands in #HandyMD!"},
+			{LOR.PlayerInfected, "I died in #HandyMD because I neglected to wash my hands!"},
+			{LOR.Squashed, "I was squashed by a heavy door in #HandyMD!"},
+			//{LOR.Success, "I successfully finished a level in #HandyMD!},
+		};
+			
     }
 
     float windowWidth;
@@ -396,7 +411,14 @@ public class LevelOverGUI : MonoBehaviour
 		{
 			if (GUILayout.Button("Twitter", GUIManager.Style.twitter, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
 			{
-				ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+				if (GameWorld.success) {
+					ShareToTwitter(
+						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
+						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", "http://handymd-game.appspot.com");
+				} else {
+					ShareToTwitter(twitterMessages[GameWorld.levelOverReason], "http://handymd-game.appspot.com");
+				}
+				//ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
 			}
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Facebook", GUIManager.Style.facebook, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))

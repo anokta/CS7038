@@ -8,6 +8,7 @@ public class GameWorld : MonoBehaviour
         Squashed,
         Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient
     }
+
     public static LevelOverReason levelOverReason;
 
     public static bool success
@@ -16,6 +17,7 @@ public class GameWorld : MonoBehaviour
         set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
     }
 
+	//static bool LockedReason { get; set; }
     static int _score;
     public static int score
     {

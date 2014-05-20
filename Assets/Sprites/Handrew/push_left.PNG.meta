@@ -45,7 +45,7 @@ TextureImporter:
     compressionQuality: 50
   - buildTarget: Android
     maxTextureSize: 1024
-    textureFormat: -3
+    textureFormat: -1
     compressionQuality: 50
   spriteSheet:
     sprites:
@@ -193,5 +193,5 @@ TextureImporter:
         height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
-  spritePackingTag: 
+  spritePackingTag: Handrew
   userData: 

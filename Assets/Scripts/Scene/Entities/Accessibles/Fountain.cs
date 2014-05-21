@@ -19,7 +19,6 @@ public class Fountain : Accessible
     public Texture progressTexture;
 
     public float pieSize;
-    Vector2 guiPosition;
 	ParticleSystem bubbles;
 
 	public GameObject indicatorObject;
@@ -94,10 +93,6 @@ public class Fountain : Accessible
             timer.Reset();
 
             lastPlayerDirection = player.NextDirection;
-
-            Vector2 p = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(lastPlayerDirection.x * 0.25f, 0.5f + lastPlayerDirection.y * 0.25f, 0.0f));
-            p.y = Screen.height - p.y;
-            guiPosition = p;
 
             AudioManager.PlaySFX("Loop Fountain");
 

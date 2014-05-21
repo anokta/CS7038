@@ -172,8 +172,6 @@ public class LevelSelector : MonoBehaviour, IPan
         currentScroll = Mathf.Lerp(currentScroll, targetScroll, Time.deltaTime * 5.5f);
     }
 
-	Color outline = new Color(0.25f, 0.25f, 0.25f);
-
     void OnGUI()
     {
 		Vector3 position = new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f);

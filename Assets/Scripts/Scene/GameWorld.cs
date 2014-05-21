@@ -25,7 +25,7 @@ public class GameWorld : MonoBehaviour
         set
         {
             _score = value;
-            Debug.Log("Current score: " + _score);
+            //Debug.Log("Current score: " + _score);
         }
     }
 

@@ -63,24 +63,19 @@ public class Trolley : Pushable
     {
         if (moving)
         {
-            float value;
             switch (hit.collider.tag)
             {
                 case "Pushable":
                     var trolley = hit.collider.GetComponent<Trolley>();
                     if (trolley != null)
                     {
-                    //    value = playerHand.value;
                         trolley.Push(direction, false);
-                      //  playerHand.value = value;
                         break;
                     }
                     break;
                 case "Switchable":
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
-                    //value = playerHand.value;
                     switchable.Switch(false);
-                  //  playerHand.value = value;
 
                     if (!GameWorld.dialogueOff && LevelManager.instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.instance.Level] + 1))
                     {

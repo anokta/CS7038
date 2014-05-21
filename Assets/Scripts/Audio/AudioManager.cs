@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public AudioSource menuNext, menuPrev, levelSwipe, levelSwipeRev;
     public AudioSource collectSfx, pushSfx, push2Sfx, trolleyLoopSfx, doorSfx, fountainSfx, fountainLoopSfx, leverSfx, mirrorSfx, treatedSfx, diedSfx, infectedSfx, treatingSfx, laserSfx, squashSfx, explosionSfx, burnSfx, heartbeatSfx;
+    public AudioSource[] starsSfx;
 
     private static AudioManager instance;
 
@@ -140,6 +141,16 @@ public class AudioManager : MonoBehaviour
                 //heartbeatSfx.pitch = Random.Range(0.995f, 1.005f);
                 if (!heartbeatSfx.isPlaying)
                     heartbeatSfx.Play();
+                break;
+
+            case "Star 1":
+                starsSfx[0].Play();
+                break;
+            case "Star 2":
+                starsSfx[1].Play();
+                break;
+            case "Star 3":
+                starsSfx[2].Play();
                 break;
         }
     }

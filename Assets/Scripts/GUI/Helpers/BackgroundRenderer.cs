@@ -13,14 +13,11 @@ public class BackgroundRenderer : MonoBehaviour
 	[SerializeField]
 	private Material _funkySun;
 
-	private Material _current;
-
 	public static BackgroundRenderer instance { get; private set; }
 
 	float targetSunValue;
 	float sunValue;
 
-	GroupManager.Group _menu;
 	GroupManager.Group _selector;
 
 
@@ -67,17 +64,8 @@ public class BackgroundRenderer : MonoBehaviour
 	void Start()
 	{
 		_renderer = GetComponent<SpriteRenderer>();
-		_menu = GroupManager.main.group["Main Menu"];
 		_selector = GroupManager.main.group["Level Select"];
 		_renderer.sortingLayerName = "Background";
-		//_renderer.material = FunkySun;
-		//var sun = new GroupDelegator(null, SetSunBackground, SetTileBackground);
-	//	var tiled = new GroupDelegator(null, SetTileBackground, null);
-		//GroupManager.main.group["Main Menu"].Add(this, sun);
-	//	GroupManager.main.group["Level Select"].Add(this, sun);
-		var sunDelegator = new GroupDelegator(null, SetSunBackground, SetTileBackground);
-		//GroupManager.main.group["Main Menu"].Add(this, sunDelegator);
-		//	GroupManager.main.group["Level Select"].Add(this, sunDelegator);
 
 		SetSunBackground();
 
@@ -88,7 +76,7 @@ public class BackgroundRenderer : MonoBehaviour
 		if (this == null || !this.enabled) {
 			return;
 		}
-		_current = _renderer.material = _funkySun;
+		_renderer.material = _funkySun;
 		/*_matAxisX  = _current.shader.;
 		_matAxisY  = _current.Ge;
      	_matRadius = _current.Ge;
@@ -101,7 +89,7 @@ public class BackgroundRenderer : MonoBehaviour
 		if (this == null || !this.enabled) {
 			return;
 		}
-		_current = _renderer.material = _tile;
+		_renderer.material = _tile;
 		sun = false;
 		ResetSize();
 	}
@@ -145,7 +133,7 @@ public class BackgroundRenderer : MonoBehaviour
 			_renderer.material.SetFloat("AxisX", Mathf.Cos(t));
 			_renderer.material.SetFloat("AxisY", Mathf.Sin(t));
 
-			float repY = transform.localScale.y / transform.localScale.x * squareSize;
+			//float repY = transform.localScale.y / transform.localScale.x * squareSize;
 			_renderer.material.SetFloat("Radius", ( transform.localScale.y / transform.localScale.x) * SunRadius * sunValue);
 			//if (targetSunValue != sunValue)
 			//{

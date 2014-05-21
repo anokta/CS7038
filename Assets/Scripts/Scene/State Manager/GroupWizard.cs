@@ -32,15 +32,12 @@ public class GroupWizard : MonoBehaviour
 			}
 		}
 		if (main) {
-			_activeWizard = this;
 			GroupManager.main = manager;
 			if (firstState != null) {
 				manager.activeGroup = firstState;
 			}
 		}	
 	}
-
-	private static GroupWizard _activeWizard;
 
 	public void Start()
 	{

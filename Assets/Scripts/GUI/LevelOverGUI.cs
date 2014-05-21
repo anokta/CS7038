@@ -25,8 +25,6 @@ public class LevelOverGUI : MonoBehaviour
 
 	Timer starTimer;
 
-    Rect guiWindow;
-
     string overTitle, overMessage;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
@@ -34,12 +32,13 @@ public class LevelOverGUI : MonoBehaviour
 
 	public LevelOverGUI() {
 		starTimer = new Timer(
-			0.3f, () => {
+			0.38f, () => {
 				if (visibleScore == currentScore) {
 					starTimer.Stop();
 				}
 				else {
-					++visibleScore;
+                    ++visibleScore;
+                    AudioManager.PlaySFX("Star " + visibleScore.ToString());
 				}
 		});
 		starTimer.repeating = true;
@@ -196,7 +195,7 @@ public class LevelOverGUI : MonoBehaviour
         windowHeight = _actualWindowSize;
 		//windowWidth = windowHeight * widthRatio;
 		windowWidth = heightToWidth * Screen.height;
-        guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
+        //guiWindow = new Rect(Screen.width / 2.0f - windowWidth / 2.0f, Screen.height / 2.0f - windowHeight / 2.0f, windowWidth, windowHeight);
     }
 
     // Use this for initialization
@@ -251,7 +250,7 @@ public class LevelOverGUI : MonoBehaviour
 		//Note #2: The current window graphic has an inner border of 4. ^^^^^^^
 		int innerMargin = 3;
 		int innerBorder = 4;
-		float innerHalf = 3.5f; //3 + 4 / 2
+        float innerHalf = (innerMargin + innerBorder) / 2.0f; //3 + 4 / 2
 
 		var style = GUIManager.Style.overMessage;
 		float extra = style.CalcHeight(new GUIContent(overMessage), windowWidth -

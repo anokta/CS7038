@@ -48,7 +48,7 @@ public class TimeIndicator : MonoBehaviour
 				spriteRenderer.enabled = true;
 			}
 			//	Debug.Log(_receiver());
-			spriteRenderer.material.SetFloat("Value", _receiver());
+			spriteRenderer.material.SetFloat("Value", value);
 		}
 	}
 }

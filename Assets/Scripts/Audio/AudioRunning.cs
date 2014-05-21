@@ -28,7 +28,7 @@ public class AudioRunning : MonoBehaviour
             if (background.volume != backgroundVolume)
                 background.volume = Mathf.Lerp(background.volume, backgroundVolume, Time.deltaTime * 4);
             if (over.volume != overVolume)
-                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 4);
+                over.volume = Mathf.Lerp(over.volume, overVolume, Time.deltaTime * 3);
         }
         else
         {

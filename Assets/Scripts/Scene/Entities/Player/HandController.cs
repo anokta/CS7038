@@ -92,9 +92,7 @@ public class HandController : MonoBehaviour
 	int _score;
 	public int score {
 		get { return _score; }
-		private set { _score = value;
-			Debug.Log("Current score: " + _score);
-		}
+		private set { _score = value; }
 	}
 
 	public void ResetHand(int id) {
@@ -103,12 +101,12 @@ public class HandController : MonoBehaviour
 		++score;
 	}
 
-	public void AddHandValue(int value, int id)
-	{
-		value = value;
-		lastTouchedId = id;
-		score += Math.Abs(value);
-	}
+    //public void AddHandValue(int value, int id)
+    //{
+    //    this.value = value;
+    //    lastTouchedId = id;
+    //    score += Math.Abs(value);
+    //}
 
 	public void RestoreHand(int id) {
 		value = MaxValue;

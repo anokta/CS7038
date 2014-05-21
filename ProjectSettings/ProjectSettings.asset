@@ -73,7 +73,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.iet.handymd
+  iPhoneBundleIdentifier: com.surewash.handymd
   productGUID: 145a915c127fecc4a89be26ace19b38b
   iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
@@ -104,8 +104,8 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: D:/i do/create/develop/software/anokta.keystore
+  AndroidKeyaliasName: anokta
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 

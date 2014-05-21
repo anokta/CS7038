@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, IPan
 	private Ashes _ashController;
     private Animator animator;
 
+    private GUITexture joystick;
+
     public enum PlayerAnimState
     {
         Idle = 0,
@@ -57,6 +59,11 @@ public class PlayerController : MonoBehaviour, IPan
         hands = GetComponent<HandController>();
 
         animator = GetComponent<Animator>();
+
+        // TO BE RE-ARRANGED: size will be put to the editor later .. 
+        float joystickSize = 0.225f;
+        joystick = FindObjectOfType<GUITexture>();
+        joystick.transform.localScale = new Vector3(joystickSize * Screen.height / Screen.width, joystickSize, 1.0f);
     }
 
     void Start()
@@ -112,6 +119,11 @@ public class PlayerController : MonoBehaviour, IPan
         //Debug.Log(args.state);
         switch (args.state)
         {
+            case PanArgs.State.Down:
+                joystick.enabled = true;
+                joystick.transform.position = new Vector3(args.start.x / Screen.width, args.start.y / Screen.height, 0);
+                break;
+
             case PanArgs.State.Move:
                 var x = args.delta.x;
                 var y = args.delta.y;
@@ -138,9 +150,11 @@ public class PlayerController : MonoBehaviour, IPan
                 canSwitch = true;
                 canMove = true;
                 playerMoving = false;
+                joystick.enabled = false;
                 break;
             default:
                 playerMoving = false;
+                joystick.enabled = false;
                 break;
         }
     }

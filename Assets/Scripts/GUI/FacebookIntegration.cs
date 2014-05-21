@@ -118,7 +118,7 @@ public sealed class FacebookIntegration : MonoBehaviour
                 CallFBFeed();
             }
 
-            return FB.IsLoggedIn;
+            return true;
         }
 
         return false;

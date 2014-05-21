@@ -643,7 +643,7 @@ MonoBehaviour:
   CollisionMethod2D: 0
   CustomFunction: {fileID: 0}
   CustomFunction2D: {fileID: 0}
-  longTime: .25
+  longTime: .100000001
   flingTime: .25
   interceptor: {fileID: 1093820746}
   defaultObject: {fileID: 0}
@@ -3037,6 +3037,7 @@ Transform:
   - {fileID: 968405518}
   - {fileID: 336230963}
   - {fileID: 530502223}
+  - {fileID: 1858873623}
   - {fileID: 1093820746}
   m_Father: {fileID: 0}
 --- !u!114 &1799188527
@@ -3236,6 +3237,52 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1858873622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1858873623}
+  - 131: {fileID: 1858873624}
+  m_Layer: 0
+  m_Name: Joystick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1858873623
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858873622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1799188526}
+--- !u!131 &1858873624
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858873622}
+  m_Enabled: 0
+  m_Texture: {fileID: 2800000, guid: 0d61a141b2cbaba4bb09d063b824d33c, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
 --- !u!1 &1882310411
 GameObject:
   m_ObjectHideFlags: 0

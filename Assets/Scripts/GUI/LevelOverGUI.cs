@@ -456,10 +456,10 @@ public class LevelOverGUI : MonoBehaviour
     }
 
     void ShareToFacebook(string textToDisplay, string urlToDisplay)
-    {
-        // Sample text doesn't work for now.
-        // Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
-
-        facebook.PostFeed();
+    {  
+        if (!facebook.PostFeed())
+        {
+            Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
+        }
     }
 }

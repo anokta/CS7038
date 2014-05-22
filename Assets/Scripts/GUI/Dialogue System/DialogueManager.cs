@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
 
         /*Intro*/
         entries = new List<DialogueEntry>();
-		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Didier Pittet, and I am the embodiment of your conscience."));
+		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Onionghost, and I am the embodiment of your conscience."));
         entries.Add(new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."));
         entries.Add(new DialogueEntry(authors[1], "That is correct. I am inside your head, and I’m here to guide you through this lab."));
         entries.Add(new DialogueEntry(authors[2], "What is the situation again?"));

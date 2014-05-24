@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IPan
 	private Ashes _ashController;
     private Animator animator;
 
-    private GUITexture joystick;
+    private JoystickController joystick;
 
     public enum PlayerAnimState
     {
@@ -60,10 +60,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         animator = GetComponent<Animator>();
 
-        // TO BE RE-ARRANGED: size will be put to the editor later .. 
-        float joystickSize = 0.225f;
-        joystick = FindObjectOfType<GUITexture>();
-        joystick.transform.localScale = new Vector3(joystickSize * Screen.height / Screen.width, joystickSize, 1.0f);
+        joystick = FindObjectOfType<JoystickController>();
     }
 
     void Start()
@@ -116,21 +113,22 @@ public class PlayerController : MonoBehaviour, IPan
 
     public void PlayerMoving(PanArgs args)
     {
-        //Debug.Log(args.state);
         switch (args.state)
         {
             case PanArgs.State.Down:
-                joystick.enabled = true;
-                joystick.transform.position = new Vector3(args.start.x / Screen.width, args.start.y / Screen.height, 0);
+                joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
+                joystick.IsHeld = true;
                 break;
 
             case PanArgs.State.Move:
-                var x = args.delta.x;
-                var y = args.delta.y;
+                float x = args.delta.x;
+                float y = args.delta.y;
 
-                if (Math.Abs(x - y) >= 1f)
+                joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
+                if (Math.Abs(x - y) >= 2.5f)
                 {
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
+                    joystick.CurrentDirection = nextMovement;
                 }
 
                 if ((canMove || nextMovement != movement) && !Moving && CanMove())
@@ -143,18 +141,19 @@ public class PlayerController : MonoBehaviour, IPan
                 playerMoving = true;
                 break;
             case PanArgs.State.Hold:
-                playerMoving = true;
+                // BUG?????????
+                //playerMoving = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
                 playerMoving = false;
-                joystick.enabled = false;
+                joystick.IsHeld = false;
                 break;
             default:
                 playerMoving = false;
-                joystick.enabled = false;
+                joystick.IsHeld = false;
                 break;
         }
     }

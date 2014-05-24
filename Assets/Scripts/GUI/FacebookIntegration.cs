@@ -37,17 +37,13 @@ public sealed class FacebookIntegration : MonoBehaviour
 
     void LoginCallback(FBResult result)
     {
-        if (result.Error != null)
-            lastResponse = "Error Response:\n" + result.Error;
-        else if (!FB.IsLoggedIn)
+        if (result.Error == null && FB.IsLoggedIn)
         {
-            lastResponse = "Login cancelled by Player";
+            CallFBFeed();
         }
         else
         {
-            lastResponse = "Login was successful!";
-
-            CallFBFeed();
+            Debug.Log("ERROR: Something went wrong!");
         }
     }
 
@@ -89,8 +85,6 @@ public sealed class FacebookIntegration : MonoBehaviour
     }
 
     #endregion
-
-    private string lastResponse = "";
 
     private int TextWindowHeight
     {

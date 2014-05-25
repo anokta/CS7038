@@ -152,7 +152,11 @@ public class PausedGUI : MonoBehaviour
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
             LevelManager.instance.Level--;
+
+			//TODO: If something weird happens, this is why
+			GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+
 
             // Clear resources
             LevelManager.instance.Clear();
@@ -178,6 +182,7 @@ public class PausedGUI : MonoBehaviour
             LevelManager.instance.Clear();
 
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+
         });
     }
 

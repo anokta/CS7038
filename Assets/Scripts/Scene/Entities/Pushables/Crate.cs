@@ -55,6 +55,7 @@ public class Crate : Pushable
                         handTimer.Reset();
                     }
                 }
+				OnActivate();
             }
             else
             {
@@ -63,7 +64,9 @@ public class Crate : Pushable
                     movement = direction;
                     movementTimer.Reset();
                 }
+				OnDeactivate();
             }
+
         }
 
         return canPush;

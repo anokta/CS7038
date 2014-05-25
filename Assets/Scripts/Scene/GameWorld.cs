@@ -18,16 +18,16 @@ public class GameWorld : MonoBehaviour
     }
 
 	//static bool LockedReason { get; set; }
-    static int _score;
+  /*  static int _score;
     public static int score
     {
         get { return _score; }
         set
         {
             _score = value;
-            //Debug.Log("Current score: " + _score);
+            Debug.Log("Current score: " + _score);
         }
-    }
+    }*/
 
     private static bool _dialogueOff;
     public static bool dialogueOff
@@ -74,10 +74,11 @@ public class GameWorld : MonoBehaviour
 
         if (!success || isOver)
         {
-            if (LevelManager.instance.Level == 0 && success)
+            if (success && LevelManager.instance.settings.outro != null)
             {
                 DialogueManager.DialogueComplete = ToLevelOver;
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				DialogueManager.ActivateDialogue(LevelManager.instance.settings.outro);
             }
             else
             {
@@ -99,7 +100,8 @@ public class GameWorld : MonoBehaviour
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
             {
                 DialogueManager.DialogueComplete = FadeToIntroDialogue;
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro1"]);
+                //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });
         });
     }
@@ -120,7 +122,8 @@ public class GameWorld : MonoBehaviour
                             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
                         });
                     };
-                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+					DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro2"]);
+                    //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 });
             });
         }
@@ -136,21 +139,27 @@ public class GameWorld : MonoBehaviour
 
         dialogueOff = !success;
 
-        if (dialogueOff || LevelManager.instance.Level >= DialogueManager.dialogueIndex.Length)
+       // if (dialogueOff || LevelManager.instance.Level >= DialogueManager.dialogueIndex.Length)
+		if (dialogueOff || LevelManager.instance.settings.intro == null)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
                 GoBackToLevel();
             });
         }
-        else
+        else 
         {
-            DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.instance.Level];
+            //DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.instance.Level];
+			if (LevelManager.instance.settings.intro != null) {
+				//DialogueManager.ActivateDialogue(LevelManager.instance.settings.intro);
+			}
 
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
                 DialogueManager.DialogueComplete = GoBackToLevel;
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				DialogueManager.ActivateDialogue(LevelManager.instance.settings.intro);
+				//DialogueManager.
+                //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });
         }
 

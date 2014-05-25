@@ -61,7 +61,11 @@ public class Mirror : Switchable
 
         if (byPlayer)
         {
+			OnActivate();
             playerHand.SpoilHand(GetInstanceID());
         }
+		else {
+			OnDeactivate();
+		}
     }
 }

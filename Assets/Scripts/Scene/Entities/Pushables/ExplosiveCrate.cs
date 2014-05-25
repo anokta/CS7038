@@ -36,6 +36,8 @@ public class ExplosiveCrate : Crate
                     ExplosionManager.Instance.Add(hit.collider.gameObject, explosionSource);
                 }
             }
+
+			ExplosiveCrate.OnBreak();
         }
 
         public override bool Equals(Task other)

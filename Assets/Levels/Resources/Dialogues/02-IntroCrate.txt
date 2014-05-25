@@ -1,0 +1,5 @@
+%This is a comment!
+#Intro
+$didier
+	Push a file cabinet or a plant by walking against it. But beware! Your hands will get dirty ...
+	...  make sure you clean your hands before treating the patient!

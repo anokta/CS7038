@@ -13,14 +13,23 @@ public class Door : Accessible
     {
         base.Update();
 
-        spriteRenderer.enabled = (Vector2.Distance(playerHand.transform.position, entity.position) >= 0.5f);
+		if (Vector2.Distance(playerHand.transform.position, entity.position) >= 0.5f) {
+			if (!spriteRenderer.enabled) {
+				spriteRenderer.enabled = true;
+				OnDeactivate();
+			}
+		}
+		else {
+			spriteRenderer.enabled = false;
+		}
+        //spriteRenderer.enabled = (Vector2.Distance(playerHand.transform.position, entity.position) >= 0.5f);
     }
 
     public override bool Enter()
     {
         AudioManager.PlaySFX("Door");
         playerHand.SpoilHand(GetInstanceID());
-
+		OnActivate();
         return true;
     }
 }

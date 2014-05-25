@@ -1,5 +1,5 @@
 using System;
-public class StringExtensions
+public static class StringExtensions
 {
 	public static bool IsNullOrWhitespace(string s)
 	{
@@ -14,6 +14,10 @@ public class StringExtensions
 		}
 
 		return true;
+	}
+
+	public static bool StartsWith(this string s, char c) {
+		return s.Length > 0 && s[0] == c;
 	}
 
 }

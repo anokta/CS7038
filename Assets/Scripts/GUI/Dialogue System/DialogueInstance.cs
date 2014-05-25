@@ -33,7 +33,12 @@ public class DialogueInstance
 
     public void Update(float textSpeed)
     {
-        if (displayedText.Length != currentEntry.Content.Length)
+		//Debug.Log(displayedText);
+		//Debug.Log(currentEntry);
+		//if (currentEntry == null) {
+		//	Debug.Log("Impossibru!");
+		//}
+        if (currentEntry != null && displayedText.Length != currentEntry.Content.Length)
         {
             string previous = displayedText;
 

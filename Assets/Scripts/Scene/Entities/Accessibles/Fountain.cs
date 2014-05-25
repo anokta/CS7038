@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using HandyGestures;
+using Grouping;
 
 public class Fountain : Accessible
 {
@@ -24,12 +25,15 @@ public class Fountain : Accessible
 	public GameObject indicatorObject;
 	private TimeIndicator indicator;
 
+
 	protected override void Start()
 	{
 		base.Start();
 
         timer = new Timer(1.6f, Exit);
 		animator = GetComponent<Animator>();
+
+		GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
 
         player = GameObject.FindObjectOfType<PlayerController>();
 		bubbles = GetComponentInChildren<ParticleSystem>();
@@ -42,6 +46,11 @@ public class Fountain : Accessible
 		indicator.Receiver = timer.GetProgress;
 		indicator.color = new Color(113f / 255f, 238f / 255f, 244f / 255f, 0.8f);
 	}
+
+	void LevelOver() {
+		isWashing = false;
+	}
+
 
     protected override void Update()
     {
@@ -95,6 +104,7 @@ public class Fountain : Accessible
             lastPlayerDirection = player.NextDirection;
 
             AudioManager.PlaySFX("Loop Fountain");
+			OnActivate();
 
             isWashing = true;
         }
@@ -109,6 +119,8 @@ public class Fountain : Accessible
         AudioManager.PlaySFX("Fountain");
 
 		playerHand.RestoreHand(GetInstanceID());
+
+		OnDeactivate();
         //playerHand.SpoilHand(HandController.MaxValue - HandController.InfectionThreshold, GetInstanceID());
     }
 

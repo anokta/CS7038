@@ -11,24 +11,63 @@ public class DialogueManager : MonoBehaviour
     public float textSpeed = 40.0f;
 
     public Author[] authors;
-    public List<DialogueInstance> dialogues;
+    //public List<DialogueInstance> dialogues;
 
-    private static int currentDialogue;
-    public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
-    public static int[] dialogueIndex = { 1, 6, 7, 8, 9, 11, 13, 14 }; 
+	private Dictionary<string, Author> authorDict;
+
+    //private static int currentDialogue;
+    //public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
+  //  public static int[] dialogueIndex = { 1, 6, 7, 8, 9, 11, 13, 14 }; 
 
     public static Action DialogueComplete;
 
     Timer waitTimer;
     public Texture2D[] nextButtonImages;
 
+	DialogueMap defMap;
+
+	public Author GetAuthor(string author) {
+		return authorDict[author];
+	}
+
+	public static DialogueManager instance {
+		get; private set;
+	}
+
+	public DialogueMap defaultMap {
+		get { return defMap;
+		}
+	}
+
+	void SetData() {
+		authorDict = new Dictionary<string, Author>();
+		foreach (var author in authors) {
+			authorDict[author.Key] = author;
+		}
+		defMap = new DialogueMap(this);
+	}
+
+	public static DialogueInstance ActiveInstance
+	{
+		get; private set;
+	}
+
+	public static void ActivateDialogue(DialogueInstance instance)
+	{
+		ActiveInstance = instance;
+		instance.StartDialogue();
+		GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+	}
+
     void Start()
     {
+		instance = this;
+		SetData();
         // Audio
         AudioSource audioOutput = GetComponent<AudioSource>();
 
         // Dialogues
-        dialogues = new List<DialogueInstance>();
+        //dialogues = new List<DialogueInstance>();
 
         /*Prologue*/
         List<DialogueEntry> entries = new List<DialogueEntry>();
@@ -38,11 +77,12 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[0], "Their aim: to set a global example of good health, treating patients the way they ought to be treated, and thereby single-handedly save the world."));
         entries.Add(new DialogueEntry(authors[0], "Can you handle the task?"));
     
-        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        //dialogues.Add(new DialogueInstance(entries, audioOutput));
+		defMap.data["Intro1"] = new DialogueInstance(entries, audioOutput);
 
         /*Intro*/
         entries = new List<DialogueEntry>();
-		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Didier Pittet, and I am the embodiment of your conscience."));
+		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Onionghost, and I am the embodiment of your conscience."));
         entries.Add(new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."));
         entries.Add(new DialogueEntry(authors[1], "That is correct. I am inside your head, and I’m here to guide you through this lab."));
         entries.Add(new DialogueEntry(authors[2], "What is the situation again?"));
@@ -51,19 +91,24 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[2], "..."));
         entries.Add(new DialogueEntry(authors[2], "When will people ever learn to clean their hands properly?"));
 
-        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        //dialogues.Add(new DialogueInstance(entries, audioOutput));
+		defMap.data["Intro2"] = new DialogueInstance(entries, audioOutput);
 
         /*Tutorial*/
         entries = new List<DialogueEntry>();
-		entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger across the screen."));
-		entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
-	
-        dialogues.Add(new DialogueInstance(entries, audioOutput));
+		if (SystemInfo.deviceType == DeviceType.Handheld) {
+			entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger anywhere across the screen."));
+			entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
+		} else {
+			entries.Add(new DialogueEntry(authors[1], "Move around by pressing the arrow keys."));
+		}
+		defMap.data["Input"] = new DialogueInstance(entries, audioOutput);
+        //dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        entries = new List<DialogueEntry>();
+        /*entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[1], "Clean your hands by walking to the sink!"));
 
-        dialogues.Add(new DialogueInstance(entries, audioOutput));
+        //dialogues.Add(new DialogueInstance(entries, audioOutput));
 
         entries = new List<DialogueEntry>();
 		entries.Add(new DialogueEntry(authors[1], "What was that? You need to spend at least 20 seconds to clean your hands properly!"));
@@ -155,12 +200,12 @@ public class DialogueManager : MonoBehaviour
         entries.Add(new DialogueEntry(authors[1], "..."));
         
         dialogues.Add(new DialogueInstance(entries, audioOutput));
-
+*/
         GroupManager.main.group["Dialogue"].Add(this);
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
         GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
 
-        currentDialogue = -1;
+//        currentDialogue = -1;
 
         waitTimer = new Timer(0.6f, delegate()
         {
@@ -182,10 +227,13 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentDialogue >= 0)
+       /* if (currentDialogue >= 0)
         {
             dialogues[currentDialogue].Update(textSpeed);
-        }
+        }*/
+		if (ActiveInstance != null) {
+			ActiveInstance.Update(textSpeed);
+		}
 
         waitTimer.Update();
     }
@@ -201,25 +249,28 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentDialogue >= 0)
-        {
-            dialogues[currentDialogue].OnGUI(GUIManager.skin);
-        }
+		if (ActiveInstance != null) {
+			ActiveInstance.OnGUI(GUIManager.skin);
+		}
+        //if (currentDialogue >= 0)
+       // {
+       //     dialogues[currentDialogue].OnGUI(GUIManager.skin);
+       // }
     }
 
     void TriggerDialogue()
     {
-        currentDialogue++;
+        //currentDialogue++;
 
-        currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
+        //currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
 
-        dialogues[currentDialogue].StartDialogue();
+        //dialogues[currentDialogue].StartDialogue();
 
-        waitTimer.Reset();
+        //waitTimer.Reset();
     }
 
     void GameMenu()
     {
-        currentDialogue = -1;
+      //  currentDialogue = -1;
     }
 }

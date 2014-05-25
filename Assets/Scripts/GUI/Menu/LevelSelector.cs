@@ -297,9 +297,9 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void ShowIntro()
     {
-        DialogueManager.CurrentDialogue = -1;
+       // DialogueManager.CurrentDialogue = -1;
 		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
-		  if (LevelManager.instance.Level != -1)
+		if (LevelManager.instance.Level != -1)
         {
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
             {
@@ -339,12 +339,15 @@ public class LevelSelector : MonoBehaviour, IPan
                                 });
                             };
 
-                            GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+							DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro2"]);
+							//Debug.Log("Dia1");
+                            //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                         });
                     });
                 };
-
-                GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				//Debug.Log("Dia2");
+                //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+				DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro1"]);
             });
         }
     }

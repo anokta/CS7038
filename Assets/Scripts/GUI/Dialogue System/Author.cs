@@ -5,12 +5,19 @@ using System;
 [Serializable]
 public class Author
 {
-    [SerializeField]
-    string name;
+	[SerializeField]
+	string displayName;
     public string Name
     {
-        get { return name; }
+		get { return displayName; }
     }
+
+	[SerializeField]
+	string id;
+	public string Key
+	{
+		get { return id; }
+	}
 
     [SerializeField]
     AudioClip voice;

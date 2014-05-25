@@ -25,6 +25,31 @@ public class Entity : MonoBehaviour
 		return obj;
 	}
 
+	public event System.Action Activate;
+	public event System.Action Deactivate;
+	public event System.Action Break;
+
+	public virtual void OnActivate()
+	{
+		if (Activate != null) {
+			Activate();
+		}
+	}
+
+	public virtual void OnDeactivate()
+	{
+		if (Deactivate != null) {
+			Deactivate();
+		}
+	}
+
+	public virtual void OnBreak()
+	{
+		if (Break != null) {
+			Break();
+		}
+	}
+
     public Vector2 Position
     {
         get { return entity.position; }
@@ -51,6 +76,18 @@ public class Entity : MonoBehaviour
     {
         spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(entity.position.y);
     }
+
+	public static GameObject Create<T>() where T : Component {
+		GameObject ret = new GameObject();
+		ret.AddComponent<T>();
+		return ret;
+	}
+
+	public static GameObject Create<T>(string name) where T : Component {
+		GameObject ret = new GameObject(name);
+		ret.AddComponent<T>();
+		return ret;
+	}
 }
 
 public abstract class EntityExplosionTask : Task

@@ -13,6 +13,13 @@ public class Gate : Accessible
         get { return open; }
         set
         {
+			if (open != value) {
+				if (value) {
+					OnActivate();
+				} else {
+					OnDeactivate();
+				}
+			}
             open = value;
             collider2D.enabled = !open;
             spriteRenderer.sprite = open ? GateOpen : GateClosed;

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="7" height="6" tilewidth="100" tileheight="100">
  <properties>
-  <property name="934r343" value=""/>
-  <property name="Shalahatharsam" value="asf"/>
-  <property name="wsefre3" value="2515"/>
+  <property name="Intro" value="@Input"/>
+  <property name="Outro" value="PatientTalk"/>
  </properties>
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
   <image source="tileset.png" width="1000" height="1000"/>
@@ -28,4 +27,21 @@
 31,31,31,31,31,31,31
 </data>
  </layer>
+ <objectgroup name="Objects" width="7" height="6">
+  <object name="WalkToSink" x="200" y="400" width="100" height="100">
+   <properties>
+    <property name="Dialogue" value="WalkToSink"/>
+   </properties>
+  </object>
+  <object name="FountainBefore" gid="33" x="400" y="200">
+   <properties>
+    <property name="Dialogue" value="BeforeWash"/>
+   </properties>
+  </object>
+  <object name="FountainAfter" gid="34" x="400" y="200">
+   <properties>
+    <property name="Dialogue" value="AfterWash"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

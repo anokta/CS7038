@@ -28,6 +28,7 @@ public class LevelManager
 	public readonly int[] scores;
 	private int totalStars;
     private readonly Dictionary<int, TmxMap> tileMaps;
+	private readonly Dictionary<int, DialogueMap> dialogues;
 	private ulong totalScore;
 
 	private static LevelManager _instance;
@@ -40,6 +41,8 @@ public class LevelManager
         loader = new LevelLoader();
 
         tileMaps = new Dictionary<int, TmxMap>();
+		dialogues = new Dictionary<int, DialogueMap>();
+		settings = new LevelSettings();
 
         var asset = Resources.Load<TextAsset>("Levels");
         var reader = new StringReader(asset.text);
@@ -98,6 +101,10 @@ public class LevelManager
         Load(Level);
     }
 
+//	public DialogueMap dialogueMap {
+//		get; private set;
+//	}
+
     public void Load(int level)
     {
         level %= levels.Length;
@@ -106,6 +113,7 @@ public class LevelManager
         Level = level;
 
         TmxMap map;
+		DialogueMap dialogue;
 
         if (tileMaps.ContainsKey(level))
         {
@@ -115,40 +123,64 @@ public class LevelManager
         {
             var name = levels[level];
             var asset = Resources.Load<TextAsset>(name);
-            var reader = new StringReader(asset.text);
-
-            map = TmxMap.Open(reader);
-            tileMaps[level] = map;
+            using (var reader = new StringReader(asset.text)) {
+            	map = TmxMap.Open(reader);
+			}
+			tileMaps[level] = map;
         }
-
-
-        Width = map.Width;
+		if (dialogues.ContainsKey(level)) {
+			dialogue = dialogues[level];
+		}
+		else {
+			var name = levels[level];
+			var dia = Resources.Load<TextAsset>("Dialogues/" + name);
+			if (dia != null ) {
+				using (var reader = new StringReader(dia.text)) {
+					dialogue = DialogueMap.Open(Object.FindObjectOfType<DialogueManager>(), reader);
+				}
+			}
+			else {
+				dialogue = new DialogueMap(DialogueManager.instance);
+			}
+			dialogues[level] = dialogue;
+		}
+			
+		Width = map.Width;
         Height = map.Height;
         Camera.main.transform.position = CameraPosition;
         Camera.main.orthographicSize = OrthographicSize;
-        loader.Load(map);
+		   
+		
+	//	dialogueMap = dialogue;
+		settings.dialogueMap = dialogue;
+        loader.Load(map, settings);
 
 		//Load map settings
-		int min;
-		int max;
-		if (!map.Properties.GetInt("MinScore", out min)) {
-			min = 0;
+		settings.minScore = map.Properties.GetInt("MinScore", 0);
+		settings.maxScore = map.Properties.GetInt("MaxScore", 0);
+		string nameIntro = map.Properties.GetTag("Intro", null);
+		string nameOutro = map.Properties.GetTag("Outro", null);
+		if (nameIntro != null) {
+			settings.intro = settings.dialogueMap[nameIntro];
 		}
-		if (!map.Properties.GetInt("MaxScore", out max)) {
-			max = 0;
+		else {
+			settings.intro = null;
 		}
-
-		minScore = min;
-		maxScore = max;
+		if (nameOutro != null) {
+			settings.outro = settings.dialogueMap[nameOutro];
+		}
+		else {
+			settings.outro = null;
+		}
+		//string dialogueName;
+		//if (!map.
     }
 
-	public int maxScore {
+	public LevelSettings settings
+	{
 		get; private set;
 	}
 
-	public int minScore {
-		get; private set;
-	}
 
     public void Clear()
     {

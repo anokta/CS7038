@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour, IPan
         // Tutorial [Manually coded for now] //
         // TODO: Make it proper! 
 
-        if (!GameWorld.dialogueOff)
+      /*  if (!GameWorld.dialogueOff)
         {
             if (LevelManager.instance.Level == 0)
             {
@@ -167,13 +167,13 @@ public class PlayerController : MonoBehaviour, IPan
                         timer.Stop();
 
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                        //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                     }
                 }
                 else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
                 {
                     DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                    GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                    //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                 }
             }
             else if (LevelManager.instance.Level == 4)
@@ -188,11 +188,11 @@ public class PlayerController : MonoBehaviour, IPan
                         timer.Stop();
 
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
+                       // GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                     }
                 }
             }
-        }
+        }*/
 
         spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
@@ -325,7 +325,7 @@ public class PlayerController : MonoBehaviour, IPan
             case "Accessible":
                 var accessible = hit.collider.GetComponent<Accessible>();
 
-                if (accessible.name.StartsWith("Fountain"))
+                /*if (accessible.name.StartsWith("Fountain"))
                 {
                     if (!GameWorld.dialogueOff && LevelManager.instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
                     {
@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour, IPan
 
                         return false;
                     }
-                }
+                }*/
 
                 return accessible.Enter();
 

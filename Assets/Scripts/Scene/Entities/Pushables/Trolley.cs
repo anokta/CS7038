@@ -77,13 +77,13 @@ public class Trolley : Pushable
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
                     switchable.Switch(false);
 
-                    if (!GameWorld.dialogueOff && LevelManager.instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.instance.Level] + 1))
+                    /*if (!GameWorld.dialogueOff && LevelManager.instance.Level == 5 && switchable.name.StartsWith("Mirror") && DialogueManager.CurrentDialogue == (DialogueManager.dialogueIndex[LevelManager.instance.Level] + 1))
                     {
                         DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
                         GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
 
                         return false;
-                    }
+                    }*/
                     break;
             }
         }

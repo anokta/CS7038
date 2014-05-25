@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using UnityEngine;
+using System.Globalization;
 
 namespace TiledMax
 {
@@ -19,9 +21,15 @@ namespace TiledMax
 			get; private set;
 		}
 
+		public List<TmxObject> Objects {
+			get;
+			private set;
+		}
+
         public TmxMap()
         {
             Layers = new List<Layer>();
+			Objects = new List<TmxObject>();
             Orientation = MapOrientation.Orthogonal;
         }
 
@@ -35,6 +43,8 @@ namespace TiledMax
 
             doc.Load(reader);
             XmlNode node = null;
+
+			List<TmxObject> objListTest = new List<TmxObject>();
 
             foreach (XmlNode xmlNode in doc.ChildNodes)
             {
@@ -72,11 +82,59 @@ namespace TiledMax
 					case "properties":
 						ReadProperties(xNode, properties);
 						break;
+					case "objectgroup":
+						ReadObjects(xNode, result);
+						break;
                 }
             }
 
             return result;
         }
+
+		static CultureInfo _culture;
+
+		static TmxMap() {
+			_culture = CultureInfo.CreateSpecificCulture("en-US");
+		}
+
+		private static void ReadObjects(XmlNode node, TmxMap result) {
+			if (node.HasChildNodes) {
+				foreach (XmlNode child in node.ChildNodes) {
+					if (child.Name == "object") {
+						Rect rect = new Rect(
+							(float)(child.ReadDouble("x")) / 100,
+							(float)(child.ReadDouble("y")) / 100,
+							(float)(child.ReadDouble("width")) / 100,
+							(float)(child.ReadDouble("height")) / 100);
+						rect.y = result.Height - 1 - rect.y;
+						var properties = new Dictionary<string, string>();
+						bool ellipse = false;
+						foreach (XmlNode grandchild in child.ChildNodes) {
+							if (grandchild.Name == "properties") {
+								ReadProperties(grandchild, properties);
+							}
+							else if (grandchild.Name == "ellipse") {
+								ellipse = true;
+							}
+						}
+						TmxObject.ObjType type;
+						int id = child.ReadInt("gid", -1);
+						/*if (ellipse == true) {
+							type = TmxObject.ObjType.Ellipse;
+						}
+						else if (child.ReadInt("gid", -1) == -1) {
+							type = TmxObject.ObjType.Tile;
+						}
+						else {
+							type = TmxObject.ObjType.Rect;
+						}*/
+
+						TmxObject obj = new TmxObject(rect, id, properties);
+						result.Objects.Add(obj);
+					}
+				}
+			}
+		}
 
 		private static void ReadProperties(XmlNode node, Dictionary<string, string> properties) {
 			if (node.HasChildNodes) {

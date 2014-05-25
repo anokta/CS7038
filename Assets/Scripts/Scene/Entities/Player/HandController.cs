@@ -122,7 +122,7 @@ public class HandController : MonoBehaviour
     void Start()
     {
 		activeHand = this;
-		GameWorld.score = 0;
+//		GameWorld.score = 0;
         GroupManager.main.group["Running"].Add(this);
         stars = (GameObject.Instantiate(cleanParticles) as GameObject).particleSystem;
         stars.transform.parent = transform.parent;

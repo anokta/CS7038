@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour, IPan
 	private Ashes _ashController;
     private Animator animator;
 
+    private JoystickController joystick;
+
     public enum PlayerAnimState
     {
         Idle = 0,
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour, IPan
         hands = GetComponent<HandController>();
 
         animator = GetComponent<Animator>();
+
+        joystick = FindObjectOfType<JoystickController>();
     }
 
     void Start()
@@ -110,16 +114,22 @@ public class PlayerController : MonoBehaviour, IPan
 
     public void PlayerMoving(PanArgs args)
     {
-        //Debug.Log(args.state);
         switch (args.state)
         {
-            case PanArgs.State.Move:
-                var x = args.delta.x;
-                var y = args.delta.y;
+            case PanArgs.State.Down:
+                joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
+                joystick.IsHeld = true;
+                break;
 
-                if (Math.Abs(x - y) >= 1f)
+            case PanArgs.State.Move:
+                float x = args.delta.x;
+                float y = args.delta.y;
+
+                joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
+                if (Math.Abs(x - y) >= 2.5f)
                 {
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
+                    joystick.CurrentDirection = nextMovement;
                 }
 
                 if ((canMove || nextMovement != movement) && !Moving && CanMove())
@@ -132,16 +142,19 @@ public class PlayerController : MonoBehaviour, IPan
                 playerMoving = true;
                 break;
             case PanArgs.State.Hold:
-                playerMoving = true;
+                // BUG?????????
+                //playerMoving = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
                 canSwitch = true;
                 canMove = true;
                 playerMoving = false;
+                joystick.IsHeld = false;
                 break;
             default:
                 playerMoving = false;
+                joystick.IsHeld = false;
                 break;
         }
     }

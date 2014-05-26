@@ -8,6 +8,8 @@ using LOR = GameWorld.LevelOverReason;
 
 public class LevelOverGUI : MonoBehaviour
 {
+    private FacebookIntegration facebook;
+    
     private float _actualWindowSize;
     private float _actualButtonSize;
 	private float _actualSocialSize;
@@ -32,7 +34,7 @@ public class LevelOverGUI : MonoBehaviour
 
 	public LevelOverGUI() {
 		starTimer = new Timer(
-			0.38f, () => {
+			0.39f, () => {
 				if (visibleScore == currentScore) {
 					starTimer.Stop();
 				}
@@ -201,6 +203,8 @@ public class LevelOverGUI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        facebook = FindObjectOfType<FacebookIntegration>();
+
         GroupManager.main.group["Level Over"].Add(this);
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, Enter, null));
         ResetSize();
@@ -455,8 +459,10 @@ public class LevelOverGUI : MonoBehaviour
     }
 
     void ShareToFacebook(string textToDisplay, string urlToDisplay)
-    {
-        // Sample text doesn't work for now.
-        Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
+    {  
+        if (!facebook.PostFeed())
+        {
+            Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
+        }
     }
 }

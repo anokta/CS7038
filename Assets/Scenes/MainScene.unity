@@ -643,7 +643,7 @@ MonoBehaviour:
   CollisionMethod2D: 0
   CustomFunction: {fileID: 0}
   CustomFunction2D: {fileID: 0}
-  longTime: .25
+  longTime: .100000001
   flingTime: .25
   interceptor: {fileID: 1093820746}
   defaultObject: {fileID: 0}
@@ -653,7 +653,7 @@ MonoBehaviour:
   minDepth: -Infinity
   circleRadius: 16
   sphereRadius: 1
-  moveThreshold: 4
+  moveThreshold: 3
 --- !u!4 &290804695
 Transform:
   m_ObjectHideFlags: 0
@@ -3020,6 +3020,7 @@ GameObject:
   - 114: {fileID: 1799188530}
   - 114: {fileID: 1799188531}
   - 114: {fileID: 1799188532}
+  - 114: {fileID: 1799188533}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -3040,6 +3041,7 @@ Transform:
   - {fileID: 968405518}
   - {fileID: 336230963}
   - {fileID: 530502223}
+  - {fileID: 1858873623}
   - {fileID: 1093820746}
   m_Father: {fileID: 0}
 --- !u!114 &1799188527
@@ -3133,6 +3135,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLines: 15
+--- !u!114 &1799188533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d253a5aec5c93e54186703412c7b89f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FeedToId: 
+  FeedLink: http://handymd-game.appspot.com/
+  FeedLinkName: Handy MD
+  FeedLinkCaption: Play on the web!
+  FeedLinkDescription: 
+  FeedPicture: 
+  FeedMediaSource: 
+  FeedActionName: 
+  FeedActionLink: 
+  FeedReference: 
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3218,6 +3241,50 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1858873622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1858873623}
+  - 114: {fileID: 1858873624}
+  m_Layer: 0
+  m_Name: Joystick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1858873623
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858873622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1799188526}
+--- !u!114 &1858873624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858873622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eefc3e37ea2db14ca645d0e37a3f787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directions:
+  - {fileID: 2800000, guid: ab937dabfa63fa44f8da98ed210a1cb6, type: 3}
+  - {fileID: 2800000, guid: 91e033ea6d3376a4385c86ef39bab121, type: 3}
+  - {fileID: 2800000, guid: 01a5e3a72abad4c498e30813203c2d0c, type: 3}
+  - {fileID: 2800000, guid: 8ce7f9de07a7ef04ba8dcab86c8e007e, type: 3}
+  size: .200000003
 --- !u!1 &1882310411
 GameObject:
   m_ObjectHideFlags: 0

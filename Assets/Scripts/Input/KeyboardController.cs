@@ -71,7 +71,7 @@ public class KeyboardController : MonoBehaviour
             {
                 var delta = movement.Reverse().ToVector2();
                 args = new PanArgs(HandyDetector.Gesture.Press, PanArgs.State.Move, Vector2.zero, Vector2.zero,
-                    delta);
+                    delta * 10);
             }
 
             KeyboardEventHandler.OnGesturePan(args);

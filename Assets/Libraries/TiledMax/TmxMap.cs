@@ -97,26 +97,6 @@ namespace TiledMax
 			_culture = CultureInfo.CreateSpecificCulture("en-US");
 		}
 
-		private static Trigger.ActionType ParseToAction(string type) {
-			switch (type.ToLower()) {
-				case "handy":
-					return Trigger.ActionType.Handy;
-				case "other":
-					return Trigger.ActionType.Other;
-				case "on":
-					return Trigger.ActionType.On;
-				case "break":
-					return Trigger.ActionType.Break;
-				case "off":
-					return Trigger.ActionType.Off;
-				case "task":
-					return Trigger.ActionType.Task;
-						case "any":
-						default:
-						return Trigger.ActionType.Any;
-			}
-		}
-
 		private static void ReadObjects(XmlNode node, TmxMap result) {
 			if (node.HasChildNodes) {
 				foreach (XmlNode child in node.ChildNodes) {

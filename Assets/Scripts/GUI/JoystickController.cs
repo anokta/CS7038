@@ -9,6 +9,8 @@ public class JoystickController : MonoBehaviour {
 
     public float size;
 
+	float _size;
+
     private bool isHeld;
     public bool IsHeld
     {
@@ -43,7 +45,7 @@ public class JoystickController : MonoBehaviour {
     public Vector2 TargetPosition
     {
         get { return targetPosition; }
-        set { targetPosition = Vector2.Min(Vector2.Max(value, new Vector2(size, size)), new Vector2(Screen.width - size, Screen.height - size)); }
+        set { targetPosition = Vector2.Min(Vector2.Max(value, new Vector2(_size, _size)), new Vector2(Screen.width - _size, Screen.height - _size)); }
     }
 
     private float currentAlpha, targetAlpha, alphaSpeed;
@@ -51,7 +53,7 @@ public class JoystickController : MonoBehaviour {
 
     void ResetScreen()
     {
-        size *= Screen.height;
+        _size = size * Screen.height;
     }
 
 	void Start () {
@@ -73,16 +75,16 @@ public class JoystickController : MonoBehaviour {
 
     void OnGUI()
     {
-        if (isHeld && SystemInfo.deviceType == DeviceType.Handheld)
+        if (isHeld)
         {
             Color c = GUI.color;
             c.a = currentAlpha;
             GUI.color = c;
 
-            Rect rect = new Rect(currentPosition.x - 0.5f * size, currentPosition.y - 0.5f * size, size, size);
+            Rect rect = new Rect(currentPosition.x - 0.5f * _size, currentPosition.y - 0.5f * _size, _size, _size);
             Rect current;
 
-            float offset = 1.1f * size;
+            float offset = 1.1f * _size;
 
             // Up
             if (currentDirection == Vector2.zero || currentDirection == Vector2.up)

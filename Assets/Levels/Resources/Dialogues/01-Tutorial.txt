@@ -5,7 +5,7 @@
 #BeforeWash
 	$didier
 		What was that? You need to spend at least 20 seconds to clean your hands properly!
-		In game-time, however, we only have to wait for the washing bar to fill up.  Now try washing again, but this time wait until your hands are clean.
+		In game-time, however, we only have to wait for the washing indicator to fill up.  Now try washing again, but this time wait until your hands are clean.
 #AfterWash
 	$didier
 		Now your hands are clean. Walk towards the patient to treat him.

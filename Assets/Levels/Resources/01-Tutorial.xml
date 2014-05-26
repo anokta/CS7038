@@ -33,12 +33,12 @@
     <property name="Dialogue" value="WalkToSink"/>
    </properties>
   </object>
-  <object name="FountainBefore" gid="33" x="400" y="200">
+  <object name="FountainBefore" type="on" gid="33" x="400" y="200">
    <properties>
     <property name="Dialogue" value="BeforeWash"/>
    </properties>
   </object>
-  <object name="FountainAfter" gid="34" x="400" y="200">
+  <object name="FountainAfter" type="off" gid="34" x="400" y="200">
    <properties>
     <property name="Dialogue" value="AfterWash"/>
    </properties>

@@ -25,6 +25,7 @@ public class Plant : Crate
     public void Break()
     {
         AudioManager.PlaySFX("Burn");
+		Execute(Trigger.ActionType.Break);
 		_ashController.Trigger(entity.position);
 		Destroy(this.gameObject);
     }

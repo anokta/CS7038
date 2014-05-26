@@ -6,17 +6,18 @@ public class TmxObject
 {
 	public readonly Rect position;
 	public readonly PropertyReader properties;
-	//public readonly ObjType Type;
+	//public readonly TriggerAction.ActionType type;
+	public readonly ObjectType objectType;
+	public readonly string type;
 	public Collider2D collider;
 
-	public enum ObjType {
+	public enum ObjectType {
 		Rect, Ellipse, Tile
 	}
 
-	public readonly int id;
-
-	public TmxObject(Rect rect, int id, Dictionary<string, string> dict) {
-		this.id = id;
+	public TmxObject(Rect rect, ObjectType tType, string type, Dictionary<string, string> dict) {
+		objectType = tType;
+		this.type = type;
 		properties = new PropertyReader(dict);
 		position = rect;
 		//Type = type;

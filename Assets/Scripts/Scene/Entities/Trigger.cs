@@ -1,60 +1,55 @@
+using System;
 using UnityEngine;
-using System.Collections;
 
-public class Trigger : MonoBehaviour
+public class Trigger
 {
-	[SerializeField]
-	TmxObject _object;
+	public readonly bool repeat;
+	public readonly Rect area;
 
-	public TmxObject TmxObject {
-		get { return _object; }
-		set {
-			_object = value; 
-			if (_object != null) {
-				PrepareTrigger();
-			}
-		}
+	public readonly string message;
+	
+	[Flags]
+	//This is used as a flag: All values must be distinct powers of 2!
+	public enum ActionType {
+		Any = 1,
+		Handy = 2,
+		Other = 4,
+		Break = 8,
+		On = 16,
+		Off = 32,
+		Task = 64
 	}
 
-	public event System.Action Activate;
+	public readonly ActionType type;
 
-	protected virtual void OnActivate()
+	public Trigger(TmxObject obj, LevelSettings settings)
 	{
-		if (Activate != null) {
-			Activate();
-		}
-	}
-
-	protected bool once = true;
-
-	void PrepareTrigger()
-	{
-		int repeat;
-		if (_object.properties.GetInt("Repeat", 0) != 0) {
-			once = false;
-		}
-		else {
-			once = true;
-		}
-
+		repeat = obj.properties.GetInt("Repeat", 0) != 0;
+		
 		string targetDialogue;
-		if (_object.properties.GetTag("Dialogue", out targetDialogue)) {
-
+		if (obj.properties.GetTag("Dialogue", out targetDialogue)) {
+			var dia = settings.dialogueMap[targetDialogue];
+			Run += () => {
+				DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+				DialogueManager.ActivateDialogue(dia);
+			};
 		}
+
+		area = obj.position;
+		Trigger.ActionType at = Trigger.ActionType.Any;
+		try {
+			at = (Trigger.ActionType)Enum.Parse(typeof(Trigger.ActionType), obj.type, true);
+		} catch (ArgumentException ae) {
+			Debug.LogError(ae.Message);
+		}
+		type = at;
 	}
 
-	// Use this for initialization
-	void Awake()
-	{
-		if (_object != null) {
-			PrepareTrigger();
+	public event System.Action Run;
+
+	public void OnRun() {
+		if (Run!= null) {
+			Run();
 		}
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-	
 	}
 }
-

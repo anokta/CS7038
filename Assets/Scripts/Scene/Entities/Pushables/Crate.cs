@@ -55,7 +55,8 @@ public class Crate : Pushable
                         handTimer.Reset();
                     }
                 }
-				OnActivate();
+				//OnActivate();
+				Execute(Trigger.ActionType.Handy);
             }
             else
             {
@@ -64,7 +65,7 @@ public class Crate : Pushable
                     movement = direction;
                     movementTimer.Reset();
                 }
-				OnDeactivate();
+				Execute(Trigger.ActionType.Other);
             }
 
         }

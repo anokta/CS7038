@@ -16,7 +16,8 @@ public class Door : Accessible
 		if (Vector2.Distance(playerHand.transform.position, entity.position) >= 0.5f) {
 			if (!spriteRenderer.enabled) {
 				spriteRenderer.enabled = true;
-				OnDeactivate();
+				Execute(Trigger.ActionType.Off);
+				//OnDeactivate();
 			}
 		}
 		else {
@@ -29,7 +30,8 @@ public class Door : Accessible
     {
         AudioManager.PlaySFX("Door");
         playerHand.SpoilHand(GetInstanceID());
-		OnActivate();
+		//OnActivate();
+		Execute(Trigger.ActionType.On | Trigger.ActionType.Handy);
         return true;
     }
 }

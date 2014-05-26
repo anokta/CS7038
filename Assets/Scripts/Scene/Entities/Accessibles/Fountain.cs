@@ -34,6 +34,7 @@ public class Fountain : Accessible
 		animator = GetComponent<Animator>();
 
 		GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, LevelOver, null));
+		GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, Interrupted, null));
 
         player = GameObject.FindObjectOfType<PlayerController>();
 		bubbles = GetComponentInChildren<ParticleSystem>();
@@ -104,9 +105,12 @@ public class Fountain : Accessible
             lastPlayerDirection = player.NextDirection;
 
             AudioManager.PlaySFX("Loop Fountain");
-			OnActivate();
+			//OnActivate();
+			isWashing = true;
 
-            isWashing = true;
+			Execute(Trigger.ActionType.Handy | Trigger.ActionType.On);
+
+            
         }
 
 		return false;
@@ -120,7 +124,7 @@ public class Fountain : Accessible
 
 		playerHand.RestoreHand(GetInstanceID());
 
-		OnDeactivate();
+		Execute(Trigger.ActionType.Task | Trigger.ActionType.Off);
         //playerHand.SpoilHand(HandController.MaxValue - HandController.InfectionThreshold, GetInstanceID());
     }
 

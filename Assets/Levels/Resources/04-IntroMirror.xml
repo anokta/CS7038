@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="7" height="7" tilewidth="100" tileheight="100">
+ <properties>
+  <property name="Intro" value="Intro"/>
+  <property name="MaxScore" value="6"/>
+  <property name="MinScore" value="5"/>
+ </properties>
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
-  <image source="tileset.png" width="1000" height="600"/>
+  <image source="tileset.png" width="1000" height="1000"/>
  </tileset>
  <layer name="Floor" width="7" height="7" visible="0">
   <data encoding="csv">

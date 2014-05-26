@@ -16,6 +16,8 @@ public class LevelLoader
 
 	public GameObject ExplosionContainer { get; private set; }
 
+	Entity[,] entities;
+
 	/// <summary>
 	/// Sorting order for the floor
 	/// </summary>
@@ -142,6 +144,8 @@ public class LevelLoader
 
 		var leverGateManager = new LeverGateManager();
 
+		entities = new Entity[map.Width, map.Height];
+
 		//Initialized with a seed, so that every time the randomizer produces the same level
 		var random = new System.Random(0);
 
@@ -164,6 +168,11 @@ public class LevelLoader
 				var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
 				var transform = gameObj.transform;
 				GameObject parent;
+
+				var entity = gameObj.GetComponent<Entity>();
+				if (entity != null) {
+					entities[tile.X, map.Height - tile.Y - 1] = entity;
+				}
 
 				//Calling this adds some variety between levels, but ensures the same level will always look the same
 				random.NextDouble();
@@ -335,16 +344,19 @@ public class LevelLoader
 		int x;
 		int y;
 		foreach (var obj in map.Objects) {
-			switch ((TileType)obj.id) {
-				case TileType.Activate:
+			switch (obj.objectType) {
+				case TmxObject.ObjectType.Tile:
 					GetIndex(obj.position, out x, out y);
-					break;
-				case TileType.Deactivate:
+					Entity e = entities[x, y];
+					if (e != null) {
+						Trigger a = new Trigger(obj, settings);
+						e.AddTriggerAction(a);
+					}
 					break;
 				default:
 					var triggerObj = Entity.Create<RectTrigger>("RectTrigger");
 					var recTrigger = triggerObj.GetComponent<RectTrigger>();
-					recTrigger.action = new TriggerAction(obj, settings);
+					recTrigger.action = new Trigger(obj, settings);
 					recTrigger.transform.parent = triggerContainer.transform;
 					break;
 			}
@@ -354,7 +366,7 @@ public class LevelLoader
 	void GetIndex(Rect rect, out int x, out int y)
 	{
 		float xx = rect.x + rect.width / 2;
-		float yy = rect.y + rect.height / 2;
+		float yy = rect.y + 1 + rect.height / 2;
 		x = (int)Mathf.Floor(xx);
 		y = (int)Mathf.Floor(yy);
 	}

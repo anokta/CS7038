@@ -1,0 +1,8 @@
+#Intro
+	$didier
+		Those chemical crates are safe to push around, but beware: They explode when struck by a laser!
+		An explosion can please everything, and everyone.
+	$handrew
+		Why are you encouraging the destruction of chemical supplies again?
+	$didier
+		It will be worth it if it means you can save a life!

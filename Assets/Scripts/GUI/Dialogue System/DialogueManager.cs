@@ -40,7 +40,7 @@ public class DialogueManager : MonoBehaviour
 	}
 
 	void SetData() {
-		authorDict = new Dictionary<string, Author>();
+		authorDict = new Dictionary<string, Author>(StringComparer.OrdinalIgnoreCase);
 		foreach (var author in authors) {
 			authorDict[author.Key] = author;
 		}

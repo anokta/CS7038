@@ -386,7 +386,6 @@ public class LevelOverGUI : MonoBehaviour
 			int score = UnityEngine.Object.FindObjectOfType<HandController>().score;
 			int min = LevelManager.instance.settings.minScore;
 			int max = LevelManager.instance.settings.maxScore;
-			Debug.Log("Calculating score...");
 			if (min == 0 || score <= min) {
 				currentScore = 3;
 			} else if (max == 0 || score <= max) {

@@ -1,0 +1,9 @@
+#Intro
+	$handrew
+		Doors! My sworn enemy!
+	$didier
+		Don’t worry, doctor. We can pass through them easily, but make sure you wash your hands afterwards ..
+		.. we don't know who touched those handles before!
+#Lever
+	$didier
+		Levers can make the impossible, possible.

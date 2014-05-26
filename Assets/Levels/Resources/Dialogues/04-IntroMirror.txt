@@ -1,0 +1,4 @@
+#Intro
+	$didier
+		Mirrors can deflect lasers. Push on a mirror to change its direction.
+		Make sure you don’t deflect the beam towards us though!

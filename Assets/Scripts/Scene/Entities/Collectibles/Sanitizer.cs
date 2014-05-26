@@ -13,7 +13,7 @@ public class Sanitizer : Collectible
 	public override void Collect()
 	{
         AudioManager.PlaySFX("Collect");
-		OnActivate();
+		Execute(Trigger.ActionType.Handy);
 
         //playerHand.SpoilHand(1.0f, GetInstanceID());
 

@@ -37,7 +37,7 @@ public class ExplosiveCrate : Crate
                 }
             }
 
-			ExplosiveCrate.OnBreak();
+			ExplosiveCrate.Execute(Trigger.ActionType.Break);
         }
 
         public override bool Equals(Task other)

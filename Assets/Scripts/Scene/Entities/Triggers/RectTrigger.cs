@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class RectTrigger : Trigger
+public class RectTrigger : MonoBehaviour
 {
 
-	public TriggerAction action;
+	public Trigger action;
 
 	Transform playerTransform;
 	

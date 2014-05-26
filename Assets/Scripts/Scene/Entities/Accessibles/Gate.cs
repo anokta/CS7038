@@ -15,9 +15,9 @@ public class Gate : Accessible
         {
 			if (open != value) {
 				if (value) {
-					OnActivate();
+					Execute(Trigger.ActionType.On);
 				} else {
-					OnDeactivate();
+					Execute(Trigger.ActionType.Off);
 				}
 			}
             open = value;

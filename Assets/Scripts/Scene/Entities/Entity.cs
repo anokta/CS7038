@@ -1,5 +1,6 @@
 using UnityEngine;
 using Grouping;
+using System.Collections.Generic;
 
 public class Entity : MonoBehaviour
 {
@@ -25,29 +26,23 @@ public class Entity : MonoBehaviour
 		return obj;
 	}
 
-	public event System.Action Activate;
-	public event System.Action Deactivate;
-	public event System.Action Break;
-
-	public virtual void OnActivate()
-	{
-		if (Activate != null) {
-			Activate();
-		}
+	public void AddTriggerAction(Trigger action) {
+		_actions.Add(action);
 	}
+	
+	private List<Trigger> _actions = new List<Trigger>();
 
-	public virtual void OnDeactivate()
-	{
-		if (Deactivate != null) {
-			Deactivate();
+	public void Execute(Trigger.ActionType type) {
+		type |= Trigger.ActionType.Any;
+		var none = (Trigger.ActionType)0;
+	
+		foreach (var a in _actions) {
+			if ((a.type & type) != none) {
+				a.OnRun();
+			}
 		}
-	}
 
-	public virtual void OnBreak()
-	{
-		if (Break != null) {
-			Break();
-		}
+		_actions.RemoveAll(_=> (_.type & type) != none && _.repeat == false);
 	}
 
     public Vector2 Position

@@ -32,11 +32,11 @@ public class Lever : Switchable
         AudioManager.PlaySFX("Lever");
 
 		if (byPlayer) {
-			OnActivate();
+			Execute(Trigger.ActionType.Handy);
         	playerHand.SpoilHand(GetInstanceID());
 		}
 		else {
-			OnDeactivate();
+			Execute(Trigger.ActionType.Other);
 		}
     }
 

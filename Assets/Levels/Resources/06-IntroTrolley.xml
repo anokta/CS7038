@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="100" tileheight="100">
+ <properties>
+  <property name="Intro" value="Intro"/>
+  <property name="MaxScore" value="5"/>
+  <property name="MinScore" value="4"/>
+ </properties>
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
   <image source="tileset.png" width="1000" height="1000"/>
  </tileset>
@@ -27,4 +32,11 @@
 31,31,31,31,31,31,31,31,31,31
 </data>
  </layer>
+ <objectgroup name="Object Layer 1" width="10" height="8">
+  <object name="Trolley Thing" gid="33" x="100" y="600">
+   <properties>
+    <property name="Dialogue" value="Indeed"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
 
         GroupManager.main.group["Running"].Add(this);
+		//GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, ()=>{canMove = true;}, null));
         GroupManager.main.group["To Level Over"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
 
         // not sure which one is better.

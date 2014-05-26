@@ -1,0 +1,10 @@
+#Intro
+	$didier
+		Lasers are dangerous! Don’t touch them, or we’ll die!
+		Anything can block its beam, but some might as well catch on fire.
+	$handrew
+		And why are active lethal laser emitters lying around so casually?
+	$didier
+		That is a good question, one that I do not know the answer to.
+	$handrew
+		...

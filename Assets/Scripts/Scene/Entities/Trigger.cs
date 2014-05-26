@@ -4,6 +4,7 @@ using UnityEngine;
 public class Trigger
 {
 	public readonly bool repeat;
+	public readonly bool persist;
 	public readonly Rect area;
 
 	public readonly string message;

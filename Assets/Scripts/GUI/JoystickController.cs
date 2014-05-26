@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Grouping;
+using System.Diagnostics;
 
 public class JoystickController : MonoBehaviour {
 
@@ -72,7 +73,7 @@ public class JoystickController : MonoBehaviour {
 
     void OnGUI()
     {
-        if (isHeld)
+        if (isHeld && SystemInfo.deviceType == DeviceType.Handheld)
         {
             Color c = GUI.color;
             c.a = currentAlpha;

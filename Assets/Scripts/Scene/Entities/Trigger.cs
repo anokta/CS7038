@@ -14,7 +14,7 @@ public class Trigger
 		Any = 1,
 		Handy = 2,
 		Other = 4,
-		Break = 8,
+		Destroy = 8,
 		On = 16,
 		Off = 32,
 		Task = 64

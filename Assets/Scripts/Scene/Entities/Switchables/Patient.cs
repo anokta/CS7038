@@ -123,7 +123,7 @@ public class Patient : Switchable
         {
             GameWorld.levelOverReason = GameWorld.LevelOverReason.PatientInfected;
 			animator.SetTrigger("Kill");
-
+			Execute(Trigger.ActionType.Break);
             AudioManager.PlaySFX("Died");
         }
         else
@@ -148,7 +148,7 @@ public class Patient : Switchable
             animator.SetInteger("Direction", direction);
 			animator.SetTrigger("Treat");
 			heart.SetActive(true);
-
+			Execute(Trigger.ActionType.Task);
             AudioManager.PlaySFX("Treated");
         }
 
@@ -164,6 +164,7 @@ public class Patient : Switchable
         GameWorld.levelOverReason = reason;
 		if (reason == GameWorld.LevelOverReason.PatientInfected) {
 			animator.SetTrigger("Kill");
+			Execute(Trigger.ActionType.Break);
 		} else {
 			_ashController.Trigger(entity.position);
 			Destroy(this.gameObject);
@@ -201,7 +202,7 @@ public class Patient : Switchable
         public override void Run()
         {
             Patient.Kill(GameWorld.LevelOverReason.ExplosionKilledPatient);
-
+			Patient.Execute(Trigger.ActionType.Break);
             AudioManager.PlaySFX("Burn");
         }
 

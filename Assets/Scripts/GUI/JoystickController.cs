@@ -8,8 +8,9 @@ public class JoystickController : MonoBehaviour {
     public Texture2D[] directions;
 
     public float size;
-
 	float _size;
+
+    public float fixedOffset;
 
     private bool isHeld;
     public bool IsHeld
@@ -84,7 +85,7 @@ public class JoystickController : MonoBehaviour {
             Rect rect = new Rect(currentPosition.x - 0.5f * _size, currentPosition.y - 0.5f * _size, _size, _size);
             Rect current;
 
-            float offset = 1.1f * _size;
+            float offset = fixedOffset * _size;
 
             // Up
             if (currentDirection == Vector2.zero || currentDirection == Vector2.up)

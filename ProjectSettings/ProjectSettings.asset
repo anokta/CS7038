@@ -74,8 +74,10 @@ PlayerSettings:
     16:9: 1
     Others: 1
   iPhoneBundleIdentifier: com.surewash.handymd
+  metroEnableIndependentInputSource: 0
+  metroEnableLowLatencyPresentationAPI: 0
   productGUID: 145a915c127fecc4a89be26ace19b38b
-  iPhoneBundleVersion: 1.0
+  iPhoneBundleVersion: 0.9
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
@@ -83,7 +85,7 @@ PlayerSettings:
   apiCompatibilityLevel: 2
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  ForceInternetPermission: 0
+  ForceInternetPermission: 1
   ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
@@ -104,8 +106,8 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
-  AndroidKeystoreName: D:/i do/create/develop/software/anokta.keystore
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/anokta/Documents/GitHub/CS7038/Deploy/android/surewash.keystore
+  AndroidKeyaliasName: surewash
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 
@@ -179,6 +181,7 @@ PlayerSettings:
   metroSplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   metroCapabilities: {}
+  metroUnprocessedPlugins: []
   metroCompilationOverrides: 1
   blackberryDeviceAddress: 
   blackberryDevicePassword: 

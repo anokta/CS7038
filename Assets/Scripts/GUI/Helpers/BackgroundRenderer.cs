@@ -63,6 +63,9 @@ public class BackgroundRenderer : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		GroupDelegator delegator = new GroupDelegator(null, ()=> {_renderer.enabled = true; }, null);
+		GroupManager.main.group["Main Menu"].Add(this, delegator);
+
 		_renderer = GetComponent<SpriteRenderer>();
 		_selector = GroupManager.main.group["Level Select"];
 		_renderer.sortingLayerName = "Background";

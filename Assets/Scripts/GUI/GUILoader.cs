@@ -22,7 +22,7 @@ public class GUILoader : MonoBehaviour
 
 	void OnGUI() {
 		if (Event.current.type.Equals(EventType.Repaint)) {
-			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Loading... " + count / (float)GUIManager.StyleList.Count);
+		
 			if (count >= GUIManager.StyleList.Count) {
 				GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
 				Destroy(this);
@@ -31,13 +31,18 @@ public class GUILoader : MonoBehaviour
 			for (int i = count; count >= 0 && i < interval && count + i < GUIManager.StyleList.Count; ++i) {
 				GUI.Button(
 					new Rect(
-						Screen.width / (float)(i + 1), Screen.height,
+						Screen.width / (float)(i + 1), Screen.height * 2,
 						Screen.width / (float)interval, Screen.height / (float)interval),
 					"",
 					GUIManager.StyleList[count + i].style);
 			}
 			//count += interval;
 		}
+		string progress = "Loading... " + Mathf.Floor((count / (float)GUIManager.StyleList.Count) * 100) + "%";
+		var vec2 = GUIManager.Style.loading.CalcSize(new GUIContent(progress));
+		GUI.Label(
+			new Rect((Screen.width - vec2.x)/2, (Screen.height - vec2.y)/2, vec2.x, vec2.y),
+			progress, GUIManager.Style.loading);
 	}
 }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -78,7 +78,7 @@ public class DialogueMap
 				line = line.Substring(1);
 				escape = true;
 			}
-			if (!escape && (line.StartsWith(CommentChar) || StringExtensions.IsNullOrWhitespace(line))) {
+			if (!escape && (line.StartsWith(CommentChar) || StringExt.IsNullOrWhitespace(line))) {
 				continue;
 			}
 			else if (!escape && line.StartsWith(InstanceChar)) {

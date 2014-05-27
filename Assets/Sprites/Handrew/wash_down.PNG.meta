@@ -20,7 +20,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
@@ -39,13 +39,9 @@ TextureImporter:
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings:
-  - buildTarget: iPhone
-    maxTextureSize: 1024
-    textureFormat: -2
-    compressionQuality: 50
   - buildTarget: Android
     maxTextureSize: 1024
-    textureFormat: -1
+    textureFormat: -3
     compressionQuality: 50
   spriteSheet:
     sprites:

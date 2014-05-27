@@ -98,12 +98,16 @@ PlayerSettings:
   uIExitOnSuspend: 1
   uIStatusBarStyle: 0
   iPhoneSplashScreen: {fileID: 2800000, guid: 7874332d700261d498f87e407317aa2a, type: 3}
-  iPhoneHighResSplashScreen: {fileID: 0}
-  iPhoneTallHighResSplashScreen: {fileID: 0}
+  iPhoneHighResSplashScreen: {fileID: 2800000, guid: a6095503179eb5a47be6c7e5f7c983eb,
+    type: 3}
+  iPhoneTallHighResSplashScreen: {fileID: 2800000, guid: 7874332d700261d498f87e407317aa2a,
+    type: 3}
   iPadPortraitSplashScreen: {fileID: 0}
   iPadHighResPortraitSplashScreen: {fileID: 0}
-  iPadLandscapeSplashScreen: {fileID: 0}
-  iPadHighResLandscapeSplashScreen: {fileID: 0}
+  iPadLandscapeSplashScreen: {fileID: 2800000, guid: 52f6cd8fe6ddc694a8233180f81279c3,
+    type: 3}
+  iPadHighResLandscapeSplashScreen: {fileID: 2800000, guid: a6df88518d0184744bf24d10f87e2362,
+    type: 3}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
   AndroidKeystoreName: C:/Users/anokta/Documents/GitHub/CS7038/Deploy/android/surewash.keystore

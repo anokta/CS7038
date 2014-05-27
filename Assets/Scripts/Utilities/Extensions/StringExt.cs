@@ -1,5 +1,5 @@
 using System;
-public static class StringExtensions
+public static class StringExt
 {
 	public static bool IsNullOrWhitespace(string s)
 	{

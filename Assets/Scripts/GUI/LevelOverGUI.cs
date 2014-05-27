@@ -179,6 +179,15 @@ public class LevelOverGUI : MonoBehaviour
 			{LOR.Squashed, "I was squashed by a heavy door in #HandyMD!"},
 			//{LOR.Success, "I successfully finished a level in #HandyMD!},
 		};
+
+		overTitleSet[GameWorld.LevelOverReason.Undefined] = new[]
+		{
+			"Impossibru!"
+		};
+		overMessageSet[GameWorld.LevelOverReason.Undefined] = new[]
+		{
+			"This shouldn't be happening. Whoops."
+		};
 			
     }
 
@@ -340,7 +349,7 @@ public class LevelOverGUI : MonoBehaviour
 			GUILayout.FlexibleSpace();
 			if (GameWorld.success) {
 				if (GUILayout.Button("Next Level", GUIManager.Style.continueButton, GUILayout.Width(_actualButtonSize), GUILayout.Height(_actualButtonSize))) {
-					FadeToLevelStart();
+					GoToNextLevel();
 				}
 
 				GUILayout.FlexibleSpace();
@@ -367,6 +376,7 @@ public class LevelOverGUI : MonoBehaviour
             {
                 LevelManager.instance.Level--;
             }
+			GameWorld.success = false;
             FadeToMainMenu();
         }
     }
@@ -404,10 +414,19 @@ public class LevelOverGUI : MonoBehaviour
 		}
     }
 
+	void GoToNextLevel() {
+		ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+		{
+			GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+		});
+	}
+
+
     void FadeToLevelStart()
     {
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {
+			GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
         });
     }

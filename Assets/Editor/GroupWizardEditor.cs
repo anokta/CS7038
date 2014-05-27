@@ -96,7 +96,7 @@ public class GroupWizardEditor : Editor
 		for (int i = 0; i < detTarget.states.Count; ++i) {
 			string name = detTarget.states[i];
 
-			if (!StringExtensions.IsNullOrWhitespace(name) && check.Contains(name)) {
+			if (!StringExt.IsNullOrWhitespace(name) && check.Contains(name)) {
 				//detTarget.states[i] = null;
 				EditorGUILayout.HelpBox(
 						string.Format("'{0}' is already a group", name),

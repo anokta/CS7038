@@ -22,7 +22,7 @@ public class GroupWizard : MonoBehaviour
 		GroupManager.Group firstState = null;
 		if (states != null) {
 			foreach (string name in states) {
-				if (!StringExtensions.IsNullOrWhitespace(name)) {
+				if (!StringExt.IsNullOrWhitespace(name)) {
 					GroupManager.Group s;
 					s = manager.Add(name);
 					if (firstState == null) {

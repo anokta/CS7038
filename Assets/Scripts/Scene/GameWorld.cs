@@ -5,7 +5,7 @@ public class GameWorld : MonoBehaviour
 {
     public enum LevelOverReason
     {
-        Squashed,
+       Undefined, Squashed,
         Success, PatientInfected, PlayerInfected, LaserKilledPlayer, LaserKilledPatient, ExplosionKilledPlayer, ExplosionKilledPatient
     }
 
@@ -14,8 +14,10 @@ public class GameWorld : MonoBehaviour
     public static bool success
     {
         get { return levelOverReason == LevelOverReason.Success; }
-        set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.PatientInfected; }
+       set { levelOverReason = value ? LevelOverReason.Success : LevelOverReason.Undefined; }
     }
+
+	//public static bool 
 
 	//static bool LockedReason { get; set; }
   /*  static int _score;
@@ -76,9 +78,16 @@ public class GameWorld : MonoBehaviour
         {
             if (success && LevelManager.instance.settings.outro != null)
             {
-                DialogueManager.DialogueComplete = ToLevelOver;
                 //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-				DialogueManager.ActivateDialogue(LevelManager.instance.settings.outro);
+				if (!LevelManager.instance.settings.HasDialogueFlag(LevelManager.instance.settings.outro)) {
+				//Debug.Log("Whaaaa");
+					DialogueManager.DialogueComplete = ToLevelOver;
+					DialogueManager.ActivateDialogue(LevelManager.instance.settings.outro);
+					LevelManager.instance.settings.StoreDialogueFlag(LevelManager.instance.settings.outro);
+				}
+				else {
+					ToLevelOver();
+				}
             }
             else
             {
@@ -132,15 +141,27 @@ public class GameWorld : MonoBehaviour
     void LevelStart()
     {
         // Clear resources
-        LevelManager.instance.Clear();
+		var instance = LevelManager.instance;
+
+        instance.Clear();
 
         // Next level
-        LevelManager.instance.Next();
+		instance.Next();
 
         dialogueOff = !success;
+		var intro = instance.settings.intro;
+		/*if (intro != null) {
+			if (!instance.settings.HasDialogueFlag(intro)) {
+				
+				DialogueManager.DialogueComplete = GoBackToLevel;
+				DialogueManager.ActivateDialogue(intro);
+				instance.settings.StoreDialogueFlag(intro);
+			}
+		}*/
+
 
        // if (dialogueOff || LevelManager.instance.Level >= DialogueManager.dialogueIndex.Length)
-		if (dialogueOff || LevelManager.instance.settings.intro == null)
+		if (dialogueOff || intro == null)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
@@ -150,14 +171,21 @@ public class GameWorld : MonoBehaviour
         else 
         {
             //DialogueManager.CurrentDialogue = DialogueManager.dialogueIndex[LevelManager.instance.Level];
-			if (LevelManager.instance.settings.intro != null) {
+			//if (LevelManager.instance.settings.intro != null) {
 				//DialogueManager.ActivateDialogue(LevelManager.instance.settings.intro);
-			}
-
+			//}
+			instance.settings.ResetStoredDialogues();
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {
-                DialogueManager.DialogueComplete = GoBackToLevel;
-				DialogueManager.ActivateDialogue(LevelManager.instance.settings.intro);
+				//
+				if (intro != null) {
+					if (!instance.settings.HasDialogueFlag(intro)) {
+						
+						DialogueManager.DialogueComplete = GoBackToLevel;
+						DialogueManager.ActivateDialogue(intro);
+						instance.settings.StoreDialogueFlag(intro);
+					}
+				}
 				//DialogueManager.
                 //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });

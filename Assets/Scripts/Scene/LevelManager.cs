@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using TiledMax;
 using UnityEngine;
-using YamlDotNet.Serialization;
 using System.Linq;
 
 public class LevelManager
@@ -13,7 +12,7 @@ public class LevelManager
     public int Level { get; set; }
     public int LevelCount
     {
-        get { return levels.Length; }
+        get { return levels.Count; }
     }
 
     public int Width { get; private set; }
@@ -24,7 +23,7 @@ public class LevelManager
 
     private readonly LevelLoader loader;
 
-    private readonly string[] levels;
+    private readonly List<string> levels;
 	public readonly int[] scores;
 	private int totalStars;
     private readonly Dictionary<int, TmxMap> tileMaps;
@@ -45,10 +44,19 @@ public class LevelManager
 		settings = new LevelSettings();
 
         var asset = Resources.Load<TextAsset>("Levels");
-        var reader = new StringReader(asset.text);
-        var d = new Deserializer();
-        levels = d.Deserialize<string[]>(reader);
-		scores = new int[levels.Length];
+		levels = new List<string>();
+        using (var reader = new StringReader(asset.text)) {
+        //var d = new Deserializer();
+        //levels = d.Deserialize<string[]>(reader);
+			string line;
+			while ((line=reader.ReadLine()) != null) {
+				if (!StringExt.IsNullOrWhitespace(line)) {
+					levels.Add(line.Trim());
+				}
+			}
+		}
+		scores = new int[levels.Count];
+		Debug.Log("Loaded levels: " + levels.Count);
 		for (int i = 0; i < scores.Length; ++i) {
 			scores[i] = GetScore(i);
 			//Debug.Log(scores[i]);
@@ -107,8 +115,8 @@ public class LevelManager
 
     public void Load(int level)
     {
-        level %= levels.Length;
-        if (level < 0) level += levels.Length;
+        level %= levels.Count;
+        if (level < 0) level += levels.Count;
 
         Level = level;
 

@@ -57,6 +57,7 @@ public class HandyStyles
 		starFull = skin.customStyles[count++];
 		starEmpty = skin.customStyles[count++];
 		scores = skin.customStyles[count++];
+		loading = skin.customStyles[count++];
 	}
 
 	public readonly GUIStyle author;
@@ -96,5 +97,6 @@ public class HandyStyles
 	public readonly GUIStyle starFull;
 	public readonly GUIStyle starEmpty;
 	public readonly GUIStyle scores;
+	public readonly GUIStyle loading;
 }
 

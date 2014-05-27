@@ -147,6 +147,7 @@ public class PausedGUI : MonoBehaviour
 
     void FadeToMainMenu()
     {
+        FindObjectOfType<AudioRunning>().background.volume = 0.0f;
 
 		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
@@ -156,7 +157,6 @@ public class PausedGUI : MonoBehaviour
 			//TODO: If something weird happens, this is why
 			GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
-
 
             // Clear resources
             LevelManager.instance.Clear();

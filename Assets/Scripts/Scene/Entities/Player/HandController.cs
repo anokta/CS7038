@@ -101,13 +101,6 @@ public class HandController : MonoBehaviour
 		++score;
 	}
 
-    //public void AddHandValue(int value, int id)
-    //{
-    //    this.value = value;
-    //    lastTouchedId = id;
-    //    score += Math.Abs(value);
-    //}
-
 	public void RestoreHand(int id) {
 		value = MaxValue;
 		lastTouchedId = id;

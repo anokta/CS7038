@@ -31,8 +31,11 @@ public class Trigger
 		if (obj.properties.GetTag("Dialogue", out targetDialogue)) {
 			var dia = settings.dialogueMap[targetDialogue];
 			Run += () => {
-				DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-				DialogueManager.ActivateDialogue(dia);
+				if (!LevelManager.instance.settings.HasDialogueFlag(dia)) {
+					LevelManager.instance.settings.StoreDialogueFlag(dia);
+					DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
+					DialogueManager.ActivateDialogue(dia);
+				}
 			};
 		}
 

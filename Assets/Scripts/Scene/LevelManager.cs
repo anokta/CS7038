@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using TiledMax;
 using UnityEngine;
-using YamlDotNet.Serialization;
 using System.Linq;
 
 public class LevelManager
@@ -52,11 +51,12 @@ public class LevelManager
 			string line;
 			while ((line=reader.ReadLine()) != null) {
 				if (!StringExt.IsNullOrWhitespace(line)) {
-					levels.Add(line);
+					levels.Add(line.Trim());
 				}
 			}
 		}
 		scores = new int[levels.Count];
+		Debug.Log("Loaded levels: " + levels.Count);
 		for (int i = 0; i < scores.Length; ++i) {
 			scores[i] = GetScore(i);
 			//Debug.Log(scores[i]);

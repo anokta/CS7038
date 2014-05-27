@@ -75,7 +75,7 @@ class PackerPolicy1024 : IPackerPolicy
 				{
 					entry.settings.maxHeight = 1024;
 					entry.settings.maxWidth = 1024;
-					SpritePackingMode packingMode = (entry.meshType == SpriteMeshType.Tight) ? SpritePackingMode.Tight : SpritePackingMode.Rectangle;
+					SpritePackingMode packingMode = SpritePackingMode.Rectangle;
 					job.AssignToAtlas(atlasName, entry.sprite, packingMode, SpritePackingRotation.None);
 				}
 				

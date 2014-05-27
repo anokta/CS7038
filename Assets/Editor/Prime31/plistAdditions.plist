@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>FacebookAppID</key>
+    <string>548612261925888</string>
+    <key>FacebookDisplayName</key>
+    <string>Handy MD</string>
+    <key>plistKeys</key>
+    <array>
+      <string>MinimumOSVersion</string>
+      <string>UIFileSharingEnabled</string>
+      <string>UIViewControllerBasedStatusBarAppearance</string>
+      <string>CFBundleURLTypes</string>
+      <string>UIBackgroundModes</string>
+      <string>FacebookAppID</string>
+      <string>FacebookDisplayName</string>
+      <string>GPGApplicationID</string>
+    </array>
+    <key>UIFileSharingEnabled</key>
+    <false />
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false />
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLName</key>
+        <string>
+        </string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb548612261925888</string>
+        </array>
+      </dict>
+    </array>
+  </dict>
+</plist>

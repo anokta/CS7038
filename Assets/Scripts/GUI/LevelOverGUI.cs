@@ -479,9 +479,10 @@ public class LevelOverGUI : MonoBehaviour
 
     void ShareToFacebook(string textToDisplay, string urlToDisplay)
     {  
-        if (!facebook.PostFeed())
-        {
-            Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));   
-        }
-    }
+		#if UNITY_IPHONE || UNITY_ANDROID
+			facebook.Post (textToDisplay, urlToDisplay);	   		
+		#else
+			Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));  
+		#endif    
+	}
 }

@@ -2,119 +2,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Prime31;
 
-public sealed class FacebookIntegration : MonoBehaviour
+public class FacebookIntegration : MonoBehaviour
 {
-    #region FB.Init() example
+	#if UNITY_IPHONE || UNITY_ANDROID
 
-    private bool isInit = false;
+	void Start()
+	{
+		FacebookCombo.init ();
+	}
 
-    private void CallFBInit()
-    {
-        FB.Init(OnInitComplete, OnHideUnity);
-    }
+	public void Post(string caption, string link)
+	{			
+		var parameters = new Dictionary<string,object>
+		{
+			{ "link", link },
+			{ "name", "Handy MD" },
+			{ "picture", "https://pbs.twimg.com/profile_images/443709766687150080/6EZbY-5c_400x400.png" },
+			{ "caption", caption },
+			{ "description", "A 2D puzzle/platform game for mobile devices to promote the importance of hand hygiene, by Surewash" }
+		};
+		FacebookCombo.showFacebookShareDialog( parameters );
+	}
 
-    private void OnInitComplete()
-    {
-        Debug.Log("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
-        isInit = true;
-    }
-
-    private void OnHideUnity(bool isGameShown)
-    {
-        Debug.Log("Is game showing? " + isGameShown);
-    }
-
-    #endregion
-
-    #region FB.Login() example
-
-    public void CallFBLogin()
-    {
-        FB.Login("email,publish_actions", LoginCallback);
-    }
-
-    void LoginCallback(FBResult result)
-    {
-        if (result.Error == null && FB.IsLoggedIn)
-        {
-            CallFBFeed();
-        }
-        else
-        {
-            Debug.Log("ERROR: Something went wrong!");
-        }
-    }
-
-    private void CallFBLogout()
-    {
-        FB.Logout();
-    }
-    #endregion
-
-    #region FB.Feed() example
-
-    public string FeedToId = "";
-    public string FeedLink = "http://handymd-game.appspot.com/";
-    public string FeedLinkName = "Handy MD";
-    public string FeedLinkCaption = "Play on the web!";
-    public string FeedLinkDescription = "";
-    public string FeedPicture = "";
-    public string FeedMediaSource = "";
-    public string FeedActionName = "";
-    public string FeedActionLink = "";
-    public string FeedReference = "";
-
-    private void CallFBFeed()
-    {
-        FB.Feed(
-            toId: FeedToId,
-            link: FeedLink,
-            linkName: FeedLinkName,
-            linkCaption: FeedLinkCaption,
-            linkDescription: FeedLinkDescription,
-            picture: FeedPicture,
-            mediaSource: FeedMediaSource,
-            actionName: FeedActionName,
-            actionLink: FeedActionLink,
-            reference: FeedReference,
-            properties: null,
-            callback: null
-        );
-    }
-
-    #endregion
-
-    private int TextWindowHeight
-    {
-        get
-        {
-            return Screen.height;
-        }
-    }
-
-    void Awake()
-    {
-        FB.Init(OnInitComplete, OnHideUnity);
-    }
-
-    public bool PostFeed()
-    {
-        if (isInit)
-        {
-            if (!FB.IsLoggedIn)
-            {
-                CallFBLogin();
-            }
-            else
-            {
-                CallFBFeed();
-            }
-
-            return true;
-        }
-
-        return false;
-    }
+	#endif
 }

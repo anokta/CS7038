@@ -376,6 +376,7 @@ public class LevelOverGUI : MonoBehaviour
             {
                 LevelManager.instance.Level--;
             }
+			GameWorld.success = false;
             FadeToMainMenu();
         }
     }

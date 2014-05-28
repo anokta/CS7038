@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 using Grouping;
 
 using LOR = GameWorld.LevelOverReason;
@@ -493,7 +493,7 @@ public class LevelOverGUI : MonoBehaviour
 		#if UNITY_IPHONE || UNITY_ANDROID
 			facebook.Post (textToDisplay, urlToDisplay);	   		
 		#else
-			string urlToDisplay = ""http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay);
+			string url = "http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay);
 			string name = "Share on Facebook";
 			
 			Application.ExternalEval("window.open('" + url + "','" + name + "')");

@@ -44,8 +44,6 @@ namespace TiledMax
             doc.Load(reader);
             XmlNode node = null;
 
-			List<TmxObject> objListTest = new List<TmxObject>();
-
             foreach (XmlNode xmlNode in doc.ChildNodes)
             {
                 if (xmlNode.Name == "map" && xmlNode.HasChildNodes)
@@ -91,10 +89,8 @@ namespace TiledMax
             return result;
         }
 
-		static CultureInfo _culture;
-
 		static TmxMap() {
-			_culture = CultureInfo.CreateSpecificCulture("en-US");
+			CultureInfo.CreateSpecificCulture("en-US");
 		}
 
 		private static void ReadObjects(XmlNode node, TmxMap result) {
@@ -107,7 +103,8 @@ namespace TiledMax
 							(float)(child.ReadDouble("width", 100)) / 100,
 							(float)(child.ReadDouble("height", 100)) / 100);
 						rect.y = result.Height - rect.height - rect.y;
-						string typeName = child.ReadTag("type", "any");
+						
+                        child.ReadTag("type", "any");
 						
 						var properties = new Dictionary<string, string>();
 						bool ellipse = false;

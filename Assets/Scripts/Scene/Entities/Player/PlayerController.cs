@@ -84,14 +84,16 @@ public class PlayerController : MonoBehaviour, IPan
         canMove = true;
 
         GroupManager.main.group["Running"].Add(this);
+		GroupManager.main.group["Running"].Add(animator);
 		//GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, ()=>{canMove = true;}, null));
         GroupManager.main.group["To Level Over"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
+		GroupManager.main.group["To Level Over"].Add(animator);
 
         // not sure which one is better.
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
         //GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 
-        GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
+        //GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 
         KeyboardController.Instance.KeyboardEventHandler = this;
 
@@ -425,16 +427,6 @@ public class PlayerController : MonoBehaviour, IPan
         }
         IsAlive = true;
         this.collider2D.enabled = true;
-    }
-
-    private void PauseAnimation()
-    {
-        animator.speed = 0.0f;
-    }
-
-    private void UnpauseAnimation()
-    {
-        animator.speed = 1.0f;
     }
 
     public void Die(GameWorld.LevelOverReason reason = GameWorld.LevelOverReason.LaserKilledPlayer)

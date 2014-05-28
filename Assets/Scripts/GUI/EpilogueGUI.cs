@@ -47,7 +47,7 @@ public class EpilogueGUI : MonoBehaviour
 		GUILayout.BeginVertical();
 		{
 			GUILayout.Label("Thank you for playing!", GUIManager.Style.overTitle);
-			GUILayout.Label("This is the end of the demo. Expect to see more levels and features added soon. Stay tuned!", GUIManager.Style.overMessage);
+			GUILayout.Label("Stay tuned for more!", GUIManager.Style.overMessage);
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
 			{

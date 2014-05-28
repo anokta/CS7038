@@ -56,7 +56,7 @@ public class LevelManager
 			}
 		}
 		scores = new int[levels.Count];
-		Debug.Log("Loaded levels: " + levels.Count);
+		//Debug.Log("Loaded levels: " + levels.Count);
 		for (int i = 0; i < scores.Length; ++i) {
 			scores[i] = GetScore(i);
 			//Debug.Log(scores[i]);

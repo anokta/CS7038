@@ -174,6 +174,7 @@ public class GameWorld : MonoBehaviour
 			//if (LevelManager.instance.settings.intro != null) {
 				//DialogueManager.ActivateDialogue(LevelManager.instance.settings.intro);
 			//}
+			//Debug.Log("Resetting dialogues...");
 			instance.settings.ResetStoredDialogues();
             ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
             {

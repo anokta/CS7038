@@ -251,7 +251,7 @@ public class LevelOverGUI : MonoBehaviour
             }
             else
             {
-                FadeToLevelStart();
+                GoToNextLevel();
             }
         }
     }

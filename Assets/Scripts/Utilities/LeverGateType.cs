@@ -1,4 +1,4 @@
 ﻿public enum LeverGateType
 {
-    Type1, Type2, Type3
+    None, Type1, Type2, Type3
 }

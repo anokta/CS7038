@@ -8,6 +8,7 @@ public class HandController : MonoBehaviour
 	// public Material GUIpie;
 	public static readonly int MaxValue = 8;
 	public static readonly int MinValue = 0;
+	public static readonly int DefValue = 4;
 	public static readonly int InfectionThreshold = -3;
     public GameObject cleanParticles;
     public GameObject infectionParticles;
@@ -54,7 +55,12 @@ public class HandController : MonoBehaviour
         }
     }
 
-	int _value = 4;
+	int _value;
+
+	public HandController() {
+		_value = DefValue;
+	}
+
 	public int value
     {
         get { return _value; }

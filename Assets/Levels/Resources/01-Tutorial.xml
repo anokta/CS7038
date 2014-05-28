@@ -28,7 +28,7 @@
 </data>
  </layer>
  <objectgroup name="Objects" width="7" height="6">
-  <object name="WalkToSink" x="200" y="400" width="100" height="100">
+  <object name="WalkToSink" x="300" y="400" width="100" height="100">
    <properties>
     <property name="Dialogue" value="WalkToSink"/>
    </properties>

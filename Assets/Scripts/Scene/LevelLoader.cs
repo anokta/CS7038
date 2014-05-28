@@ -62,6 +62,7 @@ public class LevelLoader
 		prefabs[TileType.Plant] = Resources.Load<GameObject>("Plant");
 		prefabs[TileType.Fountain] = Resources.Load<GameObject>("Fountain");
 		prefabs[TileType.Door] = Resources.Load<GameObject>("Door");
+		prefabs[TileType.DoorVertical] = Resources.Load<GameObject>("Door Vertical");
 		prefabs[TileType.GateClean] = Resources.Load<GameObject>("Gate Clean");
 
 		prefabs[TileType.LaserDown] = Resources.Load<GameObject>("LaserEmitter");
@@ -144,6 +145,13 @@ public class LevelLoader
 
 		var leverGateManager = new LeverGateManager();
 
+		int type1 = 0;
+		int type2 = 0;
+		int type3 = 0;
+
+		List<Lever> levers = new List<Lever>();
+		List<Gate> gates = new List<Gate>();
+
 		entities = new Entity[map.Width, map.Height];
 
 		//Initialized with a seed, so that every time the randomizer produces the same level
@@ -191,6 +199,7 @@ public class LevelLoader
 				//    parent = collectibleContainer;
 				//    break;
 					case TileType.Door:
+					case TileType.DoorVertical:
 					case TileType.Fountain:
 					case TileType.GateClean:
 						parent = accessibleContainer;
@@ -204,17 +213,23 @@ public class LevelLoader
 						parent = accessibleContainer;
 						var lever1 = gameObj.GetComponent<Lever>();
 						lever1.LeverGateType = LeverGateType.Type1;
+						levers.Add(lever1);
+						type1 = 1;
 						leverGateManager.Add(lever1);
 						break;
 					case TileType.Lever2:
 						parent = accessibleContainer;
 						var lever2 = gameObj.GetComponent<Lever>();
 						lever2.LeverGateType = LeverGateType.Type2;
+						levers.Add(lever2);
+						type2 = 1;
 						leverGateManager.Add(lever2);
 						break;
 					case TileType.Lever3:
 						parent = accessibleContainer;
 						var lever3 = gameObj.GetComponent<Lever>();
+						levers.Add(lever3);
+						type3 = 1;
 						lever3.LeverGateType = LeverGateType.Type3;
 						leverGateManager.Add(lever3);
 						break;
@@ -223,6 +238,8 @@ public class LevelLoader
 					case TileType.Gate1Vertical:
 						parent = accessibleContainer;
 						var gate1 = gameObj.GetComponent<Gate>();
+						gates.Add(gate1);
+						type1 = 1;
 						gate1.LeverGateType = LeverGateType.Type1;
 						leverGateManager.Add(gate1);
 						break;
@@ -230,6 +247,8 @@ public class LevelLoader
 					case TileType.Gate2Vertical:
 						parent = accessibleContainer;
 						var gate2 = gameObj.GetComponent<Gate>();
+						gates.Add(gate2);
+						type2 = 1;
 						gate2.LeverGateType = LeverGateType.Type2;
 						leverGateManager.Add(gate2);
 						break;
@@ -238,6 +257,8 @@ public class LevelLoader
 						parent = accessibleContainer;
 						var gate3 = gameObj.GetComponent<Gate>();
 						gate3.LeverGateType = LeverGateType.Type3;
+						gates.Add(gate3);
+						type1 = 3;
 						leverGateManager.Add(gate3);
 						break;
 
@@ -318,6 +339,16 @@ public class LevelLoader
 				transform.parent = parent.transform;
 			}
 		}
+
+		if (type1 + type2 + type3 == 1) {
+			foreach (var gate in gates) {
+				gate.LeverGateType = LeverGateType.None;
+			}
+			foreach (var lever in levers) {
+				lever.LeverGateType = LeverGateType.None;
+			}
+		}
+
 		#region Make Gradients
 		for (int i = 0; i < map.Height; ++i) {
 			var shadeLeft = makeGradient(map, -1, i);

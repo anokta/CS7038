@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="5" height="7" tilewidth="100" tileheight="100">
+ <properties>
+  <property name="Intro" value="Intro"/>
+  <property name="MaxScore" value="6"/>
+  <property name="MinScore" value="5"/>
+ </properties>
+ <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
+  <image source="tileset.png" width="1000" height="1000"/>
+ </tileset>
+ <layer name="Floor" width="5" height="7" visible="0">
+  <data encoding="csv">
+32,32,32,32,32,
+32,32,32,32,32,
+32,32,32,32,32,
+32,32,32,32,32,
+32,32,32,32,32,
+32,32,32,32,32,
+32,32,32,32,32
+</data>
+ </layer>
+ <layer name="Tile Layer 1" width="5" height="7">
+  <data encoding="csv">
+31,31,31,31,31,
+31,11,0,0,31,
+31,1,1,0,31,
+31,0,0,1,31,
+31,0,4,0,31,
+31,12,0,13,31,
+31,31,31,31,31
+</data>
+ </layer>
+</map>

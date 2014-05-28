@@ -2,7 +2,28 @@
 
 public class Lever : Switchable
 {
-    public LeverGateType LeverGateType;
+	LeverGateType _type;
+	public LeverGateType LeverGateType {
+		get { return _type; }
+		set {
+			_type = value; 
+			spriteRenderer.color = GetColorOf(value);
+		}
+	}
+
+	static Color GetColorOf(LeverGateType type) {
+		switch (type) {
+			case LeverGateType.Type1:
+				return new Color(1, 0.85f, 0.85f);       
+			case LeverGateType.Type2:
+				return new Color(0.85f, 1, 0.85f);;
+			case LeverGateType.Type3:
+				return new Color(0.85f, 0.85f, 1);;
+			default:
+				return Color.white;
+		}
+	}
+
     public LeverGateManager Manager;
 
     private bool open;

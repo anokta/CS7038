@@ -180,6 +180,11 @@ public class LevelManager
 		else {
 			settings.outro = null;
 		}
+
+		var hand = Object.FindObjectOfType<HandController>();
+		if (hand != null) {
+			hand.value = map.Properties.GetInt("Health", HandController.DefValue);
+		}
 		//string dialogueName;
 		//if (!map.
     }

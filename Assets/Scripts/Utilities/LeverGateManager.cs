@@ -1,9 +1,27 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LeverGateManager
 {
     private readonly List<Lever> levers;
     private readonly List<Gate> gates;
+
+	public static readonly Color Color1 = new Color(1, 0.9f, 0.9f);
+	public static readonly Color Color2 = new Color(0.9f, 1, 0.9f);
+	public static readonly Color Color3 = new Color(0.9f, 0.9f, 1);
+
+	public static Color GetColorOf(LeverGateType type) {
+		switch (type) {
+			case LeverGateType.Type1:
+				return Color1;
+			case LeverGateType.Type2:
+				return Color2;
+			case LeverGateType.Type3:
+				return Color3;
+			default:
+				return Color.white;
+		}
+	}
 
     public LeverGateManager()
     {

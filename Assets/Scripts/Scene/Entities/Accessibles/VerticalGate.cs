@@ -39,6 +39,8 @@ public class VerticalGate : Gate
             _botRenderer.sprite = GateOpenBot;
             _botRenderer.enabled = false;
 			_botRenderer.sortingOrder = LevelLoader.PlaceDepth(transform.position.y) + LevelLoader.UsableOffset;
+
+			(_botRenderer.renderer as SpriteRenderer).color = spriteRenderer.color;
         }
     }
 

@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>FacebookAppID</key>
-    <string>548612261925888</string>
+    <string>749883165032072</string>
     <key>FacebookDisplayName</key>
     <string>Handy MD</string>
     <key>plistKeys</key>
@@ -29,7 +29,7 @@
         </string>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>fb548612261925888</string>
+          <string>fb749883165032072</string>
         </array>
       </dict>
     </array>

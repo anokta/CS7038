@@ -1,0 +1,4 @@
+#Intro
+	$didier
+		If completing a level seems to easy, try finishing it with 3 stars!
+		You achieve a higher score by interacting less with objects.

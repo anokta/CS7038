@@ -6,40 +6,41 @@ using Grouping;
 
 public class DialogueManager : MonoBehaviour
 {
-   // GUISkin guiSkin;
+	// GUISkin guiSkin;
 
-    public float textSpeed = 40.0f;
-
-    public Author[] authors;
-    //public List<DialogueInstance> dialogues;
+	public float textSpeed = 40.0f;
+	public Author[] authors;
+	//public List<DialogueInstance> dialogues;
 
 	private Dictionary<string, Author> authorDict;
 
-    //private static int currentDialogue;
-    //public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
-  //  public static int[] dialogueIndex = { 1, 6, 7, 8, 9, 11, 13, 14 }; 
+	//private static int currentDialogue;
+	//public static int CurrentDialogue { get { return currentDialogue; } set { currentDialogue = value; } }
+	//  public static int[] dialogueIndex = { 1, 6, 7, 8, 9, 11, 13, 14 }; 
 
-    public static Action DialogueComplete;
-
-    Timer waitTimer;
-    public Texture2D[] nextButtonImages;
-
+	public static Action DialogueComplete;
+	Timer waitTimer;
+	public Texture2D[] nextButtonImages;
 	DialogueMap defMap;
 
-	public Author GetAuthor(string author) {
+	public Author GetAuthor(string author)
+	{
 		return authorDict[author];
 	}
 
 	public static DialogueManager instance {
-		get; private set;
+		get;
+		private set;
 	}
 
 	public DialogueMap defaultMap {
-		get { return defMap;
+		get {
+			return defMap;
 		}
 	}
 
-	void SetData() {
+	void SetData()
+	{
 		authorDict = new Dictionary<string, Author>(StringComparer.OrdinalIgnoreCase);
 		foreach (var author in authors) {
 			authorDict[author.Key] = author;
@@ -47,9 +48,9 @@ public class DialogueManager : MonoBehaviour
 		defMap = new DialogueMap(this);
 	}
 
-	public static DialogueInstance ActiveInstance
-	{
-		get; private set;
+	public static DialogueInstance ActiveInstance {
+		get;
+		private set;
 	}
 
 	public static void ActivateDialogue(DialogueInstance instance)
@@ -59,43 +60,45 @@ public class DialogueManager : MonoBehaviour
 		GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
 	}
 
-    void Start()
-    {
+	void Start()
+	{
 		instance = this;
 		SetData();
-        // Audio
-        AudioSource audioOutput = GetComponent<AudioSource>();
+		// Audio
+		AudioSource audioOutput = GetComponent<AudioSource>();
 
-        // Dialogues
-        //dialogues = new List<DialogueInstance>();
+		// Dialogues
+		//dialogues = new List<DialogueInstance>();
 
-        /*Prologue*/
-        List<DialogueEntry> entries = new List<DialogueEntry>();
-        entries.Add(new DialogueEntry(authors[0], "In an increasingly fast-paced world, humanity has forgotten correct sanitary practices. Washing one’s hands is dismissed as slow and old fashioned, a waste of water."));
-        entries.Add(new DialogueEntry(authors[0], "In the wake of poor hand hygiene, disease is thriving! The number of ill grows day by day, and no one seems to understand why."));
-        entries.Add(new DialogueEntry(authors[0], "However! Two outstanding doctors, Dr. Handrew and Glovia Johnson, are on the case. To counteract the imminent spread of a viral epidemic, they decide to take matters into their own clean hands!"));
-        entries.Add(new DialogueEntry(authors[0], "Their aim: to set a global example of good health, treating patients the way they ought to be treated, and thereby single-handedly save the world."));
-        entries.Add(new DialogueEntry(authors[0], "Can you handle the task?"));
+		/*Prologue*/
+		List<DialogueEntry> entries = new List<DialogueEntry>() {
+			new DialogueEntry(authors[0], "In an increasingly fast-paced world, humanity has forgotten correct sanitary practices. Washing one’s hands is dismissed as slow and old fashioned, a waste of water."),
+			new DialogueEntry(authors[0], "In the wake of poor hand hygiene, disease is thriving! The number of ill grows day by day, and no one seems to understand why."),
+			new DialogueEntry(authors[0], "However! One outstanding doctor, Dr. Handrew Johnson, is on the case. To counteract the imminent spread of a viral epidemic, he decides to take matters into his own clean hands!"),
+			new DialogueEntry(authors[0], "His aim: to set a global example of good health, treating patients the way they ought to be treated, and thereby single-handedly save the world."),
+			new DialogueEntry(authors[0], "Can you handle the task?")
+		};
     
-        //dialogues.Add(new DialogueInstance(entries, audioOutput));
+		//dialogues.Add(new DialogueInstance(entries, audioOutput));
 		defMap.data["Intro1"] = new DialogueInstance(entries, audioOutput);
 
-        /*Intro*/
-        entries = new List<DialogueEntry>();
-		entries.Add(new DialogueEntry(authors[1], "Hello, I am Professor Onionghost, and I am the embodiment of your conscience."));
-        entries.Add(new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."));
-        entries.Add(new DialogueEntry(authors[1], "That is correct. I am inside your head, and I’m here to guide you through this lab."));
-        entries.Add(new DialogueEntry(authors[2], "What is the situation again?"));
-        entries.Add(new DialogueEntry(authors[1], "This lab is being quarantined for the Handurian Flu: A highly dangerous and potent virus which attaches itself .."));
-        entries.Add(new DialogueEntry(authors[1], ".. to human hands and infects individuals when in contact with more sensitive areas."));
-        entries.Add(new DialogueEntry(authors[2], "..."));
-        entries.Add(new DialogueEntry(authors[2], "When will people ever learn to clean their hands properly?"));
+		/*Intro*/
+		entries = new List<DialogueEntry>() {
+			new DialogueEntry(authors[1], "Hello, I am Professor Onionghost, and I am the embodiment of your conscience."),
+	        new DialogueEntry(authors[2], "You cannot be an embodiment of anything if you don’t have a physical form."),
+	        new DialogueEntry(authors[1], "That is correct. I am inside your head, and I’m here to guide you through this lab."),
+	        new DialogueEntry(authors[2], "What is the situation again?"),
+	        new DialogueEntry(authors[1], "This lab is being quarantined for the Handurian Flu: A highly dangerous and potent virus which attaches itself .."),
+	        new DialogueEntry(authors[1], ".. to human hands and infects individuals when in contact with more sensitive areas."),
+	        new DialogueEntry(authors[2], "..."),
+	        new DialogueEntry(authors[2], "When will people ever learn to clean their hands properly?")
+        };
 
-        //dialogues.Add(new DialogueInstance(entries, audioOutput));
+		//dialogues.Add(new DialogueInstance(entries, audioOutput));
 		defMap.data["Intro2"] = new DialogueInstance(entries, audioOutput);
 
-        /*Tutorial*/
-        entries = new List<DialogueEntry>();
+		/*Tutorial*/
+		entries = new List<DialogueEntry>();
 		if (SystemInfo.deviceType == DeviceType.Handheld) {
 			entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger anywhere across the screen."));
 			entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
@@ -103,9 +106,18 @@ public class DialogueManager : MonoBehaviour
 			entries.Add(new DialogueEntry(authors[1], "Move around by pressing the arrow keys."));
 		}
 		defMap.data["Input"] = new DialogueInstance(entries, audioOutput);
-        //dialogues.Add(new DialogueInstance(entries, audioOutput));
 
-        /*entries = new List<DialogueEntry>();
+		entries = new List<DialogueEntry>() {
+			new DialogueEntry(authors[0], "You are a true hero! You saved many lives and prevented the Handurian Flu from spreading further.."),
+			new DialogueEntry(authors[0], "Generation after generation will be grateful to what you have done. However, it is not over yet: There are still too many people who don't know why and how they should wash their hands!"),
+			new DialogueEntry(authors[0], "The Flu preys upon those who neglect correct sanitary practises. Therefore, be prepared to be called again soon..."),
+		};
+
+		defMap.data["Epilogue"] = new DialogueInstance(entries, audioOutput);
+
+		//dialogues.Add(new DialogueInstance(entries, audioOutput));
+
+		/*entries = new List<DialogueEntry>();
         entries.Add(new DialogueEntry(authors[1], "Clean your hands by walking to the sink!"));
 
         //dialogues.Add(new DialogueInstance(entries, audioOutput));
@@ -201,33 +213,31 @@ public class DialogueManager : MonoBehaviour
         
         dialogues.Add(new DialogueInstance(entries, audioOutput));
 */
-        GroupManager.main.group["Dialogue"].Add(this);
-        GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
-        GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
+		GroupManager.main.group["Dialogue"].Add(this);
+		GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, TriggerDialogue, null));
+		GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, GameMenu, null));
 
 //        currentDialogue = -1;
 
-        waitTimer = new Timer(0.6f, delegate()
-        {
+		waitTimer = new Timer(0.6f, delegate() {
 			GUIManager.Style.next.normal.background = (GUIManager.Style.next.normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
-           // guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
-        });
-        waitTimer.repeating = true;
+			// guiSkin.GetStyle("next").normal.background = (guiSkin.GetStyle("next").normal.background == nextButtonImages[0]) ? nextButtonImages[1] : nextButtonImages[0];
+		});
+		waitTimer.repeating = true;
 
 //        guiSkin = GUIManager.GetSkin();
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            DialogueComplete();
+	// Update is called once per frame
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			DialogueComplete();
 
-            return;
-        }
+			return;
+		}
 
-       /* if (currentDialogue >= 0)
+		/* if (currentDialogue >= 0)
         {
             dialogues[currentDialogue].Update(textSpeed);
         }*/
@@ -235,42 +245,41 @@ public class DialogueManager : MonoBehaviour
 			ActiveInstance.Update(textSpeed);
 		}
 
-        waitTimer.Update();
-    }
+		waitTimer.Update();
+	}
 		
-    void OnGUI()
-    {
-        //GUI.skin = guiSkin;
+	void OnGUI()
+	{
+		//GUI.skin = guiSkin;
 
-        if (GUI.Button(new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), GUIContent.none, GUIManager.Style.skip))
-        {
-            DialogueComplete();
+		if (GUI.Button(new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(), GUIManager.OffsetY(), GUIManager.ButtonSize(), GUIManager.ButtonSize()), GUIContent.none, GUIManager.Style.skip)) {
+			DialogueComplete();
 
-            return;
-        }
+			return;
+		}
 
 		if (ActiveInstance != null) {
 			ActiveInstance.OnGUI(GUIManager.skin);
 		}
-        //if (currentDialogue >= 0)
-       // {
-       //     dialogues[currentDialogue].OnGUI(GUIManager.skin);
-       // }
-    }
+		//if (currentDialogue >= 0)
+		// {
+		//     dialogues[currentDialogue].OnGUI(GUIManager.skin);
+		// }
+	}
 
-    void TriggerDialogue()
-    {
-        //currentDialogue++;
+	void TriggerDialogue()
+	{
+		//currentDialogue++;
 
-        //currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
+		//currentDialogue = Mathf.Min(dialogues.Count - 1, currentDialogue);
 
-        //dialogues[currentDialogue].StartDialogue();
+		//dialogues[currentDialogue].StartDialogue();
 
-        //waitTimer.Reset();
-    }
+		//waitTimer.Reset();
+	}
 
-    void GameMenu()
-    {
-      //  currentDialogue = -1;
-    }
+	void GameMenu()
+	{
+		//  currentDialogue = -1;
+	}
 }

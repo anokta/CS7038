@@ -149,6 +149,7 @@ public class PausedGUI : MonoBehaviour
     {
         FindObjectOfType<AudioRunning>().background.volume = 0.0f;
 
+
 		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
         {

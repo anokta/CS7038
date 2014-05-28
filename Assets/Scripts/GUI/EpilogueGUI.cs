@@ -11,7 +11,8 @@ public class EpilogueGUI : MonoBehaviour
 		height = 0.7f;
 	[SerializeField]
 	private float width = 0.8f;
-	private float buttonSize = 0.2f;
+	[SerializeField]
+	private float buttonSize = 0.15f;
 	private float _height;
 	private float _width;
 	private float _buttonSize;

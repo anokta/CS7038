@@ -3200,6 +3200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: .699999988
   width: .800000012
+  buttonSize: .200000003
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

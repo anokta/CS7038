@@ -142,25 +142,33 @@ public class GameWorld : MonoBehaviour
 	{
 		FindObjectOfType<AudioRunning>().background.volume = 0.0f;
 		
-		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
-		ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
-		                      {
+		//ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
+		BackgroundRenderer.instance.SetSunBackground();
+		//ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+		       //               {
 			LevelManager.instance.Level--;
 			
 			//TODO: If something weird happens, this is why
 			GameWorld.success = false;
 			GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 			
-			// Clear resources
+			// Clear resources 
 			LevelManager.instance.Clear();
 			
-			ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+			ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
 			                      {
-				GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
-				
-				AudioManager.PlaySFX("Menu Next");
+			//TODO: Fade away from dialogue
+				DialogueManager.DialogueComplete = () => {
+					GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+					
+					AudioManager.PlaySFX("Menu Next");
+				};
+
+				DialogueManager.ActivateDialogue(
+					DialogueManager.instance.defaultMap["Epilogue"]);
+
 			});
-		});
+		//});
 	}
 
     void LevelStart()

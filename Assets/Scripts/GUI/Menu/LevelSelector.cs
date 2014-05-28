@@ -98,7 +98,6 @@ public class LevelSelector : MonoBehaviour, IPan
         targetX = 0;
 
         currentPage = 0;
-        pagesCount = 2;
 
         canDrag = true;
         isHeld = false;
@@ -111,6 +110,7 @@ public class LevelSelector : MonoBehaviour, IPan
     {
 		GameWorld.success = true;
         currentPage = LevelManager.instance.Level / (rowCount * columnCount);
+		pagesCount = PlayerPrefs.GetInt ("Level", 0) / (rowCount * columnCount) + 1;
         
         firstLoad = true;
     }

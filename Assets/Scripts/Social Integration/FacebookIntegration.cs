@@ -40,7 +40,7 @@ public class FacebookIntegration : SocialIntegration
 
     void ShareCompleted(string result)
     {
-        popupMessage = (result.Length > 0) ? "Post published succesfully!" : "Post could not be published.";
+		popupMessage = (result.Length > 0 && result.Contains("post_id")) ? "Post published succesfully!"  : "Post could not be published.";
         popupActive = true;
     }
 

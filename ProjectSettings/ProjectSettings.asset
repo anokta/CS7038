@@ -110,7 +110,7 @@ PlayerSettings:
     type: 3}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
-  AndroidKeystoreName: C:/Users/anokta/Documents/GitHub/CS7038/Deploy/android/surewash.keystore
+  AndroidKeystoreName: Deploy/android/surewash.keystore
   AndroidKeyaliasName: surewash
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
@@ -118,6 +118,22 @@ PlayerSettings:
     m_Icons:
     - m_Icon: {fileID: 2800000, guid: 4140c408a8025b04b9660c769bddea14, type: 3}
       m_Size: 128
+  - m_BuildTarget: iPhone
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: 1bab0f541f45142e8983bbde82f24fa6, type: 3}
+      m_Size: 152
+    - m_Icon: {fileID: 2800000, guid: 8de87edacb5784993a8f40fdf449529e, type: 3}
+      m_Size: 144
+    - m_Icon: {fileID: 2800000, guid: c6509b1d82bcf453e9c5d7463eb252a0, type: 3}
+      m_Size: 120
+    - m_Icon: {fileID: 2800000, guid: 350d5851b327d43a0b7d39a5fe303541, type: 3}
+      m_Size: 114
+    - m_Icon: {fileID: 2800000, guid: 70471a9eae36f4145a3d5e036199d03a, type: 3}
+      m_Size: 76
+    - m_Icon: {fileID: 2800000, guid: eb8cf52fa64884303967f000417cb6a8, type: 3}
+      m_Size: 72
+    - m_Icon: {fileID: 2800000, guid: cf9dbf1d59f5b4cb5a6a88aa9640d3aa, type: 3}
+      m_Size: 57
   m_BuildTargetBatching:
   - m_BuildTarget: Web
     m_StaticBatching: 0

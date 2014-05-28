@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="11" height="10" tilewidth="100" tileheight="100">
  <properties>
-  <property name="Health" value="8"/>
+  <property name="Health" value="7"/>
   <property name="MaxScore" value="18"/>
   <property name="MinScore" value="17"/>
  </properties>

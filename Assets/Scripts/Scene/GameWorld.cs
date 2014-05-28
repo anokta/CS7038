@@ -138,12 +138,47 @@ public class GameWorld : MonoBehaviour
         }
     }
 
+	void FadeToEpilogue()
+	{
+		FindObjectOfType<AudioRunning>().background.volume = 0.0f;
+		
+		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
+		ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+		                      {
+			LevelManager.instance.Level--;
+			
+			//TODO: If something weird happens, this is why
+			GameWorld.success = false;
+			GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+			
+			// Clear resources
+			LevelManager.instance.Clear();
+			
+			ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+			                      {
+				GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+				
+				AudioManager.PlaySFX("Menu Next");
+			});
+		});
+	}
+
     void LevelStart()
     {
         // Clear resources
 		var instance = LevelManager.instance;
 
         instance.Clear();
+
+		Debug.Log("Woohoo " + instance.Level);
+
+		if (instance.Level >= instance.LevelCount -1) {
+			//BackgroundRenderer.instance.SetSunBackground();
+			//GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+			FadeToEpilogue();
+
+			return;
+		}
 
         // Next level
 		instance.Next();

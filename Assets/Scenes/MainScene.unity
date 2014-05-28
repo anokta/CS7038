@@ -3071,6 +3071,7 @@ GameObject:
   - 114: {fileID: 1799188530}
   - 114: {fileID: 1799188531}
   - 114: {fileID: 1799188532}
+  - 114: {fileID: 1799188533}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -3186,6 +3187,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLines: 15
+--- !u!114 &1799188533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b07448be53424439ecbd30bf8dfa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: .699999988
+  width: .800000012
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

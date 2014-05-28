@@ -98,7 +98,7 @@ public class LevelSelector : MonoBehaviour, IPan
         targetX = 0;
 
         currentPage = 0;
-        pagesCount = 4;
+        pagesCount = 2;
 
         canDrag = true;
         isHeld = false;

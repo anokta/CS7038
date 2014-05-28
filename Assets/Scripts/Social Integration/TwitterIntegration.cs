@@ -82,7 +82,7 @@ public class TwitterIntegration : MonoBehaviour {
 		GUILayout.FlexibleSpace ();
 		GUILayout.BeginHorizontal ();
 		GUILayout.FlexibleSpace ();
-		GUILayout.Label (popupMessage, GUIManager.skin.GetStyle("log"));
+		GUILayout.Label (popupMessage, GUIManager.Style.log);
 		GUILayout.FlexibleSpace ();
 		GUILayout.EndHorizontal ();
 		GUILayout.FlexibleSpace ();

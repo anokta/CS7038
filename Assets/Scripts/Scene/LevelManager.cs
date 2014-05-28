@@ -3,6 +3,7 @@ using System.IO;
 using TiledMax;
 using UnityEngine;
 using System.Linq;
+using Grouping;
 
 public class LevelManager
 {
@@ -115,7 +116,30 @@ public class LevelManager
 
     public void Load(int level)
     {
-        level %= levels.Count;
+		if (level >= levels.Count) {
+			/*GameWorld.success = false;
+			ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
+			ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+			                      {
+				LevelManager.instance.Level--;
+				
+				//TODO: If something weird happens, this is why
+				GameWorld.success = false;
+				GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+				
+				// Clear resources
+				LevelManager.instance.Clear();
+				
+				ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
+				                      {
+					GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+					
+					AudioManager.PlaySFX("Menu Next");
+				});
+			});*/
+			//return;
+		}
+		level %= levels.Count;
         if (level < 0) level += levels.Count;
 
         Level = level;

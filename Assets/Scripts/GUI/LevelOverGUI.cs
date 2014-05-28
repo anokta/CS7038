@@ -9,6 +9,7 @@ using LOR = GameWorld.LevelOverReason;
 public class LevelOverGUI : MonoBehaviour
 {
     private FacebookIntegration facebook;
+	private TwitterIntegration twitter;
     
     private float _actualWindowSize;
     private float _actualButtonSize;
@@ -213,6 +214,7 @@ public class LevelOverGUI : MonoBehaviour
     void Start()
     {
         facebook = FindObjectOfType<FacebookIntegration>();
+		twitter = FindObjectOfType<TwitterIntegration> ();
 
         GroupManager.main.group["Level Over"].Add(this);
         GroupManager.main.group["Level Over"].Add(this, new GroupDelegator(null, Enter, null));
@@ -473,8 +475,17 @@ public class LevelOverGUI : MonoBehaviour
     }
 
     void ShareToTwitter(string textToDisplay, string urlToDisplay)
-    {
-        Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(textToDisplay) + "&amp;url=" + WWW.EscapeURL(urlToDisplay) + "&amp;lang=en");
+	{
+		#if UNITY_IPHONE || UNITY_ANDROID
+			twitter.Post(textToDisplay, urlToDisplay);
+		#else 
+			string url = "http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(textToDisplay) + "&amp;url=" + WWW.EscapeURL(urlToDisplay) + "&amp;lang=en";
+			string name = "Share on Twitter";
+			
+			Application.ExternalEval("window.open('" + url + "','" + name + "')");
+
+			//Application.OpenURL("http://twitter.com/intent/tweet?text=" + WWW.EscapeURL(textToDisplay) + "&amp;url=" + WWW.EscapeURL(urlToDisplay) + "&amp;lang=en");
+		#endif
     }
 
     void ShareToFacebook(string textToDisplay, string urlToDisplay)
@@ -482,7 +493,12 @@ public class LevelOverGUI : MonoBehaviour
 		#if UNITY_IPHONE || UNITY_ANDROID
 			facebook.Post (textToDisplay, urlToDisplay);	   		
 		#else
-			Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));  
+			string urlToDisplay = ""http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay);
+			string name = "Share on Facebook";
+			
+			Application.ExternalEval("window.open('" + url + "','" + name + "')");
+
+			//Application.OpenURL("http://www.facebook.com/sharer/sharer.php?u=" + WWW.EscapeURL(urlToDisplay) + "&t=" + WWW.EscapeURL(textToDisplay));  
 		#endif    
 	}
 }

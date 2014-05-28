@@ -110,7 +110,7 @@ PlayerSettings:
     type: 3}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
-  AndroidKeystoreName: C:/Users/anokta/Documents/GitHub/CS7038/Deploy/android/surewash.keystore
+  AndroidKeystoreName: Deploy/android/surewash.keystore
   AndroidKeyaliasName: surewash
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:

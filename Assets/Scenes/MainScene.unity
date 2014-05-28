@@ -3329,7 +3329,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 1e2f03be0308a3548b991af71c9b6f43, type: 3}
   - {fileID: 2800000, guid: bc2d5606166ab4c43b442ef3c77242a5, type: 3}
   size: .200000003
-  fixedOffset: 1.20000005
+  fixedOffset: 1.25
 --- !u!1 &1882310411
 GameObject:
   m_ObjectHideFlags: 0

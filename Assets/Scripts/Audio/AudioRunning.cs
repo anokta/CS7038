@@ -43,6 +43,7 @@ public class AudioRunning : MonoBehaviour
     {
         if(!background.isPlaying)
             background.Play();
+
         if (!over.isPlaying)
         {
             over.volume = 0.0f;
@@ -79,4 +80,5 @@ public class AudioRunning : MonoBehaviour
     {
         background.Play();
     }
+
 }

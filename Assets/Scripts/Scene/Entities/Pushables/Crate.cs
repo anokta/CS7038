@@ -19,7 +19,7 @@ public class Crate : Pushable
         movementTimer = new Timer(0.4f, CompleteMoving);
         movementTimer.repeating = false;
 
-        handTimer = new Timer(2.8f, HandTimerRanOut);
+        handTimer = new Timer(2.1f, HandTimerRanOut);
     }
 
     protected override void Update()
@@ -52,8 +52,9 @@ public class Crate : Pushable
                     if (playerHand.LastTouchedID != GetInstanceID())
                     {
 						playerHand.SpoilHand(GetInstanceID());
-                        handTimer.Reset();
                     }
+
+                    handTimer.Reset();
                 }
 				//OnActivate();
 				Execute(Trigger.ActionType.Handy);

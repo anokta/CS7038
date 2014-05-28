@@ -2608,6 +2608,56 @@ Transform:
   - {fileID: 1784004754}
   - {fileID: 279206009}
   m_Father: {fileID: 287739713}
+--- !u!1 &1592965882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1592965883}
+  - 114: {fileID: 1592965885}
+  - 114: {fileID: 1592965884}
+  m_Layer: 0
+  m_Name: Social Integration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1592965883
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592965882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1799188526}
+--- !u!114 &1592965884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592965882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7afa3c4d2030f42e190b4ddc557d228c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1592965885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592965882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d253a5aec5c93e54186703412c7b89f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1601285339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,7 +2695,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: d48f5875725b7bd4aa1be7b741bc61a9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: .800000012
+  m_Volume: 1
   m_Pitch: 1.25
   Loop: 1
   Mute: 0
@@ -3021,7 +3071,6 @@ GameObject:
   - 114: {fileID: 1799188530}
   - 114: {fileID: 1799188531}
   - 114: {fileID: 1799188532}
-  - 114: {fileID: 1799188533}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -3044,6 +3093,7 @@ Transform:
   - {fileID: 530502223}
   - {fileID: 1858873623}
   - {fileID: 1093820746}
+  - {fileID: 1592965883}
   m_Father: {fileID: 0}
 --- !u!114 &1799188527
 MonoBehaviour:
@@ -3136,27 +3186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLines: 15
---- !u!114 &1799188533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1799188525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d253a5aec5c93e54186703412c7b89f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FeedToId: 
-  FeedLink: http://handymd-game.appspot.com/
-  FeedLinkName: Handy MD
-  FeedLinkCaption: Play on the web!
-  FeedLinkDescription: 
-  FeedPicture: 
-  FeedMediaSource: 
-  FeedActionName: 
-  FeedActionLink: 
-  FeedReference: 
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

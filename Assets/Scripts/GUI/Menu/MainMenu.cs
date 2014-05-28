@@ -132,7 +132,11 @@ public class MainMenu : MonoBehaviour
         // Url
 		if (GUILayout.Button("i", GUIManager.Style.info, GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
         {
-            Application.OpenURL("http://www.surewash.com/");
+			#if UNITY_IPHONE || UNITY_ANDROID
+				Application.OpenURL("http://www.surewash.com/");
+			#else	
+				Application.ExternalEval("window.open('http://www.surewash.com/')");
+			#endif
         }
 
         GUILayout.EndHorizontal();

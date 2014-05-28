@@ -11,7 +11,7 @@ public class TwitterIntegration : SocialIntegration {
 	private string status, url;
     
     protected override void Start () {
-		TwitterCombo.init( "k6lpYZrWpvVVICQQHVQVkGCIT", "rCEaAZmgFEemPJ7s18cVkgRLQ5JegoR9vO97uya8F1vBl7rgaY" );
+		TwitterCombo.init( "TNyjAhkYkSgby6khane9jle6d", "sHvkl2q8y3XJ8ZEuYeJnvxsBYvXzgqoebnzOLxw4xluVF649QW" );
 
         base.Start();
 	}
@@ -67,6 +67,6 @@ public class TwitterIntegration : SocialIntegration {
 		TwitterCombo.showLoginDialog();		
 	}
 
-	#endif
+#endif
 
-}
+                                                    }

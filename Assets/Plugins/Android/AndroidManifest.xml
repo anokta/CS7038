@@ -11,7 +11,7 @@
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
     </activity>
     <activity configChanges="orientation|screenLayout|screenSize" android:name="com.facebook.LoginActivity" />
-    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ 548612261925888" />
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ 749883165032072" />
     <meta-data android:name="com.prime31.FacebookPlugin" android:value="UnityPlayerActivityProxy" />
   </application>
   <uses-permission android:name="android.permission.INTERNET" />

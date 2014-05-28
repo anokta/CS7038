@@ -31,7 +31,7 @@ public class SocialIntegration : MonoBehaviour {
 
             popupY = Mathf.Lerp(popupY, popupActive ? 0.9f : 1.1f, Time.deltaTime * 4);
 
-            GUI.Window(5, new Rect(Screen.width * 0.5f - Screen.height * 0.15f, Screen.height * popupY, Screen.height * 0.3f, Screen.height * 0.1f), DoPopup, "", GUIManager.Style.inGameWindow);
+            GUI.Window(5, new Rect(Screen.width * 0.5f - Screen.height * 0.25f, Screen.height * popupY, Screen.height * 0.5f, Screen.height * 0.1f), DoPopup, "", GUIManager.Style.inGameWindow);
         }
     }
 
@@ -40,7 +40,7 @@ public class SocialIntegration : MonoBehaviour {
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        GUILayout.Label(popupMessage, GUIManager.skin.GetStyle("log"));
+        GUILayout.Label(popupMessage, GUIManager.Style.log);
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         GUILayout.FlexibleSpace();

@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour, IPan
 
         // not sure which one is better.
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
+		GroupManager.main.group["Dialogue"].Add(animator);
         //GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 
         //GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));

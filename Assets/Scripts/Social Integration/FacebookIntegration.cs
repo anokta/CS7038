@@ -18,8 +18,8 @@ public class FacebookIntegration : SocialIntegration
     protected override void OnEnable()
     {
         FacebookManager.loginFailedEvent += LoginFailed;
-        FacebookManager.dialogCompletedWithUrlEvent += ShareCompleted;
-        FacebookManager.dialogFailedEvent += ShareFailed;
+		FacebookManager.dialogCompletedWithUrlEvent += ShareCompleted;
+       	FacebookManager.dialogFailedEvent += ShareFailed;
 
         base.OnEnable();
     }
@@ -27,8 +27,8 @@ public class FacebookIntegration : SocialIntegration
     void OnDisable()
     {
         FacebookManager.loginFailedEvent -= LoginFailed;
-        FacebookManager.dialogCompletedWithUrlEvent -= ShareCompleted;
-        FacebookManager.dialogFailedEvent -= ShareFailed;
+		FacebookManager.dialogCompletedWithUrlEvent -= ShareCompleted;
+		FacebookManager.dialogFailedEvent -= ShareFailed;
     }
 
 
@@ -38,7 +38,7 @@ public class FacebookIntegration : SocialIntegration
         popupActive = true;
     }
 
-    void ShareCompleted(string result)
+	void ShareCompleted(string result)
     {
 		popupMessage = (result.Length > 0 && result.Contains("post_id")) ? "Post published succesfully!"  : "Post could not be published.";
         popupActive = true;
@@ -52,15 +52,27 @@ public class FacebookIntegration : SocialIntegration
 
 	public override void Post(string caption, string link)
 	{
-        var parameters = new Dictionary<string, string>
-        {
-            { "link", link },
-            { "name", "Handy MD" },
-            { "picture", "https://pbs.twimg.com/profile_images/443709766687150080/6EZbY-5c_400x400.png" },
-            { "caption", caption },
-            { "description", "A 2D puzzle/platform game for mobile devices to promote the importance of hand hygiene, by Surewash" }
-        };
-		FacebookCombo.showDialog( "stream.publish", parameters );
+		#if UNITY_IOS
+			var parameters = new Dictionary<string, object>
+			{
+				{ "link", link },
+				{ "name", "Handy MD" },
+				{ "picture", "https://pbs.twimg.com/profile_images/443709766687150080/6EZbY-5c_400x400.png" },
+				{ "caption", caption },
+				{ "description", "A 2D puzzle/platform game for mobile devices to promote the importance of hand hygiene, by Surewash" }
+			};
+			FacebookCombo.showFacebookShareDialog( parameters );
+		#elif UNITY_ANDROID
+			var parameters = new Dictionary<string, string>
+			{
+				{ "link", link },
+				{ "name", "Handy MD" },
+				{ "picture", "https://pbs.twimg.com/profile_images/443709766687150080/6EZbY-5c_400x400.png" },
+				{ "caption", caption },
+				{ "description", "A 2D puzzle/platform game for mobile devices to promote the importance of hand hygiene, by Surewash" }
+			};
+			FacebookCombo.showDialog( "stream.publish", parameters );
+		#endif
 	}
 
 #endif

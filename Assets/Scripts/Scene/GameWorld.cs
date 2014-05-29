@@ -178,7 +178,7 @@ public class GameWorld : MonoBehaviour
 
         instance.Clear();
 
-		Debug.Log("Woohoo " + instance.Level);
+//		Debug.Log("Woohoo " + instance.Level);
 
 		if (instance.Level >= instance.LevelCount -1) {
 			//BackgroundRenderer.instance.SetSunBackground();

@@ -207,12 +207,12 @@ public class LevelSelector : MonoBehaviour, IPan
 					Rect buttonRect = new Rect(
 						offsetX + (p - currentPage) * Screen.width + j * _actualButtonSize,
 						offsetY + i * (_actualButtonSize+starOffset), _actualButtonSize, _actualButtonSize);
-                    bool checkmark = false;
+                   // bool checkmark = false;
                     int level = pageStart + i * columnCount + j;
 
                     if (level < levelProgress)
                     {
-                        checkmark = true;
+                     //   checkmark = true;
                     }
                     else if (level > levelProgress)
                     {
@@ -239,8 +239,8 @@ public class LevelSelector : MonoBehaviour, IPan
 						//} else {
 						//	GUI.Label(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton);
 						//}
-                        if (checkmark)
-                        {
+						if (LevelManager.instance.scores[level] > 0)
+						{
 							//GUI.DrawTexture(buttonRect, checkTexture);
 							int si = 0;
 							for (; si < LevelManager.instance.scores[level]; ++si) {
@@ -254,7 +254,11 @@ public class LevelSelector : MonoBehaviour, IPan
                     else
                     {
 						GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
+						if (LevelManager.instance.LevelCount <= level) {
+							GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
+						}
                         GUI.DrawTexture(buttonRect, lockTexture);
+						GUI.color = Color.white;
                     }
                 }
             }

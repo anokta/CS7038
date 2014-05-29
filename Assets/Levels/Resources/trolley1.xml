@@ -2,7 +2,7 @@
 <map version="1.0" orientation="orthogonal" width="11" height="11" tilewidth="100" tileheight="100">
  <properties>
   <property name="MaxScore" value="12"/>
-  <property name="MinScore" value="11"/>
+  <property name="MinScore" value="10"/>
  </properties>
  <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
   <image source="tileset.png" width="1000" height="1000"/>

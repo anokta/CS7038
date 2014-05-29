@@ -451,7 +451,13 @@ public class LevelOverGUI : MonoBehaviour
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Facebook", GUIManager.Style.facebook, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
 			{
-				ShareToFacebook("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
+				if (GameWorld.success) {
+					ShareToFacebook(
+						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
+						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", "http://handymd-game.appspot.com");
+				} else {
+					ShareToFacebook(twitterMessages[GameWorld.levelOverReason], "http://handymd-game.appspot.com");
+				}
 			}
 		}
 		GUILayout.EndVertical();

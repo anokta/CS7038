@@ -88,11 +88,18 @@ public class HandController : MonoBehaviour
         set { lastTouchedId = value; }
     }
 
+	public Vector3 LastTouchedDir {get; set; }
+
 	public void SpoilHand(int id)
 	{
 		--value;//value += amount;
 	    lastTouchedId = id;
 		++score;
+	}
+
+	public void SpoilHand(int id, Vector3 dir) {
+		SpoilHand(id);
+		LastTouchedDir = dir;
 	}
 
 	int _score;

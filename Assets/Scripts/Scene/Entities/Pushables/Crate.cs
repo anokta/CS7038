@@ -49,9 +49,11 @@ public class Crate : Pushable
             {
                 if (SpoilHand)
                 {
-                    if (playerHand.LastTouchedID != GetInstanceID())
+                    if (playerHand.LastTouchedID != GetInstanceID()
+					    || Vector3.Distance(playerHand.LastTouchedDir,
+					                    direction) > 0.001)
                     {
-						playerHand.SpoilHand(GetInstanceID());
+						playerHand.SpoilHand(GetInstanceID(), direction);
                     }
 
                     handTimer.Reset();

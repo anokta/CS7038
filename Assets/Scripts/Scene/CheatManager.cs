@@ -21,7 +21,7 @@ public class CheatManager
     public void EnableCheating()
     {
         IsCheating = true;
-        AudioManager.PlaySFX("Push Crate");
+        AudioManager.PlaySFX("Collect");
     }
 
     public void Update()

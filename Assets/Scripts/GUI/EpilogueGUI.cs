@@ -65,7 +65,8 @@ public class EpilogueGUI : MonoBehaviour
 	}
 
 	void GoToMainMenu()
-	{
-		GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+    {
+        AudioManager.PlaySFX("Menu Next");
+        GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
 	}
 }

@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
                 break;
 
             case "Collect":
-                collectSfx.pitch += Random.Range(0.0f, 0.01f);
+                //collectSfx.pitch += Random.Range(0.0f, 0.01f);
                 collectSfx.Play();
                 break;
 

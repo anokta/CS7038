@@ -17,6 +17,8 @@ public class AudioRunning : MonoBehaviour
         GroupManager.main.group["Main Menu"].Add(this, new GroupDelegator(null, Stop, null));
         GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, Stop, null));
         GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, Pause, UnPause));
+
+        GroupManager.main.group["Epilogue"].Add(this, new GroupDelegator(null, FadeOut, null));
     }
 
     void Update()
@@ -81,4 +83,14 @@ public class AudioRunning : MonoBehaviour
         background.Play();
     }
 
+    void FadeOut()
+    {
+        overVolume = 0.0f;
+        backgroundVolume = 0.0f;
+    }
+
+    public int SampleOffset()
+    {
+        return over.timeSamples;
+    }
 }

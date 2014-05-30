@@ -91,14 +91,13 @@ public class GUIManager : MonoBehaviour
     void Awake()
 	{
 		StyleEntry.DefaultFontSize = defaultFontSize;
-		GUIPie = Material.Instantiate(_GuiPieMaterial) as Material;
+		GUIPie = Object.Instantiate(_GuiPieMaterial) as Material;
 		instance = this;
-		guiSkin = GUISkin.Instantiate(guiSkin) as GUISkin;
-		//GUI.skin = guiSkin;
+		guiSkin = Object.Instantiate(guiSkin) as GUISkin;
+
 		_handyStyles = new HandyStyles(guiSkin);
 		_styles = new List<StyleEntry>();
-		//StyleList = new List<GUIStyle>();
-		//_customStyles = new StyleEntry[guiSkin.customStyles.Length];
+
 		for (int i = 0; i < guiSkin.customStyles.Length; ++i) {
 			_styles.Add(new StyleEntry(guiSkin.customStyles[i]));
 		}

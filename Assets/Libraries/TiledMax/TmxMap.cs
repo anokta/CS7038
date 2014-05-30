@@ -34,63 +34,58 @@ namespace TiledMax
         }
 
         public static TmxMap Open(TextReader reader)
-        {
-            var doc = new XmlDocument();
-            var result = new TmxMap();
+		{
+			var doc = new XmlDocument();
+			var result = new TmxMap();
 
 			var properties = new Dictionary<string, string>();
 			result.Properties = new PropertyReader(properties);
 
-            doc.Load(reader);
-            XmlNode node = null;
+			doc.Load(reader);
 
-            foreach (XmlNode xmlNode in doc.ChildNodes)
-            {
-                if (xmlNode.Name == "map" && xmlNode.HasChildNodes)
-                {
-                    node = xmlNode;
-                    break;
-                }
-            }
+			XmlNode node = null;
 
-            if (node == null)
-            {
-                throw new Exception("Tried to load a file that does not contain map data.");
-            }
+			foreach (XmlNode xmlNode in doc.ChildNodes) {
+				if (xmlNode.Name == "map" && xmlNode.HasChildNodes) {
+					node = xmlNode;
+					break;
+				}
+			}
 
-            result.Version = node.ReadTag("version");
-            result.Width = node.ReadInt("width");
-            result.Height = node.ReadInt("height");
-            result.TileWidth = node.ReadInt("tilewidth");
-            result.TileHeight = node.ReadInt("tileheight");
+			if (node == null) {
+				throw new Exception("Tried to load a file that does not contain map data.");
+			}
 
-            switch (node.ReadTag("orientation"))
-            {
-                case "isometric": result.Orientation = MapOrientation.Isometric; break;
-                default: result.Orientation = MapOrientation.Orthogonal; break;
-            }
+			result.Version = node.ReadTag("version");
+			result.Width = node.ReadInt("width");
+			result.Height = node.ReadInt("height");
+			result.TileWidth = node.ReadInt("tilewidth");
+			result.TileHeight = node.ReadInt("tileheight");
 
-            foreach (XmlNode xNode in node.ChildNodes)
-            {
-                switch (xNode.Name)
-                {
-                    case "layer":
-                        ReadLayer(xNode, ref result);
-                        break;
+			switch (node.ReadTag("orientation")) {
+				case "isometric":
+					result.Orientation = MapOrientation.Isometric;
+					break;
+				default:
+					result.Orientation = MapOrientation.Orthogonal;
+					break;
+			}
+
+			foreach (XmlNode xNode in node.ChildNodes) {
+				switch (xNode.Name) {
+					case "layer":
+						ReadLayer(xNode, ref result);
+						break;
 					case "properties":
 						ReadProperties(xNode, properties);
 						break;
 					case "objectgroup":
 						ReadObjects(xNode, result);
 						break;
-                }
-            }
+				}
+			}
 
-            return result;
-        }
-
-		static TmxMap() {
-			CultureInfo.CreateSpecificCulture("en-US");
+			return result;
 		}
 
 		private static void ReadObjects(XmlNode node, TmxMap result) {

@@ -174,12 +174,12 @@ public class GameWorld : MonoBehaviour
     void LevelStart()
     {
         // Clear resources
+
 		var instance = LevelManager.instance;
 
         instance.Clear();
 
 //		Debug.Log("Woohoo " + instance.Level);
-
 		if (instance.Level >= instance.LevelCount -1) {
 			//BackgroundRenderer.instance.SetSunBackground();
 			//GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
@@ -187,7 +187,6 @@ public class GameWorld : MonoBehaviour
 
 			return;
 		}
-
         // Next level
 		instance.Next();
 
@@ -201,7 +200,6 @@ public class GameWorld : MonoBehaviour
 				instance.settings.StoreDialogueFlag(intro);
 			}
 		}*/
-
 
        // if (dialogueOff || LevelManager.instance.Level >= DialogueManager.dialogueIndex.Length)
 		if (dialogueOff || intro == null)
@@ -234,7 +232,6 @@ public class GameWorld : MonoBehaviour
                 //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
             });
         }
-
         success = true;
     }
 

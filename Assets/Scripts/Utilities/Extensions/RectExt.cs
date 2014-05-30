@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class RectExtensions
+public static class RectExt
 {
 	public static Rect Scale(this Rect rect, float scale) {
 		return new Rect(rect.x * scale,	rect.y * scale,	rect.width * scale, rect.height * scale);
@@ -56,6 +56,10 @@ public static class RectExtensions
 
 	public static RectOffset Clone(this RectOffset rect) {
 		return new RectOffset(rect.left, rect.right, rect.top, rect.bottom);
+	}
+
+	public static Rect Expanded(this Rect rect, float amount) {
+		return new Rect(rect.x - amount, rect.y - amount, rect.width + amount * 2, rect.height + amount * 2);
 	}
 }
 

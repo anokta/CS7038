@@ -39,7 +39,6 @@ public class GUILoader : MonoBehaviour
 				new Rect(0, 0, Screen.width, Screen.height),
 				"",
 				GUIManager.StyleList[count + i].style);
-			Debug.Log("LoL" + count + i);
 		}
 		GUI.color = Color.black;
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pixel);
@@ -47,21 +46,22 @@ public class GUILoader : MonoBehaviour
 		//count += interval;
 
 		if (count >= 0) {
-			string progress = "Loading... ";
+			string progress = "Loading...";
 			var vec2 = GUIManager.Style.loading.CalcSize(new GUIContent(progress));
 			GUI.Label(
-				new Rect((Screen.width - vec2.x) / 2, (Screen.height - vec2.y) / 2-vec2.y, vec2.x, vec2.y),
+				new Rect((Screen.width - vec2.x) / 2, (Screen.height - vec2.y) / 2-vec2.y * 0.75f, vec2.x, vec2.y),
 				progress, GUIManager.Style.loading);
 
 			GUI.color = Color.white;
-			var bar = new Rect((Screen.width - _totalWidth) / 2, (Screen.height - vec2.y) / 2 + vec2.y, _totalWidth, vec2.y);
+			var bar = new Rect((Screen.width - _totalWidth) / 2, (Screen.height - vec2.y) / 2 + vec2.y * 0.75f, _totalWidth, vec2.y/2);
 			GUI.DrawTexture(bar, pixel);
 			GUI.color = Color.black;
-			var innerB = bar.Expanded(-Screen.height * _borderWidth);
+			var innerB = bar.Expanded(Mathf.Round(Mathf.Min(-1, -Screen.height * _borderWidth)));
 			GUI.DrawTexture(innerB, pixel);
 			GUI.color = new Color(0.1f, 0.6f, 0.2f);
-			var inner = innerB.Expanded(-Screen.height * _innerBorderWidth);
-			//inner.width = Mathf.Min(inner.width, currentWidth);
+			var inner = innerB.Expanded(Mathf.Round(Mathf.Min(-1, -Screen.height * _innerBorderWidth)));
+			inner.width = Mathf.Min(inner.width, inner.width * 
+				(float)count / GUIManager.StyleList.Count);
 			GUI.DrawTexture(inner, pixel);
 			GUI.color = Color.white;
 		}

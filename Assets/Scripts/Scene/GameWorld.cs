@@ -161,7 +161,7 @@ public class GameWorld : MonoBehaviour
 				DialogueManager.DialogueComplete = () => {
 					GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
 					
-					AudioManager.PlaySFX("Menu Next");
+					AudioManager.PlaySFX("Collect");
 				};
 
 				DialogueManager.ActivateDialogue(

@@ -31,6 +31,9 @@ public class AudioMenu : MonoBehaviour {
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, Stop, null));
         GroupManager.main.group["Running"].Add(this, new GroupDelegator(null, Stop, null));
 
+        GroupManager.main.group["Epilogue"].Add(this);
+        GroupManager.main.group["Epilogue"].Add(this, new GroupDelegator(null, LevelSelect, null));
+
         timeInterval = 60.0f / (BEATS / 4.0f) / BPM;
 	}
 	

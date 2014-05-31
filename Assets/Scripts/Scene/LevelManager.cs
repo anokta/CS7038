@@ -105,7 +105,6 @@ public class LevelManager
 
     public void Next()
     {
-		Debug.Log("Test 2?");
         Load(Level + 1);
     }
 
@@ -120,7 +119,6 @@ public class LevelManager
 
     public void Load(int level)
     {
-		Debug.Log("Gustav was here 1");
 		if (level >= levels.Count) {
 			/*GameWorld.success = false;
 			ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
@@ -152,22 +150,16 @@ public class LevelManager
         TmxMap map;
 		DialogueMap dialogue;
 
-		Debug.Log("Gustav was here 2");
-
         if (tileMaps.ContainsKey(level))
         {
             map = tileMaps[level];
         }
         else
         {
-			Debug.Log("Gustav was here 3");
             var name = levels[level];
             var asset = Resources.Load<TextAsset>(name);
-			Debug.Log("Gustav was here 4");
             using (var reader = new StringReader(asset.text)) {
-				Debug.Log("Gustav was here 5");
             	map = TmxMap.Open(reader);
-				Debug.Log("Gustav was here 6");
 			}
 			tileMaps[level] = map;
         }
@@ -175,19 +167,14 @@ public class LevelManager
 			dialogue = dialogues[level];
 		}
 		else {
-			Debug.Log("Gustav was here 7");
 			var name = levels[level];
 			var dia = Resources.Load<TextAsset>("Dialogues/" + name);
-			Debug.Log("Gustav was here 8");
 			if (dia != null ) {
 				using (var reader = new StringReader(dia.text)) {
-					Debug.Log("Gustav was here 9");
 					dialogue = DialogueMap.Open(Object.FindObjectOfType<DialogueManager>(), reader);
-					Debug.Log("Gustav was here 10");
 				}
 			}
 			else {
-				Debug.Log("Gustav was here 11");
 				dialogue = new DialogueMap(DialogueManager.instance);
 			}
 			dialogues[level] = dialogue;
@@ -198,8 +185,6 @@ public class LevelManager
         Camera.main.transform.position = CameraPosition;
         Camera.main.orthographicSize = OrthographicSize;
 		   
-		Debug.Log("Gustav was here 12");
-
 	//	dialogueMap = dialogue;
 		settings.dialogueMap = dialogue;
         loader.Load(map, settings);
@@ -209,8 +194,6 @@ public class LevelManager
 		settings.maxScore = map.Properties.GetInt("MaxScore", 0);
 		string nameIntro = map.Properties.GetTag("Intro", null);
 		string nameOutro = map.Properties.GetTag("Outro", null);
-
-		Debug.Log("Gustav was here 13");
 
 		if (nameIntro != null) {
 			settings.intro = settings.dialogueMap[nameIntro];
@@ -224,12 +207,12 @@ public class LevelManager
 		else {
 			settings.outro = null;
 		}
-		Debug.Log("Gustav was here 14");
+
 		var hand = Object.FindObjectOfType<HandController>();
 		if (hand != null) {
 			hand.value = map.Properties.GetInt("Health", HandController.DefValue);
 		}
-		Debug.Log("Gustav was here 15");
+
 		//string dialogueName;
 		//if (!map.
     }

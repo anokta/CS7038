@@ -92,9 +92,6 @@ public class PlayerController : MonoBehaviour, IPan
         // not sure which one is better.
         GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, GoBackToIdle, null));
 		GroupManager.main.group["Dialogue"].Add(animator);
-        //GroupManager.main.group["Dialogue"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
-
-        //GroupManager.main.group["Paused"].Add(this, new GroupDelegator(null, PauseAnimation, UnpauseAnimation));
 
         KeyboardController.Instance.KeyboardEventHandler = this;
 
@@ -108,14 +105,6 @@ public class PlayerController : MonoBehaviour, IPan
     #region Gestures
 
     public void OnGesturePan(PanArgs args)
-    {
-        if (timer == null)
-            timer = new Timer();
-
-        PlayerMoving(args);
-    }
-
-    public void PlayerMoving(PanArgs args)
     {
         switch (args.state)
         {
@@ -133,20 +122,20 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
                     joystick.CurrentDirection = nextMovement;
+
                 }
 
-                if ((canMove || nextMovement != movement) && !Moving && CanMove())
+                if (nextMovement != Vector2.zero && (canMove || nextMovement != movement) && !Moving && CanMove())
                 {
                     timer.Reset();
                     canSwitch = true;
                     canMove = true;
+
+                    playerMoving = true;
                 }
 
-                playerMoving = true;
                 break;
             case PanArgs.State.Hold:
-                // BUG?????????
-                //playerMoving = true;
                 break;
             case PanArgs.State.Interrupt:
             case PanArgs.State.Up:
@@ -167,50 +156,6 @@ public class PlayerController : MonoBehaviour, IPan
     // Update is called once per frame
     void Update()
     {
-        // Tutorial [Manually coded for now] //
-        // TODO: Make it proper! 
-
-      /*  if (!GameWorld.dialogueOff)
-        {
-            if (LevelManager.instance.Level == 0)
-            {
-                if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) <= 0.1)
-                {
-                    playerMoving = false;
-                    canMove = false;
-
-                    if (DialogueManager.CurrentDialogue == 2 && Vector2.Distance(player.position, new Vector2(3, 3)) == 0.0f)
-                    {
-                        timer.Stop();
-
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                    }
-                }
-                else if (DialogueManager.CurrentDialogue == 4 && hands.state == HandController.HandState.Clean)
-                {
-                    DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                    //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                }
-            }
-            else if (LevelManager.instance.Level == 4)
-            {
-                if (DialogueManager.CurrentDialogue == 10 && Vector2.Distance(player.position, new Vector2(6, 1)) < 2.0f)
-                {
-                    playerMoving = false;
-                    canMove = false;
-
-                    if (DialogueManager.CurrentDialogue == 10 && (player.position == new Vector3(5, 2, 0) || Vector2.Distance(player.position, new Vector2(6, 1)) == 1.0f))
-                    {
-                        timer.Stop();
-
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                       // GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-                    }
-                }
-            }
-        }*/
-
         spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
         if (hands.isInfected)
@@ -341,17 +286,6 @@ public class PlayerController : MonoBehaviour, IPan
 
             case "Accessible":
                 var accessible = hit.collider.GetComponent<Accessible>();
-
-                /*if (accessible.name.StartsWith("Fountain"))
-                {
-                    if (!GameWorld.dialogueOff && LevelManager.instance.Level == 0 && DialogueManager.CurrentDialogue == 3)
-                    {
-                        DialogueManager.DialogueComplete = GameWorld.GoBackToLevel;
-                        GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-
-                        return false;
-                    }
-                }*/
 
                 return accessible.Enter();
 

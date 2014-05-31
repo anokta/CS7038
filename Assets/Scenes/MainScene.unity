@@ -1604,6 +1604,7 @@ GameObject:
   - 114: {fileID: 1017749684}
   - 114: {fileID: 1017749686}
   - 114: {fileID: 1017749687}
+  - 114: {fileID: 1017749688}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -1646,6 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
+  - Preloading
   - Loading
   - Main Menu
   - Level Select
@@ -1689,6 +1691,17 @@ MonoBehaviour:
   _barWidth: .5
   _borderWidth: .00300000003
   _innerBorderWidth: .00499999989
+--- !u!114 &1017749688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1017749682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f7f4bdfa061ab4e881f21ef513e20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093820743
 GameObject:
   m_ObjectHideFlags: 0

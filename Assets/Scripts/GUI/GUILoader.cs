@@ -11,7 +11,6 @@ public class GUILoader : MonoBehaviour
     public float borderSize = 0.01f;
     public float barWidth = 0.5f;
 
-    public int interval = 5;
     int count;
 
     ProgressBar progressBar;
@@ -38,15 +37,11 @@ public class GUILoader : MonoBehaviour
         // Check if the loading over
         if (Event.current.type.Equals(EventType.Repaint))
         {
-            if (count >= GUIManager.StyleList.Count)
+            if (++count >= GUIManager.StyleList.Count)
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
                 Destroy(progressBar);
                 Destroy(this);
-            }
-            else
-            {
-                count++;
             }
         }
     }

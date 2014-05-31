@@ -1603,7 +1603,6 @@ GameObject:
   - 114: {fileID: 1017749685}
   - 114: {fileID: 1017749684}
   - 114: {fileID: 1017749686}
-  - 114: {fileID: 1017749687}
   - 114: {fileID: 1017749688}
   m_Layer: 0
   m_Name: 10 Game Manager
@@ -1675,22 +1674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 312d5a40e18aa684f838352225adb478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1017749687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017749682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d998e0b1a6bfb42882f92309d86eb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pixel: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
-  _interval: 5
-  _barWidth: .5
-  _borderWidth: .00300000003
-  _innerBorderWidth: .00499999989
 --- !u!114 &1017749688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3231,6 +3214,7 @@ GameObject:
   - 114: {fileID: 1799188531}
   - 114: {fileID: 1799188532}
   - 114: {fileID: 1799188533}
+  - 114: {fileID: 1799188534}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -3361,6 +3345,22 @@ MonoBehaviour:
   height: .699999988
   width: .800000012
   buttonSize: .200000003
+--- !u!114 &1799188534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d998e0b1a6bfb42882f92309d86eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixel: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
+  progressText: Loading...
+  borderSize: .0149999997
+  barWidth: .5
+  interval: 5
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

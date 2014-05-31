@@ -31,7 +31,7 @@ public class GUILoader : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(0, Screen.height, 0.25f * Screen.width, 0.25f * Screen.height),
+        GUI.Label(new Rect(0, Screen.height, Screen.width, Screen.height),
             "Force Preload",
             GUIManager.StyleList[count].style);
 

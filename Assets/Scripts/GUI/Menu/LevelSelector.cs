@@ -145,10 +145,9 @@ public class LevelSelector : MonoBehaviour, IPan
             {
                 if (canDrag) ToPreviousPage();
             }
-            else if (targetX == 0.0f)
-            {
-                canDrag = true;
-            }
+			else if (System.Math.Abs(targetX) < 0.0001f) {
+				canDrag = true;
+			}
         }
 
         currentX = Mathf.Lerp(currentX, targetX, Time.deltaTime * 6.0f);
@@ -156,14 +155,13 @@ public class LevelSelector : MonoBehaviour, IPan
 
         if (Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.05f)
         {
-            if (targetScroll == MainMenu.ScreenScrollValue)
-            {
-                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+			if (System.Math.Abs(targetScroll - MainMenu.ScreenScrollValue) < 0.0001f) {
+				GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
 
-                targetScroll = 0.0f;
-            }
+				targetScroll = 0.0f;
+			}
         }
-        else if (targetScroll == 0.0f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
+		else if (System.Math.Abs(targetScroll) < 0.0001f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
         {
             currentX = currentScroll;
             firstLoad = false;
@@ -174,6 +172,8 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void OnGUI()
     {
+		//return;
+
 		Vector3 position = new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f);
 		GUI.matrix = Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
 

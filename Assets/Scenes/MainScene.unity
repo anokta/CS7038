@@ -1358,7 +1358,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 790678409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.0442390442, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1603,8 +1603,6 @@ GameObject:
   - 114: {fileID: 1017749685}
   - 114: {fileID: 1017749684}
   - 114: {fileID: 1017749686}
-  - 114: {fileID: 1017749688}
-  - 114: {fileID: 1017749687}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -1647,7 +1645,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
-  - Preloading
   - Loading
   - Main Menu
   - Level Select
@@ -1673,31 +1670,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 312d5a40e18aa684f838352225adb478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1017749687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017749682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4206ce20542ec945a517e3272492894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SurewashIcon: {fileID: 21300000, guid: 6d4efe8b82f529149bc0d8cc913e6c34, type: 3}
-  SurewashText: {fileID: 21300000, guid: 33535c89511ab794da3ac487a06a28d5, type: 3}
-  SurewashLogo: {fileID: 21300000, guid: 273ff60792d246a47b9beb36c220f06a, type: 3}
---- !u!114 &1017749688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1017749682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f7f4bdfa061ab4e881f21ef513e20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1093820743
@@ -2762,7 +2734,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: d48f5875725b7bd4aa1be7b741bc61a9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 3
+  m_Pitch: 1.25
   Loop: 1
   Mute: 0
   Priority: 128
@@ -3372,10 +3344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pixel: {fileID: 2800000, guid: ce70bcc88608433489b0a73fa72956a0, type: 3}
-  _interval: 10
-  _barWidth: .5
-  _borderWidth: .00999999978
-  _innerBorderWidth: .00999999978
+  progressText: Loading...
+  borderSize: .00999999978
+  barWidth: .5
+  interval: 5
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

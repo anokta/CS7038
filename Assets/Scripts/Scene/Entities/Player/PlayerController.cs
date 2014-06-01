@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour, IPan
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
                     joystick.CurrentDirection = nextMovement;
 
+                    playerMoving = true;
                 }
 
                 if (nextMovement != Vector2.zero && (canMove || nextMovement != movement) && !Moving && CanMove())

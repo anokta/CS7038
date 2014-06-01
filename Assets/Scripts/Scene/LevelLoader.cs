@@ -378,7 +378,7 @@ public class LevelLoader
 		for (x = 0; x < map.Width; ++x) {
 			for (y = 0; y < map.Height; ++y) {
 				if (walls[x, y] && (y == map.Height - 1 || !walls[x, y + 1])) {
-					if (random.Next(0, 10) == 5) {
+					if (random.Next(0, 8) == 5) {
 						var position = new Vector3(x, map.Height - y - 1, 0);
 						GameObject ovWall = Object.Instantiate(overlayWall) as GameObject;
 						ovWall.transform.parent = overlayContainer.transform;

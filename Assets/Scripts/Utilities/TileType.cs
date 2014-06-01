@@ -4,7 +4,7 @@
     Crate = 1, Trolley, Explosive, Plant,
 	Player = 11, Patient, Fountain, Door, DoorVertical, GateClean,
     LaserDown = 21, LaserUp, LaserRight, LaserLeft, Mirror, MirrorInverse,
-    Wall = 31, Floor,
+	Wall = 31, Floor, Terminal = 33,
 	Activate = 33,
 	Deactivate = 34,
     Lever1 = 51, Lever2, Lever3,

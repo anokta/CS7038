@@ -28,4 +28,14 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1" width="7" height="6"/>
+ <layer name="Overlay" width="7" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
+</data>
+ </layer>
 </map>

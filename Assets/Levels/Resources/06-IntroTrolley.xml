@@ -33,7 +33,7 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1" width="10" height="8">
-  <object name="Trolley Thing" gid="33" x="100" y="600">
+  <object name="Indeed" gid="41" x="100" y="600">
    <properties>
     <property name="Dialogue" value="Indeed"/>
    </properties>

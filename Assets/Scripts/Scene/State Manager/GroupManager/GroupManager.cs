@@ -37,8 +37,10 @@ namespace Grouping
         static GroupManager()
         {
             //Called only once and therefore reflection overhead is negligible
-            typeof(Group).GetMethod("Init",
-            BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, null);
+			if (_instance == null) {
+				typeof(Group).GetMethod("Init",
+					BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, null);
+			}
         }
 
         public static GroupManager main

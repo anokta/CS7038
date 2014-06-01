@@ -4,83 +4,72 @@ using Grouping;
 
 public class GUILoader : MonoBehaviour
 {
-    public Texture pixel;
-    public string progressText;
+	// Use this for initialization
+	void Start()
+	{
+		GroupManager.main.group["Loading"].Add(this);
+		count -= _interval;
+	}
 
-    public float borderSize = 0.015f;
-    public float barWidth = 0.5f;
+	float _totalWidth;
+	[SerializeField]
+	Texture pixel;
 
-    public int interval = 10;
-    int count;
+	int count;
 
-    float progress;
-    Vector2 textSize;
+	[SerializeField]
+	int _interval = 10;
+	[SerializeField]
+	float _barWidth = 0.5f;
+	[SerializeField]
+	float _borderWidth = 0.01f;
+	[SerializeField]
+	float _innerBorderWidth = 0.01f;
 
-    void Start()
-    {
-        GroupManager.main.group["Loading"].Add(this);
+	void OnGUI()
+	{
+		if (Event.current.type.Equals(EventType.Repaint)) {
+			count += _interval;
+		}
+		if (count >= 0) {
+			for (int i = 0; count >= 0 && i < _interval && count + i < GUIManager.StyleList.Count; ++i) {
+				GUI.Label(new Rect(0, Screen.height, Screen.width, Screen.height),
+					"Force Preload", GUIManager.StyleList[count + i].style);
+			}
+		}
+		//GUI.color = Color.black;
+		//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), pixel);
+		//GUI.color = Color.white;	
+		//count += interval;
 
-        textSize = GUIManager.Style.loading.CalcSize(new GUIContent(progressText));
-    }
 
-    void Update()
-    {
-        progress = Mathf.Min(1.0f, Mathf.Lerp(progress, ((float)count / GUIManager.StyleList.Count), Time.deltaTime * 4));
-    }
 
-    void OnGUI()
-    {
-        for (int i = count; i < Mathf.Min(count + interval, GUIManager.StyleList.Count); ++i)
-        {
-            GUI.Label(new Rect(0, Screen.height, Screen.width, Screen.height),
-                "Force Preload", 
-                GUIManager.StyleList[i].style);
-        }
+		string progress = "Loading...";
+		var vec2 = GUIManager.Style.loading.CalcSize(new GUIContent(progress));
+		GUI.Label(
+			new Rect((Screen.width - vec2.x) / 2, (Screen.height - vec2.y) / 2 - vec2.y * 0.75f, vec2.x, vec2.y),
+			progress, GUIManager.Style.loading);
 
-        // Loading text
-        GUI.Label(
-            new Rect(
-                0.5f * (Screen.width - textSize.x), 
-                0.5f * (Screen.height - textSize.y) - textSize.y, 
-                textSize.x, 
-                textSize.y),
-            progressText, 
-            GUIManager.Style.loading);
+		/*if (count >= GUIManager.StyleList.Count) {
+			GUI.color = Color.white;
+			var bar = new Rect((Screen.width - Screen.width * _barWidth) / 2, (Screen.height - vec2.y) / 2 + vec2.y * 0.75f, _totalWidth, vec2.y / 2);
+			GUI.DrawTexture(bar, pixel);
+			GUI.color = Color.black;
+			var innerB = bar.Expanded(Mathf.Round(Mathf.Min(-1, -Screen.height * _borderWidth)));
+			GUI.DrawTexture(innerB, pixel);
+			GUI.color = new Color(0.1f, 0.6f, 0.2f);
+			var inner = innerB.Expanded(Mathf.Round(Mathf.Min(-1, -Screen.height * _innerBorderWidth)));
+			inner.width = Mathf.Min(inner.width, inner.width *
+			(float)count / GUIManager.StyleList.Count);
+			GUI.DrawTexture(inner, pixel);
+			GUI.color = Color.white;
+		}*/
+		//}
 
-        // Progress bar
-        Rect bar = new Rect(
-            0.5f * (Screen.width - barWidth * Screen.height),
-            0.5f * (Screen.height - textSize.y) + textSize.y * 0.5f,
-            barWidth * Screen.height,
-            0.5f * textSize.y);
-
-        GUI.color = Color.white;
-        GUI.DrawTexture(new Rect(
-            bar.x - 0.5f * borderSize * Screen.height,
-            bar.y - 0.5f * borderSize * Screen.height,            
-            bar.width + borderSize * Screen.height,
-            bar.height + borderSize * Screen.height),
-            pixel);
-
-        GUI.color = Color.black;
-        GUI.DrawTexture(bar, pixel);
-
-        GUI.color = new Color(0.1f, 0.6f, 0.2f);
-        GUI.DrawTexture(new Rect(bar.x, bar.y, bar.width * progress, bar.height), pixel);
-      
-        // Check if the loading over
-        if (Event.current.type.Equals(EventType.Repaint))
-        {
-            if (count >= GUIManager.StyleList.Count)
-            {
-                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
-                Destroy(this);
-            }
-            else
-            {
-                count += interval;
-            }
-        }
-    }
+		if (Event.current.type.Equals(EventType.Repaint) && count >= GUIManager.StyleList.Count) {
+			GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+			Destroy(this);
+		}
+	}
 }
 

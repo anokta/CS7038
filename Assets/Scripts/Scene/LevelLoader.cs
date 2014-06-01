@@ -9,14 +9,21 @@ public class LevelLoader
 	public static LevelLoader Instance { get; private set; }
 	// Entities
 	private GameObject entityContainer;
-	private GameObject wallContainer, shadeContainer, floorContainer, collectibleContainer, pushableContainer, accessibleContainer, switchableContainer, triggerContainer;
+	private GameObject wallContainer, shadeContainer, floorContainer,
+	collectibleContainer, pushableContainer, accessibleContainer, 
+	switchableContainer, triggerContainer, overlayContainer;
 	private readonly Dictionary<TileType, GameObject> prefabs;
 
 	private GameObject shade;
+	private GameObject overlayFloor;
+	private GameObject overlayWall;
+
+	float wallOverlayOffset = -0.34f;
 
 	public GameObject ExplosionContainer { get; private set; }
 
 	Entity[,] entities;
+	bool[,] walls;
 
 	/// <summary>
 	/// Sorting order for the floor
@@ -97,6 +104,11 @@ public class LevelLoader
 		prefabs[TileType.Gate2VerticalOpen] = Resources.Load<GameObject>("Gate Vertical");
 		prefabs[TileType.Gate3VerticalOpen] = Resources.Load<GameObject>("Gate Vertical");
 
+		prefabs[TileType.Terminal] = Resources.Load<GameObject>("Terminal");
+
+		overlayFloor = Resources.Load<GameObject>("Overlays/Floor Overlay");
+		overlayWall = Resources.Load<GameObject>("Overlays/Wall Overlay");
+
 		//This shouldn't be a TileType object
 		shade = Resources.Load<GameObject>("Shade");
 	}
@@ -143,6 +155,9 @@ public class LevelLoader
 		triggerContainer = new GameObject("Triggers");
 		triggerContainer.transform.parent = ecTransform;
 
+		overlayContainer = new GameObject("Overlays");
+		overlayContainer.transform.parent = ecTransform;
+
 		var leverGateManager = new LeverGateManager();
 
 		int type1 = 0;
@@ -153,6 +168,7 @@ public class LevelLoader
 		List<Gate> gates = new List<Gate>();
 
 		entities = new Entity[map.Width, map.Height];
+		walls = new bool[map.Width, map.Height];
 
 		//Initialized with a seed, so that every time the randomizer produces the same level
 		var random = new System.Random(0);
@@ -188,6 +204,16 @@ public class LevelLoader
 				switch (tileType) {
 					case TileType.Player:
 						parent = entityContainer;
+						GameObject ovPrefab = Object.Instantiate(overlayFloor, position, Quaternion.identity) as GameObject;
+						ovPrefab.renderer.sortingOrder = FloorOrder + 1;
+						ovPrefab.transform.parent = overlayContainer.transform;
+						/*GameObject obj = new GameObject();
+						obj.transform.position = position;
+						obj.transform.parent = overlayContainer.transform;
+						var ovRen = obj.AddComponent<SpriteRenderer>();
+						ovRen.sprite = AssetHelper.instance.SurewashIcon;
+						ovRen.sortingOrder = FloorOrder + 1;
+						ovRen.material = prefab.renderer.material;*/
 						break;
 					case TileType.Crate:
 					case TileType.Trolley:
@@ -320,6 +346,11 @@ public class LevelLoader
 					case TileType.Wall:
 						parent = wallContainer;
 						transform.GetComponent<SpriteRenderer>().sortingOrder = PlaceWall(transform.position.y);
+						walls[tile.X, tile.Y] = true;
+						break;
+					case TileType.Terminal:
+						parent = accessibleContainer;
+						transform.renderer.sortingOrder = PlaceWall(transform.position.y) + 1;
 						break;
 					case TileType.Floor:
 						parent = floorContainer;
@@ -337,6 +368,29 @@ public class LevelLoader
 				}
 				#endregion
 				transform.parent = parent.transform;
+			}
+		}
+
+		int x;
+		int y;
+
+		bool breakOff = false;
+		for (x = 0; x < map.Width; ++x) {
+			for (y = 0; y < map.Height; ++y) {
+				if (walls[x, y] && (y == map.Height - 1 || !walls[x, y + 1])) {
+					if (random.Next(0, 10) == 5) {
+						var position = new Vector3(x, map.Height - y - 1, 0);
+						GameObject ovWall = Object.Instantiate(overlayWall) as GameObject;
+						ovWall.transform.parent = overlayContainer.transform;
+						ovWall.transform.position = position + new Vector3(0, wallOverlayOffset, 0);
+						ovWall.renderer.sortingOrder = PlaceWall(position.y) + 1;
+						breakOff = true;
+						break;
+					}
+				}
+			}
+			if (breakOff) {
+				break;
 			}
 		}
 
@@ -372,8 +426,6 @@ public class LevelLoader
 		shadeBR.renderer.material = shadeBR.bottomRight;
 		#endregion
 
-		int x;
-		int y;
 		foreach (var obj in map.Objects) {
 			switch (obj.objectType) {
 				case TmxObject.ObjectType.Tile:

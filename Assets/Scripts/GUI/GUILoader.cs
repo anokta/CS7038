@@ -76,7 +76,7 @@ public class GUILoader : MonoBehaviour
 
         void Update()
         {
-            progress = Mathf.Min(1.0f, Mathf.Lerp(progress, ((float)count / GUIManager.StyleList.Count), Time.deltaTime * 4));
+            progress = Mathf.Min(1.0f, Mathf.Lerp(progress, ((float)count / (GUIManager.StyleList.Count - 1)), Time.deltaTime * 4));
         }
 
         void OnGUI()

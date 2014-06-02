@@ -1657,6 +1657,7 @@ MonoBehaviour:
   - Level Over
   - Fading
   - Credits
+  - Donation
   - Exiting
   - To Level Over
   - Epilogue
@@ -1702,6 +1703,7 @@ GameObject:
   - 114: {fileID: 1093820744}
   - 114: {fileID: 1093820747}
   - 114: {fileID: 1093820748}
+  - 114: {fileID: 1093820749}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -1786,6 +1788,19 @@ MonoBehaviour:
   buttonSize: .125
   TrinityLogo: {fileID: 2800000, guid: a52582a81db50f54e8c4fc2e236d958c, type: 3}
   LogoBackground: {fileID: 2800000, guid: 43ad2e9f1df4a6e4fbb7041731366fc9, type: 3}
+--- !u!114 &1093820749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093820743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa382832a7dd6e24f9445af5ccad8462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowSize: .800000012
+  buttonSize: .349999994
 --- !u!1 &1133833774
 GameObject:
   m_ObjectHideFlags: 0

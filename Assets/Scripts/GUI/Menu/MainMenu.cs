@@ -132,11 +132,8 @@ public class MainMenu : MonoBehaviour
         // Url
 		if (GUILayout.Button("i", GUIManager.Style.info, GUILayout.Width(Screen.height / 10.0f), GUILayout.Height(Screen.height / 10.0f)))
         {
-			#if UNITY_IPHONE || UNITY_ANDROID
-				Application.OpenURL("http://www.surewash.com/");
-			#else	
-				Application.ExternalEval("window.open('http://www.surewash.com/')");
-			#endif
+            AudioManager.PlaySFX("Level Swipe Reversed");
+            GroupManager.main.activeGroup = GroupManager.main.group["Donation"];
         }
 
         GUILayout.EndHorizontal();

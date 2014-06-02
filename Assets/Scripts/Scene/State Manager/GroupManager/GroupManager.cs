@@ -207,17 +207,24 @@ namespace Grouping
                 }
             }
 
-            public void Add(Component component, GroupItem item)
+			public void Add(Component component, GroupDelegator item)
             {
                 Add(component.gameObject, item);
             }
 
-            public void Add(GameObject gameObject, GroupItem item)
+			public void Add(GameObject gameObject, GroupDelegator item)
             {
-                var obj = gameObject.AddComponent<GroupBehaviour>();
-                obj.groupItem = item;
-                Add(obj);
-                obj.hideFlags = HideFlags.HideInInspector;
+				if (item.Update == GroupDelegator.DefaultAction) {
+					var obj = gameObject.AddComponent<GroupToggleBehaviour>();
+					obj.groupItem = item;
+					Add(obj);
+					obj.hideFlags = HideFlags.HideInInspector;
+				} else {
+					var obj = gameObject.AddComponent<GroupBehaviour>();
+					obj.groupItem = item;
+					Add(obj);
+					obj.hideFlags = HideFlags.HideInInspector;
+				}
             }
 
             public bool Contains(Behaviour script)

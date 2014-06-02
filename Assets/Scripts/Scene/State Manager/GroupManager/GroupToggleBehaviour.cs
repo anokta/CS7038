@@ -3,21 +3,13 @@ using System.Collections;
 
 namespace Grouping
 {
-	public class GroupBehaviour : MonoBehaviour
+	public class GroupToggleBehaviour : MonoBehaviour
 	{
 		public GroupDelegator groupItem { get; set; }
 
 		void Awake()
 		{
 			enabled = false;
-		}
-	
-		// Update is called once per frame
-		void Update()
-		{
-			if (groupItem != null) {
-				groupItem.Update();
-			}
 		}
 
 		void OnEnable()

@@ -13,7 +13,7 @@ public class LevelLoader
 	private GameObject entityContainer;
 	private GameObject wallContainer, shadeContainer, floorContainer,
 	collectibleContainer, pushableContainer, accessibleContainer, 
-	switchableContainer, triggerContainer, overlayContainer;
+	switchableContainer, triggerContainer;
 	private readonly Dictionary<TileType, GameObject> prefabs;
 
 	private struct LevelEntry
@@ -163,9 +163,6 @@ public class LevelLoader
 		
 		triggerContainer = new GameObject("Triggers");
 		triggerContainer.transform.parent = ecTransform;
-
-		overlayContainer = new GameObject("Overlays");
-		overlayContainer.transform.parent = ecTransform;
 
 		var leverGateManager = new LeverGateManager();
 

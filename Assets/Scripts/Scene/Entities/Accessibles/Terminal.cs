@@ -3,8 +3,8 @@
 public class Terminal : Accessible
 {
 	public override bool Enter() {
-		
-		TerminalGUI.instance.Activate(this);
+		//TODO: Enable when there's content
+		//TerminalGUI.instance.Activate(this);
 		return false;
 	}
 }

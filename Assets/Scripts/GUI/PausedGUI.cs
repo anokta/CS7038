@@ -69,12 +69,9 @@ public class PausedGUI : MonoBehaviour
 //            GUI.skin = GUIManager.GetSkin();
 
 			var rect = GUI.Window(1, new Rect(Screen.width / 2.0f - _actualWindowSize / 2.0f, Screen.height / 2.0f - (_actualWindowSize* 0.7f) / 2.0f, _actualWindowSize, _actualWindowSize * 0.7f), DoMenuWindow, "", GUIManager.Style.inGameWindow);
-			//var butRec = new Rect(rect.x - _actualButtonSize * 0.75f, (Screen.height - _actualButtonSize / 2) / 2, _actualButtonSize / 2, _actualButtonSize / 2);
 			float backSize = _actualButtonSize / 2;
-			//var butRec = new Rect((rect.xMax - backSize/2), (rect.y - backSize/2), backSize, backSize);
 			var backRec = new Rect((rect.xMax - backSize*0.75f), (rect.y - backSize * 0.25f), backSize, backSize);
 			GUI.Window(2, backRec, DoBackButton, "", GUIStyle.none);
-			//GUI.FocusWindow(2);
 			GUI.BringWindowToFront(2);
         }
     }

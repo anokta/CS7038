@@ -72,7 +72,8 @@ public class LevelOverGUI : MonoBehaviour
             "The Handurian Flu trembles and fears at your sight. It has no chance against your mighty ways!",
             "You get an A for style, because there is no letter that precedes A in the Latin alphabet.",
 			"If you assembled an army from all the people you have saved, you’d be able to overthrow the government. But you don't do that, because you're a man of science.",
-            "The patient you saved will one day become a charismatic leader who will lead Mankind into victory against the imminent alien invasion."
+			"The patient you saved will one day become a charismatic leader who will lead Mankind into victory against the imminent alien invasion.",
+			"You must be commended for your hands-on approach in dealing with this situation!"
             //"The patient you saved will one day invent a time machine, which he will use to go back in time and save your life, thereby ensuring the streamlined continuity of the universe and preventing a time-paradox from causing it to implode."
         };
 

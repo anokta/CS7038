@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using TiledMax;
 using UnityEngine;
+using System.Linq;
 using Object = UnityEngine.Object;
+using Prime31.Reflection;
 
 public class LevelLoader
 {
@@ -14,6 +16,13 @@ public class LevelLoader
 	switchableContainer, triggerContainer, overlayContainer;
 	private readonly Dictionary<TileType, GameObject> prefabs;
 
+	private struct LevelEntry
+	{
+		public Entity Entity;
+		public GameObject Floor;
+		public GameObject Wall;
+	}
+
 	private GameObject shade;
 	private GameObject overlayFloor;
 	private GameObject overlayWall;
@@ -22,8 +31,8 @@ public class LevelLoader
 
 	public GameObject ExplosionContainer { get; private set; }
 
-	Entity[,] entities;
-	bool[,] walls;
+	//Entity[,] entities;
+	//bool[,] walls;
 
 	/// <summary>
 	/// Sorting order for the floor
@@ -167,11 +176,14 @@ public class LevelLoader
 		List<Lever> levers = new List<Lever>();
 		List<Gate> gates = new List<Gate>();
 
-		entities = new Entity[map.Width, map.Height];
-		walls = new bool[map.Width, map.Height];
+		//entities = new Entity[map.Width, map.Height];
+		//walls = new bool[map.Width, map.Height];
 
 		//Initialized with a seed, so that every time the randomizer produces the same level
 		var random = new System.Random(0);
+
+		LevelEntry[,] data = new LevelEntry[map.Width, map.Height];
+		int playerX = 0; int playerY = 0;
 
 		foreach (var layer in map.Layers) {
 			var tiles = layer.Tiles;
@@ -195,7 +207,7 @@ public class LevelLoader
 
 				var entity = gameObj.GetComponent<Entity>();
 				if (entity != null) {
-					entities[tile.X, map.Height - tile.Y - 1] = entity;
+					data[tile.X, map.Height - tile.Y - 1].Entity = entity;
 				}
 
 				//Calling this adds some variety between levels, but ensures the same level will always look the same
@@ -204,9 +216,11 @@ public class LevelLoader
 				switch (tileType) {
 					case TileType.Player:
 						parent = entityContainer;
-						GameObject ovPrefab = Object.Instantiate(overlayFloor, position, Quaternion.identity) as GameObject;
-						ovPrefab.renderer.sortingOrder = FloorOrder + 1;
-						ovPrefab.transform.parent = overlayContainer.transform;
+						//GameObject ovPrefab = Object.Instantiate(overlayFloor, position, Quaternion.identity) as GameObject;
+						//	ovPrefab.renderer.sortingOrder = FloorOrder + 1;
+						//ovPrefab.transform.parent = overlayContainer.transform;
+						playerX = tile.X;
+						playerY = tile.Y;
 						/*GameObject obj = new GameObject();
 						obj.transform.position = position;
 						obj.transform.parent = overlayContainer.transform;
@@ -346,7 +360,8 @@ public class LevelLoader
 					case TileType.Wall:
 						parent = wallContainer;
 						transform.GetComponent<SpriteRenderer>().sortingOrder = PlaceWall(transform.position.y);
-						walls[tile.X, tile.Y] = true;
+						//walls[tile.X, tile.Y] = true;
+						data[tile.X, tile.Y].Wall = gameObj;
 						break;
 					case TileType.Terminal:
 						parent = accessibleContainer;
@@ -362,6 +377,7 @@ public class LevelLoader
 							blenderer.color.g + (float)(random.NextDouble() * 0.01f) + brighter,
 							blenderer.color.b + (float)(random.NextDouble() * 0.015f) + brighter,
 							blenderer.color.a);
+						data[tile.X, tile.Y].Floor = gameObj;
 						break;
 					default:
 						throw new Exception("Impossibru!");
@@ -375,15 +391,16 @@ public class LevelLoader
 		int y;
 
 		bool breakOff = false;
-		for (x = 0; x < map.Width; ++x) {
+		/*for (x = 0; x < map.Width; ++x) {
 			for (y = 0; y < map.Height; ++y) {
-				if (walls[x, y] && (y == map.Height - 1 || !walls[x, y + 1])) {
-					if (random.Next(0, 8) == 5) {
-						var position = new Vector3(x, map.Height - y - 1, 0);
-						GameObject ovWall = Object.Instantiate(overlayWall) as GameObject;
-						ovWall.transform.parent = overlayContainer.transform;
-						ovWall.transform.position = position + new Vector3(0, wallOverlayOffset, 0);
-						ovWall.renderer.sortingOrder = PlaceWall(position.y) + 1;
+				if (data[x, y].Wall != null && (y == map.Height - 1 || data[x, y + 1].Wall == null)) {
+					if (random.Next(0, 5) == 3) {
+						//var position = new Vector3(x, map.Height - y - 1, 0);
+						//GameObject ovWall = Object.Instantiate(overlayWall) as GameObject;
+						//ovWall.transform.parent = overlayContainer.transform;
+						//ovWall.transform.position = position + new Vector3(0, wallOverlayOffset, 0);
+						//ovWall.renderer.sortingOrder = PlaceWall(position.y) + 1;
+						(data[x, y].Wall.renderer as SpriteRenderer).sprite = AssetHelper.instance.SureWall;
 						breakOff = true;
 						break;
 					}
@@ -392,6 +409,26 @@ public class LevelLoader
 			if (breakOff) {
 				break;
 			}
+		}*/
+		int maxWall = 0;
+		for (x = map.Width-1; x >= 0; --x) {
+			for (y = 0; y < map.Height; ++y) {
+				if (data[x, y].Wall != null) {
+					if (x > maxWall) {
+						maxWall = x;
+					}
+				}
+			}
+		}
+		for (y = map.Height-1; y >= 0; --y) {
+			if (data[maxWall, y].Wall != null) {
+				(data[maxWall, y].Wall.renderer as SpriteRenderer).sprite = AssetHelper.instance.SureWall;
+				break;
+			}
+		}
+
+		if (data[playerX, playerY].Floor != null) {
+			(data[playerX, playerY].Floor.renderer as SpriteRenderer).sprite = AssetHelper.instance.SureFloor;
 		}
 
 		if (type1 + type2 + type3 == 1) {
@@ -430,7 +467,7 @@ public class LevelLoader
 			switch (obj.objectType) {
 				case TmxObject.ObjectType.Tile:
 					GetIndex(obj.position, out x, out y);
-					Entity e = entities[x, y];
+					Entity e = data[x, y].Entity;
 					if (e != null) {
 						Trigger a = new Trigger(obj, settings);
 						e.AddTriggerAction(a);

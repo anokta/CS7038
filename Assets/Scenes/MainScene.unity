@@ -1603,6 +1603,7 @@ GameObject:
   - 114: {fileID: 1017749685}
   - 114: {fileID: 1017749684}
   - 114: {fileID: 1017749686}
+  - 114: {fileID: 1017749687}
   m_Layer: 0
   m_Name: 10 Game Manager
   m_TagString: Untagged
@@ -1659,6 +1660,7 @@ MonoBehaviour:
   - Exiting
   - To Level Over
   - Epilogue
+  - Terminal
   caseSensitive: 0
   main: 1
 --- !u!114 &1017749686
@@ -1672,6 +1674,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 312d5a40e18aa684f838352225adb478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1017749687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1017749682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4206ce20542ec945a517e3272492894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SurewashIcon: {fileID: 21300000, guid: 6d4efe8b82f529149bc0d8cc913e6c34, type: 3}
+  SurewashText: {fileID: 21300000, guid: 33535c89511ab794da3ac487a06a28d5, type: 3}
+  SurewashLogo: {fileID: 21300000, guid: 273ff60792d246a47b9beb36c220f06a, type: 3}
+  SureWall: {fileID: 21300000, guid: e78280188b1ac6e45ad61405b61b53e4, type: 3}
+  SureFloor: {fileID: 21300000, guid: 4b85c1bfe0525c34984d64a1b151ba9f, type: 3}
 --- !u!1 &1093820743
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,6 +3220,7 @@ GameObject:
   - 114: {fileID: 1799188532}
   - 114: {fileID: 1799188533}
   - 114: {fileID: 1799188534}
+  - 114: {fileID: 1799188535}
   m_Layer: 0
   m_Name: 12 GUI Manager
   m_TagString: Untagged
@@ -3347,7 +3366,20 @@ MonoBehaviour:
   progressText: Loading...
   borderSize: .00999999978
   barWidth: .5
-  interval: 5
+--- !u!114 &1799188535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799188525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0059ba8474755e44821281cfc873370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _height: .699999988
+  _width: .600000024
+  _buttonSize: .100000001
 --- !u!1 &1836122830
 GameObject:
   m_ObjectHideFlags: 0

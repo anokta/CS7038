@@ -56,9 +56,9 @@ public class DonationWindow : MonoBehaviour
     void DoMenuWindow(int windowID)
     {
         GUILayout.BeginVertical();
-        GUILayout.Label("Support the game.", GUIManager.Style.overTitle);
+		GUILayout.Label("Support our cause!", GUIManager.Style.overTitle);
 
-        GUILayout.Label("If you enjoyed the game, please help more children by donating to End Polio Now.", GUIManager.Style.overMessage);
+        GUILayout.Label("If you enjoyed the game, please help children by donating to End Polio Now.", GUIManager.Style.overMessage);
         GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();

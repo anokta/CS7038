@@ -55,6 +55,8 @@ public class LaserEmitter : Entity
         direction = Direction.Down;
     }
 
+	//private struct LaserHit
+
     // Use this for initialization
     protected override void Start()
     {
@@ -66,6 +68,12 @@ public class LaserEmitter : Entity
 
         previousEndpoints = new List<Vector2> { transform.position.xy() };
     }
+
+	/*private struct LaserHit
+	{
+		Vector2 hitPosition;
+		int 
+	}*/
 
     // Update is called once per frame
     protected override void Update()

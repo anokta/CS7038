@@ -13,11 +13,13 @@ public class Credits : MonoBehaviour
 
 	public Texture TrinityLogo;
 	public Texture LogoBackground;
-
+	float _sureWashRatio;
     // Use this for initialization
     void Start()
     {
         GroupManager.main.group["Credits"].Add(this);
+		_sureWashRatio = GUIManager.Style.sureButton.normal.background.width /
+		GUIManager.Style.sureButton.normal.background.height;
         ResetSize();
     }
 
@@ -83,7 +85,16 @@ public class Credits : MonoBehaviour
 			GUILayout.BeginHorizontal();
 			{
 				GUILayout.FlexibleSpace();
-				GUILayout.Label("Brought to you by Surewash", GUIManager.Style.creditsMessage);
+				GUILayout.Label("Brought to you by ", GUIManager.Style.creditsMessage);
+				float height = GUIManager.Style.creditsMessage.CalcHeight(new GUIContent("Brought to you by "), Screen.width) * 2;
+				if (GUILayout.Button("", GUIManager.Style.sureButton, GUILayout.Height(height), GUILayout.Width(height * _sureWashRatio))) {
+					string url = "http://www.surewash.com";
+					#if UNITY_IPHONE || UNITY_ANDROID
+					Application.OpenURL(url);
+					#else
+					Application.ExternalEval("window.open('" + url + "')");
+					#endif
+				}
 				GUILayout.FlexibleSpace();
 			}
 			GUILayout.EndHorizontal();

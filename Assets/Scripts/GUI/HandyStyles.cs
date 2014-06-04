@@ -48,6 +48,7 @@ public class HandyStyles
 		rectButton = skin.customStyles[count++];
 		buttonYes = skin.customStyles[count++];
 		buttonNo = skin.customStyles[count++];
+		sureButton = skin.customStyles[count++];
 		debugText = skin.customStyles[count++];
 		creditsName = skin.customStyles[count++];
 		creditsDescription = skin.customStyles[count++];
@@ -89,6 +90,7 @@ public class HandyStyles
 	public readonly GUIStyle rectButton;
 	public readonly GUIStyle buttonYes;
 	public readonly GUIStyle buttonNo;
+	public readonly GUIStyle sureButton;
 	public readonly GUIStyle debugText;
 	public readonly GUIStyle creditsName;
 	public readonly GUIStyle creditsDescription;

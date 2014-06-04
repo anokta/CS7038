@@ -105,7 +105,12 @@ public class HandController : MonoBehaviour
 	int _score;
 	public int score {
 		get { return _score; }
-		private set { _score = value; }
+		private set {
+			#if UNITY_EDITOR
+			Debug.Log("Score: " + value);
+			#endif
+			_score = value;
+		}
 	}
 
 	public void ResetHand(int id) {

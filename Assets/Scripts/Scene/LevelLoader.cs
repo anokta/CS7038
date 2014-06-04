@@ -295,7 +295,7 @@ public class LevelLoader
 						var gate3 = gameObj.GetComponent<Gate>();
 						gate3.LeverGateType = LeverGateType.Type3;
 						gates.Add(gate3);
-						type1 = 3;
+						type3 = 1;
 						leverGateManager.Add(gate3);
 						break;
 
@@ -306,6 +306,8 @@ public class LevelLoader
 						gate1Open.LeverGateType = LeverGateType.Type1;
 						gate1Open.Open = true;
 						leverGateManager.Add(gate1Open);
+						gates.Add(gate1Open);
+						type1 = 1;
 						break;
 					case TileType.Gate2Open:
 					case TileType.Gate2VerticalOpen:
@@ -314,6 +316,8 @@ public class LevelLoader
 						gate2Open.LeverGateType = LeverGateType.Type2;
 						gate2Open.Open = true;
 						leverGateManager.Add(gate2Open);
+						gates.Add(gate2Open);
+						type2 = 1;
 						break;
 					case TileType.Gate3Open:
 					case TileType.Gate3VerticalOpen:
@@ -322,6 +326,8 @@ public class LevelLoader
 						gate3Open.LeverGateType = LeverGateType.Type3;
 						gate3Open.Open = true;
 						leverGateManager.Add(gate3Open);
+						gates.Add(gate3Open);
+						type3 = 1;
 						break;
 
 					case TileType.LaserDown:

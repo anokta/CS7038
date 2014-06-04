@@ -18,6 +18,10 @@ public static class VectorExtensions
 		return new Vector2(vec.y, vec.z);
 	}
 
+	public static bool AlmostEquals(this Vector2 vec2, Vector2 other) {
+		return Vector2.Distance(vec2, other) <= 0.0001f;
+	}
+
 	public static Vector3 xy_(this Vector2 vec, float z)
 	{
 		return new Vector3(vec.x, vec.y, z);
@@ -66,6 +70,10 @@ public static class VectorExtensions
 	public static Vector3 yzTo(this Vector3 vec, float y, float z) {
 		return new Vector3(vec.x, y, z);
 	}
-	
+
+	public static bool AlmostEquals(this Vector3 vec3, Vector3 other) {
+		return Vector3.Distance(vec3, other) <= 0.0001f;
+	}
+
 	//UNDONE: Related Vector4 extension methods
 }

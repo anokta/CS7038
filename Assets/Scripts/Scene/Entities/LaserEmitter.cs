@@ -88,7 +88,7 @@ public class LaserEmitter : Entity
         endpoints.Add(endpoint);
 
         var sortingOrderOffsets = new List<int>();
-        sortingOrderOffsets.Add(-1);
+		sortingOrderOffsets.Add(-1);
 
         var movement = Time.deltaTime * LaserSpeed;
 
@@ -96,7 +96,7 @@ public class LaserEmitter : Entity
         for (var endpointIndex = 1; endpointIndex < 20; endpointIndex++)
         {
             var hit = Physics2D.Raycast(endpoint + directionVector, directionVector, 100);  //TODO: change 100 to max level width
-
+			//Debug.Log(endpointIndex);
             DebugExt.Assert(hit.collider != null);
             if (hit.collider == null)
                 break; // for robustness
@@ -135,13 +135,21 @@ public class LaserEmitter : Entity
 
                 if (diff > 0)
                 {
-                    endpoints.Add(newEndpoint);
+					endpoints.Add(newEndpoint);
+					//sortingOrderOffsets.Add(100);
                     break;
                 }
                 movement += diff;
             }
 
             endpoints.Add(endpoint);
+
+			if (directionVector.y > 0) {
+				//endpoints.Add(previousEndpoint.Value);
+				//sortingOrderOffsets.Add(-1);
+				//endpoints.Add(hit.point);
+				//sortingOrderOffsets.Add(1);
+			}
 
             if (hit.transform.tag == "Player")
             {
@@ -155,9 +163,8 @@ public class LaserEmitter : Entity
                 }
 
                 break;
-            }
-
-            if (hit.collider.name.StartsWith("Mirror"))
+			}
+			else if (hit.collider.name.StartsWith("Mirror"))
             {
                 var mirror = hit.collider.GetComponent<Mirror>();
                 if (mirror != null)
@@ -200,8 +207,8 @@ public class LaserEmitter : Entity
 
             break;
         }
-
-        sortingOrderOffsets.Add(-1);
+			
+		sortingOrderOffsets.Add(-1);
         lineStrip.Draw(endpoints, sortingOrderOffsets, LaserPositionOffset);
 
         previousEndpoints = endpoints;

@@ -265,6 +265,14 @@ public class LevelSelector : MonoBehaviour, IPan
                     }
                 }
             }
+            //LevelManager.instance.Level >= LevelManager.instance.LevelCount
+            if (currentPage == 1 && PlayerPrefs.GetInt("Level", 0) >= LevelManager.instance.LevelCount && GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), ". . . ", GUIManager.skin.button))
+            {
+                ShowEpilogue();
+
+                currentScroll = MainMenu.ScreenScrollValue;
+                targetScroll = 0.0f;
+            }
         }
         GUI.enabled = true;
 
@@ -304,24 +312,50 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void ShowIntro()
     {
-       // DialogueManager.CurrentDialogue = -1;
-		ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
-		if (LevelManager.instance.Level != -1)
+        ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
+        if (LevelManager.instance.Level != -1)
         {
             ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
             {
                 GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
             });
         }
-		else
-		{
-		      GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
-		}
-	}
+        else
+        {
+            GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
+        }
+    }
+    
+    void ShowEpilogue()
+    {
+        ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+            {
+                FindObjectOfType<AudioMenu>().menuMain.volume = 0.0f;
+                FindObjectOfType<AudioMenu>().menuLevel.volume = 0.0f;
+
+                //TODO: If something weird happens, this is why
+                GameWorld.success = false;
+                GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
+
+                ScreenFader.StartFade(Color.black, Color.clear, 1.0f, delegate()
+                {
+                    //TODO: Fade away from dialogue
+                    DialogueManager.DialogueComplete = () =>
+                    {
+                        GroupManager.main.activeGroup = GroupManager.main.group["Epilogue"];
+                    };
+
+                    DialogueManager.ActivateDialogue(
+                        DialogueManager.instance.defaultMap["Epilogue"]);
+
+                });
+            });
+    }
 
     void FadeBackToLevelSelection()
     {
 		//Disclaimer: This is Alper's code. Shame on him.
+        // This indeed is MY code, and I'm PROUD of it. ^Alper
         if (LevelManager.instance.Level != -1)
         {
             ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()

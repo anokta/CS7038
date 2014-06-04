@@ -58,6 +58,11 @@ public class AudioRunning : MonoBehaviour
 
     void LevelOver()
     {
+        if (!over.isPlaying)
+        {
+            over.volume = 0.0f;
+            over.Play();
+        }
         overVolume = volume;
         backgroundVolume = 0.0f;
     }

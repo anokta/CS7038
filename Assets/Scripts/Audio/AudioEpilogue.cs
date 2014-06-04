@@ -35,6 +35,7 @@ public class AudioEpilogue : MonoBehaviour
         {
             epilogue.timeSamples = GetComponent<AudioRunning>().SampleOffset();
             epilogue.Play();
+            epilogue.volume = 0.0f;
             epilogueVolume = volume;
         }
     }

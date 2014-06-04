@@ -28,13 +28,13 @@ public class MainMenu : MonoBehaviour
 
 	void Update()	
     {
-        // TODO: Remove before release
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.O))
         {
             PlayerPrefs.DeleteAll();
             LevelManager.instance.Level = -1;
         }
-        //
+#endif
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) )
         {

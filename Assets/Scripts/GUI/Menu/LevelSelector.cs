@@ -266,7 +266,7 @@ public class LevelSelector : MonoBehaviour, IPan
                 }
             }
             //LevelManager.instance.Level >= LevelManager.instance.LevelCount
-            if (currentPage == 1 && PlayerPrefs.GetInt("Level", 0) >= LevelManager.instance.LevelCount && GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), ". . . ", GUIManager.skin.button))
+			if (currentPage == 1 && PlayerPrefs.GetInt("Level", 0) >= LevelManager.instance.LevelCount && GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), "Epilogue", GUIManager.skin.button))
             {
                 ShowEpilogue();
 

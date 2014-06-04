@@ -48,7 +48,7 @@ public class EpilogueGUI : MonoBehaviour
 		GUILayout.BeginVertical();
 		{
 			GUILayout.Label("Thank you for playing.", GUIManager.Style.overTitle);
-			GUILayout.Label("Stay tuned for more!", GUIManager.Style.overMessage);
+			GUILayout.Label("However, this is not the end. Stay tuned for more!", GUIManager.Style.overMessage);
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
 			{

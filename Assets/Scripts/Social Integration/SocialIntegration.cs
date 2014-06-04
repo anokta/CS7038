@@ -17,6 +17,7 @@ public class SocialIntegration : MonoBehaviour {
 
     protected virtual void OnEnable()
     {
+        popupActive = false;
         popupY = 1.0f;
     }
 

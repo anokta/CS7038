@@ -110,7 +110,10 @@ public class LevelSelector : MonoBehaviour, IPan
     {
 		GameWorld.success = true;
         currentPage = LevelManager.instance.Level / (rowCount * columnCount);
-		pagesCount = PlayerPrefs.GetInt ("Level", 0) / (rowCount * columnCount) + 1;
+		pagesCount = 
+			Mathf.Min(
+				LevelManager.instance.LevelCount / (rowCount * columnCount),
+				PlayerPrefs.GetInt ("Level", 0) / (rowCount * columnCount) + 1);
         
         firstLoad = true;
     }
@@ -254,7 +257,7 @@ public class LevelSelector : MonoBehaviour, IPan
                     else
                     {
 						GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
-						if (LevelManager.instance.LevelCount <= level) {
+						if (LevelManager.instance.LevelCount - 3 <= level) {
 							GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
 						}
                         GUI.DrawTexture(buttonRect, lockTexture);

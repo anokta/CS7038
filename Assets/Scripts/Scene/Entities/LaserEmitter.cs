@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Grouping;
+using System.Security.Permissions;
 
 public class LaserEmitter : Entity
 {
@@ -75,6 +76,10 @@ public class LaserEmitter : Entity
 		int 
 	}*/
 
+	public float off1 = 3;
+	public float off2 = 1.5f;
+
+
     // Update is called once per frame
     protected override void Update()
     {
@@ -146,9 +151,14 @@ public class LaserEmitter : Entity
 
 			if (directionVector.y > 0) {
 				//endpoints.Add(previousEndpoint.Value);
-				//sortingOrderOffsets.Add(-1);
+				//sortingOrderOffsets.Add(-1); 	 	
 				//endpoints.Add(hit.point);
 				//sortingOrderOffsets.Add(1);
+				/*endpoints.Add(hit.transform.position.xy() - new Vector2(0, off1));
+				sortingOrderOffsets.Add(-1);
+				endpoints.Add(hit.transform.position.xy() - new Vector2(0, off2));
+				sortingOrderOffsets.Add(1);*/
+
 			}
 
             if (hit.transform.tag == "Player")

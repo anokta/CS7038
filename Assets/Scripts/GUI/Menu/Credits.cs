@@ -37,7 +37,7 @@ public class Credits : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+            BackToMenu();
         }
     }
 
@@ -111,8 +111,13 @@ public class Credits : MonoBehaviour
 	void DoBackButton(int windowID) {
 		if (GUILayout.Button("Back", GUIManager.Style.xbutton) )
 		{
-			GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+            BackToMenu();
 		}
 	}
 
+    void BackToMenu()
+    {
+        AudioManager.PlaySFX("Level Swipe");
+        GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+    }
 }

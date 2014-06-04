@@ -116,6 +116,7 @@ public class MainMenu : MonoBehaviour
         // Credits
 		if (GUILayout.Button("Credits",GUIManager.Style.credits, GUILayout.Width(GUIManager.ButtonSize()), GUILayout.Height(GUIManager.ButtonSize())))
         {
+            AudioManager.PlaySFX("Level Swipe Reversed");
             GroupManager.main.activeGroup = GroupManager.main.group["Credits"];
         }
 

@@ -438,16 +438,17 @@ public class LevelOverGUI : MonoBehaviour
 	void DoSocialWindow(int windowID) {
 		GUILayout.BeginVertical();
 		{
+            string url = "http://www.surewash.com/handymd"; 
+
 			if (GUILayout.Button("Twitter", GUIManager.Style.twitter, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
 			{
 				if (GameWorld.success) {
 					ShareToTwitter(
 						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
-						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", "http://handymd-game.appspot.com");
+						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", url);
 				} else {
-					ShareToTwitter(twitterMessages[GameWorld.levelOverReason], "http://handymd-game.appspot.com");
+					ShareToTwitter(twitterMessages[GameWorld.levelOverReason], url);
 				}
-				//ShareToTwitter("I, #HandyMD, just cured a patient with clean hands!", "http://handymd-game.appspot.com");
 			}
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Facebook", GUIManager.Style.facebook, GUILayout.Width(_actualSocialSize), GUILayout.Height(_actualSocialSize)))
@@ -455,9 +456,9 @@ public class LevelOverGUI : MonoBehaviour
 				if (GameWorld.success) {
 					ShareToFacebook(
 						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
-						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", "http://handymd-game.appspot.com");
+						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", url);
 				} else {
-					ShareToFacebook(twitterMessages[GameWorld.levelOverReason], "http://handymd-game.appspot.com");
+					ShareToFacebook(twitterMessages[GameWorld.levelOverReason], url);
 				}
 			}
 		}

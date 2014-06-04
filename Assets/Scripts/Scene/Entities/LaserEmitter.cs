@@ -149,18 +149,6 @@ public class LaserEmitter : Entity
 
             endpoints.Add(endpoint);
 
-			if (directionVector.y > 0) {
-				//endpoints.Add(previousEndpoint.Value);
-				//sortingOrderOffsets.Add(-1); 	 	
-				//endpoints.Add(hit.point);
-				//sortingOrderOffsets.Add(1);
-				/*endpoints.Add(hit.transform.position.xy() - new Vector2(0, off1));
-				sortingOrderOffsets.Add(-1);
-				endpoints.Add(hit.transform.position.xy() - new Vector2(0, off2));
-				sortingOrderOffsets.Add(1);*/
-
-			}
-
             if (hit.transform.tag == "Player")
             {
                 var player = hit.transform.GetComponent<PlayerController>();
@@ -218,7 +206,7 @@ public class LaserEmitter : Entity
             break;
         }
 			
-		sortingOrderOffsets.Add(-1);
+		sortingOrderOffsets.Add(-5);
         lineStrip.Draw(endpoints, sortingOrderOffsets, LaserPositionOffset);
 
         previousEndpoints = endpoints;

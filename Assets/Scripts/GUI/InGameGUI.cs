@@ -54,13 +54,14 @@ public class InGameGUI : MonoBehaviour
 			//GUIpie.color = Color.white;
 			Graphics.DrawTexture(drawPos, background, GUIpie);
 
-			GUIpie.SetFloat("Value", HandController.activeHand.Ratio);
-			GUIpie.SetFloat("Clockwise", 0);
-			GUIpie.color = new Color((1 - HandController.activeHand.Ratio) * 0.75f, 0.75f, 0, 0.5f);
-
-			Graphics.DrawTexture(drawPos, circle, GUIpie);
-
-			int value = HandController.activeHand.value;
+			if (HandController.activeHand.Ratio > 0.001f) {
+				GUIpie.SetFloat("Value", HandController.activeHand.Ratio);
+				GUIpie.SetFloat("Clockwise", 0);
+				GUIpie.color = new Color((1 - HandController.activeHand.Ratio) * 0.75f, 0.75f, 0, 0.5f);
+			
+				Graphics.DrawTexture(drawPos, circle, GUIpie);
+			}
+		int value = HandController.activeHand.value;
 
 			//  GUIpie.SetFloat("Value", 1);
 			//  GUIpie.color = Color.white;

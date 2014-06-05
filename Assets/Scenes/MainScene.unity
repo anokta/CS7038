@@ -3232,7 +3232,6 @@ GameObject:
   - 114: {fileID: 1799188529}
   - 114: {fileID: 1799188530}
   - 114: {fileID: 1799188531}
-  - 114: {fileID: 1799188532}
   - 114: {fileID: 1799188533}
   - 114: {fileID: 1799188534}
   - 114: {fileID: 1799188535}
@@ -3340,18 +3339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 19800000, guid: 04c88100bbb1c254c87809bf74578846, type: 2}
---- !u!114 &1799188532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1799188525}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0f5d448ed84234ca0da4508c03f3ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLines: 15
 --- !u!114 &1799188533
 MonoBehaviour:
   m_ObjectHideFlags: 0

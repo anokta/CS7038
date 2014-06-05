@@ -31,7 +31,7 @@ public class AudioEpilogue : MonoBehaviour
 
     void EpilogueStart()
     {
-        if (LevelManager.instance.Level >= LevelManager.instance.LevelCount - 2)
+        if (DialogueManager.ActiveInstance == DialogueManager.instance.defaultMap["Epilogue"])
         {
             epilogue.timeSamples = GetComponent<AudioRunning>().SampleOffset();
             epilogue.Play();

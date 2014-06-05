@@ -68,7 +68,7 @@ PlayerSettings:
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 145a915c127fecc4a89be26ace19b38b
-  iPhoneBundleVersion: 0.9
+  iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
@@ -101,7 +101,7 @@ PlayerSettings:
     type: 3}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
-  AndroidKeystoreName: Deploy/android/surewash.keystore
+  AndroidKeystoreName: C:/Users/anokta/Documents/GitHub/CS7038/Deploy/android/surewash.keystore
   AndroidKeyaliasName: surewash
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:

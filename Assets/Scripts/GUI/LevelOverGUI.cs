@@ -445,7 +445,7 @@ public class LevelOverGUI : MonoBehaviour
 				if (GameWorld.success) {
 					ShareToTwitter(
 						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
-						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", url);
+						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in @HandyMD!", url);
 				} else {
 					ShareToTwitter(twitterMessages[GameWorld.levelOverReason], url);
 				}

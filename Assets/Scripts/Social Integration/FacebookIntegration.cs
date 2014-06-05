@@ -67,7 +67,6 @@ public class FacebookIntegration : SocialIntegration
 			{
 				{ "link", link },
 				{ "name", "Handy MD" },
-				{ "picture", "https://pbs.twimg.com/profile_images/443709766687150080/6EZbY-5c_400x400.png" },
 				{ "caption", caption },
 				{ "description", "A 2D puzzle/platform game for mobile devices to promote the importance of hand hygiene, by Surewash" }
 			};

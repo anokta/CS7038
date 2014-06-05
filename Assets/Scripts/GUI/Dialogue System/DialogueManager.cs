@@ -110,7 +110,7 @@ public class DialogueManager : MonoBehaviour
 		entries = new List<DialogueEntry>() {
 			new DialogueEntry(authors[0], "You are a true hero! You saved many lives and prevented the Handurian Flu from spreading further.."),
 			new DialogueEntry(authors[0], "Generation after generation will be grateful to what you have done. However, it is not over yet: There are still too many people who don't know why and how they should wash their hands!"),
-			new DialogueEntry(authors[0], "The Flu preys upon those who neglect correct sanitary practises. Therefore, be prepared to be called again soon..."),
+			new DialogueEntry(authors[0], "The Flu preys upon those who neglect correct sanitary practises. Therefore, be prepared to be called again soon."),
 		};
 
 		defMap.data["Epilogue"] = new DialogueInstance(entries, audioOutput);

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, IPan
     public Vector2 movement;
     private Vector2 nextMovement;
 
-    public Vector2 NextDirection { get { return nextMovement; } }
+    public Vector2 NextDirection { get { return movement; } }
 
     public bool playerMoving;
     private Transform objectPushing;
@@ -118,14 +118,14 @@ public class PlayerController : MonoBehaviour, IPan
                 float y = args.delta.y;
 
                 joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
-                if (Math.Abs(x - y) >= 2.5f)
+                if (Math.Abs(x - y) >= 4.0f)
                 {
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
                     joystick.CurrentDirection = nextMovement;
 
                     playerMoving = true;
                 }
-
+                
                 if (nextMovement != Vector2.zero && (canMove || nextMovement != movement) && !Moving && CanMove())
                 {
                     timer.Reset();
@@ -144,10 +144,12 @@ public class PlayerController : MonoBehaviour, IPan
                 canMove = true;
                 playerMoving = false;
                 joystick.IsHeld = false;
+                nextMovement = Vector3.zero;
                 break;
             default:
                 playerMoving = false;
                 joystick.IsHeld = false;
+                nextMovement = Vector3.zero;
                 break;
         }
     }

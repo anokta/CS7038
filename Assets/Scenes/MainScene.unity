@@ -663,7 +663,7 @@ MonoBehaviour:
   CollisionMethod2D: 0
   CustomFunction: {fileID: 0}
   CustomFunction2D: {fileID: 0}
-  longTime: .100000001
+  longTime: .150000006
   flingTime: .25
   interceptor: {fileID: 1093820746}
   defaultObject: {fileID: 0}
@@ -673,7 +673,7 @@ MonoBehaviour:
   minDepth: -Infinity
   circleRadius: 16
   sphereRadius: 1
-  moveThreshold: 3
+  moveThreshold: 4.5
 --- !u!4 &290804695
 Transform:
   m_ObjectHideFlags: 0

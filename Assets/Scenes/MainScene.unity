@@ -673,7 +673,7 @@ MonoBehaviour:
   minDepth: -Infinity
   circleRadius: 16
   sphereRadius: 1
-  moveThreshold: 4.5
+  moveThreshold: 4.25
 --- !u!4 &290804695
 Transform:
   m_ObjectHideFlags: 0

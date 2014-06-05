@@ -24,10 +24,10 @@ public class LevelLoader
 	}
 
 	private GameObject shade;
-	private GameObject overlayFloor;
+	//private GameObject overlayFloor;
 	private GameObject overlayWall;
 
-	float wallOverlayOffset = -0.34f;
+	//float wallOverlayOffset = -0.34f;
 
 	public GameObject ExplosionContainer { get; private set; }
 
@@ -115,8 +115,8 @@ public class LevelLoader
 
 		prefabs[TileType.Terminal] = Resources.Load<GameObject>("Terminal");
 
-		overlayFloor = Resources.Load<GameObject>("Overlays/Floor Overlay");
-		overlayWall = Resources.Load<GameObject>("Overlays/Wall Overlay");
+		//overlayFloor = Resources.Load<GameObject>("Overlays/Floor Overlay");
+		//overlayWall = Resources.Load<GameObject>("Overlays/Wall Overlay");
 
 		//This shouldn't be a TileType object
 		shade = Resources.Load<GameObject>("Shade");
@@ -393,7 +393,7 @@ public class LevelLoader
 		int x;
 		int y;
 
-		bool breakOff = false;
+		//bool breakOff = false;
 		/*for (x = 0; x < map.Width; ++x) {
 			for (y = 0; y < map.Height; ++y) {
 				if (data[x, y].Wall != null && (y == map.Height - 1 || data[x, y + 1].Wall == null)) {

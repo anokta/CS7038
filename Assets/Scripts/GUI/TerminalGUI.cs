@@ -17,10 +17,10 @@ public class TerminalGUI : MonoBehaviour {
 	float _acWidth;
 	float _acButtonSize;
 
-	Terminal current;
+	//Terminal current;
 
 	public void Activate(Terminal terminal) {
-		current = terminal;
+		//current = terminal;
 		GroupManager.main.activeGroup = GroupManager.main.group["Terminal"];
 		Resize();
 	}

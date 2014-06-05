@@ -9,17 +9,19 @@ public class LevelSelector : MonoBehaviour, IPan
     public int columnCount = 4;
     public int rowCount = 3;
 
-	private float _actualButtonSize;
-	private float _actualElemSize;
-	public float buttonSize = 0.2f;
-	public float elemSize = 0.2f;
-	public float levelSize;
+    private float _actualButtonSize;
+    private float _actualElemSize;
+    public float buttonSize = 0.2f;
+    public float elemSize = 0.2f;
+    public float levelSize;
 
-	public Texture checkTexture, lockTexture, starFullTexture, starEmptyTexture;
+    public Texture checkTexture, lockTexture, starFullTexture, starEmptyTexture;
 
     int pagesCount;
     int currentPage;
     bool firstLoad;
+    int levelCount;
+    int playerLevel;
 
     float currentScroll, targetScroll;
 
@@ -67,32 +69,33 @@ public class LevelSelector : MonoBehaviour, IPan
 
     #endregion
 
-	Rect[] _stars;
-	float _starSize;
-	float _starBorder;
-	public float starBorder = 0.1f;
+    Rect[] _stars;
+    float _starSize;
+    float _starBorder;
+    public float starBorder = 0.1f;
 
-	void ResetSize() {
-		_actualButtonSize = buttonSize * Screen.height;
-		_actualElemSize = elemSize * Screen.height;
-		//_starSize = _actualButtonSize / 3;
-		_starBorder = starBorder * _actualButtonSize;
-		_starSize = (_actualButtonSize - (_starBorder * 2)) / 3;
-		_stars = new Rect[3];
+    void ResetSize()
+    {
+        _actualButtonSize = buttonSize * Screen.height;
+        _actualElemSize = elemSize * Screen.height;
+        //_starSize = _actualButtonSize / 3;
+        _starBorder = starBorder * _actualButtonSize;
+        _starSize = (_actualButtonSize - (_starBorder * 2)) / 3;
+        _stars = new Rect[3];
 
-		_stars[0] = new Rect(_starBorder, _actualButtonSize-_starSize-_starBorder*2, _starSize, _starSize);
-		_stars[1] = _stars[0].Add(_starSize, 0, 0, 0);
-		_stars[2] = _stars[1].Add(_starSize, 0, 0, 0);
-		_stars[1].y += _starBorder * 0.5f;
-	}
+        _stars[0] = new Rect(_starBorder, _actualButtonSize - _starSize - _starBorder * 2, _starSize, _starSize);
+        _stars[1] = _stars[0].Add(_starSize, 0, 0, 0);
+        _stars[2] = _stars[1].Add(_starSize, 0, 0, 0);
+        _stars[1].y += _starBorder * 0.5f;
+    }
 
     void Start()
     {
         GroupManager.main.group["Level Select"].Add(this);
-		GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, ResetSize, null));
+        GroupManager.main.group["Level Select"].Add(this, new GroupDelegator(null, ResetSize, null));
         GroupManager.main.group["Intro"].Add(this, new GroupDelegator(null, FadeBackToLevelSelection, null));
-		//_originalButtonSize = buttonSize;
-		ResetSize();
+        //_originalButtonSize = buttonSize;
+        ResetSize();
 
         currentX = 0;
         targetX = 0;
@@ -108,21 +111,24 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void OnEnable()
     {
-		GameWorld.success = true;
+        GameWorld.success = true;
         currentPage = LevelManager.instance.Level / (rowCount * columnCount);
-		pagesCount = 
-			Mathf.Min(
-				LevelManager.instance.LevelCount / (rowCount * columnCount),
-				PlayerPrefs.GetInt ("Level", 0) / (rowCount * columnCount) + 1);
-        
+        levelCount = LevelManager.instance.LevelCount;
+        playerLevel = PlayerPrefs.GetInt("Level", 0);
+        pagesCount =
+            Mathf.Min(
+                levelCount / (rowCount * columnCount),
+                playerLevel / (rowCount * columnCount) + 1);
+
         firstLoad = true;
     }
 
     void Update()
     {
-		if (GUIManager.ScreenResized) {
-			ResetSize();
-		}
+        if (GUIManager.ScreenResized)
+        {
+            ResetSize();
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
         {
@@ -133,7 +139,7 @@ public class LevelSelector : MonoBehaviour, IPan
         {
             ToNextPage();
         }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) 
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             ToPreviousPage();
         }
@@ -148,9 +154,10 @@ public class LevelSelector : MonoBehaviour, IPan
             {
                 if (canDrag) ToPreviousPage();
             }
-			else if (System.Math.Abs(targetX) < 0.0001f) {
-				canDrag = true;
-			}
+            else if (System.Math.Abs(targetX) < 0.0001f)
+            {
+                canDrag = true;
+            }
         }
 
         currentX = Mathf.Lerp(currentX, targetX, Time.deltaTime * 6.0f);
@@ -158,13 +165,14 @@ public class LevelSelector : MonoBehaviour, IPan
 
         if (Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.05f)
         {
-			if (System.Math.Abs(targetScroll - MainMenu.ScreenScrollValue) < 0.0001f) {
-				GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
+            if (System.Math.Abs(targetScroll - MainMenu.ScreenScrollValue) < 0.0001f)
+            {
+                GroupManager.main.activeGroup = GroupManager.main.group["Main Menu"];
 
-				targetScroll = 0.0f;
-			}
+                targetScroll = 0.0f;
+            }
         }
-		else if (System.Math.Abs(targetScroll) < 0.0001f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
+        else if (System.Math.Abs(targetScroll) < 0.0001f && Mathf.Abs(targetScroll - currentScroll) < MainMenu.ScreenScrollValue * 0.1f)
         {
             currentX = currentScroll;
             firstLoad = false;
@@ -175,49 +183,43 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void OnGUI()
     {
-		//return;
-
-		Vector3 position = new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f);
-		GUI.matrix = Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
-
-//        GUI.skin = GUIManager.GetSkin();
+        Vector3 position = new Vector3((currentScroll < MainMenu.ScreenScrollValue * 0.05f) ? currentX : currentScroll, 0.0f, 0.0f);
+        GUI.matrix = Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
 
         // Levels
-		float offsetX = 0.5f * Screen.width - columnCount * _actualButtonSize / 2.0f;
-		float offsetY = 0.5f * Screen.height - rowCount * _actualButtonSize / 2.0f;
-		//float starOffset = 0.05f * Screen.height;
-		float starOffset = 0;
+        float offsetX = 0.5f * Screen.width - columnCount * _actualButtonSize / 2.0f;
+        float offsetY = 0.5f * Screen.height - rowCount * _actualButtonSize / 2.0f;
+        //float starOffset = 0.05f * Screen.height;
+        float starOffset = 0;
 
-        int levelProgress = Mathf.Min(LevelManager.instance.LevelCount - 1, PlayerPrefs.GetInt("Level", 0));
+        int levelProgress = Mathf.Min(levelCount - 1, playerLevel);
 
+        // intro button
+        if (currentPage == 0 && 
+            GUI.Button(new Rect(offsetX - _actualButtonSize, offsetY, _actualButtonSize, _actualButtonSize), "Intro", GUIManager.skin.button))
+        {
+            ShowIntro();
 
+            currentScroll = MainMenu.ScreenScrollValue;
+            targetScroll = 0.0f;
+        }
+
+        // level buttons
         for (int p = (targetScroll == 0.0f && !firstLoad) ? 0 : currentPage; p < pagesCount; ++p)
         {
             int pageStart = p * columnCount * rowCount;
-
-			if (pageStart == 0 && GUI.Button(new Rect((p - currentPage) * Screen.width + offsetX - _actualButtonSize, offsetY, _actualButtonSize, _actualButtonSize), "Intro", GUIManager.skin.button))
-            {
-                ShowIntro();
-
-                currentScroll = MainMenu.ScreenScrollValue;
-                targetScroll = 0.0f;
-            }
 
             for (int i = 0; i < rowCount; ++i)
             {
                 for (int j = 0; j < columnCount; ++j)
                 {
-					Rect buttonRect = new Rect(
-						offsetX + (p - currentPage) * Screen.width + j * _actualButtonSize,
-						offsetY + i * (_actualButtonSize+starOffset), _actualButtonSize, _actualButtonSize);
-                   // bool checkmark = false;
+                    Rect buttonRect = new Rect(
+                        offsetX + (p - currentPage) * Screen.width + j * _actualButtonSize,
+                        offsetY + i * (_actualButtonSize + starOffset), _actualButtonSize, _actualButtonSize);
+
                     int level = pageStart + i * columnCount + j;
 
-                    if (level < levelProgress)
-                    {
-                     //   checkmark = true;
-                    }
-                    else if (level > levelProgress)
+                    if (level > levelProgress)
                     {
                         GUI.enabled = false;
                     }
@@ -225,64 +227,67 @@ public class LevelSelector : MonoBehaviour, IPan
 
                     if (GUI.enabled)
                     {
-						//if (Mathf.Abs(position.x) <= 0.2f) {
-							if (GUI.Button(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton)) {
-								LevelManager.instance.Level = level - 1;
+                        if (GUI.Button(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton))
+                        {
+                            LevelManager.instance.Level = level - 1;
 
-								ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
+                            ScreenFader.QueueEvent(BackgroundRenderer.instance.SetTileBackground);
 
-								ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate() {
-									GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
-								});
+                            ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
+                            {
+                                GroupManager.main.activeGroup = GroupManager.main.group["Level Start"];
+                            });
 
-								currentScroll = MainMenu.ScreenScrollValue;
-								targetScroll = 0.0f;
-								currentPage = 0;
-							}
-						//} else {
-						//	GUI.Label(buttonRect, (level + 1).ToString(), GUIManager.Style.rectButton);
-						//}
-						if (LevelManager.instance.scores[level] > 0)
-						{
-							//GUI.DrawTexture(buttonRect, checkTexture);
-							int si = 0;
-							for (; si < LevelManager.instance.scores[level]; ++si) {
-								GUI.DrawTexture(_stars[si].Add(buttonRect.x, buttonRect.y, 0, 0), starFullTexture);
-							}
-							for (; si < 3; ++si) {
-								GUI.DrawTexture(_stars[si].Add(buttonRect.x, buttonRect.y, 0, 0), starEmptyTexture);
-							}
+                            currentScroll = MainMenu.ScreenScrollValue;
+                            targetScroll = 0.0f;
+                            currentPage = 0;
+                        }
+
+                        if (LevelManager.instance.scores[level] > 0)
+                        {
+                            int si = 0;
+                            for (; si < LevelManager.instance.scores[level]; ++si)
+                            {
+                                GUI.DrawTexture(_stars[si].Add(buttonRect.x, buttonRect.y, 0, 0), starFullTexture);
+                            }
+                            for (; si < 3; ++si)
+                            {
+                                GUI.DrawTexture(_stars[si].Add(buttonRect.x, buttonRect.y, 0, 0), starEmptyTexture);
+                            }
                         }
                     }
                     else
                     {
-						GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
-						if (LevelManager.instance.LevelCount - 3 <= level) {
-							GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
-						}
+                        GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
+                        if (levelCount - 3 <= level)
+                        {
+                            GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
+                        }
                         GUI.DrawTexture(buttonRect, lockTexture);
-						GUI.color = Color.white;
+                        GUI.color = Color.white;
                     }
                 }
-            }
-            //LevelManager.instance.Level >= LevelManager.instance.LevelCount
-			if (currentPage == 1 && PlayerPrefs.GetInt("Level", 0) >= LevelManager.instance.LevelCount && GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), "Epilogue", GUIManager.skin.button))
-            {
-                ShowEpilogue();
-
-                currentScroll = MainMenu.ScreenScrollValue;
-                targetScroll = 0.0f;
             }
         }
         GUI.enabled = true;
 
+        // epilogue button
+        if (currentPage == 1 && playerLevel >= levelCount && 
+            GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), "Epilogue", GUIManager.skin.button))
+        {
+            ShowEpilogue();
+
+            currentScroll = MainMenu.ScreenScrollValue;
+            targetScroll = 0.0f;
+        }
+
         GUI.matrix = Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
         // Back
-		if (GUI.Button(
-			new Rect(GUIManager.OffsetX() * 2.0f,
-				Screen.height - _actualButtonSize / 2 - GUIManager.OffsetY() * 2.0f, 
-				_actualButtonSize / 2, _actualButtonSize / 2), "Back", GUIManager.Style.back))
+        if (GUI.Button(
+            new Rect(GUIManager.OffsetX() * 2.0f,
+                Screen.height - _actualButtonSize / 2 - GUIManager.OffsetY() * 2.0f,
+                _actualButtonSize / 2, _actualButtonSize / 2), "Back", GUIManager.Style.back))
         {
             targetScroll = MainMenu.ScreenScrollValue;
             AudioManager.PlaySFX("Menu Prev");
@@ -290,25 +295,26 @@ public class LevelSelector : MonoBehaviour, IPan
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, -currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
-		if (LevelManager.TotalScore > 0) {
-			GUI.Label(
-				new Rect(0, Screen.height * 0.05f, Screen.width, 0),
-				"Score: " + LevelManager.TotalScore, GUIManager.Style.scores);
-		}
+        if (LevelManager.TotalScore > 0)
+        {
+            GUI.Label(
+                new Rect(0, Screen.height * 0.05f, Screen.width, 0),
+                "Score: " + LevelManager.TotalScore, GUIManager.Style.scores);
+        }
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
-		if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - _actualElemSize, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), '\u25C0'.ToString(), GUIManager.Style.overMessage))
+        if ((currentPage > 0) && GUI.Button(new Rect(Screen.width / 2.0f - _actualElemSize, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), '\u25C0'.ToString(), GUIManager.Style.overMessage))
         {
             ToPreviousPage();
         }
-		if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), '\u25B6'.ToString(), GUIManager.Style.overMessage)) {
-			ToNextPage();
-		}
+        if ((currentPage < pagesCount - 1) && GUI.Button(new Rect(Screen.width / 2.0f, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), '\u25B6'.ToString(), GUIManager.Style.overMessage))
+        {
+            ToNextPage();
+        }
 
-		//GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
-		GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
-	}
+        GUI.Label(new Rect(Screen.width / 2.0f - _actualElemSize / 2, Screen.height - _actualElemSize / 2 - GUIManager.OffsetY() * 2.0f, _actualElemSize, _actualElemSize / 2), (currentPage + 1) + " / " + pagesCount, GUIManager.Style.overMessage);
+    }
 
     void ShowIntro()
     {
@@ -325,7 +331,7 @@ public class LevelSelector : MonoBehaviour, IPan
             GroupManager.main.activeGroup = GroupManager.main.group["Intro"];
         }
     }
-    
+
     void ShowEpilogue()
     {
         ScreenFader.StartFade(Color.clear, Color.black, 1.0f, delegate()
@@ -354,7 +360,7 @@ public class LevelSelector : MonoBehaviour, IPan
 
     void FadeBackToLevelSelection()
     {
-		//Disclaimer: This is Alper's code. Shame on him.
+        //Disclaimer: This is Alper's code. Shame on him.
         // This indeed is MY code, and I'm PROUD of it. ^Alper
         if (LevelManager.instance.Level != -1)
         {
@@ -368,7 +374,7 @@ public class LevelSelector : MonoBehaviour, IPan
                         {
                             DialogueManager.DialogueComplete = delegate()
                             {
-								ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
+                                ScreenFader.QueueEvent(BackgroundRenderer.instance.SetSunBackground);
                                 ScreenFader.StartFade(Color.clear, Color.black, 0.75f, delegate()
                                 {
                                     ScreenFader.StartFade(Color.black, Color.clear, 0.5f, delegate()
@@ -380,15 +386,15 @@ public class LevelSelector : MonoBehaviour, IPan
                                 });
                             };
 
-							DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro2"]);
-							//Debug.Log("Dia1");
+                            DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro2"]);
+                            //Debug.Log("Dia1");
                             //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
                         });
                     });
                 };
-				//Debug.Log("Dia2");
+                //Debug.Log("Dia2");
                 //GroupManager.main.activeGroup = GroupManager.main.group["Dialogue"];
-				DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro1"]);
+                DialogueManager.ActivateDialogue(DialogueManager.instance.defaultMap["Intro1"]);
             });
         }
     }

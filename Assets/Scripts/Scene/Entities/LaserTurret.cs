@@ -53,11 +53,11 @@ public class LaserTurret : Entity
 
 	struct LaserHit {
 		public LaserHit(Vector2 position, int order) {
-			this.position = position;
-			this.order = order;
+			//this.position = position;
+			//this.order = order;
 		}
-		Vector2 position;
-		int order;
+		//Vector2 position;
+		//int order;
 	}
 
 	readonly Vector2 height = new Vector2(0, 0.3f);
@@ -69,10 +69,10 @@ public class LaserTurret : Entity
 		hits[hitSize++] = hit;
 	}
 
-	void Update() {
+	protected override void Update() {
 		var dirVec = direction.ToVector2();
 		var lastPos = entity.position.xy();
-		var currentPoint = lastPos;
+		//var currentPoint = lastPos;
 		hitSize = 0;
 
 		AddHit(new LaserHit(lastPos, spriteRenderer.sortingOrder - 1));

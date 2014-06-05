@@ -31,7 +31,7 @@ public class LevelOverGUI : MonoBehaviour
     string overTitle, overMessage;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overTitleSet;
     private static Dictionary<GameWorld.LevelOverReason, string[]> overMessageSet;
-	private static Dictionary<GameWorld.LevelOverReason, string> twitterMessages;
+	private static Dictionary<GameWorld.LevelOverReason, string> facebookMessages, twitterMessages;
 
 	public LevelOverGUI() {
 		starTimer = new Timer(
@@ -171,15 +171,26 @@ public class LevelOverGUI : MonoBehaviour
 			"Your M.D. status has been revoked."
 		};
 
-		twitterMessages = new Dictionary<GameWorld.LevelOverReason, string>() {
-			{LOR.ExplosionKilledPatient, "I blew up a patient in #HandyMD!"},
-			{LOR.ExplosionKilledPlayer, "I got blown up in #HandyMD!"},
-			{LOR.LaserKilledPatient, "I disintegrated a patient with a laser in #HandyMD!"},
+        facebookMessages = new Dictionary<GameWorld.LevelOverReason, string>() {
+			{LOR.ExplosionKilledPatient, "I just blew up a patient in #HandyMD!"},
+			{LOR.ExplosionKilledPlayer, "I just got blown up in #HandyMD!"},
+			{LOR.LaserKilledPatient, "I just disintegrated a patient with a laser in #HandyMD!"},
 			{LOR.LaserKilledPlayer, "I was disintegrated by a laser in #HandyMD!"},
 			{LOR.PatientInfected, "I am a horrible doctor, because I just treated a patient with filthy hands in #HandyMD!"},
-			{LOR.PlayerInfected, "I died in #HandyMD because I neglected to wash my hands!"},
+			{LOR.PlayerInfected, "I died painfully in #HandyMD because I neglected to wash my hands!"},
 			{LOR.Squashed, "I was squashed by a heavy door in #HandyMD!"},
 			//{LOR.Success, "I successfully finished a level in #HandyMD!},
+		};
+
+        twitterMessages = new Dictionary<GameWorld.LevelOverReason, string>() {
+			{LOR.ExplosionKilledPatient, "I just blew up a patient in @HandyMD!"},
+			{LOR.ExplosionKilledPlayer, "I just got blown up in @HandyMD!"},
+			{LOR.LaserKilledPatient, "I just disintegrated a patient with a laser in @HandyMD!"},
+			{LOR.LaserKilledPlayer, "I was disintegrated by a laser in @HandyMD!"},
+			{LOR.PatientInfected, "I am a horrible doctor, because I just treated a patient with filthy hands in @HandyMD!"},
+			{LOR.PlayerInfected, "I died painfully in @HandyMD because I neglected to wash my hands!"},
+			{LOR.Squashed, "I was squashed by a heavy door in @HandyMD!"},
+			//{LOR.Success, "I successfully finished a level in @HandyMD!},
 		};
 
 		overTitleSet[GameWorld.LevelOverReason.Undefined] = new[]
@@ -444,7 +455,7 @@ public class LevelOverGUI : MonoBehaviour
 			{
 				if (GameWorld.success) {
 					ShareToTwitter(
-						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
+						"I just finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
 						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in @HandyMD!", url);
 				} else {
 					ShareToTwitter(twitterMessages[GameWorld.levelOverReason], url);
@@ -455,10 +466,10 @@ public class LevelOverGUI : MonoBehaviour
 			{
 				if (GameWorld.success) {
 					ShareToFacebook(
-						"I finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
+						"I just finished level " + (LevelManager.instance.Level + 1).ToString() + " with " +
 						currentScore.ToString() + " star" + ((currentScore == 1) ? "" : "s") + " in #HandyMD!", url);
 				} else {
-					ShareToFacebook(twitterMessages[GameWorld.levelOverReason], url);
+					ShareToFacebook(facebookMessages[GameWorld.levelOverReason], url);
 				}
 			}
 		}

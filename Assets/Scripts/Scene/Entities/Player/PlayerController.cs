@@ -118,10 +118,10 @@ public class PlayerController : MonoBehaviour, IPan
                 float y = args.delta.y;
 
                 joystick.TargetPosition = new Vector2(args.position.x, Screen.height - args.position.y);
-                if (Math.Abs(x - y) >= 4.0f)
+                if (Math.Abs(x - y) >= 3.5f)
                 {
                     nextMovement = Math.Abs(x) > Math.Abs(y) ? new Vector2(x < 0 ? 1 : -1, 0) : new Vector2(0, y < 0 ? 1 : -1);
-                    joystick.CurrentDirection = nextMovement;
+                    joystick.CurrentDirection = nextMovement; 
 
                     playerMoving = true;
                 }

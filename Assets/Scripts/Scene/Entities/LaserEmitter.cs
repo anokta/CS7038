@@ -3,6 +3,7 @@ using UnityEngine;
 using Grouping;
 using System.Security.Permissions;
 using UnityEditor;
+using System;
 
 public class LaserEmitter : Entity
 {
@@ -50,7 +51,7 @@ public class LaserEmitter : Entity
 
     private static readonly Vector2 LaserPositionOffset = new Vector2(0, 0.3f);
 	public float LaserSpeed = 40;
-    private List<Vector2> previousEndpoints;
+	//private List<Vector2> previousEndpoints;
 
     public LaserEmitter()
     {
@@ -68,7 +69,8 @@ public class LaserEmitter : Entity
 
         GroupManager.main.group["To Level Over"].Add(this);
 
-        previousEndpoints = new List<Vector2> { transform.position.xy() };
+		//previousEndpoints = new List<Vector2> { transform.position.xy() };
+		AddPrev(transform.position.xy());
     }
 		
 	//Hardcoded values for vertical laser facing upwards
@@ -78,6 +80,43 @@ public class LaserEmitter : Entity
 	private readonly static float leverOffset = 0.13f;
 	private readonly static float trolleyOffset = -0.07f;
 	private readonly static float otherOffset = 0;
+	private readonly static float turretOffset = 0.24f;
+
+	private const int MaxEndpoints = 20;
+	int endpointSize = 0;
+	int offsetSize = 0;
+	int prevSize = 0;
+
+	private void AddPoint(Vector2 point) {
+		endpoints[endpointSize++] = point;
+	}
+
+	private void AddOffset(int offset) {
+		offsets[offsetSize++] = offset;
+	}
+
+	private void AddPrev(Vector2 point) {
+		prevPoints[prevSize++] = point;
+	}
+
+	private void SwapPoints() {
+		var temp = endpoints;
+		var tempSize = endpointSize;
+		endpoints = prevPoints;
+		endpointSize = prevSize;
+		prevPoints = temp;
+		prevSize = tempSize;
+	}
+
+	/// <summary>
+	/// The endpoints in the current update
+	/// </summary>
+	Vector2[] endpoints = new Vector2[MaxEndpoints];
+	int[] offsets = new int[MaxEndpoints];
+	/// <summary>
+	/// The endpoints from the previous update
+	/// </summary>
+	Vector2[] prevPoints = new Vector2[MaxEndpoints];
 
     // Update is called once per frame
     protected override void Update()
@@ -88,22 +127,25 @@ public class LaserEmitter : Entity
         var directionVector = currDirection.ToVector2();
         var endpoint = transform.position.xy();
 
-        var endpoints = new List<Vector2>();
-        endpoints.Add(endpoint);
-
-        var sortingOrderOffsets = new List<int>();
-		sortingOrderOffsets.Add(-1);
+		//Swap prev points with current endpoints
+		SwapPoints();
+		//Clear the endpoint and offset list
+		endpointSize = 0;
+		offsetSize = 0;
+		//Init
+		AddPoint(endpoint);
+		AddOffset(-1);
 
         var movement = Time.deltaTime * LaserSpeed;
 
-		var gorillaTape = new Vector2();
+		bool gorillaTape = true;
 
 		bool isMirror = false;
 
         // Set max iteration 20 to avoid infinite reflection
-        for (var endpointIndex = 1; endpointIndex < 20; endpointIndex++)
+		for (var endpointIndex = 1; endpointIndex < MaxEndpoints; endpointIndex++)
         {
-            var hit = Physics2D.Raycast(endpoint + directionVector, directionVector, 100);  //TODO: change 100 to max level width
+			var hit = Physics2D.Raycast(endpoint + directionVector, directionVector, 100);  //TODO: change 100 to max level width
 			//Debug.Log(endpointIndex);
             DebugExt.Assert(hit.collider != null);
             if (hit.collider == null)
@@ -112,11 +154,16 @@ public class LaserEmitter : Entity
 			string hitName = hit.collider.name;
 			isMirror = hitName.StartsWith("Mirror");
 
+			var tPos = hit.collider.transform.position;
+
             if (directionVector.x.IsZero())
             {
+				//Adjust the hit point when hitting from below
 				if (directionVector.y > 0 && !isMirror) {
-					endpoint.y = hit.point.y;
+
 					float offset = 0;
+					float dist;
+
 					if (hitName.StartsWith("Wall")) {
 						offset = wallOffset;
 					} else if (hitName.StartsWith("Gate")) {
@@ -127,10 +174,22 @@ public class LaserEmitter : Entity
 						offset = leverOffset;
 					} else if (hitName.StartsWith("Trolley")) {
 						offset = trolleyOffset;
+					} else if (hitName.StartsWith("LaserEmitter")) {
+						if (hit.collider.gameObject.GetComponent<LaserEmitter>().direction != Direction.Down) {
+							offset = turretOffset;
+						}
 					} else {
 						offset = otherOffset;
 					}
-					endpoint.y += offset;
+
+					//Fixes issue for when object is too close to the laser
+					//This assumes the object's collider is 1 unit high
+					if ((dist = tPos.y - endpoint.y) < 1.5f) {
+						offset -= 1.5f - dist;
+					}
+
+					endpoint.y = hit.point.y + offset;
+
 					//gorillaTape = hit.point;
 				} else {
 					endpoint.y = hit.collider.transform.position.y;
@@ -144,14 +203,14 @@ public class LaserEmitter : Entity
 
             Vector2? previousEndpoint = null;
 
-            if (endpointIndex >= previousEndpoints.Count)
+			if (endpointIndex >= prevSize)
             {
                 previousEndpoint = endpoints[endpointIndex - 1];
             }
-            else if (!endpoint.Equals(previousEndpoints[endpointIndex]))
+			else if (!endpoint.Equals(prevPoints[endpointIndex]))
             {
-                previousEndpoint = previousEndpoints[endpointIndex];
-                var previousDirection = previousEndpoint.Value - previousEndpoints[endpointIndex - 1];
+				previousEndpoint = prevPoints[endpointIndex];
+				var previousDirection = previousEndpoint.Value - prevPoints[endpointIndex - 1];
                 previousDirection.Normalize();
                 if (directionVector != previousDirection)
                 {
@@ -167,14 +226,14 @@ public class LaserEmitter : Entity
 
                 if (diff > 0)
                 {
-					endpoints.Add(newEndpoint);
+					AddPoint(newEndpoint);
                     break;
                 }
                 movement += diff;
             }
 
 			
-            endpoints.Add(endpoint);
+			AddPoint(endpoint);
 			
 
             if (hit.transform.tag == "Player")
@@ -199,7 +258,7 @@ public class LaserEmitter : Entity
                     currDirection = mirror.Reflect(currDirection);
 
                     var sortingOrderOffset = oldDirection == Direction.Down || currDirection == Direction.Up ? -1 : 1;
-                    sortingOrderOffsets.Add(sortingOrderOffset);
+					AddOffset(sortingOrderOffset);
 
                     directionVector = currDirection.ToVector2();
                     continue;
@@ -233,17 +292,15 @@ public class LaserEmitter : Entity
 
             break;
         }
-			
-		//sortingOrderOffsets.Add(-5);
-		if (directionVector.y > 0 && !isMirror) {
-			//endpoints.Add(gorillaTape);
-			//sortingOrderOffsets.Add(10);
-			sortingOrderOffsets.Add(5);
-		} else {
-			sortingOrderOffsets.Add(-5);
-		}
-        lineStrip.Draw(endpoints, sortingOrderOffsets, LaserPositionOffset);
 
-        previousEndpoints = endpoints;
+		//Laser should be in front of the object when hitting from below
+		if (directionVector.y > 0 && !isMirror) {
+			AddOffset(5);
+		} else {
+			AddOffset(-5);
+		}
+		lineStrip.Draw(endpoints, offsets, endpointSize, LaserPositionOffset);
+
+		//previousEndpoints = endpoints;
     }
 }

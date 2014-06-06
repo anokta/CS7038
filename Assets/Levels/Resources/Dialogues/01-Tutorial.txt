@@ -2,13 +2,14 @@
 #WalkToSink
 	$didier
 		Clean your hands by walking to the sink!
-#BeforeWash
-	$didier
-		What was that? You need to spend at least 20 seconds to clean your hands properly!
-		In game-time, however, we only have to wait for the washing indicator to fill up.  Now try washing again, but this time wait until your hands are clean.
+%#BeforeWash
+%	$didier
+%		What was that? You need to spend at least 20 seconds to clean your hands properly!
+%		In game-time, however, we only have to wait for the washing indicator to fill up.  Now try washing again, but this time wait until your hands are clean.
 #AfterWash
 	$didier
-		Now your hands are clean. Walk towards the patient to treat him.
+		Now your hands are clean. Keep in mind that, in real life, you need at least 20 seconds to properly wash your hands.
+		Walk towards the patient to treat him.
 #PatientTalk
 	$patient
 		Thank you for saving me!
@@ -16,11 +17,9 @@
 		I’m only doing my duty, sir.
 		Just a follow-up question.. Did you wash your hands after lunch today?
 	$patient
-		...
 		No, I forgot.
 	$handrew
-		Make sure you remember next time.
-		The Handurian Flu is not a joke!
+		Make sure you remember next time. The Handurian Flu is not a joke!
 	$patient
 		Will do!
 %end of file

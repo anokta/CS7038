@@ -20,9 +20,9 @@ public class LineStripRenderer : Component
         this.width = width;
     }
 
-    public void Draw(List<Vector2> points, List<int> sortingOrderOffsets, Vector2 laserPositionOffset)
+	public void Draw(Vector2[] points, int[] sortingOrderOffsets, int count, Vector2 laserPositionOffset)
     {
-        var numLines = points.Count - 1;
+		var numLines = count - 1;
         var numRenderers = numLines * 3;
 
         EnableRenderers(numRenderers);

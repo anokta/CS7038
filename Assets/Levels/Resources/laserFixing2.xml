@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="100" tileheight="100">
+ <properties>
+  <property name="Health" value="7"/>
+  <property name="MaxScore" value="40"/>
+  <property name="MinScore" value="32"/>
+ </properties>
+ <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100">
+  <image source="tileset.png" width="1000" height="1000"/>
+ </tileset>
+ <layer name="Floor" width="10" height="8">
+  <data encoding="csv">
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32,
+32,32,32,32,32,32,32,32,32,32
+</data>
+ </layer>
+ <layer name="Tile Layer 1" width="10" height="8">
+  <data encoding="csv">
+31,1,16,13,51,14,2,0,31,31,
+22,0,0,0,0,0,0,0,21,31,
+22,22,22,22,22,22,22,0,0,31,
+0,1,16,13,51,14,2,1,22,31,
+22,22,22,22,22,22,22,25,24,31,
+31,0,0,0,0,0,22,0,0,31,
+31,0,0,0,11,0,0,12,22,31,
+31,31,31,31,31,31,31,31,31,31
+</data>
+ </layer>
+</map>

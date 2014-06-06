@@ -101,7 +101,7 @@ public class DialogueManager : MonoBehaviour
 		entries = new List<DialogueEntry>();
 		if (SystemInfo.deviceType == DeviceType.Handheld) {
 			entries.Add(new DialogueEntry(authors[1], "Move in a direction by dragging your finger anywhere across the screen."));
-			entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
+			//entries.Add(new DialogueEntry(authors[1], "Hold your finger to keep moving towards that direction."));
 		} else {
 			entries.Add(new DialogueEntry(authors[1], "Move around by pressing the arrow keys."));
 		}
@@ -109,8 +109,8 @@ public class DialogueManager : MonoBehaviour
 
 		entries = new List<DialogueEntry>() {
 			new DialogueEntry(authors[0], "You are a true hero! You saved many lives and prevented the Handurian Flu from spreading further.."),
-			new DialogueEntry(authors[0], "Generation after generation will be grateful to what you have done. However, it is not over yet: There are still too many people who don't know why and how they should wash their hands!"),
-			new DialogueEntry(authors[0], "The Flu preys upon those who neglect correct sanitary practises. Therefore, be prepared to be called again soon."),
+			new DialogueEntry(authors[0], "Generation after generation will be grateful to what you have done. On the other hand, it is not over yet: There are still too many people who don't know why and how they should wash their hands!"),
+			new DialogueEntry(authors[0], "The Flu preys upon those who neglect correct sanitary practises. Therefore, be prepared to be called again soon..."),
 		};
 
 		defMap.data["Epilogue"] = new DialogueInstance(entries, audioOutput);

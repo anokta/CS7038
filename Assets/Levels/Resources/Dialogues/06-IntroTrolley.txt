@@ -1,6 +1,7 @@
 #Intro
 	$didier
 		A trolley acts like a file cabinet or a plant, except it cannot be stopped until it hits something.
+		It can also interact with the objects it hits.
 #Indeed
 	$didier
 		Indeed, you are not the only one here. They can interact with the objects they hit.

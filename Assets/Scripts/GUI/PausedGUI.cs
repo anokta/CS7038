@@ -152,7 +152,6 @@ public class PausedGUI : MonoBehaviour
         {
             LevelManager.instance.Level--;
 
-			//TODO: If something weird happens, this is why
 			GameWorld.success = false;
             GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 

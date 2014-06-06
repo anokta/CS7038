@@ -1,10 +1,10 @@
 #Intro
-$didier
-If you find yourself stuck, you can always restart the level!
-$handrew
-How does that work exactly?
-$didier
-Pause the game, and click the big green round button thingy.
-This will activate a time machine and send you back to the beginning.
-$handrew
-Cool.
+	$didier
+		If you find yourself stuck, you can always restart the level!
+	$handrew
+		How does that work exactly?
+	$didier
+		Pause the game, and click the big green round button thingy.
+		This will activate a time machine and send you back to the beginning.
+	$handrew
+		Cool.

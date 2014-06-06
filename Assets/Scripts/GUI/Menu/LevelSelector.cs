@@ -338,8 +338,6 @@ public class LevelSelector : MonoBehaviour, IPan
             {
                 FindObjectOfType<AudioMenu>().menuMain.volume = 0.0f;
                 FindObjectOfType<AudioMenu>().menuLevel.volume = 0.0f;
-
-                //TODO: If something weird happens, this is why
                 GameWorld.success = false;
                 GroupManager.main.activeGroup = GroupManager.main.group["Level Over"];
 

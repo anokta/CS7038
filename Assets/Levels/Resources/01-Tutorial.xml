@@ -38,21 +38,11 @@
     <property name="Dialogue" value="AfterWash"/>
    </properties>
   </object>
-  <object name="BeforeWash" type="On" gid="42" x="400" y="200"/>
+  <!--<object name="BeforeWash" type="On" gid="42" x="400" y="200"/>
   <object name="BeforeWash" type="On" gid="42" x="400" y="200">
    <properties>
     <property name="Dialogue" value="BeforeWash"/>
    </properties>
-  </object>
+  </object>!-->
  </objectgroup>
- <layer name="Overlay" width="7" height="6" visible="0">
-  <data encoding="csv">
-0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,
-0,0,0,0,0,0,0
-</data>
- </layer>
 </map>

@@ -195,11 +195,11 @@ public class LevelOverGUI : MonoBehaviour
 
 		overTitleSet[GameWorld.LevelOverReason.Undefined] = new[]
 		{
-			"Impossibru!"
+			"Impossible!"
 		};
 		overMessageSet[GameWorld.LevelOverReason.Undefined] = new[]
 		{
-			"This shouldn't be happening. Whoops."
+			"This shouldn't be happening. You have discovered a bug in the game. Please let us know about it!"
 		};
 			
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 //using System.IO.Ports;
 
 //TODO Placeholder obect to replace LaserEmitter
+
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
@@ -53,10 +54,10 @@ public class LaserTurret : Entity
 
 	struct LaserHit {
 		public LaserHit(Vector2 position, int order) {
-			//this.position = position;
+			this.position = position;
 			//this.order = order;
 		}
-		//Vector2 position;
+		Vector2 position;
 		//int order;
 	}
 
@@ -85,9 +86,9 @@ public class LaserTurret : Entity
 
 			AddHit(new LaserHit(hit.point, hit.collider.gameObject.renderer.sortingOrder - 1));
 
-			if (dirVec.y > 0) { 
-				AddHit(new LaserHit(hit.point + height, hit.collider.gameObject.renderer.sortingOrder + 1));
-			}
+			//if (dirVec.y > 0) { 
+			//	AddHit(new LaserHit(hit.point + height, hit.collider.gameObject.renderer.sortingOrder + 1));
+			//}
 		}
 	}
 

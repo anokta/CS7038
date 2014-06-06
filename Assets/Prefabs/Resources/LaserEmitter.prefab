@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!61 &6100000
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -60,6 +61,8 @@ MonoBehaviour:
   EmitterLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
   EmitterRight: {fileID: 21300000, guid: 1ab6184170cdb7f4284a4a3cdb9cb07e, type: 3}
   LaserSpeed: 40
+  off1: 3
+  off2: 1.5
 --- !u!120 &12000000
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -78,9 +81,8 @@ LineRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_Positions: []
   m_Parameters:
     startWidth: .100000001
@@ -110,9 +112,8 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 1
   m_SortingLayerID: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000

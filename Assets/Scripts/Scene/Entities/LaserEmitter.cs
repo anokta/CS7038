@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Grouping;
 using System.Security.Permissions;
+using UnityEditor;
 
 public class LaserEmitter : Entity
 {
@@ -69,16 +70,14 @@ public class LaserEmitter : Entity
 
         previousEndpoints = new List<Vector2> { transform.position.xy() };
     }
-
-	/*private struct LaserHit
-	{
-		Vector2 hitPosition;
-		int 
-	}*/
-
-	public float off1 = 3;
-	public float off2 = 1.5f;
-
+		
+	//Hardcoded values for vertical laser facing upwards
+	private readonly static float wallOffset = -0.17f;
+	private readonly static float gateOffset = 0.16f;
+	private readonly static float doorOffset = 0.23f;
+	private readonly static float leverOffset = 0.13f;
+	private readonly static float trolleyOffset = -0.07f;
+	private readonly static float otherOffset = 0;
 
     // Update is called once per frame
     protected override void Update()
@@ -97,6 +96,10 @@ public class LaserEmitter : Entity
 
         var movement = Time.deltaTime * LaserSpeed;
 
+		var gorillaTape = new Vector2();
+
+		bool isMirror = false;
+
         // Set max iteration 20 to avoid infinite reflection
         for (var endpointIndex = 1; endpointIndex < 20; endpointIndex++)
         {
@@ -106,9 +109,33 @@ public class LaserEmitter : Entity
             if (hit.collider == null)
                 break; // for robustness
 
+			string hitName = hit.collider.name;
+			isMirror = hitName.StartsWith("Mirror");
+
             if (directionVector.x.IsZero())
             {
-                endpoint.y = hit.collider.transform.position.y;
+				if (directionVector.y > 0 && !isMirror) {
+					endpoint.y = hit.point.y;
+					float offset = 0;
+					if (hitName.StartsWith("Wall")) {
+						offset = wallOffset;
+					} else if (hitName.StartsWith("Gate")) {
+						offset = gateOffset;
+					} else if (hitName.StartsWith("Door")) {
+						offset = doorOffset;
+					} else if (hitName.StartsWith("Lever")) {
+						offset = leverOffset;
+					} else if (hitName.StartsWith("Trolley")) {
+						offset = trolleyOffset;
+					} else {
+						offset = otherOffset;
+					}
+					endpoint.y += offset;
+					//gorillaTape = hit.point;
+				} else {
+					endpoint.y = hit.collider.transform.position.y;
+				//Debug.Log("whoop-di-doo");
+				}
             }
             else
             {
@@ -141,13 +168,14 @@ public class LaserEmitter : Entity
                 if (diff > 0)
                 {
 					endpoints.Add(newEndpoint);
-					//sortingOrderOffsets.Add(100);
                     break;
                 }
                 movement += diff;
             }
 
+			
             endpoints.Add(endpoint);
+			
 
             if (hit.transform.tag == "Player")
             {
@@ -162,7 +190,7 @@ public class LaserEmitter : Entity
 
                 break;
 			}
-			else if (hit.collider.name.StartsWith("Mirror"))
+			else if (isMirror)
             {
                 var mirror = hit.collider.GetComponent<Mirror>();
                 if (mirror != null)
@@ -177,7 +205,7 @@ public class LaserEmitter : Entity
                     continue;
                 }
             }
-            else if (hit.collider.name.StartsWith("Explosive"))
+			else if (hitName.StartsWith("Explosive"))
             {
                 if (lastExplosiveID != hit.transform.GetInstanceID())
                 {
@@ -186,7 +214,7 @@ public class LaserEmitter : Entity
                     ExplosionManager.Instance.Add(hit.collider.gameObject, hit.collider.transform.position);
                 }
             }
-            else if (hit.collider.name.StartsWith("Patient"))
+			else if (hitName.StartsWith("Patient"))
             {
                 var patient = hit.collider.GetComponent<Patient>();
                 if (patient != null)
@@ -206,7 +234,14 @@ public class LaserEmitter : Entity
             break;
         }
 			
-		sortingOrderOffsets.Add(-5);
+		//sortingOrderOffsets.Add(-5);
+		if (directionVector.y > 0 && !isMirror) {
+			//endpoints.Add(gorillaTape);
+			//sortingOrderOffsets.Add(10);
+			sortingOrderOffsets.Add(5);
+		} else {
+			sortingOrderOffsets.Add(-5);
+		}
         lineStrip.Draw(endpoints, sortingOrderOffsets, LaserPositionOffset);
 
         previousEndpoints = endpoints;

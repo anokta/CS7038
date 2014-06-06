@@ -19,7 +19,7 @@ public class Crate : Pushable
         movementTimer = new Timer(0.4f, CompleteMoving);
         movementTimer.repeating = false;
 
-        handTimer = new Timer(2.1f, HandTimerRanOut);
+		handTimer = new Timer(2.5f, HandTimerRanOut);
     }
 
     protected override void Update()

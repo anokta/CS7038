@@ -2967,7 +2967,7 @@ MonoBehaviour:
       m_Left: 5
       m_Right: 5
       m_Top: 5
-      m_Bottom: 5
+      m_Bottom: 0
     m_Padding:
       m_Left: 0
       m_Right: 0
@@ -2981,7 +2981,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: f1470a9b343908b40a0c02828f818112, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
-    m_Alignment: 0
+    m_Alignment: 1
     m_WordWrap: 1
     m_RichText: 1
     m_TextClipping: 0
@@ -2994,7 +2994,7 @@ MonoBehaviour:
   - m_Name: credits description
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .823529422, g: .823529422, b: .823529422, a: 1}
+      m_TextColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .823529422, g: .823529422, b: .823529422, a: 1}
@@ -3025,9 +3025,9 @@ MonoBehaviour:
       m_Left: 0
       m_Right: 0
       m_Top: -5
-      m_Bottom: 0
+      m_Bottom: 10
     m_Padding:
-      m_Left: 15
+      m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
@@ -3039,7 +3039,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: ceaa75d7ab09f9b4a8e5c92dfec0fb22, type: 3}
     m_FontSize: 22
     m_FontStyle: 0
-    m_Alignment: 0
+    m_Alignment: 1
     m_WordWrap: 1
     m_RichText: 1
     m_TextClipping: 0

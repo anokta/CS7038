@@ -60,9 +60,7 @@ MonoBehaviour:
   EmitterDown: {fileID: 21300000, guid: 4bd14d0b729a22249af20eacbd791879, type: 3}
   EmitterLeft: {fileID: 21300000, guid: ab22c5cbbde14274fb13b544929160eb, type: 3}
   EmitterRight: {fileID: 21300000, guid: 1ab6184170cdb7f4284a4a3cdb9cb07e, type: 3}
-  LaserSpeed: 40
-  off1: 3
-  off2: 1.5
+  LaserSpeed: 35
 --- !u!120 &12000000
 LineRenderer:
   m_ObjectHideFlags: 0

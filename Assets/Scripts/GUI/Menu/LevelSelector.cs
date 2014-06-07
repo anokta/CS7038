@@ -2,6 +2,7 @@
 using System.Collections;
 using Grouping;
 using HandyGestures;
+using System.Runtime.Remoting.Messaging;
 
 
 public class LevelSelector : MonoBehaviour, IPan
@@ -205,6 +206,7 @@ public class LevelSelector : MonoBehaviour, IPan
         }
 
         // level buttons
+		#region Level Buttons
         for (int p = (targetScroll == 0.0f && !firstLoad) ? 0 : currentPage; p < pagesCount; ++p)
         {
             int pageStart = p * columnCount * rowCount;
@@ -270,8 +272,11 @@ public class LevelSelector : MonoBehaviour, IPan
             }
         }
         GUI.enabled = true;
+		#endregion
+
 
         // epilogue button
+		#region Epilogue
         if (currentPage == 1 && playerLevel >= levelCount && 
             GUI.Button(new Rect(Screen.width - offsetX, Screen.height - offsetY - _actualButtonSize, _actualButtonSize, _actualButtonSize), "Epilogue", GUIManager.skin.button))
         {
@@ -280,9 +285,11 @@ public class LevelSelector : MonoBehaviour, IPan
             currentScroll = MainMenu.ScreenScrollValue;
             targetScroll = 0.0f;
         }
+		#endregion
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(-currentScroll, 0.0f, 0.0f), Quaternion.identity, Vector3.one);
 
+		#region Back button
         // Back
         if (GUI.Button(
             new Rect(GUIManager.OffsetX() * 2.0f,
@@ -292,15 +299,34 @@ public class LevelSelector : MonoBehaviour, IPan
             targetScroll = MainMenu.ScreenScrollValue;
             AudioManager.PlaySFX("Menu Prev");
         }
+		#endregion
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, -currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 
+		#region Scoring
+
         if (LevelManager.TotalScore > 0)
         {
-            GUI.Label(
-                new Rect(0, Screen.height * 0.05f, Screen.width, 0),
-                "Score: " + LevelManager.TotalScore, GUIManager.Style.scores);
+			Rect textRec = new Rect(offsetX, 0, Screen.width-offsetX * 2, offsetY);
+			GUIManager.Style.scores.alignment = TextAnchor.MiddleCenter;
+			GUI.Label(textRec, "Score: " + LevelManager.TotalScore, GUIManager.Style.scores);
+
+			/*string score = "Score: " + LevelManager.TotalScore;
+			string starScore = LevelManager.TotalStars + "/" + LevelManager.instance.LevelCount * 3;
+			var scoreStyle = GUIManager.Style.scores;
+			scoreStyle.alignment = TextAnchor.MiddleLeft;
+			Rect textRec = new Rect(offsetX, 0, Screen.width-offsetX * 2, offsetY);
+			GUI.Label(textRec, score, scoreStyle);
+			scoreStyle.alignment = TextAnchor.MiddleRight;
+			GUI.Label(textRec, starScore, scoreStyle);
+			var scoreSize = scoreStyle.CalcSize(new GUIContent(starScore));
+			float sSize = 0.1f * Screen.height;
+			GUI.DrawTexture(
+				new Rect(textRec.xMax - scoreSize.x - sSize, (offsetY - sSize) * 0.5f, sSize, sSize),
+				starFullTexture);*/
         }
+
+		#endregion
 
         GUI.matrix = Matrix4x4.TRS(new Vector3(0.0f, currentScroll, 0.0f), Quaternion.identity, Vector3.one);
 

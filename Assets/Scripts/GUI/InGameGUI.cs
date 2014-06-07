@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Grouping;
+using System;
+using UnityEditor;
 
 public class InGameGUI : MonoBehaviour
 {
@@ -19,9 +21,21 @@ public class InGameGUI : MonoBehaviour
 
 	#endregion
 
+	static bool _scoreHint;
+	public static bool ShowScoreHint {
+		get { return _scoreHint; }
+		set { _scoreHint = value;
+			PlayerPrefs.SetInt("ShowScoreHint", value ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+
     void Start()
     {
         GroupManager.main.group["Running"].Add(this);
+		_scoreHint = PlayerPrefs.GetInt("ShowScoreHint", 0) == 0;
+
+		//ShowScoreHint = true;
     }
 
     void Update()
@@ -44,6 +58,21 @@ public class InGameGUI : MonoBehaviour
 
             GroupManager.main.activeGroup = GroupManager.main.group["Paused"];
         }
+
+		if (ShowScoreHint && LevelManager.instance.settings.minScore > 0) {
+			int scoreLeft = LevelManager.instance.settings.minScore - HandController.activeHand.score;
+			if (scoreLeft <= 0) {
+				GUIManager.Style.scoreHint.normal.textColor = Color.red;
+			} else {
+				GUIManager.Style.scoreHint.normal.textColor = Color.white;
+			}
+			GUI.Label(
+				new Rect(Screen.width - GUIManager.OffsetX() - GUIManager.ButtonSize(),
+					Screen.height - GUIManager.OffsetY() - GUIManager.ButtonSize(),
+					GUIManager.ButtonSize(), GUIManager.ButtonSize()),
+				scoreLeft.ToString(),
+				GUIManager.Style.scoreHint);
+		}
 
 		if (Event.current.type.Equals(EventType.Repaint) && HandController.activeHand != null)
 		{

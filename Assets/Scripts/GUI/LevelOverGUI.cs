@@ -422,7 +422,6 @@ public class LevelOverGUI : MonoBehaviour
 				currentScore = 1;
 			}
 			//Debug.Log(LevelManager.instance.Level);
-			//Debug.Log("Score is set!");
 			LevelManager.SetScore(LevelManager.instance.Level, currentScore);
 		} else {
 			currentScore = 0;

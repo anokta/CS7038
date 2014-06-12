@@ -140,7 +140,7 @@ public class LevelOverGUI : MonoBehaviour
         };
         overMessageSet[GameWorld.LevelOverReason.LaserKilledPatient] = new[]
         {
-			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you shouldn't disintegrate your patients.",
+			"The Hippocratic Oath might not make mention of lasers, but I'm pretty sure you are not supposed to disintegrate your patients.",
 			"Where did he go? Oh. I see.",
 			"Lasers can be just as lethal as they can be handy.",
 			"Your M.D. status has been revoked."
@@ -165,7 +165,7 @@ public class LevelOverGUI : MonoBehaviour
         };
         overMessageSet[GameWorld.LevelOverReason.ExplosionKilledPatient] = new[]
         {
-			"The Hippocratic Oath might not make mention of explosions, but I'm pretty sure you shouldn't blow up your patients.",
+			"The Hippocratic Oath might not make mention of explosions, but I'm pretty sure you are not supposed to blow up your patients.",
 			"Where did he go? Oh. I see.",
 			"You just blew it.",
 			"Your M.D. status has been revoked."

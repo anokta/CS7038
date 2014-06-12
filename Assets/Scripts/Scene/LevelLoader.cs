@@ -90,6 +90,7 @@ public class LevelLoader
         
 		prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
 		prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
+		prefabs[TileType.Carpet] = Resources.Load<GameObject>("Carpet");
 		//prefabs[TileType.Trigger] = Resources.Load<GameObject>("Trigger");
 //        prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
 
@@ -300,6 +301,8 @@ public class LevelLoader
 						break;
 
 					case TileType.Gate1Open:
+						transform.renderer.sortingOrder = PlaceWall(transform.position.y) + UsableOffset;
+						goto case TileType.Gate1VerticalOpen;
 					case TileType.Gate1VerticalOpen:
 						parent = accessibleContainer;
 						var gate1Open = gameObj.GetComponent<Gate>();
@@ -310,6 +313,8 @@ public class LevelLoader
 						type1 = 1;
 						break;
 					case TileType.Gate2Open:
+						transform.renderer.sortingOrder = PlaceWall(transform.position.y) + UsableOffset;
+						goto case TileType.Gate2VerticalOpen;
 					case TileType.Gate2VerticalOpen:
 						parent = accessibleContainer;
 						var gate2Open = gameObj.GetComponent<Gate>();
@@ -381,6 +386,10 @@ public class LevelLoader
 							blenderer.color.b + (float)(random.NextDouble() * 0.015f) + brighter,
 							blenderer.color.a);
 						data[tile.X, tile.Y].Floor = gameObj;
+						break;
+					case TileType.Carpet:
+						parent = floorContainer;
+						transform.GetComponent<SpriteRenderer>().sortingOrder = FloorOrder + 1;
 						break;
 					default:
 						throw new Exception("Impossibru!");

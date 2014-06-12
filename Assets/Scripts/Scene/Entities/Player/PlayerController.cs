@@ -297,6 +297,7 @@ public class PlayerController : MonoBehaviour, IPan
                 {
                     Switchable switchable = hit.collider.GetComponent<Switchable>();
                     switchable.Switch(true);
+					Debug.Log("Switchy!");
 
                     canSwitch = false;
                     lastSwitchDirection = nextMovement;

@@ -43,6 +43,16 @@ public class LeverGateManager
 
     public void Switch(LeverGateType type)
     {
+		foreach (var gate in gates)
+		{
+			if (gate.LeverGateType == type)
+			{
+				if (!gate.CanSwitch()) {
+					return;
+				}
+			}
+		}
+
         foreach (var lever in levers)
         {
             if (lever.LeverGateType == type)
@@ -51,12 +61,12 @@ public class LeverGateManager
             }
         }
 
-        foreach (var gate in gates)
-        {
-            if (gate.LeverGateType == type)
-            {
-                gate.SwitchState();
-            }
-        }
+		foreach (var gate in gates)
+		{
+			if (gate.LeverGateType == type)
+			{
+				gate.SwitchState();
+			}
+		}
     }
 }

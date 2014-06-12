@@ -116,10 +116,14 @@ public class LevelSelector : MonoBehaviour, IPan
         currentPage = LevelManager.instance.Level / (rowCount * columnCount);
         levelCount = LevelManager.instance.LevelCount;
         playerLevel = PlayerPrefs.GetInt("Level", 0);
-        pagesCount =
+		#if !UNITY_EDITOR
+		#error Fix this before deployment
+		#endif
+		pagesCount = 3;
+		/*pagesCount =
             Mathf.Min(
                 levelCount / (rowCount * columnCount),
-                playerLevel / (rowCount * columnCount) + 1);
+                playerLevel / (rowCount * columnCount) + 1);*/
 
         firstLoad = true;
     }
@@ -261,10 +265,10 @@ public class LevelSelector : MonoBehaviour, IPan
                     else
                     {
                         GUI.Label(buttonRect, "", GUIManager.Style.rectButton);
-                        if (levelCount - 3 <= level)
-                        {
-                            GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
-                        }
+						//if (levelCount - 3 <= level)
+						//{
+						//    GUI.color = new Color(1, 0.7f, 0.85f, 0.9f);
+						// }
                         GUI.DrawTexture(buttonRect, lockTexture);
                         GUI.color = Color.white;
                     }

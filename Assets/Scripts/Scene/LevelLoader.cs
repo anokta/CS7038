@@ -21,6 +21,7 @@ public class LevelLoader
 		public Entity Entity;
 		public GameObject Floor;
 		public GameObject Wall;
+		public LevelSettings.FloorType FloorType;
 	}
 
 	private GameObject shade;
@@ -91,6 +92,8 @@ public class LevelLoader
 		prefabs[TileType.Wall] = Resources.Load<GameObject>("Wall");
 		prefabs[TileType.Floor] = Resources.Load<GameObject>("Floor");
 		prefabs[TileType.Carpet] = Resources.Load<GameObject>("Carpet");
+		prefabs[TileType.HeatPad] = Resources.Load<GameObject>("HeatPad");
+
 		//prefabs[TileType.Trigger] = Resources.Load<GameObject>("Trigger");
 //        prefabs[TileType.Sanitizer] = Resources.Load<GameObject>("Sanitizer");
 
@@ -181,6 +184,7 @@ public class LevelLoader
 		var random = new System.Random(0);
 
 		LevelEntry[,] data = new LevelEntry[map.Width, map.Height];
+		LevelSettings.FloorType[,] floorData = new LevelSettings.FloorType[map.Width, map.Height];
 		int playerX = 0; int playerY = 0;
 
 		foreach (var layer in map.Layers) {
@@ -195,8 +199,8 @@ public class LevelLoader
 					continue;
 
 				var indexX = tile.X;
-				var indexY = tile.Y;
-				var position = new Vector2(indexX, map.Height - indexY - 1);
+				var indexY = map.Height - tile.Y - 1;
+				var position = new Vector2(indexX, indexY);
 
 				var prefab = prefabs[tileType];
 				var gameObj = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
@@ -236,6 +240,12 @@ public class LevelLoader
 				//case TileType.Sanitizer:
 				//    parent = collectibleContainer;
 				//    break;
+					case TileType.HeatPad:
+						parent = accessibleContainer;
+						transform.renderer.sortingOrder = FloorOrder + 2;
+						floorData[indexX, indexY] = LevelSettings.FloorType.HeatPad;
+						data[tile.X, tile.Y].FloorType = LevelSettings.FloorType.HeatPad;
+						break;
 					case TileType.Door:
 					case TileType.DoorVertical:
 					case TileType.Fountain:
@@ -452,6 +462,18 @@ public class LevelLoader
 			}
 		}
 
+		for (x = 0; x < map.Width; ++x) {
+			for (y = 0; y < map.Height; ++y) {
+				switch (data[x, y].FloorType) {
+					case LevelSettings.FloorType.HeatPad:
+						var frend = data[x, y].Floor.renderer as SpriteRenderer;
+						frend.color = new Color(
+							frend.color.r - 0.2f, frend.color.g - 0.2f, frend.color.b - 0.2f);
+						break;
+				}
+			}
+		}
+
 		#region Make Gradients
 		for (int i = 0; i < map.Height; ++i) {
 			var shadeLeft = makeGradient(map, -1, i);
@@ -493,6 +515,8 @@ public class LevelLoader
 					break;
 			}
 		}
+
+		settings.SetFloorData(floorData);
 	}
 
 	void GetIndex(Rect rect, out int x, out int y)

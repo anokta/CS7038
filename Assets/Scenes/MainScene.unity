@@ -1686,6 +1686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4206ce20542ec945a517e3272492894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeatMaterial: {fileID: 2100000, guid: bbe8520a14d817e4e913842042f2e757, type: 2}
   SurewashIcon: {fileID: 21300000, guid: 6d4efe8b82f529149bc0d8cc913e6c34, type: 3}
   SurewashText: {fileID: 21300000, guid: 33535c89511ab794da3ac487a06a28d5, type: 3}
   SurewashLogo: {fileID: 21300000, guid: 273ff60792d246a47b9beb36c220f06a, type: 3}

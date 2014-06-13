@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AssetHelper : MonoBehaviour
 {
+	public Material HeatMaterial;
 	public Sprite SurewashIcon;
 	public Sprite SurewashText;
 	public Sprite SurewashLogo;
@@ -11,8 +12,9 @@ public class AssetHelper : MonoBehaviour
 
 	public static AssetHelper instance { get; private set; }
 
-	void Start()
+	void Awake()
 	{
 		instance = this;
+		HeatMaterial = GameObject.Instantiate(HeatMaterial) as Material;
 	}
 }

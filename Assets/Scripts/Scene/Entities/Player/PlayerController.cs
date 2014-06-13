@@ -161,6 +161,13 @@ public class PlayerController : MonoBehaviour, IPan
     {
         spriteRenderer.sortingOrder = LevelLoader.PlaceDepth(player.position.y) + 1;//-Mathf.RoundToInt(4 * player.position.y) + 1;
 
+		switch (LevelManager.instance.settings.GetFloor(player.position.x, player.position.y)) {
+			case LevelSettings.FloorType.HeatPad:
+				Die(GameWorld.LevelOverReason.ExplosionKilledPlayer);
+				break;
+		}
+
+
         if (hands.isInfected)
         {
             animator.SetTrigger("Infect");

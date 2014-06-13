@@ -76,10 +76,12 @@ public class Gate : Accessible
 			
 		//Cast two rays in a cross shape to make up for both vertical and horizontal gates
 		var cast1 = Physics2D.Raycast(
-			            entity.position.xy() - new Vector2(0, 0.49f), -Vector2.up, 0.98f);
+			entity.position.xy() + new Vector2(0, 0.49f), -Vector2.up, 0.98f);
 		var cast2 = Physics2D.Raycast(
-			            entity.position.xy() - new Vector2(0.49f, 0), Vector2.right, 0.98f);
-		return cast1.collider == null && cast2.collider == null;
+			entity.position.xy() - new Vector2(0.49f, 0), Vector2.right, 0.98f);
+		var res = cast1.collider == null && cast2.collider == null;
+		Debug.Log(res);
+		return res;
 	}
 
 	protected override void Update()

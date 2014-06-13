@@ -39,5 +39,32 @@ public class LevelSettings {
 	public bool HasDialogueFlag(DialogueInstance instance) {
 		return usedMap.Contains(instance);
 	}
+
+	public int width {get; private set; }
+	public int height {get; private set; }
+	public void SetFloorData(FloorType[,] data) {
+		height = data.GetLength(0);
+		width = data.GetLength(1);
+		_data = data;
+	}
+
+	public FloorType GetFloor(float x, float y) {
+		int xx = Mathf.FloorToInt(x + 0.5f);
+		int yy = Mathf.FloorToInt(y + 0.5f);
+		if (xx < 0 || xx >= width || yy < 0 || yy >= height) {
+			return FloorType.Outside;
+		}
+		return _data[xx, yy];
+	}
+
+	FloorType[,] _data;
+
+	public enum FloorType
+	{
+		Normal,
+		Outside,
+		HeatPad,
+		Carpet
+	}
 }
 

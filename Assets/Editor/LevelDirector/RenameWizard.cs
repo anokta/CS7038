@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace HandyEditor
+namespace LevelDirectorEditor
 {
 	using UnityEditor;
 	using UnityEngine;
@@ -19,6 +19,7 @@ namespace HandyEditor
 			_instance._message = message;
 			_instance._value = value;
 			_instance.Focus();
+			_instance.Repaint();
 		}
 
 		public delegate void AcceptCallback(string newMessage);

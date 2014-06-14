@@ -1,6 +1,6 @@
 #Intro
 	$didier
-		Those chemical crates are safe to push around, but beware: They explode when struck by a laser!
+		Those chemical crates are safe to push around, but beware: They explode when struck by a laser!ww
 		An explosion can please everything, and everyone.
 	$handrew
 		Why are you encouraging the destruction of chemical supplies again?

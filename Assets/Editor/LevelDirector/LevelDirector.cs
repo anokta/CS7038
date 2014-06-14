@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using HandyEditor;
+using LevelDirectorEditor;
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
+using System.Linq;
 
 public class LevelDirector : EditorWindow
 {
@@ -28,6 +28,7 @@ public class LevelDirector : EditorWindow
 
 	private List<LevelEntry> levelData = new List<LevelEntry>();
 	private List<Rect> rectData = new List<Rect>();
+	static List<bool> pageToggles = new List<bool>();
 
 	void Refresh()
 	{
@@ -86,7 +87,7 @@ public class LevelDirector : EditorWindow
 	{
 		float maxWidth = 0;
 		for (int i = 1; i < levelData.Count; ++i) {
-			float width = EditorStyles.label.CalcSize(new GUIContent(i.ToString())).x;
+			float width = EditorStyles.objectField.CalcSize(new GUIContent(i.ToString())).x;
 			if (width > maxWidth) {
 				maxWidth = width;
 			}
@@ -114,15 +115,6 @@ public class LevelDirector : EditorWindow
 		return -1;
 	}
 
-	/*struct LevelEntry {
-		public string Name;
-		public File File;
-		public bool HasDialogue;
-		public File Dialogue;
-	}*/
-
-	static List<bool> pageToggles = new List<bool>();
-
 	void OnGUI()
 	{
 		title = "Level Director";
@@ -146,7 +138,7 @@ public class LevelDirector : EditorWindow
 				pageToggles[pageIndex] = EditorGUILayout.Foldout(pageToggles[pageIndex], "Page " + (pageIndex + 1));
 				//GUILayout.Label("Page " + (i / LevelsPerPage + 1), EditorStyles.boldLabel);
 			}
-			if (pageToggles[pageIndex]) {
+			if (!pageToggles[pageIndex]) {
 				if (Event.current.type == EventType.MouseDown) {
 					rectData.Add(new Rect());
 				}
@@ -155,17 +147,21 @@ public class LevelDirector : EditorWindow
 			//EditorGUILayout.BeginToggleGroup(
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(5);
+			if (GUILayout.Button((i + 1).ToString(), EditorStyles.objectField, GUILayout.Width(orderWidth))) {
+				//Debug.Log("Placeholder!");
+				PickLevel(i);
+			}
 			if (GUILayout.Button("-", EditorStyles.miniButtonLeft, GUILayout.ExpandWidth(false))) {
 				//_saveDirty = true;
 				levelData.RemoveAt(i);
-				SaveOrder();
+				Save();
 				this.Repaint();
 				return;
 				//rectData.RemoveAt(i);
 			}
 
 			if (GUILayout.Button("edit", EditorStyles.miniButtonMid, GUILayout.ExpandWidth(false))) {
-				TextEditorWizard.CreateWizard("Edit Level", levelData[i].File);
+				TextEditorWizard.Show("Edit Level", levelData[i].File);
 			}
 
 			if (GUILayout.Button("rename", EditorStyles.miniButtonRight, GUILayout.ExpandWidth(false))) {
@@ -173,7 +169,8 @@ public class LevelDirector : EditorWindow
 			}
 			//GUILayout.Button("Dialogue", GUILayout.ExpandWidth(false));
 
-			GUILayout.Label((i + 1).ToString(), GUILayout.Width(orderWidth));
+			//GUILayout.Label((i + 1).ToString(), GUILayout.Width(orderWidth));
+
 			GUILayout.Space(5);
 			var absoluteSize = EditorStyles.largeLabel.CalcSize(new GUIContent(levelData[i].Name));
 			if (!levelData[i].File.Exists) {
@@ -204,7 +201,7 @@ public class LevelDirector : EditorWindow
 				}
 				GUILayout.Space(5);
 				if (GUILayout.Button("edit dialogue", EditorStyles.miniButtonRight)) {
-					TextEditorWizard.CreateWizard("Edit dialogue", levelData[i].Dialogue);
+					TextEditorWizard.Show("Edit dialogue", levelData[i].Dialogue);
 				}
 				//GUILayout.Label("(dialogue)", EditorStyles.miniLabel);
 			} else {
@@ -212,7 +209,7 @@ public class LevelDirector : EditorWindow
 				GUI.color = Color.cyan;
 				GUILayout.Label("(no dialogue)", EditorStyles.miniLabel);
 				GUI.color = pre1;
-				if (GUILayout.Button("add", EditorStyles.miniButtonRight)) {
+				if (GUILayout.Button("add", EditorStyles.miniButton)) {
 					CreateDialogue(i);
 				}
 			}
@@ -225,12 +222,23 @@ public class LevelDirector : EditorWindow
 		GUILayout.BeginHorizontal();
 		{
 			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("View", GUILayout.ExpandWidth(false))) {
+				LevelPickerWizard.Show(new DirectoryInfo(LevelPath),
+					FilterDelegate, null);
+			}
+			if (GUILayout.Button("Add", GUILayout.ExpandWidth(false))) {
+				PickLevel(levelData.Count);
+			}
+			if (GUILayout.Button("Edit", GUILayout.ExpandWidth(false))) {
+				TextEditorWizard.Show("level.yaml", new FileInfo(LevelFile), Refresh
+				);
+			}
 			if (GUILayout.Button("Refresh", GUILayout.ExpandWidth(false))) {
 				Refresh();
 			}
 			//GUI.enabled = _saveDirty;
-			if (GUILayout.Button("Save Order", GUILayout.ExpandWidth(false))) {
-				SaveOrder();
+			if (GUILayout.Button("Save", GUILayout.ExpandWidth(false))) {
+				Save();
 			}
 			//GUI.enabled = true;
 			/*if (GUILayout.Button("Save", GUILayout.ExpandWidth(false))) {
@@ -279,7 +287,7 @@ public class LevelDirector : EditorWindow
 					var temp = levelData[selectedIndex];
 					levelData[selectedIndex] = levelData[hoverIndex];
 					levelData[hoverIndex] = temp;
-					SaveOrder();
+					Save();
 					//_saveDirty = true;
 					//Save();
 				}
@@ -290,23 +298,57 @@ public class LevelDirector : EditorWindow
 
 			Repaint();
 		}
+
+		if (Event.current.type == EventType.KeyDown) {
+			if (Event.current.keyCode == KeyCode.Escape) {
+				selectedIndex = -1;
+				hoverIndex = -1;
+				Repaint();
+			}
+		}
+	}
+
+	IEnumerable<FileInfo> FilterDelegate()
+	{
+		return File.ReadAllLines(LevelFile).Where(
+			_ => !StringExt.IsNullOrWhitespace(_)).Select(
+			_ => new FileInfo(LevelPath + _ + ".xml"));
+	}
+
+	void PickLevel(int index)
+	{
+		LevelPickerWizard.Show(
+			new DirectoryInfo(LevelPath),
+			FilterDelegate,
+
+			delegate(FileInfo selected) {
+				if (levelData.Count == index) {
+					levelData.Add(new LevelEntry());
+				} 
+				if (index < levelData.Count) {
+					levelData[index].Name = Path.GetFileNameWithoutExtension(selected.FullName);
+					levelData[index].File = selected;
+					levelData[index].Dialogue = new FileInfo(DialoguePath +
+					levelData[index].Name + ".txt");
+					Save();
+				}
+			});
 	}
 
 	void Rename(int index)
 	{
 		var entry = levelData[index];
-		FileRenamer.Show(levelData[index].File, levelData[index].Dialogue);
+		FileRenamer.Show(entry.File, entry.Dialogue);
 		FileRenamer.NormalCallback = delegate(FileInfo old, FileInfo newFile) {
 			//Debug.Log("N");
-			levelData[index].File = newFile;
-			levelData[index].Name = Path.GetFileNameWithoutExtension(newFile.FullName);
+			entry.File = newFile;
+			entry.Name = Path.GetFileNameWithoutExtension(newFile.FullName);
 		};
 		FileRenamer.DialogueCallback = delegate(FileInfo old, FileInfo newFile) {
 			//Debug.Log("N2");	
-			levelData[index].Dialogue = newFile;
+			entry.Dialogue = newFile;
 		};
-
-		SaveOrder();
+		FileRenamer.FinalCallback = Save;
 		this.Repaint();
 		//	GUILayout.Window(index, new Rect(0, 0, 100, 100).Centered(), DoRename, "Rename");
 		//}
@@ -324,9 +366,6 @@ public class LevelDirector : EditorWindow
 		this.Repaint();
 	}
 
-	void DoRename(int id)
-	{
-	}
 
 	void DeleteDialogue(int index)
 	{
@@ -338,7 +377,7 @@ public class LevelDirector : EditorWindow
 		}
 	}
 
-	void SaveOrder()
+	void Save()
 	{
 		/*if (EditorUtility.DisplayDialog("Confirm",
 			"Are you sure you want to save the order of the levels? This operation cannot be undone.",
@@ -352,16 +391,13 @@ public class LevelDirector : EditorWindow
 		}
 
 		AssetDatabase.Refresh();
-
-		Refresh();
+		//try {
+			//	LevelPickerWizard.CloseInstance();
+			//	RenameWizard.CloseInstance();
+		//} catch (Exception) {
 		//}
-	}
-
-	//bool _saveDirty = false;
-
-	void Save()
-	{
-		//Debug.Log();
-		//string path = 
+		Refresh();
+		//	this.Focus();
+		//}
 	}
 }

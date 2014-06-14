@@ -19,10 +19,13 @@ public class AssetHelper : MonoBehaviour
 		HeatMaterial = GameObject.Instantiate(HeatMaterial) as Material;
 	}
 
+	float _time;
+
 	void Start() {
 		var delegator = new GroupDelegator(
 			                () => {
-				float val = (Mathf.Sin(Time.time * 4) * 0.5f + 0.5f) * 0.6f + 0.1f;
+				_time += Time.deltaTime * 4;
+				float val = (Mathf.Sin(_time) * 0.5f + 0.5f) * 0.6f + 0.1f;
 				HeatMaterial.color = new Color(val, val, val, 0.65f);
 			},
 			null, null);

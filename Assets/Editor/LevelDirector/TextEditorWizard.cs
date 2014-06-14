@@ -53,6 +53,7 @@ namespace HandyEditor
 
 		void Save() {
 			System.IO.File.WriteAllText(_info.FullName, _contents);
+			AssetDatabase.Refresh();
 		}
 	}
 }

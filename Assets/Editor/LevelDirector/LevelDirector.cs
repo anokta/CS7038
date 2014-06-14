@@ -15,7 +15,7 @@ public class LevelDirector : EditorWindow
 		DialoguePath = LevelPath + "Dialogues/";
 		//errorStyle = new GUIStyle(EditorStyles.miniLabel);
 		//errorStyle.normal.textColor = Color.cyan;
-			//errorStyle.fontStyle = FontStyle.Bold;
+		//errorStyle.fontStyle = FontStyle.Bold;
 		//	errorStyle.normal = Color.cyan;
 		Refresh();
 	}
@@ -312,12 +312,14 @@ public class LevelDirector : EditorWindow
 		//}
 	}
 
-	void CreateDialogue(int index) {
+	void CreateDialogue(int index)
+	{
 		var entry = levelData[index];
 		if (!entry.Dialogue.Exists) {
 			using (File.CreateText(entry.Dialogue.FullName)) {
 				entry.Dialogue = new FileInfo(entry.Dialogue.FullName);
-			};
+			}
+			;
 		}
 		this.Repaint();
 	}
@@ -326,9 +328,10 @@ public class LevelDirector : EditorWindow
 	{
 	}
 
-	void DeleteDialogue(int index) {
+	void DeleteDialogue(int index)
+	{
 		if (EditorUtility.DisplayDialog("Confirm",
-			"Are you sure you want to delete this dialogue file? This operation cannot be undone.",
+			    "Are you sure you want to delete this dialogue file? This operation cannot be undone.",
 			    "Yes", "No")) {
 			File.Delete(levelData[index].Dialogue.FullName);
 			levelData[index].Dialogue = new FileInfo(levelData[index].Dialogue.FullName);
@@ -340,15 +343,17 @@ public class LevelDirector : EditorWindow
 		/*if (EditorUtility.DisplayDialog("Confirm",
 			"Are you sure you want to save the order of the levels? This operation cannot be undone.",
 			    "Yes", "No")) {*/
-			using (System.IO.StreamWriter file = new System.IO.StreamWriter(LevelFile)) {
-				foreach (var entry in levelData) {
-					// If the line doesn't contain the word 'Second', write the line to the file. 
-					file.WriteLine(entry.Name);
-				}
-			//_saveDirty = false;
+		using (System.IO.StreamWriter file = new System.IO.StreamWriter(LevelFile)) {
+			foreach (var entry in levelData) {
+				// If the line doesn't contain the word 'Second', write the line to the file. 
+				file.WriteLine(entry.Name);
 			}
+			//_saveDirty = false;
+		}
 
-			Refresh();
+		AssetDatabase.Refresh();
+
+		Refresh();
 		//}
 	}
 

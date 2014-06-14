@@ -10,7 +10,7 @@ public class HeatPad : MonoBehaviour
 	}
 
 	void LateUpdate() {
-		float val = (Mathf.Sin(Time.time * 4) * 0.5f + 0.5f) * 0.6f + 0.1f;
-		_cached.color = new Color(val, val, val, 0.65f);
+		//	float val = (Mathf.Sin(Time.time * 4) * 0.5f + 0.5f) * 0.6f + 0.1f;
+		//	_cached.color = new Color(val, val, val, 0.65f);
 	}
 }

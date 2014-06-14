@@ -1,5 +1,0 @@
-%This is a comment!
-#Intro
-	$didier
-		When an open gate is blocked by an object, you will be unable to activate its matching lever!
-%end of file

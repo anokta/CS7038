@@ -1687,9 +1687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeatMaterial: {fileID: 2100000, guid: bbe8520a14d817e4e913842042f2e757, type: 2}
-  SurewashIcon: {fileID: 21300000, guid: 6d4efe8b82f529149bc0d8cc913e6c34, type: 3}
-  SurewashText: {fileID: 21300000, guid: 33535c89511ab794da3ac487a06a28d5, type: 3}
-  SurewashLogo: {fileID: 21300000, guid: 273ff60792d246a47b9beb36c220f06a, type: 3}
   SureWall: {fileID: 21300000, guid: e78280188b1ac6e45ad61405b61b53e4, type: 3}
   SureFloor: {fileID: 21300000, guid: 4b85c1bfe0525c34984d64a1b151ba9f, type: 3}
 --- !u!1 &1093820743
